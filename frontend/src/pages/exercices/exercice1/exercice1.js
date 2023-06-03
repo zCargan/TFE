@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Page = () => {
+const exercice1 = () => {
     return (
         <div>
-            test ifc
+            <p>Exercice 1</p>
         </div>
     );
 };
 
-export default Page;
+export default exercice1;
