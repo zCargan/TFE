@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const exerciceRoute  = require('./routes/exercice')
-const { Pool } = require('pg');
+const testRoute = require('./routes/test')
+const { Client } = require('pg');
 
 const cors = require('cors');
 
@@ -12,7 +13,7 @@ app.use(express.json())
 
 app.use(cors());
 
-const pool = new Pool({
+const client = new Client({
     host: 'localhost',
     port: 5432,
     database: 'test',
@@ -20,16 +21,11 @@ const pool = new Pool({
     password: 'LoganTFE2023',
 });
 
-pool.query('SELECT NOW()', (error, result) => {
-    if (error) {
-      console.error('Erreur lors de la connexion à la base de données :', error);
-    } else {
-      console.log('Résultat de la requête SELECT NOW() :', result.rows[0]);
-    }
-  
+client.connect()
+    .then(()=> console.log('Connexion à PostgresSQL réussie !'))
+    .catch(() => console.log('Connexion à PostgresSQL échouée !'))
     // Libère la pool de connexions
-    pool.end();
-});
+
 
 mongoose.connect('mongodb+srv://Cargan:LoganTFE2023@tfe.omhpimu.mongodb.net/?retryWrites=true&w=majority',
     {
@@ -42,6 +38,17 @@ mongoose.connect('mongodb+srv://Cargan:LoganTFE2023@tfe.omhpimu.mongodb.net/?ret
 
 
 app.use('/exercice', exerciceRoute);
-
+app.use('/test', testRoute)
+/*
+app.use("/test", (req, res) => {
+  client.query("SELECT * FROM public.utilisateurs", (error, result) => {
+    if (error) {
+      console.error('Erreur lors de la récupération des utilisateurs:', error);
+      res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs' });
+    } else {
+      console.log(result.rows);
+    }}
+)});
+*/
 
 module.exports = app
