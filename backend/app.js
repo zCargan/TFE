@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const exerciceRoute  = require('./routes/exercice')
+const connectionRoute = require('./routes/connectionRoute')
+const registerRoute = require('./routes/registerRoute')
 const testRoute = require('./routes/test')
 const { Client } = require('pg');
 
@@ -25,7 +27,7 @@ client.connect()
     .then(()=> console.log('Connexion à PostgresSQL réussie !'))
     .catch(() => console.log('Connexion à PostgresSQL échouée !'))
     // Libère la pool de connexions
-
+                                              
 
 mongoose.connect('mongodb+srv://Cargan:LoganTFE2023@tfe.omhpimu.mongodb.net/?retryWrites=true&w=majority',
     {
@@ -38,7 +40,9 @@ mongoose.connect('mongodb+srv://Cargan:LoganTFE2023@tfe.omhpimu.mongodb.net/?ret
 
 
 app.use('/exercice', exerciceRoute);
-app.use('/test', testRoute)
+app.use('/test', testRoute);
+app.use('/register', registerRoute);
+app.use('/connection', connectionRoute);
 /*
 app.use("/test", (req, res) => {
   client.query("SELECT * FROM public.utilisateurs", (error, result) => {
