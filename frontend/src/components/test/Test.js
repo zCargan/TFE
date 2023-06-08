@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../features/userSlice';
 
 const Test = () => {
 
     const [data, setData] = useState("");
     const [infos, setInfos] = useState("informations")
+    const dispatch = useDispatch();
+    const tasks = useSelector((state) => state.user.user)
 
     function testenvoi () {
         const donnéesdetest = {
@@ -14,14 +18,7 @@ const Test = () => {
     }
 
     function testPQ () {
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        const data_to_send = {
-            "username": username,
-            "password": password 
-        }
-        console.log(data_to_send)
-        axios.post("http://localhost:3001/test/sendData", data_to_send)
+        console.log(tasks.loggedIn)
     }
 
     function testPQ2 () {
@@ -32,6 +29,10 @@ const Test = () => {
             console.log(res.data[0].nom)
         })
         .catch(err => console.log(err));
+    }
+
+    function logout_window () {
+        dispatch(logout())
     }
 
     return (
@@ -47,6 +48,7 @@ const Test = () => {
                 <br></br>
                 <button onClick={(e) => testPQ()}>Post Data</button>
                 <button onClick={(e) => testPQ2()}>Post Data hardcode</button>
+                <button onClick={(e) => logout_window()}>Déconnection</button>
             </div>
             <div>
                 {infos}

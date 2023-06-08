@@ -1,12 +1,12 @@
 import './App.css';
 import Navbar from './components/navbar/Navbar';
 import { Provider } from 'react-redux';
-import { storeTest } from './redux';
+import store from './app/store';
 
 function App() {
   return (
     <div className="App">
-      <Provider store={storeTest}>
+      <Provider store={store}>
         <div>
           <Navbar />
         </div>
