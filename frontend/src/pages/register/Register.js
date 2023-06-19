@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../features/userSlice';
+import Navbar from '../../components/navbar/Navbar';
+
 
 export function notXSSInjection(string) {
     return !(string.includes("<"))
@@ -52,6 +56,12 @@ const Connexion = () => {
     const passwordHasSpecialCharacter = HasSpecialCharacter(password);
     const passwordHasNumber = HasNumber(password);
 
+
+
+    const dispatch = useDispatch();
+    const tasks = useSelector((state) => state.user.user)
+
+
     function registerAccount () {
         if(allComplete(surname, name, pseudo, email, password, samePassword)) {
             if(checkEmail(email)) {
@@ -63,8 +73,13 @@ const Connexion = () => {
                         "email": email,
                         "password": password
                     }
-                    console.log(data_to_send)
-                    axios.post("http://localhost:3001/register", data_to_send)
+                    axios.post("http://localhost:3001/register", data_to_send).then(response => {
+                        if(response.status == 201) {
+                            alert("compte bien créé !")
+                        } else {
+                            alert("Une erreur est survenue lors de la création du compte")
+                        }
+                    })
                 } else {
                     alert("Vos deux mots de passe ne correspondent pas")
                 }
@@ -76,8 +91,16 @@ const Connexion = () => {
         }
     }
 
+
+    function test () {
+        console.log(tasks)
+    }
+
     return (
         <div>
+            <div>
+                <Navbar></Navbar>
+            </div>
             <div>
                 <p>==========================================</p>
                 <input placeholder='Prénom' type='text' id="surname" onChange={(e) => setSurname(e.target.value)}></input>
@@ -105,6 +128,7 @@ const Connexion = () => {
                 <input placeholder='Confirmer le mot de passe' type="password" id="passwordConfirm" onChange={(e) => setSamePassword(e.target.value)}></input>
                 <br></br>
                 <button onClick={(e) => registerAccount()}>Register</button>
+                <button onClick={(e) => test()}></button>
             </div>
         </div>
     );

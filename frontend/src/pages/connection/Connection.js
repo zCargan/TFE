@@ -4,6 +4,7 @@ import { login } from '../../features/userSlice';
 import { useDispatch } from 'react-redux';
 import './connection.css';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../../components/navbar/Navbar';
 
 const Connection = (props) => {
   const dispatch = useDispatch();
@@ -19,16 +20,19 @@ const Connection = (props) => {
     axios
       .post('http://localhost:3001/connection', data_to_send)
       .then((response) => {
+        const role = response.data.role
         if (response.data.msg === 'connecté') {
+          console.log(response.data.msg)
           alert('Vous êtes bien connecté');
           dispatch(
             login({
               pseudo: pseudo,
               password: password,
+              role: role,
               loggedIn: true,
             })
           );
-          navigate('/test');
+          navigate('/');
         }
       })
       .catch((response) => {
@@ -39,6 +43,9 @@ const Connection = (props) => {
 
   return (
     <div>
+      <div>
+        <Navbar />
+      </div>
       <div id="input_connection_div">
         <input placeholder="Pseudo" type="text" id="pseudo" />
         <input placeholder="password" type="password" id="password" />
@@ -47,7 +54,6 @@ const Connection = (props) => {
         <button>Change my password</button>
       </div>
       <button onClick={(e) => connection()}>Connection</button>
-      <div></div>
     </div>
   );
 };
