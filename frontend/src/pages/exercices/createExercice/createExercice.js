@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Mathematics from '../mathematics/mathematics';
+import French from '../french/french';
+import English from '../english/english';
+import Eveil from '../eveil/eveil';
+import Neederlands from '../neederlands/neederlands';
 
 const CreateExercice = () => {
 
@@ -58,20 +63,20 @@ const CreateExercice = () => {
                     <option value="neerlandais">Néérlandais</option>
                 </select>
                 {selectedOption === 'mathematique' && 
-                    <div>
-                        <p>Contenu pour l'option mathematique</p>
-                        <div>
-                            <p>test</p>
-                        </div>
-                        <div>
-                            <RepeatVariable/>
-                        </div>
-                    </div>
+                    <Mathematics />
                 }
-                {selectedOption === 'francais' && <div>Contenu pour l'option francais</div>}
-                {selectedOption === 'eveil' && <div>Contenu pour l'option eveil</div>}
-                {selectedOption === 'anglais' && <div>Contenu pour l'option anglais</div>}
-                {selectedOption === 'neerlandais' && <div>Contenu pour l'option neerlandais</div>}
+                {selectedOption === 'francais' && 
+                    <French />
+                }
+                {selectedOption === 'eveil' && 
+                    <Eveil />
+                }
+                {selectedOption === 'anglais' &&
+                    <English />
+                }
+                {selectedOption === 'neerlandais' && 
+                    <Neederlands/>
+                }
             </div>
             <div>
                 <input type="text"></input>
