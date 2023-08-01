@@ -11,7 +11,7 @@ const French = () => {
     };
 
     const divStyle = {
-        backgroundColor: 'red'
+        backgroundColor: 'lightblue'
       };
 
     return (
