@@ -56,6 +56,7 @@ const CreateExercice = () => {
             <div>
                 <p>Branche scolaire</p>
                 <select value={selectedOption} onChange={handleSelectChange}>
+                    <option selected>---</option>
                     <option value="mathematique">Mathématique</option>
                     <option value="francais">Français</option>
                     <option value="eveil">Eveil</option>
@@ -77,9 +78,6 @@ const CreateExercice = () => {
                 {selectedOption === 'neerlandais' && 
                     <Neederlands/>
                 }
-            </div>
-            <div>
-                <input type="text"></input>
             </div>
 
         </div>

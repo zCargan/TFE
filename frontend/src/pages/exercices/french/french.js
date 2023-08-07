@@ -1,6 +1,8 @@
 import {React, useState} from 'react';
 
-import TexteATrou from './TexteATrou/texteATrou';
+import BlankText from './BlankText/blankText';
+import TextLinkImage from './TextLinkImage/textLinkImage';
+
 
 const French = () => {
 
@@ -18,22 +20,18 @@ const French = () => {
         <div style={divStyle}>
             <p>Exercice de francais</p>
             <div>
-                <p>Zone de test</p>
-                <p>==========================</p>
-            </div>
-            <div>
                 <p>Type d'exercice</p>
-                <select value={selectedOption} onChange={handleSelectChange}>
+                <select value={selectedOption} onChange={handleSelectChange} >
+                    <option selected>---</option>
                     <option value="TexteATrou">Texte à trou</option>
-                    <option value="francais">Français</option>
-                    <option value="eveil">Eveil</option>
-                    <option value="anglais">Anglais</option>
-                    <option value="neerlandais">Néérlandais</option>
+                    <option value="TextLinkImage">Texte avec images</option>
                 </select>
                 {selectedOption === 'TexteATrou' && 
-                    <TexteATrou />
+                    <BlankText />
                 }
-                
+                {selectedOption === 'TextLinkImage' &&
+                    <TextLinkImage />
+                }
             </div>
         </div>
     );

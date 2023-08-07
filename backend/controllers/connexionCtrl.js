@@ -27,7 +27,7 @@ exports.connection = (req, res, next) => {
             console.log("Utilisateur pas trouvé")
             res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs' });
         } else {
-            console.log(result.rows[0])
+            console.log(result.rows[0].id)
             let passwordDb = result.rows[0].password
             if(password == passwordDb) {
                 console.log('connecté')

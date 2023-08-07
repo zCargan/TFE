@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './texteATrou.css';
+import './blankText.css';
 const TexteATrou = () => {
 
 
@@ -38,7 +38,7 @@ const TexteATrou = () => {
 
             //crée la string possédant une couleur pour le mot manquant ajouté 
             let ancien = html
-            var spanHtml =  ancien + (textarea + '<span>' + motAAjouter + '</span> ')
+            var spanHtml =  ancien + (textarea + " " + '<span>' + motAAjouter + '</span> ')
 
             //change l'état de currentSentence en la nouvelle string
             setCurrentSentence(spanHtml);
@@ -73,6 +73,10 @@ const TexteATrou = () => {
             console.log(nouveauDictionnaire)
             document.getElementById("textArea").value = "";
             document.getElementById("motAAjouter").value = "";
+            setHTML("")
+            setPhrase("")
+            document.getElementById("phrase").innerHTML = "";
+
             alert("Phrases ajouté avec succès à l'exercice!")
     }
 
@@ -82,14 +86,14 @@ const TexteATrou = () => {
     
     
     return (
-        <div>
-            <p id="phrase"></p>
-            <textarea rows="5" cols="50" id="textArea" onChange={changeValueText}></textarea>
+        <div id="texteATrou">
+            <p>Résultat de la phrase :</p><p id="phrase"></p>
+            <textarea id="textArea" onChange={changeValueText} placeholder='Ecrivez votre phrase ici'></textarea>
+            <br></br>
+            <input id="motAAjouter" placeholder='Mot à ajouter'></input><button onClick={addWords}>Ajouter ce mot</button>
+            <br></br>
             <br></br>
             <button onClick={validateSentence}>Valider cette phrase</button>
-            <p>Ajouter un mot?</p>
-            <input id="motAAjouter"></input><button onClick={addWords}>Ajouter ce mot</button>
-            <p>Liste des mots ajoutés : </p>
         </div>
     );
 };
