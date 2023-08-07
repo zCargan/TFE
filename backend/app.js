@@ -3,6 +3,7 @@ const exerciceRoute  = require('./routes/exercice')
 const connectionRoute = require('./routes/connectionRoute')
 const registerRoute = require('./routes/registerRoute')
 const testRoute = require('./routes/test')
+const photosRoute = require('./routes/photosRoute')
 const { Client } = require('pg');
 
 const cors = require('cors');
@@ -43,6 +44,7 @@ app.use('/exercice', exerciceRoute);
 app.use('/test', testRoute);
 app.use('/register', registerRoute);
 app.use('/connection', connectionRoute);
+app.use('/photos', photosRoute);
 /*
 app.use("/test", (req, res) => {
   client.query("SELECT * FROM public.utilisateurs", (error, result) => {

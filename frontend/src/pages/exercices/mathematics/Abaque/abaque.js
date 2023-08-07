@@ -38,19 +38,27 @@ const Abaque = () => {
     }
 
     function ok() {
-        let texte = "<div id='abaque'>"
+        let texte = String("<div id='abaque'><table><tbody>");
         let titre = document.getElementById('titreAbaque').value;
         texte += '<h1>' + titre + '</h1>'
         for(let i =0; i <height; i ++) {
             
             for(let j = 0; j <width; j++) {
-                texte += "<input placeholder='valeur ici'></input>"
+                console.log("largeur")
+                console.log("longueur")
+                texte += "<input placeholder='valeur ici' id=" + "H" + (i+1) + "l" + (j+1) + "></input>"
             }
             texte += "<br></br>"
         }
         texte += "</div>"
         document.getElementById("abaque").innerHTML = texte;
     }
+
+
+    function saveAbacus() {
+
+    }
+
 
     return (
         <div>
@@ -64,6 +72,8 @@ const Abaque = () => {
             <button onClick={ok}>ok</button>
             <br></br>
             <p>Votre abaque :</p><p id="abaque"></p>
+            <br></br>
+            <button onClick={saveAbacus}>Sauvez mon abaque</button>
         </div>
     );
 };

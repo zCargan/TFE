@@ -1,8 +1,8 @@
 import {React, useState} from 'react';
 
 import BlankText from './BlankText/blankText';
-import TextLinkImage from './TextLinkImage/textLinkImage';
-
+import AddImg from './AddImg/addImg.js';
+import TextToImg from './TextToImg/textToImg';
 
 const French = () => {
 
@@ -23,14 +23,18 @@ const French = () => {
                 <p>Type d'exercice</p>
                 <select value={selectedOption} onChange={handleSelectChange} >
                     <option selected>---</option>
-                    <option value="TexteATrou">Texte à trou</option>
-                    <option value="TextLinkImage">Texte avec images</option>
+                    <option value="BlankText">Texte à trou</option>
+                    <option value="TextToImg">Image avec texte</option>
+                    <option value="AddImg">Ajouter des photos</option>
                 </select>
-                {selectedOption === 'TexteATrou' && 
+                {selectedOption === 'BlankText' && 
                     <BlankText />
                 }
-                {selectedOption === 'TextLinkImage' &&
-                    <TextLinkImage />
+                {selectedOption === 'AddImg' &&
+                    <AddImg />
+                }
+                {selectedOption === 'TextToImg' &&
+                    <TextToImg />
                 }
             </div>
         </div>
