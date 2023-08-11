@@ -16,59 +16,41 @@ const TextLinkImage = () => {
     };
 
     function valideImg() {
+        console.log('on passe par ici')
         let image = document.getElementById("imgExercice").files[0];
         let name = document.getElementById("newName").value;
-
-
-
-        /*
-
-        //ancien code permettant d'envoyer un array d'objet
-
-        let arrayProvisoire = arrayImages;
-        let dictProvisoire = {};
-        dictProvisoire["name"] = name;
-        dictProvisoire["img"] = image;
-        arrayProvisoire.push(dictProvisoire);
-        setArrayImages(arrayProvisoire);
-        let nbrImg = length
-        nbrImg += 1;
-        setLength(nbrImg)
-
-        */
-
-        //Nouveau code envoyant photo par photo au backend
-
+      
         const formData = new FormData();
         formData.append('photo', image);
         formData.append('name', name);
+      
+        const file = formData.get('photo');
 
-        try {
-        const response = axios.post('http://localhost:3001/photos', formData, {
-            headers: {
-            'Content-Type': 'multipart/form-data',
-            },
-        });
-        console.log('Image upload response:', response.data);
-        } catch (error) {
+        if (file) {
+        console.log('File name:', file.name);
+        console.log('File size:', file.size, 'bytes');
+        console.log('File type:', file.type);
+        } else {
+        console.log('No file found in FormData.');
+        }
+
+        // Utilisation d'une fonction asynchrone pour gérer la requête
+        const sendImage = async () => {
+          try {
+            const response = await axios.post('http://localhost:3001/photos', formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            });
+            console.log('Image upload response:', response.data);
+          } catch (error) {
             console.error('Error uploading image:', error);
-        }
-
-        /*
-        const jpg = ".jpg"
-        const png = ".png"
-        const gif = ".gif"
-        if((image.name).includes(jpg)) {
-            let response = name + jpg;
-        }
-        if((image.name).includes(png)) {
-            let response = name + png;
-        }
-        if((image.name).includes(gif)) {
-            let response = name + gif;
-        }
-        */
-    }
+          }
+        };
+      
+        // Appel de la fonction asynchrone pour envoyer l'image
+        sendImage();
+      }
 
     function valideArray() {
         console.log(arrayImages)
