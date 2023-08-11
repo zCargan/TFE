@@ -42,7 +42,6 @@ const Abaque = () => {
         let titre = document.getElementById('titreAbaque').value;
         texte += '<h1>' + titre + '</h1>'
         for(let i =0; i <height; i ++) {
-            
             for(let j = 0; j <width; j++) {
                 console.log("largeur")
                 console.log("longueur")

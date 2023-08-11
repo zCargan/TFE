@@ -18,6 +18,13 @@ const TextLinkImage = () => {
     function valideImg() {
         let image = document.getElementById("imgExercice").files[0];
         let name = document.getElementById("newName").value;
+
+
+
+        /*
+
+        //ancien code permettant d'envoyer un array d'objet
+
         let arrayProvisoire = arrayImages;
         let dictProvisoire = {};
         dictProvisoire["name"] = name;
@@ -27,6 +34,26 @@ const TextLinkImage = () => {
         let nbrImg = length
         nbrImg += 1;
         setLength(nbrImg)
+
+        */
+
+        //Nouveau code envoyant photo par photo au backend
+
+        const formData = new FormData();
+        formData.append('photo', image);
+        formData.append('name', name);
+
+        try {
+        const response = axios.post('http://localhost:3001/photos', formData, {
+            headers: {
+            'Content-Type': 'multipart/form-data',
+            },
+        });
+        console.log('Image upload response:', response.data);
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
+
         /*
         const jpg = ".jpg"
         const png = ".png"
@@ -59,7 +86,7 @@ const TextLinkImage = () => {
     return (
         <div id="addImg">
             <br></br>
-            <input id="imgExercice" type="file" accept="image/*" onChange={handleImageChange}></input>
+            <input id="imgExercice" name="image" type="file" onChange={handleImageChange} />
             <br></br>
             Votre image à ajouté:
             <br></br>
