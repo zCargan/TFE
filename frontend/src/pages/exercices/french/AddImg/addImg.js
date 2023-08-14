@@ -8,6 +8,7 @@ const TextLinkImage = () => {
     const [previewUrl, setPreviewUrl] = useState(null);
     const [arrayImages, setArrayImages] = useState([])
     const [length, setLength] = useState(0)
+    const [images, setImages] = useState("")
 
     const handleImageChange = (e) => {
       const file = e.target.files[0];
@@ -61,9 +62,41 @@ const TextLinkImage = () => {
             console.log(jsonString)
             console.log(`Clé: ${key}, Valeur: ${jsonString}`);
           }
-          
         axios.post('http://localhost:3001/photos', formData)
     }
+
+
+    function hexToBase64(hex) {
+        const bytes = [];
+        for (let i = 0; i < hex.length; i += 2) {
+            bytes.push(parseInt(hex.substr(i, 2), 16));
+        }
+        return btoa(String.fromCharCode(...bytes));
+    }
+
+    function getImg() {
+      axios.get('http://localhost:3001/photos/getImg')
+          .then(res => {
+              const images = res.data.fileData[0].data; 
+              console.log(images); 
+              const base64ImageData = images.map(byte => String.fromCharCode(byte)).join('');
+
+              // Construire l'URL de données avec le type de contenu (par exemple, "image/png" pour une image PNG)
+              const dataUrl = `data:image/png;base64,${base64ImageData}`;
+
+              // Créer une balise <img> avec l'attribut "src" défini sur l'URL de données
+              const imgHtml = `<img src="${dataUrl}" alt="Image">`;
+
+              // Ajouter le code HTML de l'image à un élément existant (par exemple, un élément avec l'id "imageContainer")
+              document.getElementById('imagesContainer').innerHTML = imgHtml;
+            
+
+          })
+          .catch(error => {
+              console.error('Erreur lors de la récupération des images:', error);
+
+          });
+  }
 
     return (
         <div id="addImg">
@@ -80,7 +113,12 @@ const TextLinkImage = () => {
             Votre nombre d'image importée(s): {length}
             <br></br>
             <button onClick={valideArray}>Valider mon ensemble d'image</button>
-            
+            <br></br>
+            <button onClick={getImg}>Chopper mes images</button>
+            <br></br>
+            <div id="imagesContainer"></div>
+            <img src="http://localhost:3001/photos/getImg" alt="Mon image"></img>
+
         </div>
     );
 };

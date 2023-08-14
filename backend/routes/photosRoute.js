@@ -1,12 +1,24 @@
 const express = require("express");
 const router = express.Router();
 const multer = require('multer');
-const path = require('path');
-
+const { Client } = require('pg');
 const storage = multer.memoryStorage(); 
 const upload = multer({ storage });
+const photoCtrl = require('../controllers/photosCtrl')
 
 router.post('/', upload.array('photo', 3), async (req, res) => {
+    const client = new Client({
+        host: 'localhost',
+        port: 5432,
+        database: 'test',
+        user: 'postgres',
+        password: 'LoganTFE2023',
+    });
+    
+    client.connect()
+        .then(()=> console.log('Connexion à PostgresSQL réussie dans photosRoute.js!'))
+        .catch(() => console.log('Connexion à PostgresSQL échouée !'))
+        // Libère la pool de connexions
     try {
         // Vérifier si des fichiers ont été téléversés
         if (!req.files || req.files.length === 0) {
@@ -15,10 +27,17 @@ router.post('/', upload.array('photo', 3), async (req, res) => {
 
         // Accéder aux informations sur les fichiers
         const fileNames = req.files.map(file => file.originalname);
-        const fileSizes = req.files.map(file => file.size);
+        const fileSizes = Number(req.files.map(file => file.size));
+        
+        const fileData = req.files.map(file => file.buffer);
         // ... d'autres propriétés disponibles dans chaque fichier
-        console.log(fileNames, fileSizes)
-
+        console.log(fileNames, fileSizes, fileData)
+        const insertQuery = {
+            text: 'INSERT INTO images (file_name, file_size, file_data) VALUES ($1, $2, $3)',
+            values: [fileNames, fileSizes, fileData],
+        };
+        const result = client.query(insertQuery);
+        console.log('Image insérée avec succès:', result);
         // Traitez les fichiers ou renvoyez des informations à l'utilisateur
         res.status(200).json({
             message: "Images uploaded successfully",
@@ -31,5 +50,9 @@ router.post('/', upload.array('photo', 3), async (req, res) => {
         return res.status(500).json({ error: 'An error occurred while uploading the images' });
     }
 });
+
+
+//photoCtrl.getPhotos
+router.get('/getImg', photoCtrl.getPhotos);
 
 module.exports = router;

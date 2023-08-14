@@ -5,12 +5,17 @@ import French from '../french/french';
 import English from '../english/english';
 import Eveil from '../eveil/eveil';
 import Neederlands from '../neederlands/neederlands';
+import { useNavigate } from 'react-router-dom';
+import { addExercice } from '../../../features/exerciceSlice';
 
 const CreateExercice = () => {
 
     const [selectedOption, setSelectedOption] = useState('');
     const [colonne, setColonne] = useState(0);
     const [ligne, setLigne] = useState(0);
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -36,6 +41,14 @@ const CreateExercice = () => {
             </div>
           );
         }
+
+    function testRedux() {
+        dispatch(
+            addExercice({
+              test: "test123"
+            })
+          );
+    }
 
     return (
         <div>
@@ -79,7 +92,11 @@ const CreateExercice = () => {
                     <Neederlands/>
                 }
             </div>
-
+            <br></br>
+            <div>
+                Redux?
+                <button onClick={testRedux}>test redux</button>
+            </div>
         </div>
     );
 };
