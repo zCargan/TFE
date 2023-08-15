@@ -2,29 +2,19 @@ import { configureStore, createSlice } from "@reduxjs/toolkit"
 
 const exerciceSlice = createSlice({
     name: "exercice",
-    initialState: [],
+    initialState: [
+        { id: 1, text: 'ligne du temps', done: false}
+    ],
     reducers: {
         addExercice:(state, action) => {
-            // {type: "ADD_EXERCICE", payload: "Ligne du temps"}
+            // {type: "exercice/addExercice", payload: "Ligne du temps"}
             const newExercice = {
-                text: action.payload
+                id: Date.now(),
+                text: action.payload,
+                done: false
             }
-
             state.push(newExercice);
-        },
-        deleteExercice: (state, action) => {
-
         }
-
-        /*
-        login:(state, action) => {
-            state.user = action.payload;
-        },
-        logout: (state) => {
-            state.user = null;
-        }
-        */
-
     }
 });
 
@@ -34,8 +24,6 @@ export const store = configureStore({
     }
 })
 
-export const { addExercice } = exerciceSlice.actions;
-
-export const selectExercice = (state) => state.exercice.exercice;
+export const selectExerckce = (state) => state.exercice;
 
 export default exerciceSlice.reducer;

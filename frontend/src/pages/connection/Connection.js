@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { login } from '../../features/userSlice';
-import { useDispatch } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import './connection.css';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
@@ -43,17 +43,19 @@ const Connection = (props) => {
 
   return (
     <div>
-      <div>
-        <Navbar />
-      </div>
-      <div id="input_connection_div">
-        <input placeholder="Pseudo" type="text" id="pseudo" />
-        <input placeholder="password" type="password" id="password" />
-      </div>
-      <div>
-        <button>Change my password</button>
-      </div>
-      <button onClick={(e) => connection()}>Connection</button>
+      <Provider>
+        <div>
+          <Navbar />
+        </div>
+        <div id="input_connection_div">
+          <input placeholder="Pseudo" type="text" id="pseudo" />
+          <input placeholder="password" type="password" id="password" />
+        </div>
+        <div>
+          <button>Change my password</button>
+        </div>
+        <button onClick={(e) => connection()}>Connection</button>
+      </Provider>
     </div>
   );
 };

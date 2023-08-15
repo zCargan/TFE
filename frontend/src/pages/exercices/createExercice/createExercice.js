@@ -42,13 +42,15 @@ const CreateExercice = () => {
           );
         }
 
+    /*
     function testRedux() {
         dispatch(
-            addExercice({
+            ex({
               test: "test123"
             })
           );
     }
+    */
 
     return (
         <div>
@@ -93,10 +95,7 @@ const CreateExercice = () => {
                 }
             </div>
             <br></br>
-            <div>
-                Redux?
-                <button onClick={testRedux}>test redux</button>
-            </div>
+
         </div>
     );
 };

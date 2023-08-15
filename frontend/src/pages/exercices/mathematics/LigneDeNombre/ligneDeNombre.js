@@ -1,14 +1,13 @@
 import React from 'react';
 import './ligneDeNombre.css'
-import { Provider, useDispatch, useSelector } from 'react-redux';
-import { store } from '../../../../features/exerciceSlice';
+import { Provider, useSelector } from 'react-redux';
+import { store } from '../../../../features/exerciceSlice.js'
 
 
 
 const LigneDeNombre = () => {
 
-    const dispatch = useDispatch();
-    const tasks = useSelector((state) => state.exercice)
+    const exerciceTest = useSelector((state) => console.log(state))
 
     function submit() {
         let allInput = document.querySelectorAll('.inputUser')
@@ -21,7 +20,7 @@ const LigneDeNombre = () => {
     }
 
     function test123() {
-        console.log(tasks)
+        console.log(exerciceTest)
     }
 
 
@@ -44,8 +43,14 @@ const LigneDeNombre = () => {
             texte += String("</tbody></table></div>");
             console.log(texte)
         }
+
+
+        
         document.getElementById("result").innerHTML = texte
     }
+
+
+
 
 
     return (
