@@ -43,7 +43,6 @@ const Connection = (props) => {
 
   return (
     <div>
-      <Provider>
         <div>
           <Navbar />
         </div>
@@ -55,7 +54,6 @@ const Connection = (props) => {
           <button>Change my password</button>
         </div>
         <button onClick={(e) => connection()}>Connection</button>
-      </Provider>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import './ligneDeNombre.css'
 import { Provider, useSelector } from 'react-redux';
-import { store } from '../../../../features/exerciceSlice.js'
+import { store } from '../../../../features/exerciceSlice'
 
 
 
