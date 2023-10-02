@@ -99,6 +99,9 @@ const CreateExercice = () => {
                 <p>
                     Test
                 </p>
+                <p>
+                    Test 2
+                </p>
             </div>
 
         </div>
