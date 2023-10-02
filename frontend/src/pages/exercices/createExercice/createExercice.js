@@ -99,6 +99,9 @@ const CreateExercice = () => {
                 <p>
                     test
                 </p>
+                <p>
+                    Test2
+                </p>
             </div>
         </div>
     );
