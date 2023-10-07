@@ -7,27 +7,92 @@ import { store } from '../../../../features/exerciceSlice'
 
 const LigneDeNombre = () => {
 
+
+    
+    let exercice = {}
+    var texte = ""
+    let dic_without_answers = {type: "LDN"}
     const exerciceTest = useSelector((state) => console.log(state))
 
-    function submit() {
+    function submit_squelette() {
         let allInput = document.querySelectorAll('.inputUser')
         allInput.forEach(element => {
-            if(element.value != "") {
+            if(element.value !== "") {
                 console.log(element.id)
                 console.log(element.value)
             }
         });
+        var div = document.getElementById("administratif");
+        div.style.display = "none"
     }
 
     function test123() {
+        console.log(document.getElementById("length").value)
         console.log(exerciceTest)
+    }
+
+    function test321() {
+        
+        let array_index = []
+        let array_value = []
+        dic_without_answers.titre = document.getElementById("name").value;
+        dic_without_answers.description = document.getElementById("description").value;
+        //console.log(document.getElementById('ligneDuTemps'))
+        let option = document.getElementById("direction").value;
+        if(option === "gauche") {
+            dic_without_answers.direction = "G"
+        } else {
+            dic_without_answers.direction = "D"
+        }
+        for(let i = 0; i < document.getElementById('length').value; i ++) {
+            if(document.getElementById(i+1).value !== "") {
+                array_index.push(i)
+                array_value.push(document.getElementById(i+1).value)
+            }       
+        }
+        dic_without_answers.initial_index = array_index
+        dic_without_answers.initial_value = array_value
+        exercice.baseExercice = dic_without_answers
+        console.log(dic_without_answers)
+        console.log(exercice)
+    }
+
+
+    function testSaveAll() {
+        let array_reponse_index = []
+        let array_reponse = []
+        for(let i = 0; i < document.getElementById('length').value; i ++) { 
+            //console.log(i + " ==> " + document.getElementById(i+1).value) 
+            array_reponse_index.push(i)
+            if(document.getElementById(i+1).value === "") {
+                array_reponse.push("")
+            } else {
+                array_reponse.push(document.getElementById(i+1).value)
+            }
+        }
+        dic_without_answers.final_index = array_reponse
+        dic_without_answers.final_value = array_reponse_index
+        console.log(dic_without_answers)
+        console.log(array_reponse, array_reponse_index)
+    }
+
+    function hidden() {
+        var div = document.getElementById("administratif");
+        if (div.style.display === "none") {
+            div.style.display = "block"; // Vous pouvez également utiliser "inline", "inline-block", etc.
+        } else {
+            div.style.display = "none";
+        }
     }
 
 
     function createLine() {
+        texte += String("<h4>" + document.getElementById("name").value + "</h4>")
+        texte += String("<p>" + document.getElementById("description").value + "</p>")
+        texte += String("<div id='ligneDuTemps'><table><tbody>")
         let length = document.getElementById('length').value;
         let option = document.getElementById("direction").value;
-        var texte = String("<div id='ligneDuTemps'><table><tbody>")
+        
         if(option === "gauche") {
             texte += '◀'
             for(let i = 0; i < length; i ++) {
@@ -44,8 +109,7 @@ const LigneDeNombre = () => {
             console.log(texte)
         }
 
-
-        
+        console.log("ici " + texte)        
         document.getElementById("result").innerHTML = texte
     }
 
@@ -57,19 +121,34 @@ const LigneDeNombre = () => {
         <Provider store={store}>
             <div>
                 <h3>Ligne des nombres</h3>
-                Entrez ici la taille de votre ligne des nombres <input id="length"></input>
+                <button onClick={hidden}>hidden</button>
+                <div id="administratif">
+                    <h4>Coin chippo</h4>
+                    Entrez ici le nom de votre exercice <input id="name"></input>
+                    <br></br>
+                    <h5>Description de l'exercice :</h5>
+                    <textarea rows="5" cols="40" id="description"></textarea>
+                    <br></br>
+                    <br></br>
+                    Entrez ici la taille de votre ligne des nombres <input id="length"></input>
+                    <br></br>
+                    <br></br>
+                    Direction de ma droite des nombres <select id="direction">
+                        <option value="droite">▶</option>
+                        <option value="gauche">◀</option>
+                    </select>
+                    <br></br>
+                    <br></br>
+                    <button onClick={createLine}>Créer ma ligne des nombres</button>
+                    <br></br>
+                    <br></br>
+                </div>
+                <div id="zonedetests">
+                    <p>Résultat :</p><p id="result"></p>
+                    <button id="button_squelette" onClick={submit_squelette}>Valider le squelette</button>
+                </div>
                 <br></br>
-                Direction de ma droite des nombres <select id="direction">
-                    <option value="droite">▶</option>
-                    <option value="gauche">◀</option>
-                </select>
                 <br></br>
-<<<<<<< Updated upstream
-                <button onClick={createLine}>Créer ma ligne des nombres</button>
-                <p>Résultat :</p><p id="result"></p>
-                <button onClick={submit}>Valider ma ligne</button>
-                <button onClick={test123}>Test</button>
-=======
                 <br></br>
                 <br></br>
                 <div>
@@ -82,7 +161,6 @@ const LigneDeNombre = () => {
                 <div>
                     
                 </div>
->>>>>>> Stashed changes
             </div>
         </Provider>
     );
