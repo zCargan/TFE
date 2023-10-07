@@ -64,10 +64,25 @@ const LigneDeNombre = () => {
                     <option value="gauche">◀</option>
                 </select>
                 <br></br>
+<<<<<<< Updated upstream
                 <button onClick={createLine}>Créer ma ligne des nombres</button>
                 <p>Résultat :</p><p id="result"></p>
                 <button onClick={submit}>Valider ma ligne</button>
                 <button onClick={test123}>Test</button>
+=======
+                <br></br>
+                <br></br>
+                <div>
+
+                    <p>Zone de tests</p>
+                    <button onClick={test123}>Test</button>
+                    <button onClick={test321}>Test 2</button>
+                    <button onClick={testSaveAll}>Test save all</button>
+                </div>
+                <div>
+                    
+                </div>
+>>>>>>> Stashed changes
             </div>
         </Provider>
     );
