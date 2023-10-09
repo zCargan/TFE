@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../features/userSlice';
 
 const Test = () => {
 
@@ -32,7 +31,7 @@ const Test = () => {
     }
 
     function logout_window () {
-        dispatch(logout())
+        
     }
 
     return (

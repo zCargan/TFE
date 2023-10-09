@@ -1,13 +1,14 @@
 import React from 'react';
 import './ligneDeNombre.css'
-import { Provider, useSelector } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store } from '../../../../features/exerciceSlice'
-
+import { addExercice } from '../../../../features/userSlice'
 
 
 const LigneDeNombre = () => {
 
-
+    const dispatch =  useDispatch();
+    const exerciceRedux = useSelector(state => console.log(state))
     
     let exercice = {}
     var texte = ""
@@ -74,6 +75,11 @@ const LigneDeNombre = () => {
         dic_without_answers.final_value = array_reponse_index
         console.log(dic_without_answers)
         console.log(array_reponse, array_reponse_index)
+
+        dispatch(
+            addExercice(dic_without_answers)
+        )
+
     }
 
     function hidden() {

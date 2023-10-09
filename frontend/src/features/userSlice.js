@@ -1,22 +1,28 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { configureStore, createSlice } from "@reduxjs/toolkit"
 
-const userSlice = createSlice({
+const exerciceSlice = createSlice({
     name: "user",
-    initialState: {
-        user:null
-    },
+    initialState: [],
     reducers: {
-        login:(state, action) => {
-            state.user = action.payload;
-        },
-        logout: (state) => {
-            state.user = null;
-        } 
+        addExercice:(state, action) => {
+            // {type: "exercice/addExercice", payload: "Ligne des nombres"}
+            const newExercice = {
+                id: Date.now(),
+                text: action.payload,
+            }
+            state.push(newExercice);
+        }
     }
 });
 
-export const { login, logout } = userSlice.actions;
+export const store = configureStore({
+    reducer: {
+        exercice: exerciceSlice.reducer
+    }
+})
+
+export const {addExercice} = exerciceSlice.actions
 
 export const selectUser = (state) => state.user.user;
 
-export default userSlice.reducer;
+export default exerciceSlice.reducer;

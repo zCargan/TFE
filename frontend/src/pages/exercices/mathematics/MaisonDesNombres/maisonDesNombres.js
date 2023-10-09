@@ -1,10 +1,26 @@
 import React from 'react';
 import './maisonDesNombres.css'
+import { Provider, useDispatch, useSelector } from 'react-redux';
+import { store } from '../../../../features/exerciceSlice'
+import { addExercice } from '../../../../features/userSlice'
 
 const MaisonDesNombres = () => {
 
+    let dictionnaire = {}
+    const dispatch =  useDispatch();
+    const exerciceRedux = useSelector(state => console.log(state))
+    
     function checkValidity() {
         alert("changé!")
+    }
+
+    function verifyAvancement() {
+        //console.log(dictionnaire)
+        let dictionnaireFinal = {};
+        dictionnaireFinal.name = document.getElementById("nomMDN").value;
+        dictionnaireFinal.infoOriginale = dictionnaire;
+        console.log(dictionnaireFinal)
+        console.log(dictionnaireFinal.infoOriginale)
     }
 
     function ok() {
@@ -19,7 +35,7 @@ const MaisonDesNombres = () => {
             let texte = "<div id='mdn'>"
             texte += '<h1>' + document.getElementById('nomMDN').value + '</h1>'
             for(let i = 0; i <number; i ++) {
-                texte += "<input id='input1ligne" + i + "'></input><input id='input2ligne" + i + "'></input>"
+                texte += '<input id="' + i + '" class="' +  i+ '"></input><input id="' + i + '" class="' +  i+ '"></input>'
                 texte += "<br></br>"
             }
             texte += "</div>"
@@ -27,6 +43,62 @@ const MaisonDesNombres = () => {
         } 
 
     }
+
+
+    function test1() {
+        /*
+
+        fonction visant à récupérer les valeurs initiales de la maison des nombres
+
+        */
+
+        dictionnaire.nom = document.getElementById("nomMDN").value;
+
+        let dictionnaire1 = {}
+
+        var number = document.getElementById('nombre').value
+        for(let i = 0; i < number; i++) {
+        let array_intermédiaire = []
+            for(let j = 0; j < 2; j++) {
+                //console.log("on passe")
+                if(document.getElementsByClassName(i)[j].value !== "") {  
+                    array_intermédiaire.push(document.getElementsByClassName(i)[j].value)
+                } else {
+                    array_intermédiaire.push("")
+                }
+            }
+        let string = "ligne" + (i+1)
+        dictionnaire1[string] = array_intermédiaire
+        console.log(dictionnaire1)
+        }
+        dictionnaire.reponseInitiale = dictionnaire1
+        
+    }
+
+    function test2() {
+        let dictionnaire2 = {}
+        var number = document.getElementById('nombre').value
+        
+        for(let i = 0; i < number; i++) {
+            let array_final = []
+            for(let j = 0; j < 2; j++) {
+                //console.log("on passe")
+                array_final.push(document.getElementsByClassName(i)[j].value)
+                
+            }
+            console.log(array_final)
+        let string = "ligne" + (i+1)
+        dictionnaire2[string] = array_final
+        }
+        dictionnaire.reponseFinale = dictionnaire2;
+    }
+
+    function testTemp() {
+        dispatch(
+            addExercice(dictionnaire)
+        )
+    }
+ 
 
     return (
         <div>
@@ -37,6 +109,10 @@ const MaisonDesNombres = () => {
             <button onClick={ok}>ok</button>
             <p>Votre maison des nombres :</p><p id="mdn"></p>
             <button onClick={(e) => checkValidity()}>Valider ma maison des nombres</button>
+            <button onClick={test1}>Test 1</button>
+            <button onClick={verifyAvancement}>Verify</button>
+            <button onClick={test2}>Test 2</button>
+            <button onClick={testTemp}>Test tmp</button>
         </div>
     );
 };

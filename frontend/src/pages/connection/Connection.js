@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { login } from '../../features/userSlice';
 import { Provider, useDispatch } from 'react-redux';
 import './connection.css';
 import { useNavigate } from 'react-router-dom';
@@ -25,12 +24,14 @@ const Connection = (props) => {
           console.log(response.data.msg)
           alert('Vous êtes bien connecté');
           dispatch(
+            /*
             login({
               pseudo: pseudo,
               password: password,
               role: role,
               loggedIn: true,
             })
+            */
           );
           navigate('/');
         }

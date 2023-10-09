@@ -2,25 +2,27 @@ import { configureStore, createSlice } from "@reduxjs/toolkit"
 
 const exerciceSlice = createSlice({
     name: "exercice",
-    initialState: [
-        { id: 1, text: 'ligne du temps', done: false}
-    ],
+    initialState: [{name:'test'}],
     reducers: {
         addExercice:(state, action) => {
-            // {type: "exercice/addExercice", payload: "Ligne du temps"}
+            // {type: "exercice/addExercice", payload: "Ligne des nombres"}
             const newExercice = {
                 id: Date.now(),
-                text: action.payload,
-                done: false
+                text: action.payload
             }
             state.push(newExercice);
         }
+        /*,
+        deleteExercice:(state, action) => {
+
+        }
+        */
     }
 });
 
 export const store = configureStore({
     reducer: {
-        exercice: exerciceSlice.reducer
+        exerciceStore: exerciceSlice.reducer
     }
 })
 
