@@ -45,7 +45,7 @@ const MaisonDesNombres = () => {
     }
 
 
-    function test1() {
+    function saveSquelette() {
         /*
 
         fonction visant à récupérer les valeurs initiales de la maison des nombres
@@ -75,7 +75,7 @@ const MaisonDesNombres = () => {
         
     }
 
-    function test2() {
+    function final() {
         let dictionnaire2 = {}
         var number = document.getElementById('nombre').value
         
@@ -91,6 +91,9 @@ const MaisonDesNombres = () => {
         dictionnaire2[string] = array_final
         }
         dictionnaire.reponseFinale = dictionnaire2;
+        dispatch(
+            addExercice(dictionnaire)
+        )
     }
 
     function testTemp() {
@@ -108,11 +111,8 @@ const MaisonDesNombres = () => {
             <br></br>
             <button onClick={ok}>ok</button>
             <p>Votre maison des nombres :</p><p id="mdn"></p>
-            <button onClick={(e) => checkValidity()}>Valider ma maison des nombres</button>
-            <button onClick={test1}>Test 1</button>
-            <button onClick={verifyAvancement}>Verify</button>
-            <button onClick={test2}>Test 2</button>
-            <button onClick={testTemp}>Test tmp</button>
+            <button onClick={saveSquelette}>Valider le squelette</button>
+            <button onClick={final}>Valider les réponses</button>
         </div>
     );
 };

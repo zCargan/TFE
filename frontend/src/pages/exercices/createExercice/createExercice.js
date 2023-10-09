@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import Mathematics from '../mathematics/mathematics';
 import French from '../french/french';
 import English from '../english/english';
 import Eveil from '../eveil/eveil';
 import Neederlands from '../neederlands/neederlands';
 import { useNavigate } from 'react-router-dom';
-import { addExercice } from '../../../features/exerciceSlice';
+import { addExercice } from '../../../features/userSlice';
+import { store } from '../../../features/userSlice'
+
 
 const CreateExercice = () => {
 
@@ -20,6 +22,8 @@ const CreateExercice = () => {
     useEffect(() => {
 
     });
+
+    const exerciceRedux = useSelector(state => state)
 
     const handleSelectChange = (event) => {
       setSelectedOption(event.target.value);
@@ -51,6 +55,10 @@ const CreateExercice = () => {
           );
     }
     */
+
+    function valider() {
+        console.log(exerciceRedux)
+    }
 
     return (
         <div>
@@ -102,6 +110,9 @@ const CreateExercice = () => {
                 <p>
                     Test2
                 </p>
+            </div>
+            <div id="valideExercice">
+                <button onClick={valider}>Valider les exercices</button>
             </div>
         </div>
     );

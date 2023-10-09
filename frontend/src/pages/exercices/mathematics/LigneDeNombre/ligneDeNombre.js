@@ -33,7 +33,12 @@ const LigneDeNombre = () => {
     }
 
     function test321() {
-        
+        /*
+
+        cette fonction a pour but de sauver le squelette de l'excerice
+
+        */
+
         let array_index = []
         let array_value = []
         dic_without_answers.titre = document.getElementById("name").value;
@@ -60,6 +65,14 @@ const LigneDeNombre = () => {
 
 
     function testSaveAll() {
+
+        /*
+
+        Cette fonction sauve l'exercice dans rédux avec les valeurs finales des inputs 
+
+        */
+
+
         let array_reponse_index = []
         let array_reponse = []
         for(let i = 0; i < document.getElementById('length').value; i ++) { 
@@ -151,7 +164,7 @@ const LigneDeNombre = () => {
                 </div>
                 <div id="zonedetests">
                     <p>Résultat :</p><p id="result"></p>
-                    <button id="button_squelette" onClick={submit_squelette}>Valider le squelette</button>
+                    <button id="button_squelette" onClick={test321}>Valider le squelette</button>
                 </div>
                 <br></br>
                 <br></br>
@@ -160,9 +173,7 @@ const LigneDeNombre = () => {
                 <div>
 
                     <p>Zone de tests</p>
-                    <button onClick={test123}>Test</button>
-                    <button onClick={test321}>Test 2</button>
-                    <button onClick={testSaveAll}>Test save all</button>
+                    <button onClick={testSaveAll}>Valider les réponses</button>
                 </div>
                 <div>
                     
