@@ -8,7 +8,7 @@ import Neederlands from '../neederlands/neederlands';
 import { useNavigate } from 'react-router-dom';
 import { addExercice } from '../../../features/userSlice';
 import { store } from '../../../features/userSlice'
-
+import axios from 'axios';
 
 const CreateExercice = () => {
 
@@ -28,6 +28,15 @@ const CreateExercice = () => {
     const handleSelectChange = (event) => {
       setSelectedOption(event.target.value);
     };
+
+
+    function testMongo() {
+        let test = "Louis";
+        console.log(test)
+        axios.post('http://localhost:3001/exercice/', {
+            data: test
+        })
+    }
 
     const RepeatVariable = () => {
         const elements = [];
@@ -56,8 +65,25 @@ const CreateExercice = () => {
     }
     */
 
+    function valider1exo() {
+        console.log(exerciceRedux.user[0])
+        axios.post('http://localhost:3001/exercice/send_test_exercice', exerciceRedux.user[0])
+    }
+
     function valider() {
-        console.log(exerciceRedux)
+        // exerciceRedux.user[0].text.reponseInitiale.ligne2[1] ==> e
+        // exerciceRedux.user[1].text ==> 
+        let nbrExercice = exerciceRedux.user.length
+        for(let i = 0; i < nbrExercice; i++) {
+            axios.post('http://localhost:3001/exercice/send_test_exercice', exerciceRedux.user[1])
+                .then(response => {
+                console.log('Réponse du backend :', response.data);
+                })
+                .catch(error => {
+                console.error('Erreur lors de la requête vers le backend :', error);
+                });
+            console.log(exerciceRedux.user[0].text)
+        }
     }
 
     return (
@@ -110,9 +136,11 @@ const CreateExercice = () => {
                 <p>
                     Test2
                 </p>
+                <button onClick={testMongo}>22222</button>
             </div>
             <div id="valideExercice">
                 <button onClick={valider}>Valider les exercices</button>
+                <button onClick={valider1exo}>Valider 1 exercices</button>
             </div>
         </div>
     );
