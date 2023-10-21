@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const exerciceRoute  = require('./routes/exercice')
 const connectionRoute = require('./routes/connectionRoute')
 const registerRoute = require('./routes/registerRoute')
-const testRoute = require('./routes/test')
+const testRoute = require('./routes/testRoute')
 const photosRoute = require('./routes/photosRoute')
 const { Client } = require('pg');
 

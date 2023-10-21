@@ -6,6 +6,7 @@ import Connection from './pages/connection/Connection';
 import Home from './pages/home/Home';
 import Test from './components/test/Test';
 import Register from './pages/register/Register'
+import GetExos from './components/getExos/getExos'
 import CreateExercice from './pages/exercices/createExercice/createExercice';
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
       <Provider store={store}>
         <BrowserRouter>
           <Routes>
-            <Route exact path="/connection" element={<Connection />} />
+            <Route exact path="/connection" element={<Connection />} />             
             <Route path='/' element={< Home/>} />
             <Route path="/test" element={<Test />} />
             <Route path="/register" element={<Register />} />
@@ -24,6 +25,10 @@ function App() {
           </Routes>
         </BrowserRouter>
       </Provider>
+      <div>
+        <p>Test</p>
+        <GetExos></GetExos>
+      </div>
     </div>
   );
 }

@@ -31,9 +31,9 @@ const CreateExercice = () => {
 
 
     function testMongo() {
-        let test = "Louis";
+        let test = "Logan";
         console.log(test)
-        axios.post('http://localhost:3001/exercice/', {
+        axios.post('http://localhost:3001/test/testMongo', {
             data: test
         })
     }

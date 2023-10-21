@@ -1,4 +1,5 @@
 const { Client } = require('pg');
+const Test = require('../models/test')
 
 
 exports.getInfoPQ = (req, res, next) => {
@@ -47,4 +48,13 @@ exports.sendData = (req, res, next) => {
         }
         client.end(); // Ferme la connexion après avoir exécuté la requête
     });
+}
+
+exports.testMongoDB = (req, res, next) => {
+    console.log(req.body.data)
+    const testSchema = new Test({
+        nom: req.body.data
+    })
+    testSchema.save()
+
 }

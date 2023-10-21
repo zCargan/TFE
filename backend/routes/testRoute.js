@@ -6,6 +6,8 @@ const testCtrl = require('../controllers/testController')
 
 router.post('/', testCtrl.getInfoPQ)
 
+router.post('/testMongo', testCtrl.testMongoDB)
+
 router.post('/sendData', testCtrl.sendData)
 
 
