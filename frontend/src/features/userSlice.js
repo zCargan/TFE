@@ -7,8 +7,7 @@ const exerciceSlice = createSlice({
         addExercice:(state, action) => {
             // {type: "exercice/addExercice", payload: "Ligne des nombres"}
             const newExercice = {
-                id: Date.now(),
-                text: action.payload,
+                exo: action.payload
             }
             state.push(newExercice);
         }

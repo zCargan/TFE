@@ -24,7 +24,8 @@ exports.sendExercice = async (req, res, next) => {
     })
     .then(() => {
 
-        let dictionnaire = req.body;
+        let dictionnaire = req.body[0];
+        console.log(dictionnaire)
         const collection = mongoose.connection.db.collection('exercices');
         collection.insertOne(dictionnaire)
           .then(() => {
@@ -33,16 +34,16 @@ exports.sendExercice = async (req, res, next) => {
           .catch(err => {
             console.error('Erreur lors de l\'insertion du dictionnaire :', err);
           });
+          
         
     }
 
     )
 }
 
-exports.getExos = (res, req) => {
-    Exercice.find().then(
-        (donnee) => {
-            console.log(donnee)
-        }
-    )
+exports.getExos = (req, res) => {
+    Exercice.find().then((donnees) => {
+        const exos = donnees.map((item) => item.exo);
+        console.log(exos);
+    });
 }

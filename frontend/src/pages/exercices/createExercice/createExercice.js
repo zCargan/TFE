@@ -67,7 +67,7 @@ const CreateExercice = () => {
 
     function valider1exo() {
         console.log(exerciceRedux.user[0])
-        axios.post('http://localhost:3001/exercice/send_test_exercice', exerciceRedux.user[0])
+        axios.post('http://localhost:3001/exercice/send_test_exercice', exerciceRedux.user)
     }
 
     function valider() {
