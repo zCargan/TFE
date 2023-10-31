@@ -20,10 +20,10 @@ const CreateExercice = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-
+        //console.log(exerciceRedux)
     });
 
-    const exerciceRedux = useSelector(state => state)
+    const exerciceRedux = useSelector(state => (state))
 
     const handleSelectChange = (event) => {
       setSelectedOption(event.target.value);
@@ -33,9 +33,7 @@ const CreateExercice = () => {
     function testMongo() {
         let test = "Logan";
         console.log(test)
-        axios.post('http://localhost:3001/test/testMongo', {
-            data: test
-        })
+
     }
 
     const RepeatVariable = () => {
@@ -67,22 +65,26 @@ const CreateExercice = () => {
 
     function valider1exo() {
         console.log(exerciceRedux.user[0])
-        axios.post('http://localhost:3001/exercice/send_test_exercice', exerciceRedux.user)
+        axios.post('http://localhost:4000/exercice/send_test_exercice', exerciceRedux.user)
     }
 
     function valider() {
         // exerciceRedux.user[0].text.reponseInitiale.ligne2[1] ==> e
         // exerciceRedux.user[1].text ==> 
         let nbrExercice = exerciceRedux.user.length
+        console.log("exercice redux ")
+        console.log(exerciceRedux)
         for(let i = 0; i < nbrExercice; i++) {
-            axios.post('http://localhost:3001/exercice/send_test_exercice', exerciceRedux.user[1])
+            axios.post('http://localhost:4000/exercice/send_test_exercice', exerciceRedux)
+            /*
                 .then(response => {
                 console.log('Réponse du backend :', response.data);
                 })
                 .catch(error => {
                 console.error('Erreur lors de la requête vers le backend :', error);
                 });
-            console.log(exerciceRedux.user[0].text)
+            console.log(exerciceRedux.user[0])
+            */
         }
     }
 
@@ -93,13 +95,13 @@ const CreateExercice = () => {
             </div>
             <div>
                 <p>Niveau scolaire de l'exercice</p>
-                <select>
-                    <option>1ère année primaire</option>
-                    <option>2ème année primaire</option>
-                    <option>3ème année primaire</option>
-                    <option>4ème année primaire</option>
-                    <option>5ème année primaire</option>
-                    <option>6ème année primaire</option>
+                <select id="selectSchoolYear">
+                    <option value="1">1ère année primaire</option>
+                    <option value="2">2ème année primaire</option>
+                    <option value="3">3ème année primaire</option>
+                    <option value="4">4ème année primaire</option>
+                    <option value="5">5ème année primaire</option>
+                    <option value="6">6ème année primaire</option>
                 </select>
             </div>
             <div>

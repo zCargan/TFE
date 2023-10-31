@@ -10,10 +10,7 @@ const Test = () => {
     const tasks = useSelector((state) => state.user.user)
 
     function testenvoi () {
-        const donnéesdetest = {
-            "nom": data
-        }
-        axios.post("http://localhost:3001/exercice", donnéesdetest)
+        console.log("on teste des trucs")
     }
 
     function testPQ () {
@@ -22,7 +19,7 @@ const Test = () => {
 
     function testPQ2 () {
         console.log('ici')
-        axios.post("http://localhost:3001/test")
+        axios.post("http://localhost:4000/test")
         .then(res => {
             setInfos(res.data)
             console.log(res.data[0].nom)

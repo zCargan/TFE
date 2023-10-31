@@ -4,6 +4,7 @@ import { Provider, useDispatch } from 'react-redux';
 import './connection.css';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
+import Cookies from 'js-cookie';
 
 const Connection = (props) => {
   const dispatch = useDispatch();
@@ -17,29 +18,37 @@ const Connection = (props) => {
       password: password,
     };
     axios
-      .post('http://localhost:3001/connection', data_to_send)
+      .post('http://localhost:4000/connection', data_to_send)
       .then((response) => {
-        const role = response.data.role
-        if (response.data.msg === 'connecté') {
-          console.log(response.data.msg)
-          alert('Vous êtes bien connecté');
+        console.log(response.data)
+        Cookies.set('JWT', response.data.token , { expires: 7 }); // 'expires' dénote la durée de validité en jours
+        /*
+        if (response.status === 200) {
+          console.log(response.data)
+          console.log('Vous êtes bien connecté');
           dispatch(
-            /*
+            
             login({
               pseudo: pseudo,
               password: password,
               role: role,
               loggedIn: true,
             })
-            */
+            
           );
           navigate('/');
         }
+        */
       })
       .catch((response) => {
         console.log(response);
         alert('Email ou mot de passe incorrect');
       });
+  }
+
+
+  function deconnect() {
+    Cookies.remove('JWT')
   }
 
   return (
@@ -55,6 +64,7 @@ const Connection = (props) => {
           <button>Change my password</button>
         </div>
         <button onClick={(e) => connection()}>Connection</button>
+        <button onClick={(e) => deconnect()}>Deconnection</button>
     </div>
   );
 };

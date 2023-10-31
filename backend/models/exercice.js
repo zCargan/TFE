@@ -6,10 +6,10 @@ const exercicesSchema = mongoose.Schema({
     titre: {type:String, require: true},
     description: {type:String, require: true},
     direction: {type:String, require: true},
-    initial_index: {type:Array, require: true},
-    initial_value: {type:Array, require: true},
-    final_index: {type:Array, require: true},
-    final_value: {type:Array, require: true}
+    initial_index: {type: mongoose.Schema.Types.Mixed, require: true},
+    initial_value: {type: mongoose.Schema.Types.Mixed, require: true},
+    final_index: {type: mongoose.Schema.Types.Mixed, require: true},
+    final_value: {type: mongoose.Schema.Types.Mixed, require: true}
 })
 
 module.exports = mongoose.model('Exercice', exercicesSchema);

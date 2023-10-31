@@ -1,6 +1,9 @@
 const Exercice = require('../models/exercice');
 const mongoose = require('mongoose');
 const Test = require('../models/test')
+const MDN = require('../models/MDN');
+
+
 
 exports.postExercice = (req, res, next) => {
     console.log(req.body.data)
@@ -11,7 +14,7 @@ exports.postExercice = (req, res, next) => {
 }
 
 exports.sendExercice = async (req, res, next) => {
-
+    console.log(req.body.user[0].exo)
     const exerciceSchema = new mongoose.Schema({}, { strict: false });
     let typeExercice = req.body.type;
     if(typeExercice === "LDN") {
@@ -25,7 +28,7 @@ exports.sendExercice = async (req, res, next) => {
     .then(() => {
 
         let dictionnaire = req.body[0];
-        console.log(dictionnaire)
+        /*
         const collection = mongoose.connection.db.collection('exercices');
         collection.insertOne(dictionnaire)
           .then(() => {
@@ -34,7 +37,7 @@ exports.sendExercice = async (req, res, next) => {
           .catch(err => {
             console.error('Erreur lors de l\'insertion du dictionnaire :', err);
           });
-          
+          */
         
     }
 
@@ -42,8 +45,25 @@ exports.sendExercice = async (req, res, next) => {
 }
 
 exports.getExos = (req, res) => {
+    console.log("on passe par ici")
     Exercice.find().then((donnees) => {
-        const exos = donnees.map((item) => item.exo);
-        console.log(exos);
+        res.send(donnees)
+    });
+}
+
+exports.registerMDNexercice = (req, res) => {
+    //console.log(req.body.user[0].exo)
+    console.log("on passe iciiii")
+    const MaisonDesNombres = new MDN({
+        ...req.body.user[0].exo
+    })
+    MaisonDesNombres.save()
+    .then(() => res.status(201).json({ message: 'MDN ajouté' }))
+    .catch(error => res.status(400).json({ error }));
+}
+
+exports.getMDNexercice = (req, res) => {
+    MDN.find().then((donnees) => {
+        res.send(donnees)
     });
 }

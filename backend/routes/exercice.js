@@ -5,10 +5,10 @@ const exerciceCtrl = require('../controllers/exercice')
 
 router.post('/', exerciceCtrl.postExercice)
 router.post('/send_test_exercice', exerciceCtrl.sendExercice)
-router.get('/get_exos', (req, res) => {
-    res.send('ceci fonctionne');
-  });
+
 
 router.get('/get_exercices', exerciceCtrl.getExos)
+router.post('/post_mdn_exercices', exerciceCtrl.registerMDNexercice)
+router.get('/get_mdn_exercice', exerciceCtrl.getMDNexercice)
 
 module.exports = router;

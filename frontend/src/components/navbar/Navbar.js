@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Redirect  } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+
 
 const Navbar = () => {
     const [username, setUsername] = useState("Not connected");
     const [role, setRole] = useState("/")
 
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const tasks = useSelector((state) => state.user.user)
 
@@ -19,14 +22,34 @@ const Navbar = () => {
       });
 
     function go_to_create_exercice() {
-        if(role == "professeur") {
-            navigate('/create_exercice')
-        } else {
-            alert("Vous n'êtes pas enregistrer comme professeur")
-        }
+        //console.log(Cookies.get('JWT'))
+        
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get('JWT')}`
+            }
+        };
+        console.log("on passe ici")
+        axios.post("http://localhost:4000/connection/test", {}, config)
+            .then(response => {
+                console.log("et ici aussi")
+                // Traiter la réponse du serveur
+                console.log('Réponse du serveur :', response.data);
+                if(response.data.role !== "professeur") {
+                    alert("Vous devez avoir un compte professeur pour avoir accès à cette ressource") 
+                } else {
+                    //navigate('/create_exercice');
+                    console.log("tout va bien ici")
+                }
+            })
+            .catch(error => {
+                // Gérer les erreurs de la requête
+            console.error('Erreur de requête :', error);
+            });
+        
     }
 
-    const navigate = useNavigate();
+    
     return (
         <div>
             <nav>

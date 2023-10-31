@@ -73,7 +73,7 @@ const Connexion = () => {
                         "email": email,
                         "password": password
                     }
-                    axios.post("http://localhost:3001/register", data_to_send).then(response => {
+                    axios.post("http://localhost:4000/register", data_to_send).then(response => {
                         if(response.status == 201) {
                             alert("compte bien créé !")
                         } else {

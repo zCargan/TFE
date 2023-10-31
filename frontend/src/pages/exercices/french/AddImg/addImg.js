@@ -38,7 +38,7 @@ const TextLinkImage = () => {
         // Utilisation d'une fonction asynchrone pour gérer la requête
         const sendImage = async () => {
           try {
-            const response = await axios.post('http://localhost:3001/photos', formData, {
+            const response = await axios.post('http://localhost:4000/photos', formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },
@@ -62,7 +62,7 @@ const TextLinkImage = () => {
             console.log(jsonString)
             console.log(`Clé: ${key}, Valeur: ${jsonString}`);
           }
-        axios.post('http://localhost:3001/photos', formData)
+        axios.post('http://localhost:4000/photos', formData)
     }
 
 
@@ -75,7 +75,7 @@ const TextLinkImage = () => {
     }
 
     function getImg() {
-      axios.get('http://localhost:3001/photos/getImg')
+      axios.get('http://localhost:4000/photos/getImg')
           .then(res => {
               const images = res.data.fileData[0].data; 
               console.log(images); 
@@ -117,7 +117,7 @@ const TextLinkImage = () => {
             <button onClick={getImg}>Chopper mes images</button>
             <br></br>
             <div id="imagesContainer"></div>
-            <img src="http://localhost:3001/photos/getImg" alt="Mon image"></img>
+            <img src="http://localhost:4000/photos/getImg" alt="Mon image"></img>
 
         </div>
     );
