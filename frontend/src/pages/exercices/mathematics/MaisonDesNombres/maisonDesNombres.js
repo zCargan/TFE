@@ -4,6 +4,8 @@ import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store } from '../../../../features/exerciceSlice'
 import { addExercice } from '../../../../features/userSlice'
 import axios from 'axios'
+import Cookies from 'js-cookie';
+import Popup from 'reactjs-popup';
 
 const MaisonDesNombres = () => {
 
@@ -120,6 +122,7 @@ const MaisonDesNombres = () => {
             setNbrItem(nombreDItems)
             const cles = Object.keys(reponseInitiale);
 
+            /*
             console.log("nombre d'items")
             console.log(nombreDItems)
 
@@ -128,7 +131,7 @@ const MaisonDesNombres = () => {
             
             console.log("reponse initiale ")
             console.log(reponseInitiale)
-            
+            */
 
 
             let texte = "<div id='mdn_resulat'>"
@@ -136,10 +139,12 @@ const MaisonDesNombres = () => {
             for(let i = 0; i <nombreDItems; i ++) {
                 //let clés = reponseInitiale.cles[nombreDItems-1]
                 let clés = cles[i]
+                
+                /*
                 console.log(clés)
-                
                 console.log(reponseInitiale[clés][0])
-                
+                */
+
                 texte += '<input id="' + (i+1) + '" class="' +  (i+1)+ '" value=' + reponseInitiale[clés][0] + '>' + '</input><input id="' + (i+1) + '" class="' +  (i+1) + '" value="' + reponseInitiale[clés][1] + '"></input>'
                 texte += "<br></br>"
 
@@ -192,7 +197,7 @@ const MaisonDesNombres = () => {
         axios.get('http://localhost:4000/exercice/get_mdn_exercice').then((res)=> {
             let dicFinale = res.data[0].reponseFinale;
             let dicInitiale = res.data[0].reponseInitiale;
-
+            let idExercice = res.data[0]._id;
 
             for (const cle in dicFinale) {
                 if (dicFinale.hasOwnProperty(cle)) {
@@ -234,8 +239,19 @@ const MaisonDesNombres = () => {
                     score += 1;
                 }
             }
-            alert("Vous avez obtenu la note de " + Math.floor((score/NumberAnswer) * 100) + "%.")
-        
+            //alert("Vous avez obtenu la note de " + Math.floor((score/NumberAnswer) * 100) + "%.")
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${Cookies.get('JWT')}`
+                }
+            }
+
+            const data = {
+                score: Math.floor((score/NumberAnswer) * 100),
+                idExercice: idExercice
+            }
+
+            axios.post("http://localhost:4000/exercice/registerAnswers", {data}, config)
         })
 
     }

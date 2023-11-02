@@ -1,34 +1,36 @@
 import './App.css';
 import { Provider } from 'react-redux';
 import store from './app/store';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate  } from 'react-router-dom';
 import Connection from './pages/connection/Connection';
 import Home from './pages/home/Home';
 import Test from './components/test/Test';
 import Register from './pages/register/Register'
-import GetExos from './components/getExos/getExos'
+import ZoneTest from './components/zoneTest/zoneTest'
 import CreateExercice from './pages/exercices/createExercice/createExercice';
+import React, { useEffect } from 'react';
+import Bubble from './components/bubble/Bubble';
+import Profile from './pages/profile/profile';
+import History from './pages/history/history';
 
 function App() {
-
 
   return (
     <div className="App">
       <Provider store={store}>
         <BrowserRouter>
           <Routes>
+          <Route path="*" element={<Home />} />
             <Route exact path="/connection" element={<Connection />} />             
-            <Route path='/' element={< Home/>} />
+            <Route path="/" element={< Home/>} />
             <Route path="/test" element={<Test />} />
             <Route path="/register" element={<Register />} />
             <Route path="/create_exercice" element={<CreateExercice />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/history" element={<History />} />
           </Routes>
         </BrowserRouter>
       </Provider>
-      <div>
-        <p>Test</p>
-        <GetExos></GetExos>
-      </div>
     </div>
   );
 }

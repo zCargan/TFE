@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { addExercice } from '../../../features/userSlice';
 import { store } from '../../../features/userSlice'
 import axios from 'axios';
+import Navbar from '../../../components/navbar/Navbar';
+
 
 const CreateExercice = () => {
 
@@ -90,6 +92,9 @@ const CreateExercice = () => {
 
     return (
         <div>
+            <div>
+                <Navbar />
+            </div>
             <div>
                 <h1>Création d'exercice</h1>
             </div>

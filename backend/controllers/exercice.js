@@ -2,8 +2,8 @@ const Exercice = require('../models/exercice');
 const mongoose = require('mongoose');
 const Test = require('../models/test')
 const MDN = require('../models/MDN');
-
-
+const jwt = require("jsonwebtoken");
+const { Client } = require('pg');
 
 exports.postExercice = (req, res, next) => {
     console.log(req.body.data)
@@ -67,3 +67,77 @@ exports.getMDNexercice = (req, res) => {
         res.send(donnees)
     });
 }
+
+exports.registerAnswer = (req, res) => {
+    let idExo = req.body.data.idExercice;
+    let pourcentage = req.body.data.score; // Assurez-vous que les données sont valides avant utilisation
+
+    const token = req.header('Authorization');
+    if (token) {
+        const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
+        const secretKey = "test";
+
+        jwt.verify(jwtToken, secretKey, (err, decoded) => {
+            if (err) {
+                res.status(401).json({ error: "Token JWT invalide" });
+            } else {
+                let utilisateurId = decoded.id;
+
+                const query = `INSERT INTO exercices (utilisateur_id, identifiant, pourcentage, temps)
+                   VALUES ($1, $2, $3, CURRENT_TIMESTAMP)`;
+
+                const values = [utilisateurId, idExo, pourcentage];
+
+                const client = new Client({
+                    host: 'localhost',
+                    port: 5432,
+                    database: 'test',
+                    user: 'postgres',
+                    password: 'LoganTFE2023',
+                });
+
+                client.connect()
+                    .then(() => {
+                        return client.query(query, values);
+                    })
+                    .then((result) => {
+                        client.end(); // Fermeture de la connexion à la base de données
+                        console.log(result);
+                        res.status(200).json({ success: "Données insérées avec succès" });
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        res.status(500).json({ error: "Erreur lors de l'insertion des données" });
+                    });
+            }
+        });
+    } else {
+        res.status(401).json({ error: "Utilisateur non connecté" });
+    }
+};
+
+
+exports.getExosFromExercice = (req, res) => {
+
+    console.log(req.body.data.id)
+
+    const client = new Client({
+        host: 'localhost',
+        port: 5432,
+        database: 'test',
+        user: 'postgres',
+        password: 'LoganTFE2023',
+    });
+
+    client.connect(); 
+
+    client.query('SELECT * FROM exercices WHERE utilisateur_id = $1', [req.body.data.id], (err, result) => {        if (err) {
+            console.error('Erreur lors de l\'exécution de la requête :', err);
+            res.status(500).send('Erreur lors de la récupération des exercices.');
+        } else {
+            console.log('Résultats de la requête :', result.rows);
+            res.status(200).json(result.rows); 
+        }
+        client.end(); 
+    });
+};

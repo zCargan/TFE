@@ -1,0 +1,42 @@
+/* Réinitialisation des styles par défaut pour supprimer les marges et les rembourrages */
+body,
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style de la barre de navigation */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333; /* Couleur de fond de la barre de navigation */
+    z-index: 1000; /* Pour s'assurer que la barre de navigation reste au-dessus des autres éléments */
+}
+
+/* Ajout d'une marge supérieure pour les éléments sous la barre de navigation */
+body {
+    margin-top: 60px; /* Ajuster cette valeur en fonction de la hauteur de votre barre de navigation */
+}
+
+/* Style des éléments de la liste */
+ul {
+    list-style: none; /* Suppression des puces de liste */
+    display: flex; /* Affichage en ligne des éléments de la liste */
+    justify-content: space-around; /* Répartition égale des éléments sur la barre de navigation */
+}
+
+li {
+    padding: 15px 0; /* Espacement du haut et du bas pour les éléments de la liste */
+}
+
+a {
+    text-decoration: none; /* Suppression du soulignement par défaut des liens */
+    color: #fff; /* Couleur du texte des liens */
+    transition: color 0.3s; /* Transition pour un changement en douceur de la couleur du texte */
+}
+
+a:hover {
+    color: #ffcc00; /* Couleur du texte des liens au survol */
+}

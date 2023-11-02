@@ -3,55 +3,66 @@ import { useNavigate, Redirect  } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-
-
+import Swal from 'sweetalert2';
+import './Navbar.css'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
 const Navbar = () => {
-    const [username, setUsername] = useState("Not connected");
-    const [role, setRole] = useState("/")
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const tasks = useSelector((state) => state.user.user)
 
-    useEffect(() => {
-        if(tasks) {
-            console.log(tasks)
-            setUsername("Welcome " + tasks.pseudo)
-            setRole(tasks.role)
-        }
-      });
 
-    function go_to_create_exercice() {
-        //console.log(Cookies.get('JWT'))
-        
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get('JWT')}`
-            }
-        };
-        console.log("on passe ici")
-        axios.post("http://localhost:4000/connection/test", {}, config)
-            .then(response => {
-                console.log("et ici aussi")
-                // Traiter la réponse du serveur
-                console.log('Réponse du serveur :', response.data);
-                if(response.data.role !== "professeur") {
-                    alert("Vous devez avoir un compte professeur pour avoir accès à cette ressource") 
-                } else {
-                    //navigate('/create_exercice');
-                    console.log("tout va bien ici")
-                }
-            })
-            .catch(error => {
-                // Gérer les erreurs de la requête
-            console.error('Erreur de requête :', error);
+    function CheckPermissions() {
+        console.log(Cookies.get('JWT'))
+        if(Cookies.get('JWT') === undefined) {
+            Swal.fire({
+                title: 'Accès refusé!',
+                text: "Vous n'êtes pas connecté",
+                icon: 'error',
+                confirmButtonText: 'Je me connecte'
             });
+        } else {
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${Cookies.get('JWT')}`
+                }
+            };
+            axios.post("http://localhost:4000/connection/test", {}, config)
+                .then(response => {
+                    console.log(response)
+                    // console.log('Réponse du serveur :', response.data); ==> Réponse du serveur : {role: 'professeur'}
+                    if(response.data.role !== "professeur") {
+                        Swal.fire({
+                            title: 'Accès refusé!',
+                            text: 'Vous devez être un professeur pour avoir accès à cette ressource',
+                            icon: 'error',
+                            confirmButtonText: 'Je comprends'
+                        });
+                    } else {
+                        navigate('/create_exercice');
+                    }
+                })
+                .catch(error => {
+                console.error('Erreur de requête :', error);
+                });
+        }
+        
         
     }
 
+    function CheckConnection() {
+        //console.log(document.getElementById('connectionLogo').innerHTML)
+        if(Cookies.get('JWT') === undefined) {
+            navigate('/connection')
+        } else {
+            navigate('/profile')
+        }
+    }
     
     return (
-        <div>
+        <div id="mainDiv">
             <nav>
                 <div>
                     <ul>
@@ -59,14 +70,15 @@ const Navbar = () => {
                             <a onClick={(e) => navigate('/')}>Home</a>
                         </li>
                         <li>
-                            <a onClick={(e) => navigate('/connection')}>Connection</a>
-                        </li>
-                        <li>
                             <a onClick={(e) => navigate('/register')}>Création de compte</a>
                         </li>
                         <li>
-                            <a onClick={(e) => go_to_create_exercice()}>Créer un exercice</a>
+                            <a onClick={(e) => CheckPermissions()}>Créer un exercice</a>
                         </li>
+                        <li>
+                            <a onClick={(e) => CheckConnection()}>Connection</a>
+                        </li>
+
                     </ul>
                 </div>
             </nav>  
