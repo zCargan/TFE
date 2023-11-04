@@ -128,6 +128,7 @@ const Home = () => {
             }
 
             const data = {
+                type: "MDN",
                 score: Math.floor((score/NumberAnswer) * 100),
                 idExercice: idExercice
             }

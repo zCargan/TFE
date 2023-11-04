@@ -136,19 +136,6 @@ const CreateExercice = () => {
                 }
             </div>
             <br></br>
-            <div>
-                <p>
-                    test
-                </p>
-                <p>
-                    Test2
-                </p>
-                <button onClick={testMongo}>22222</button>
-            </div>
-            <div id="valideExercice">
-                <button onClick={valider}>Valider les exercices</button>
-                <button onClick={valider1exo}>Valider 1 exercices</button>
-            </div>
         </div>
     );
 };

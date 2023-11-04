@@ -77,6 +77,7 @@ const MaisonDesNombres = () => {
         console.log(dictionnaire1)
         }
         dictionnaire.reponseInitiale = dictionnaire1
+        console.log(dictionnaire)
         
     }
 

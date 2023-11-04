@@ -12,6 +12,7 @@ import React, { useEffect } from 'react';
 import Bubble from './components/bubble/Bubble';
 import Profile from './pages/profile/profile';
 import History from './pages/history/history';
+import InfoExercice from './pages/infoExercice/infoExercice';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="/create_exercice" element={<CreateExercice />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/history" element={<History />} />
+            <Route path="/infoExercice" element={ <InfoExercice />} />
           </Routes>
         </BrowserRouter>
       </Provider>

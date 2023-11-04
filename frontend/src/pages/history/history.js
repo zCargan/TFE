@@ -8,6 +8,12 @@ import { useNavigate } from 'react-router-dom';
 const History = () => {
     const [exos, setExos] = useState([]);
     const navigate = useNavigate();
+    const typeImages = {
+        MDN: 'mdn.jpg',
+        abaque: 'abaque.png',
+        type3: 'chemin/vers/image3.png',
+        // Ajoutez d'autres types d'exercice et leurs images associées ici
+    };
 
     useEffect(() => {
         const config = {
@@ -36,18 +42,29 @@ const History = () => {
             });
     }, []);
 
+
+    function seeDetails(id, type) {
+        navigate('/infoExercice', {state: {id, type}})
+    }
+
     return (
         <div className="page-container">
             <Navbar />
             <div className="exercice-list">
                 {exos.map((exercice, index) => (
                     <div key={index} className="exercice-item">
-                        <div className="exercice-details">
-                            <h3>Exercice</h3>
-                            <p>Pourcentage de l'exo: {exercice.pourcentage}%</p>
-                            <p>Date de réalisation: {exercice.temps}</p>
+                        <div className="exercice-content">
+                            <div className="image-container">
+                                <img src={typeImages[exercice.type]} style={{ width: '70px', height: '70px' }} alt={exercice.type} />
+                            </div>
+                            <div className="exercice-details">
+                                <h3>Exercice</h3>
+                                <p>Type de l'exercice: {exercice.type}</p>
+                                <p>Pourcentage de l'exo: {exercice.pourcentage}%</p>
+                                <p>Date de réalisation: {exercice.temps}</p>
+                                <button onClick={(e) => seeDetails(exercice.identifiant, exercice.type)}>Voir Détails</button>
+                            </div>
                         </div>
-                        <button onClick={() => navigate(`/exercice/${exercice.id}`)}>Voir Détails</button>
                     </div>
                 ))}
             </div>

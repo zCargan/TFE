@@ -2,9 +2,69 @@ const Exercice = require('../models/exercice');
 const mongoose = require('mongoose');
 const Test = require('../models/test')
 const MDN = require('../models/MDN');
+const Abaque = require('../models/abaque');
 const jwt = require("jsonwebtoken");
 const { Client } = require('pg');
 
+
+
+
+// ===================== MDN =====================
+
+
+// POST
+exports.registerMDNexercice = (req, res) => {
+    //console.log(req.body.user[0].exo)
+    console.log("on passe iciiii")
+    const MaisonDesNombres = new MDN({
+        ...req.body.user[0].exo
+    })
+    MaisonDesNombres.save()
+    .then(() => res.status(201).json({ message: 'MDN ajouté' }))
+    .catch(error => res.status(400).json({ error }));
+}
+
+// GET
+
+exports.getMDNexercice = (req, res) => {
+    MDN.find().then((donnees) => {
+        res.send(donnees)
+    });
+}
+
+
+
+// ===================== abaque =====================
+
+// POST 
+exports.postAbaque = (req, res) => {
+    console.log(req.body.data.exercice);
+
+    // Création d'une nouvelle instance du modèle Abaque
+    const newAbaque = new Abaque({
+        ...req.body.data.exercice
+    });
+
+    newAbaque.save()
+        .then(() => res.status(201).json({ message: 'Abaque ajouté' }))
+        .catch(error => res.status(400).json({ error }));
+}
+
+
+// GET
+
+exports.getAbaqueExercice = (req, res) => {
+    Abaque.find().then((donnees) => {
+        res.send(donnees)
+    });
+}
+
+
+
+
+// ===================== Exercice =====================
+
+// POST
 exports.postExercice = (req, res, next) => {
     console.log(req.body.data)
     const exercice = new Exercice({
@@ -13,6 +73,8 @@ exports.postExercice = (req, res, next) => {
     exercice.save()
 }
 
+
+//GET
 exports.sendExercice = async (req, res, next) => {
     console.log(req.body.user[0].exo)
     const exerciceSchema = new mongoose.Schema({}, { strict: false });
@@ -51,26 +113,16 @@ exports.getExos = (req, res) => {
     });
 }
 
-exports.registerMDNexercice = (req, res) => {
-    //console.log(req.body.user[0].exo)
-    console.log("on passe iciiii")
-    const MaisonDesNombres = new MDN({
-        ...req.body.user[0].exo
-    })
-    MaisonDesNombres.save()
-    .then(() => res.status(201).json({ message: 'MDN ajouté' }))
-    .catch(error => res.status(400).json({ error }));
-}
 
-exports.getMDNexercice = (req, res) => {
-    MDN.find().then((donnees) => {
-        res.send(donnees)
-    });
-}
+
+// ===================== Answers =====================
 
 exports.registerAnswer = (req, res) => {
     let idExo = req.body.data.idExercice;
+    let type = req.body.data.type;
+    console.log(type)
     let pourcentage = req.body.data.score; // Assurez-vous que les données sont valides avant utilisation
+    
 
     const token = req.header('Authorization');
     if (token) {
@@ -82,11 +134,12 @@ exports.registerAnswer = (req, res) => {
                 res.status(401).json({ error: "Token JWT invalide" });
             } else {
                 let utilisateurId = decoded.id;
+            
+                const query = `INSERT INTO exercices (utilisateur_id, identifiant, pourcentage, temps, type)
+                VALUES ($1, $2, $3, CURRENT_TIMESTAMP, $4)`;
+ 
 
-                const query = `INSERT INTO exercices (utilisateur_id, identifiant, pourcentage, temps)
-                   VALUES ($1, $2, $3, CURRENT_TIMESTAMP)`;
-
-                const values = [utilisateurId, idExo, pourcentage];
+                const values = [utilisateurId, idExo, pourcentage, type];
 
                 const client = new Client({
                     host: 'localhost',
@@ -117,6 +170,8 @@ exports.registerAnswer = (req, res) => {
 };
 
 
+
+// ===================== History =====================
 exports.getExosFromExercice = (req, res) => {
 
     console.log(req.body.data.id)
@@ -141,3 +196,10 @@ exports.getExosFromExercice = (req, res) => {
         client.end(); 
     });
 };
+
+
+
+
+
+
+
