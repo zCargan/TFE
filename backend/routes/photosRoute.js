@@ -55,4 +55,41 @@ router.post('/', upload.array('photo', 3), async (req, res) => {
 //photoCtrl.getPhotos
 router.get('/getImg', photoCtrl.getPhotos);
 
+router.post('/register/img', upload.single('file'), photoCtrl.register);
+
+router.get('/testNewRoute', (req, res) => {
+    const userId = 1;
+  
+    const client = new Client({
+        host: 'localhost',
+        port: 5432,
+        database: 'test',
+        user: 'postgres',
+        password: 'LoganTFE2023',
+    });
+
+    client.connect((err) => {
+      if (err) {
+        console.error('Erreur de connexion à la base de données :', err);
+        res.status(500).send('Erreur de connexion à la base de données');
+      } else {
+        console.log('Connexion à la base de données établie avec succès');
+        client.query('SELECT * FROM images WHERE utilisateur_id = $1', [userId], (err, result) => {
+          if (err) {
+            console.error('Erreur lors de la récupération des images :', err);
+            res.status(500).send('Erreur lors de la récupération des images');
+          } else {
+            if (result.rows.length > 0) {
+              const images = result.rows;
+              res.json(images); // Renvoyer les images en tant que réponse JSON
+            } else {
+              res.status(404).send('Aucune image trouvée pour cet utilisateur.');
+            }
+          }
+          client.end(); // Fermer la connexion après utilisation
+        });
+      }
+    });
+});
+
 module.exports = router;

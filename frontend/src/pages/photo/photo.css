@@ -1,0 +1,9 @@
+body {
+    background-color: lightcyan;
+}
+
+#popupInformationRename {
+    background-color: red;
+    width: 400px;
+    height: 400px;
+}

@@ -13,6 +13,8 @@ import Bubble from './components/bubble/Bubble';
 import Profile from './pages/profile/profile';
 import History from './pages/history/history';
 import InfoExercice from './pages/infoExercice/infoExercice';
+import Photo from './pages/photo/photo'
+
 
 function App() {
 
@@ -30,7 +32,8 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/history" element={<History />} />
             <Route path="/infoExercice" element={ <InfoExercice />} />
-          </Routes>
+            <Route path="/photo" element={ <Photo />} />
+           </Routes>
         </BrowserRouter>
       </Provider>
     </div>

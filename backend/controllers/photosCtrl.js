@@ -6,6 +6,7 @@ const multer = require('multer');
 const { Client } = require('pg');
 const fs = require('fs');
 const { MongoClient } = require('mongodb');
+const jwt = require("jsonwebtoken");
 
 const storage = multer.memoryStorage(); 
 const upload = multer({ storage });
@@ -101,3 +102,52 @@ exports.getPhotos = (req, res, next) => {
             res.status(500).json({ error: 'An error occurred while fetching images' });
         });
 };
+
+
+
+exports.register = (req, res, next) => {
+    const token = req.header('Authorization');
+    if (token) {
+        const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
+        const secretKey = "test"
+        jwt.verify(jwtToken, secretKey, (err, decoded) => {
+            if (err) {
+                console.error('Erreur lors de la vérification du JWT :', err);
+            } else {
+
+                const client = new Client({
+                    host: 'localhost',
+                    port: 5432,
+                    database: 'test',
+                    user: 'postgres',
+                    password: 'LoganTFE2023',
+                });
+                //console.log(decoded.id)
+                let nameTmp = req.body.name
+                req.file.fieldname = nameTmp;
+
+                //Partie à sauver sur postGreSql
+                const newName = req.body.name;
+                const imageBytea = req.file.buffer;
+                const type = req.file.mimetype;
+                const idUtilisateur = decoded.id;
+                
+                const query = {
+                    text: 'INSERT INTO images (utilisateur_id, image_data, type_mime, nom_d_origine) VALUES ($1, $2, $3, $4)',
+                    values: [idUtilisateur, imageBytea, type, newName],
+                };
+                
+                client.connect(); // Établir une connexion
+                
+                client.query(query, (error, result) => {
+                    if (error) {
+                        console.error('Erreur lors de l\'ajout des données :', error);
+                    } else {
+                        console.log('Réussi');
+                    }
+                    // Ne fermez pas la connexion ici. La connexion devrait être fermée une fois que vous avez terminé toutes les requêtes.
+                });
+            }
+        })
+    }
+}
