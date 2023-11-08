@@ -51,7 +51,7 @@ const Profile = () => {
     return (
         <div>
             <div>
-                <Navbar />
+                <Navbar></Navbar>
             </div>
             <div>
                 <p>

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import './photo.css';
-import Navbar from '../../components/navbar/Navbar';
+import './uploadPhoto.css';
+import Navbar from '../navbar/Navbar';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Popup from 'reactjs-popup';
 import { useNavigate, Redirect  } from 'react-router-dom';
-import Swal from 'sweetalert2';
+
 
 const Photo = () => {
 
@@ -17,9 +17,20 @@ const Photo = () => {
     const [modal, setModal] = useState(false);
 
     useEffect(() => {
-        removeAllImages()
-        getPhotos()
-        
+        const handleBeforeUnload = (event) => {
+          // Nettoyer tout ce qui a été ajouté dynamiquement sur la page
+          removeAllImages(); // Remplacez cette fonction par votre logique de nettoyage
+    
+          // Certains navigateurs nécessitent un message pour afficher une confirmation
+          event.preventDefault();
+          event.returnValue = ''; 
+        };
+    
+        window.addEventListener('beforeunload', handleBeforeUnload);
+    
+        return () => {
+          window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
     }, []);
 
 
@@ -28,7 +39,7 @@ const Photo = () => {
     }
 
     function getPhotos() {
-        axios.put('http://localhost:4000/photos/testNewRoute')
+        axios.get('http://localhost:4000/photos/testNewRoute')
             .then((res) => {
                 const buffer = res.data[3].image_data.data;
                 console.log('on passeici')
@@ -59,54 +70,43 @@ const Photo = () => {
      * Cette fonction est une fonction test permettant d'essayer de rename le nom d'un fichier img
      */
     function rename() {
-        const newNameValue = document.getElementById("newName").value.trim();
-    
-        if (newNameValue === '') {
-            alert("Veuillez saisir un nom.");
+        if(document.getElementById("newName").value == undefined) {
+            alert("veuillez saisir un nom") 
         } else {
             const fileInput = document.getElementById("newIMG");
-            const newFileName = newNameValue;
+            const newFileName = document.getElementById("newName").value;
     
             const config = {
                 headers: {
-                    'Authorization': `Bearer ${Cookies.get('JWT')}`,
-                    'Content-Type': 'multipart/form-data'
+                  'Authorization': `Bearer ${Cookies.get('JWT')}`,
+                  'Content-Type': 'multipart/form-data'
                 }
             };
+    
     
             if (fileInput && fileInput.files.length > 0) {
                 const file = fileInput.files[0];
                 const formData = new FormData();
                 formData.append('file', file);
-                formData.append('name', newFileName);
-    
+                formData.append('name', newFileName)
+                
+                console.log(formData)
     
                 axios.post('http://localhost:4000/photos/register/img', formData, config)
-                    .then((response) => {
-                        Swal.fire({
-                            title: 'Succes',
-                            text: 'Photo ajoutée avec succes !',
-                            icon: 'success',
-                            showConfirmButton: false,
-                            timer: 2000
-                        });
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 1100);
+                    .then(response => {
+                        console.log("hihi")
+                        console.log(response)
                     })
                     .catch(error => {
-                        console.log(error);
+                        console.log(error)
                     });
     
             } else {
                 console.log("Aucun fichier sélectionné");
             }
         }
-        document.getElementById("newName").value = "";
-        document.getElementById("newIMG").value = "";
-        setImageURL('');
+        
     }
-    
 
 
     function removeAllImages() {
@@ -196,7 +196,6 @@ const Photo = () => {
 
     return (
         <div>
-            <Navbar></Navbar>
             {imageURL && (
                 <div>
                 <h2>Image prévisualisée :</h2>
@@ -208,12 +207,7 @@ const Photo = () => {
             <br></br>
             <br></br>
             <div>
-                <input placeholder='Renommer votre photo' id="newName"></input><button onClick={rename}>Confirmer</button>
-            </div>
-            <div>
-                <div>
-                    <div id="photoUser"></div>
-                </div>
+                <input placeholder='Renommer votre photo' id="newName" required></input><button onClick={rename}>Confirmer</button>
             </div>
         </div>
     );

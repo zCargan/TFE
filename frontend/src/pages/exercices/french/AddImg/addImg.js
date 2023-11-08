@@ -2,6 +2,9 @@ import {React, useState} from 'react';
 import axios from 'axios';
 import './addImg.css'
 import { json } from 'react-router-dom';
+import UploadPhoto from '../../../../components/UploadPhoto/uploadPhoto';
+import GetPhotos from '../../../../components/getPhotos/getPhotos'
+
 
 const TextLinkImage = () => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -100,25 +103,9 @@ const TextLinkImage = () => {
 
     return (
         <div id="addImg">
-            <br></br>
-            <input id="imgExercice" name="image" type="file" onChange={handleImageChange} />
-            <br></br>
-            Votre image à ajouté:
-            <br></br>
-             {previewUrl && <img src={previewUrl} alt="Aperçu de l'image" style={{ maxWidth: '200px' }} />}
-            <br></br>
-            <input placeholder='Nom de votre image' id="newName"></input>
-            <button onClick={valideImg}>Valider l'image</button>
-            <br></br>
-            Votre nombre d'image importée(s): {length}
-            <br></br>
-            <button onClick={valideArray}>Valider mon ensemble d'image</button>
-            <br></br>
-            <button onClick={getImg}>Chopper mes images</button>
-            <br></br>
-            <div id="imagesContainer"></div>
-            <img src="http://localhost:4000/photos/getImg" alt="Mon image"></img>
-
+          <br></br>
+          <br></br>
+          <UploadPhoto></UploadPhoto>
         </div>
     );
 };

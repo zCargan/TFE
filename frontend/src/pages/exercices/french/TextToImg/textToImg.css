@@ -1,0 +1,35 @@
+/* textToImg.css */
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center; /* Centre également le texte à l'intérieur du tableau */
+  }
+  
+/* textToImg.css */
+
+#table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #table th,
+  #table td {
+    border: 1px solid #000; /* Ajoute des bordures aux cellules */
+    padding: 8px; /* Ajoute de l'espace à l'intérieur des cellules */
+    text-align: center; /* Centre le texte */
+  }
+  
+  #table th {
+    background-color: #f2f2f2; /* Couleur de fond pour les en-têtes */
+  }
+  
+
+#table th,
+#table td {
+  border: 1px solid #000; /* Ajoute des bordures autour des cellules */
+  padding: 8px; /* Ajoute de l'espace à l'intérieur des cellules */
+  text-align: center; /* Centre le texte */
+}

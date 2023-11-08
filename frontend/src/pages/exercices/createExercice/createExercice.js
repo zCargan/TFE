@@ -136,6 +136,9 @@ const CreateExercice = () => {
                 }
             </div>
             <br></br>
+            <div>
+                <button onClick={(e) => navigate('/photo')}>Voir ma banque d'images sauvées</button>
+            </div>
         </div>
     );
 };
