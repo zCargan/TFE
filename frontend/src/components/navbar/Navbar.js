@@ -11,7 +11,7 @@ const Navbar = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const tasks = useSelector((state) => state.user.user)
+    const tasks = useSelector((state) => state.exercices.exercice)
 
 
     function CheckPermissions() {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './maisonDesNombres.css'
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store } from '../../../../features/exerciceSlice'
-import { addExercice } from '../../../../features/userSlice'
+import { addExercice } from '../../../../features/exerciceSlice'
 import axios from 'axios'
 import Cookies from 'js-cookie';
 import Popup from 'reactjs-popup';
@@ -110,7 +110,7 @@ const MaisonDesNombres = () => {
 
     function test_mongodb() {
         console.log(exerciceRedux)
-        axios.post('http://localhost:4000/exercice/post_mdn_exercices', exerciceRedux)
+        //axios.post('http://localhost:4000/exercice/post_mdn_exercices', exerciceRedux)
     }
 
     function get_exos_mdn() {

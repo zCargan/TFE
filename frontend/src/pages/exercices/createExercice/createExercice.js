@@ -6,8 +6,7 @@ import English from '../english/english';
 import Eveil from '../eveil/eveil';
 import Neederlands from '../neederlands/neederlands';
 import { useNavigate } from 'react-router-dom';
-import { addExercice } from '../../../features/userSlice';
-import { store } from '../../../features/userSlice'
+import { store } from '../../../features/exerciceSlice'
 import axios from 'axios';
 import Navbar from '../../../components/navbar/Navbar';
 

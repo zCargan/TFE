@@ -2,13 +2,13 @@ import React from 'react';
 import './ligneDeNombre.css'
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store } from '../../../../features/exerciceSlice'
-import { addExercice } from '../../../../features/userSlice'
+import { addExercice } from '../../../../features/exerciceSlice'
 
 
 const LigneDeNombre = () => {
 
     const dispatch =  useDispatch();
-    const exerciceRedux = useSelector(state => console.log(state))
+    const exerciceRedux = useSelector(state =>(state))
     
     let exercice = {}
     var texte = ""
@@ -134,13 +134,15 @@ const LigneDeNombre = () => {
 
 
 
-
+    function testRedux() {
+        console.log(exerciceRedux)
+    }
 
     return (
         <Provider store={store}>
             <div>
                 <h3>Ligne des nombres</h3>
-                <button onClick={hidden}>hidden</button>
+                <button onClick={testRedux}>test redux</button>
                 <div id="administratif">
                     <h4>Coin chippo</h4>
                     Entrez ici le nom de votre exercice <input id="name"></input>

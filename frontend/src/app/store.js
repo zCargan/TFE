@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from '../features/userSlice'
+import exerciceReducer from '../features/exerciceSlice'
 
 
 export default configureStore({
     reducer: {
-        user: userReducer,
+        exercices: exerciceReducer,
     },
 })

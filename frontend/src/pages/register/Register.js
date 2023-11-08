@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../features/userSlice';
+import { logout } from '../../features/exerciceSlice';
 import Navbar from '../../components/navbar/Navbar';
 
 
