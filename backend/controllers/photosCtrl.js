@@ -261,3 +261,44 @@ exports.deleteImage = (req, res, next) => {
         }
       });
 }
+
+
+exports.getImage = (req, res) => {
+    const token = req.header('Authorization');
+    if (token) {
+        const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
+        const secretKey = "test"
+        jwt.verify(jwtToken, secretKey, (err, decoded) => {
+            if (err) {
+                console.error('Erreur lors de la vérification du JWT :', err);
+            } else {
+                const client = new Client({
+                    host: 'localhost',
+                    port: 5432,
+                    database: 'test',
+                    user: 'postgres',
+                    password: 'LoganTFE2023',
+                });
+            
+                client.connect((err) => {
+                    if (err) {
+                        console.error('Erreur de connexion à la base de données :', err);
+                        res.status(500).send('Erreur de connexion à la base de données');
+                      } else {
+                        console.log('Connexion à la base de données établie avec succès');
+                        client.query('SELECT * FROM images WHERE id = $1', [req.params.id], (err, result) => {
+                        if (err) {
+                            console.error("Erreur lors de la suppression de l image:", err);
+                            res.status(500).send('Erreur lors de la suppression de l image');
+                        } else {
+                            res.status(200).json(result.rows);
+                        }
+                            client.end(); // Fermer la connexion après utilisation
+                        });
+                    }
+                });
+                console.log(req.params.id)
+            }
+        })
+    }
+}

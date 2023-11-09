@@ -8,14 +8,28 @@ const exerciceCtrl = require('../controllers/exercice')
 router.post('/', exerciceCtrl.postExercice)
 router.post('/send_test_exercice', exerciceCtrl.sendExercice)
 
-
 router.get('/get_exercices', exerciceCtrl.getExos)
+
+// Route MDN
 router.post('/post_mdn_exercices', exerciceCtrl.registerMDNexercice)
 router.get('/get_mdn_exercice', exerciceCtrl.getMDNexercice)
-router.get('/get_abaque_exercice', exerciceCtrl.getAbaqueExercice)
-router.post('/registerAnswers', exerciceCtrl.registerAnswer)
-router.post('/getExosFromUser', exerciceCtrl.getExosFromExercice)
+
+// Route Abaque
 router.post('/registerAbaque', exerciceCtrl.postAbaque)
+router.get('/get_abaque_exercice', exerciceCtrl.getAbaqueExercice)
+
+// Route TTI
+router.post('/registerTTI', exerciceCtrl.postTTI)
+router.get('/getTTI', exerciceCtrl.getTTI)
+
+// Route LDN
+router.post('/registerLDN', exerciceCtrl.postLDN);
+router.get('/getLDN', exerciceCtrl.getLDN);
+
+// Route TTA
+router.post('/registerTAT', exerciceCtrl.postTAT);
+router.get('/getTAT', exerciceCtrl.getTAT);
+
 router.get('/MDN/:id', (req, res) => {
     const exerciceId = req.params.id;
     MDN.findById(exerciceId)
@@ -53,5 +67,8 @@ router.get('/abaque/:id', (req, res) => {
       res.status(500).send("Erreur lors de la récupération des données");
     });
 });
+
+router.post('/registerAnswers', exerciceCtrl.registerAnswer)
+router.post('/getExosFromUser', exerciceCtrl.getExosFromExercice)
 
 module.exports = router;

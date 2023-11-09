@@ -75,12 +75,12 @@ const Abaque = () => {
         }
         dictionnaire.reponseFinale = array1;
         console.log(dictionnaire)
+
         const config = {
             headers: {
                 'Authorization': `Bearer ${Cookies.get('JWT')}`
             }
         }
-
 
         const data = {
             exercice: dictionnaire
@@ -93,9 +93,8 @@ const Abaque = () => {
 
     function recupereExo() {
         axios.get("http://localhost:4000/exercice/get_abaque_exercice").then((res) => {
-            
+            console.log(res.data[0])
             let reponseInitiale = res.data[0].reponseInitiale;
-            console.log(reponseInitiale)
             let hauteur = res.data[0].hauteur;
             let description = res.data[0].description;
             let longueur = res.data[0].longueur;
@@ -167,6 +166,7 @@ const Abaque = () => {
             }
 
             axios.post("http://localhost:4000/exercice/registerAnswers", {data}, config)
+            
 
 
         })

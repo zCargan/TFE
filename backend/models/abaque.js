@@ -6,7 +6,7 @@ const abaqueSchema = mongoose.Schema({
     description: { type: String, required: true},
     type: { type: String, required: true},
     hauteur: { type: Number, required: true},
-    hauteur: { type: Number, required: true},
+    longueur: { type: Number, required: true},
     reponseInitiale: { type: Array, required: true },
     reponseFinale: { type: Array, required: true }
 });

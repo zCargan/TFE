@@ -9,7 +9,7 @@ import Popup from 'reactjs-popup';
 const Home = () => {
 
     const dispatch = useDispatch();
-    const tasks = useSelector((state) => state.user.user)
+    const tasks = useSelector((state) => state.exercices.exercice)
     const [nbrItem, setNbrItem] = useState("");
 
     useEffect(() => {

@@ -14,10 +14,8 @@ const MaisonDesNombres = () => {
     const exerciceRedux = useSelector(state =>(state))
     const [nbrItem, setNbrItem] = useState("");
 
-    //const nombreDItems = "";
 
     function verifyAvancement() {
-        //console.log(dictionnaire)
         let dictionnaireFinal = {};
         dictionnaireFinal.name = document.getElementById("nomMDN").value;
         dictionnaireFinal.infoOriginale = dictionnaire;
@@ -26,12 +24,6 @@ const MaisonDesNombres = () => {
     }
 
     function ok() {
-        /*
-        let texte = "<div id='mdn'>"
-        texte += '<h1>' + document.getElementById('nombre').value + '</h1>'
-        document.getElementById("mdn").innerHTML = texte
-        */
-
         var number = document.getElementById('nombre').value;
         if (/^[0-9]+$/.test(number)) {
             let texte = "<div id='mdn'>"
@@ -48,18 +40,11 @@ const MaisonDesNombres = () => {
 
 
     function saveSquelette() {
-        /*
-
-        fonction visant à récupérer les valeurs initiales de la maison des nombres
-
-        */
-
         dictionnaire.nom = document.getElementById("nomMDN").value;
         dictionnaire.anneeScolaire = document.getElementById("selectSchoolYear").value;
         dictionnaire.description = document.getElementById("descriptionExercice").value;
         dictionnaire.type = "MDN";
         let dictionnaire1 = {}
-
 
         var number = document.getElementById('nombre').value
         for(let i = 0; i < number; i++) {
@@ -101,10 +86,6 @@ const MaisonDesNombres = () => {
         dispatch(
             addExercice(dictionnaire)
         )
-    }
-
-    function testTemp() {
-        console.log(exerciceRedux)
     }
 
 
@@ -155,29 +136,6 @@ const MaisonDesNombres = () => {
         })
     }
 
-    /*
-    function valideReponses() {
-        let reponseUser = [];
-        let reponseUserFiltred = [];
-        let reponseFinale= [];
-        let reponseInitiale = [];
-        const liste_resultante = [];
-        const listeDifference = [];
-        let score = 0;
-        for(let j = 0; j < (nbrItem+1); j++) {
-            let ligne1 = document.getElementsByClassName(j);
-            for(let i = 0; i < ligne1.length; i ++) {
-                reponseUser.push(ligne1[i].value)
-            }
-        }
-        axios.get('http://localhost:4000/exercice/get_mdn_exercice').then((res)=> {
-            let dicFinale = res.data[0].reponseFinale;
-            let dicInitiale = res.data[0].reponseInitiale;
-        })
-
-        console.log(reponseUser)
-    } 
-    */
     function valideReponses() {
         /**
          * Cette fonction permet de vérifier la validé des reponses et d'afficher un pourcentage de réussite
@@ -248,6 +206,7 @@ const MaisonDesNombres = () => {
             }
 
             const data = {
+                type: "MDN",
                 score: Math.floor((score/NumberAnswer) * 100),
                 idExercice: idExercice
             }
@@ -327,9 +286,6 @@ const MaisonDesNombres = () => {
                 <button onClick={seeCorrection}>Voir la correction</button>
             </div>
             <br></br>
-            <div>
-                <button onClick={testTemp}>Bouton de tests</button>
-            </div>
         </div>
     );
 };

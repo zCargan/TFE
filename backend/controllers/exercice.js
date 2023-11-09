@@ -2,6 +2,9 @@ const Exercice = require('../models/exercice');
 const mongoose = require('mongoose');
 const Test = require('../models/test')
 const MDN = require('../models/MDN');
+const TTI = require('../models/TTI')
+const LDN = require('../models/LDN')
+const TAT = require('../models/TAT')
 const Abaque = require('../models/abaque');
 const jwt = require("jsonwebtoken");
 const { Client } = require('pg');
@@ -38,7 +41,7 @@ exports.getMDNexercice = (req, res) => {
 
 // POST 
 exports.postAbaque = (req, res) => {
-    console.log(req.body.data.exercice);
+    console.log(req.body.data);
 
     // Création d'une nouvelle instance du modèle Abaque
     const newAbaque = new Abaque({
@@ -113,6 +116,148 @@ exports.getExos = (req, res) => {
     });
 }
 
+
+
+// ===================== TTI =====================
+
+// POST
+exports.postTTI = (req, res) => {
+
+    const token = req.header('Authorization');
+    if (token) {
+        const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
+        const secretKey = "test";
+
+        jwt.verify(jwtToken, secretKey, (err, decoded) => {
+            if (err) {
+                res.status(401).json({ error: "Token JWT invalide" });
+            } else {
+                const tti = new TTI({
+                    ...req.body
+                })
+                tti.save()
+            }
+        })
+    }
+}
+
+
+// GET
+exports.getTTI = (req, res) => {
+
+    const token = req.header('Authorization');
+    if (token) {
+        const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
+        const secretKey = "test";
+
+        jwt.verify(jwtToken, secretKey, (err, decoded) => {
+            if (err) {
+                res.status(401).json({ error: "Token JWT invalide" });
+            } else {
+                console.log(decoded.id)
+                TTI.find().then((donnees) => {
+                    res.send(donnees)
+                });
+            }
+        })
+    }
+}
+
+
+// ===================== LDN =====================
+
+// POST
+exports.postLDN = (req, res) => {
+    //console.log(req.body.exo)
+    
+    const token = req.header('Authorization');
+    if (token) {
+        const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
+        const secretKey = "test";
+
+        jwt.verify(jwtToken, secretKey, (err, decoded) => {
+            if (err) {
+                res.status(401).json({ error: "Token JWT invalide" });
+            } else {
+                const ldn = new LDN({
+                    ...req.body.exo
+                })
+                ldn.save()
+            }
+        })
+    }
+    
+}
+
+// GET
+exports.getLDN = (req, res) => {
+
+    const token = req.header('Authorization');
+    if (token) {
+        const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
+        const secretKey = "test";
+
+        jwt.verify(jwtToken, secretKey, (err, decoded) => {
+            if (err) {
+                res.status(401).json({ error: "Token JWT invalide" });
+            } else {
+                console.log(decoded.id)
+                LDN.find().then((donnees) => {
+                    res.send(donnees)
+                });
+            }
+        })
+    }
+}
+
+
+
+// ===================== TTA =====================
+
+// POST 
+exports.postTAT = (req, res) => {
+    //console.log(req.body.exo)
+    
+    const token = req.header('Authorization');
+    if (token) {
+        const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
+        const secretKey = "test";
+
+        jwt.verify(jwtToken, secretKey, (err, decoded) => {
+            if (err) {
+                res.status(401).json({ error: "Token JWT invalide" });
+            } else {
+                const tat = new TAT({
+                    ...req.body.data
+                })
+                tat.save()
+            }
+        })
+    }
+    
+}
+
+// GET 
+
+
+exports.getTAT = (req, res) => {
+    const token = req.header('Authorization');
+    if (token) {
+        const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
+        const secretKey = "test";
+
+        jwt.verify(jwtToken, secretKey, (err, decoded) => {
+            if (err) {
+                res.status(401).json({ error: "Token JWT invalide" });
+            } else {
+                console.log(decoded.id)
+                TAT.find().then((donnees) => {
+                    res.send(donnees)
+                });
+            }
+        })
+    }
+}
 
 
 // ===================== Answers =====================
@@ -196,10 +341,5 @@ exports.getExosFromExercice = (req, res) => {
         client.end(); 
     });
 };
-
-
-
-
-
 
 

@@ -124,68 +124,68 @@ const Photo = () => {
     }   
     
 
-    function getPhotos() {
-        removeAllImages(); // Supprime les images précédentes, si nécessaire
-    
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get('JWT')}`
-            }
-        };
-    
-        console.log(config);
-    
-        axios.get('http://localhost:4000/photos/testNewRoute', config)
-            .then((res) => {
-                const imageContainer = document.getElementById('photoUser');
-    
-                if (imageContainer) {
-                    imageContainer.innerHTML = ''; // Vide le conteneur d'images précédentes s'il en existe
-                    imageContainer.style.display = 'flex'; // Appliquez la disposition flexbox
-                    imageContainer.style.flexWrap = 'wrap'; // Permettre le retour à la ligne si nécessaire
-                    imageContainer.style.justifyContent = 'center'; // Centrez les éléments
-    
-                    for (let i = 0; i < res.data.length; i++) {
-                        const imageBinaryData = res.data[i].image_data.data;
-                        const blob = new Blob([new Uint8Array(imageBinaryData)], { type: res.data[i].type_mime });
-    
-                        // Convertir le Blob en URL d'objet
-                        const objectURL = URL.createObjectURL(blob);
-    
-                        // Créer un conteneur pour chaque image et son nom
-                        const container = document.createElement('div');
-                        container.style.margin = '10px'; // Espacement entre les images
-    
-                        // Créer un élément image
-                        const imageElement = document.createElement('img');
-                        imageElement.src = objectURL;
-                        imageElement.style.width = '200px';
-                        imageElement.style.height = '200px';
-    
-                        // Gestionnaire d'événement pour le clic sur l'image
-                        imageElement.addEventListener('click', () => {
-                            getMoreDetail(res.data[i].id)
-                            // Vous pouvez ajouter ici toute autre logique que vous souhaitez exécuter au clic de l'image
-                        });
-    
-                        // Créer un élément pour le nom
-                        const nameElement = document.createElement('div');
-                        nameElement.textContent = res.data[i].nom_d_origine;
-                        nameElement.style.textAlign = 'center';
-    
-                        // Ajouter l'image et le nom au conteneur
-                        container.appendChild(imageElement);
-                        container.appendChild(nameElement);
-    
-                        // Ajouter le conteneur à l'élément cible
-                        imageContainer.appendChild(container);
-                    }
+        function getPhotos() {
+            removeAllImages(); // Supprime les images précédentes, si nécessaire
+        
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${Cookies.get('JWT')}`
                 }
-            })
-            .catch((error) => {
-                console.error('Erreur lors de la récupération des images :', error);
-            });
-    }
+            };
+        
+            console.log(config);
+        
+            axios.get('http://localhost:4000/photos/testNewRoute', config)
+                .then((res) => {
+                    const imageContainer = document.getElementById('photoUser');
+        
+                    if (imageContainer) {
+                        imageContainer.innerHTML = ''; // Vide le conteneur d'images précédentes s'il en existe
+                        imageContainer.style.display = 'flex'; // Appliquez la disposition flexbox
+                        imageContainer.style.flexWrap = 'wrap'; // Permettre le retour à la ligne si nécessaire
+                        imageContainer.style.justifyContent = 'center'; // Centrez les éléments
+        
+                        for (let i = 0; i < res.data.length; i++) {
+                            const imageBinaryData = res.data[i].image_data.data;
+                            const blob = new Blob([new Uint8Array(imageBinaryData)], { type: res.data[i].type_mime });
+        
+                            // Convertir le Blob en URL d'objet
+                            const objectURL = URL.createObjectURL(blob);
+        
+                            // Créer un conteneur pour chaque image et son nom
+                            const container = document.createElement('div');
+                            container.style.margin = '10px'; // Espacement entre les images
+        
+                            // Créer un élément image
+                            const imageElement = document.createElement('img');
+                            imageElement.src = objectURL;
+                            imageElement.style.width = '200px';
+                            imageElement.style.height = '200px';
+        
+                            // Gestionnaire d'événement pour le clic sur l'image
+                            imageElement.addEventListener('click', () => {
+                                getMoreDetail(res.data[i].id)
+                                // Vous pouvez ajouter ici toute autre logique que vous souhaitez exécuter au clic de l'image
+                            });
+        
+                            // Créer un élément pour le nom
+                            const nameElement = document.createElement('div');
+                            nameElement.textContent = res.data[i].nom_d_origine;
+                            nameElement.style.textAlign = 'center';
+        
+                            // Ajouter l'image et le nom au conteneur
+                            container.appendChild(imageElement);
+                            container.appendChild(nameElement);
+        
+                            // Ajouter le conteneur à l'élément cible
+                            imageContainer.appendChild(container);
+                        }
+                    }
+                })
+                .catch((error) => {
+                    console.error('Erreur lors de la récupération des images :', error);
+                });
+        }
     
     
     

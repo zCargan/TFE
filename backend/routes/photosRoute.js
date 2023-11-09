@@ -107,6 +107,8 @@ router.get('/testNewRoute', (req, res) => {
     }
 });
 
+router.get('/getImage/:id', photoCtrl.getImage);
+
 router.post('/changeName/:id', photoCtrl.updateImageName);
 
 router.delete('/deleteImage/:id', photoCtrl.deleteImage);

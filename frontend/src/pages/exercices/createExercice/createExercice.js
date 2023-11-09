@@ -9,33 +9,46 @@ import { useNavigate } from 'react-router-dom';
 import { store } from '../../../features/exerciceSlice'
 import axios from 'axios';
 import Navbar from '../../../components/navbar/Navbar';
-
+import ZoneTest from '../test/test'
+import Cookies from 'js-cookie';
 
 const CreateExercice = () => {
+
 
     const [selectedOption, setSelectedOption] = useState('');
     const [colonne, setColonne] = useState(0);
     const [ligne, setLigne] = useState(0);
+  
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
-        //console.log(exerciceRedux)
-    });
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get('JWT')}`
+            }
+        };
+
+        axios.post("http://localhost:4000/connection/test", {}, config)
+            .then(response => {
+                if(response.data.role !== "professeur") {
+                    navigate('/')
+                }
+            
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    }, []);
+
+
 
     const exerciceRedux = useSelector(state => (state))
 
     const handleSelectChange = (event) => {
       setSelectedOption(event.target.value);
     };
-
-
-    function testMongo() {
-        let test = "Logan";
-        console.log(test)
-
-    }
 
     const RepeatVariable = () => {
         const elements = [];
@@ -117,6 +130,7 @@ const CreateExercice = () => {
                     <option value="eveil">Eveil</option>
                     <option value="anglais">Anglais</option>
                     <option value="neerlandais">Néérlandais</option>
+                    <option value="test">Zone de tests</option>
                 </select>
                 {selectedOption === 'mathematique' && 
                     <Mathematics />
@@ -132,6 +146,9 @@ const CreateExercice = () => {
                 }
                 {selectedOption === 'neerlandais' && 
                     <Neederlands/>
+                }
+                {selectedOption === 'test' && 
+                    <ZoneTest />
                 }
             </div>
             <br></br>

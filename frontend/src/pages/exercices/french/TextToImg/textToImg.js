@@ -3,7 +3,8 @@ import './textToImg.css';
 import GetPhotos from '../../../../components/getPhotos/getPhotos';
 import UploadPhoto from '../../../../components/UploadPhoto/uploadPhoto';
 import Swal from 'sweetalert2';
-
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const TextToImg = () => {
     const [tableData, setTableData] = useState([]);
@@ -38,6 +39,31 @@ const TextToImg = () => {
                 setDictionary(newDictionary);
             }
         }
+    }
+
+    function saveExo() {
+
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get('JWT')}`,
+                'Content-Type': 'application/json' // Utilisation de 'application/json' pour le Content-Type
+            }
+        };
+
+        const data = {
+            nom: document.getElementById('nameExo').value,
+            anneeScolaire: document.getElementById('selectSchoolYear').value,
+            description: document.getElementById('descriptionExo').value,
+            type: "TTI",
+            reponses: dictionary
+        }
+        
+        axios.post(`http://localhost:4000/exercice/registerTTI`, data, config).then((res) => {
+
+        })
+        .catch((error) => {
+            console.log(error)
+        })
     }
 
     return (
@@ -86,7 +112,7 @@ const TextToImg = () => {
             </div>
             <br />
             <br />
-            <button onClick={(e) => console.log(dictionary)}>voir dico</button>
+            <button onClick={(e) => saveExo()}>Valider l'exercice</button>
         </div>
     );
 };

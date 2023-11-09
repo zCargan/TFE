@@ -1,92 +1,97 @@
 import React, { useState } from 'react';
 import './blankText.css';
+import axios from 'axios'
+import Cookies from 'js-cookie';
+
+
 const TexteATrou = () => {
 
-
-    const [addedWords, setAddedWords] = useState([])
-    const [phrases, setPhrases] = useState({}) 
-    const [phrase, setPhrase] = useState("")
-    //Contient l'ensemble des phrases écrites ainsi que les mots ajoutés par rapport à ces dernières.
-    const [currentSentence, setCurrentSentence] = useState("Votre texte apparaitra ici")
-    const [currentHtml, setCurrentHTML] = useState("")
     const [html, setHTML] = useState("")
+    const [arrayEnonce, setArrayEnonce] = useState([])
+    const [arrayFinal, setArrayFinal] = useState([])
 
 
     function addWords() {
+
+        let enonce = []
+        let arrayOfWords = []
+
         if(document.getElementById("textArea").value === "") {
             alert("Veuillez entrez une phrase valide")
         } else {
 
             var textarea = document.getElementById("textArea").value;
             var motAAjouter = document.getElementById("motAAjouter").value;
+            const motsTextArea = textarea.split(' '); // Diviser la chaîne en mots
 
+            motsTextArea.forEach(mot => {
+                enonce.push(mot)
+                arrayOfWords.push(mot); // Afficher chaque mot dans la console
+            });
 
-            //ajoute à la liste les mots nouvellements ajoutés
-            let array = addedWords
-            array.push(motAAjouter)
-            setAddedWords(array)
+            const motsInput = motAAjouter.split(' '); // Diviser la chaîne en mots
 
-            //définit la nouvelle phrase à l'aide du mot ajouté
-            let oldPhrase = phrase
-            let newSentence = oldPhrase + textarea + motAAjouter + " ";
+            motsInput.forEach(mot => {
+                enonce.push(mot)
+                arrayOfWords.push("inputUserExercice")
+            });
+
+            let newSentence = html + textarea + "<span>" + motAAjouter + "</span> "
             console.log(newSentence)
-            setPhrase(newSentence)
+            document.getElementById("phrase").innerHTML = newSentence
+            setHTML(newSentence)
 
-            //change la valeur de textArea en la nouvelle phrase, actualisant le texte à trou
-            document.getElementById("textArea").value = phrase;
-            document.getElementById("textArea").value = ""
+            let enonceFinal = enonce.filter(mot => mot !== "");
+            let arrayOfWordsFinal = arrayOfWords.filter(mot => mot !== "");
 
-            //crée la string possédant une couleur pour le mot manquant ajouté 
-            let ancien = html
-            var spanHtml =  ancien + (textarea + " " + '<span>' + motAAjouter + '</span> ')
+            setArrayEnonce(prevArray => [...prevArray, ...enonceFinal]);
+            setArrayFinal(prevArray => [...prevArray, ...arrayOfWordsFinal]);
+            console.log()
 
-            //change l'état de currentSentence en la nouvelle string
-            setCurrentSentence(spanHtml);
-
-            //change la valeur du texte en la nouvelle chaine de caractère possédant les couleurs + défint HTML comme étant égal à ce code 
-            document.getElementById("phrase").innerHTML = spanHtml
-            setHTML(spanHtml)
-            console.log(spanHtml)
-            // console.log("html " + html) => html Logan <span>aime</span>
-    
-            /*
-            setNewHTML(a)
-            console.log(newHtml)
-            const tableauMots = a.split(newHtml);
-            console.log(tableauMots)
-            document.getElementById("phrase").innerHTML = newHtml
-            */
+           
+            console.log(arrayEnonce, arrayFinal)
         }
         
 
     }
 
-
+    function testState() {
+        console.log(arrayEnonce, arrayFinal)
+    }
 
     function validateSentence() {
-            const nouveauDictionnaire = { ...phrases}
-            nouveauDictionnaire["phrase"] = phrase;
-            nouveauDictionnaire["html"] = html
-            nouveauDictionnaire["mots"] = addedWords
-            setAddedWords([])
-            setPhrases(nouveauDictionnaire)
-            console.log(nouveauDictionnaire)
-            document.getElementById("textArea").value = "";
-            document.getElementById("motAAjouter").value = "";
-            setHTML("")
-            setPhrase("")
-            document.getElementById("phrase").innerHTML = "";
+        
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get('JWT')}`
+            }
+        }
 
-            alert("Phrases ajouté avec succès à l'exercice!")
+        const data = {
+            nom: document.getElementById("name").value,
+            anneeScolaire: document.getElementById("selectSchoolYear").value,
+            description: document.getElementById("description").value,
+            type: "TAT",
+            reponseInitiale: arrayEnonce,
+            reponseFinale: arrayFinal
+        }
+
+        axios.post("http://localhost:4000/exercice/registerTAT", {data}, config)
+
     }
 
     function changeValueText(event) {
-        let newSentence = document.getElementById("textArea").value
     }
     
     
     return (
         <div id="texteATrou">
+            <br />
+            <input placeholder='Titre de votre exercice' id="name"></input>
+            <br />
+            <br />
+            <textarea placeholder='Description de votre exercice' id="description"></textarea>
+            <br />
             <p>Résultat de la phrase :</p><p id="phrase"></p>
             <textarea id="textArea" onChange={changeValueText} placeholder='Ecrivez votre phrase ici'></textarea>
             <br></br>
@@ -94,6 +99,7 @@ const TexteATrou = () => {
             <br></br>
             <br></br>
             <button onClick={validateSentence}>Valider cette phrase</button>
+            <button onClick={testState}>test state</button>
         </div>
     );
 };

@@ -11,8 +11,9 @@ const History = () => {
     const typeImages = {
         MDN: 'mdn.jpg',
         abaque: 'abaque.png',
-        type3: 'chemin/vers/image3.png',
-        // Ajoutez d'autres types d'exercice et leurs images associées ici
+        TTI: 'tti.png',
+        LDN: 'LDN.jpg',
+        TAT: 'TAT.png'
     };
 
     useEffect(() => {

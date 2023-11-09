@@ -1,5 +1,7 @@
 import React from 'react';
 import './ligneDeNombre.css'
+import axios from 'axios'
+import Cookies from 'js-cookie';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store } from '../../../../features/exerciceSlice'
 import { addExercice } from '../../../../features/exerciceSlice'
@@ -12,8 +14,8 @@ const LigneDeNombre = () => {
     
     let exercice = {}
     var texte = ""
-    let dic_without_answers = {type: "LDN"}
-    const exerciceTest = useSelector((state) => console.log(state))
+    let exo = {};
+    const exerciceTest = useSelector((state) =>(state))
 
     function submit_squelette() {
         let allInput = document.querySelectorAll('.inputUser')
@@ -32,35 +34,37 @@ const LigneDeNombre = () => {
         console.log(exerciceTest)
     }
 
-    function test321() {
+    function saveSqueleton() {
         /*
 
         cette fonction a pour but de sauver le squelette de l'excerice
 
         */
 
-        let array_index = []
-        let array_value = []
-        dic_without_answers.titre = document.getElementById("name").value;
-        dic_without_answers.description = document.getElementById("description").value;
-        //console.log(document.getElementById('ligneDuTemps'))
+        let reponsesEnoncees = []
+        exo.nom = document.getElementById("name").value;
+        exo.anneeScolaire = document.getElementById('selectSchoolYear').value;
+        exo.description = document.getElementById("description").value;
+        exo.type = 'LDN'
         let option = document.getElementById("direction").value;
         if(option === "gauche") {
-            dic_without_answers.direction = "G"
+            exo.direction = "G"
         } else {
-            dic_without_answers.direction = "D"
+            exo.direction = "D"
         }
-        for(let i = 0; i < document.getElementById('length').value; i ++) {
-            if(document.getElementById(i+1).value !== "") {
-                array_index.push(i)
-                array_value.push(document.getElementById(i+1).value)
-            }       
+
+        let inputClass = document.getElementsByClassName("inputUser");
+
+        for(let i = 0; i < inputClass.length; i ++) {
+            reponsesEnoncees.push(inputClass[i].value)     
         }
-        dic_without_answers.initial_index = array_index
-        dic_without_answers.initial_value = array_value
-        exercice.baseExercice = dic_without_answers
-        console.log(dic_without_answers)
-        console.log(exercice)
+
+        exo.reponseInitiale = reponsesEnoncees
+
+        console.log(exo)
+
+        exercice.baseExercice = exo
+
     }
 
 
@@ -73,25 +77,30 @@ const LigneDeNombre = () => {
         */
 
 
-        let array_reponse_index = []
-        let array_reponse = []
-        for(let i = 0; i < document.getElementById('length').value; i ++) { 
-            //console.log(i + " ==> " + document.getElementById(i+1).value) 
-            array_reponse_index.push(i)
-            if(document.getElementById(i+1).value === "") {
-                array_reponse.push("")
-            } else {
-                array_reponse.push(document.getElementById(i+1).value)
-            }
+        let reponsesFinales = []
+
+        let inputClass = document.getElementsByClassName("inputUser");
+
+        for(let i = 0; i < inputClass.length; i ++) {
+            reponsesFinales.push(inputClass[i].value)     
         }
-        dic_without_answers.final_index = array_reponse
-        dic_without_answers.final_value = array_reponse_index
-        console.log(dic_without_answers)
-        console.log(array_reponse, array_reponse_index)
+
+        exo.reponseFinale = reponsesFinales
 
         dispatch(
-            addExercice(dic_without_answers)
+            addExercice(exo)
         )
+        console.log(exo)
+
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get('JWT')}`
+            }
+        }
+
+
+        axios.post("http://localhost:4000/exercice/registerLDN", {exo}, config)
+
 
     }
 
@@ -102,7 +111,7 @@ const LigneDeNombre = () => {
         } else {
             div.style.display = "none";
         }
-    }
+    }                   
 
 
     function createLine() {
@@ -125,10 +134,7 @@ const LigneDeNombre = () => {
             }
             texte += '▶'
             texte += String("</tbody></table></div>");
-            console.log(texte)
-        }
-
-        console.log("ici " + texte)        
+        }   
         document.getElementById("result").innerHTML = texte
     }
 
@@ -166,7 +172,7 @@ const LigneDeNombre = () => {
                 </div>
                 <div id="zonedetests">
                     <p>Résultat :</p><p id="result"></p>
-                    <button id="button_squelette" onClick={test321}>Valider le squelette</button>
+                    <button id="button_squelette" onClick={saveSqueleton}>Valider le squelette</button>
                 </div>
                 <br></br>
                 <br></br>
