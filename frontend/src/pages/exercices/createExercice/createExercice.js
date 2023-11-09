@@ -24,22 +24,27 @@ const CreateExercice = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get('JWT')}`
-            }
-        };
-
-        axios.post("http://localhost:4000/connection/test", {}, config)
-            .then(response => {
-                if(response.data.role !== "professeur") {
-                    navigate('/')
+        if(Cookies.get('JWT')) {
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${Cookies.get('JWT')}`
                 }
-            
-            })
-            .catch(error => {
-                console.log(error)
-            });
+            };
+    
+            axios.post("http://localhost:4000/connection/test", {}, config)
+                .then(response => {
+                    if(response.data.role !== "professeur" || '') {
+                        navigate('/')
+                    }
+                
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        } else {
+            navigate('/')
+        }
+        
     }, []);
 
 

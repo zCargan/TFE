@@ -63,7 +63,7 @@ exports.connection = (req, res, next) => {
     )
 }
 
-exports.test = (req, res) => {
+exports.checkToken = (req, res) => {
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
@@ -72,10 +72,11 @@ exports.test = (req, res) => {
             if (err) {
                 console.error('Erreur lors de la vérification du JWT :', err);
             } else {
+                console.log(decoded)
                 if(decoded.role === "professeur") {
-                    res.json({role: "professeur"})
+                    res.json({role: "professeur", username: decoded.nom})
                 } else if (decoded.role === "eleve") {
-                    res.json({role: "eleve"})
+                    res.json({role: "eleve", username: decoded.nom})
                 }
                 console.log('JWT vérifié avec succès, payload décrypté :', decoded);
             }

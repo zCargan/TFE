@@ -141,10 +141,10 @@ const Home = () => {
     return (
         <div>
             <div>
-                <h1>Page d'accueil</h1>
+                <Navbar />
             </div>
             <div>
-                <Navbar />
+                <h1>Page d'accueil</h1>
             </div>
             <div>
                 <ZoneTest></ZoneTest>
