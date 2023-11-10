@@ -41,6 +41,7 @@ const Profile = () => {
           showConfirmButton: false,
           timer: 2000
         });
+        
         navigate('/');
     }
 

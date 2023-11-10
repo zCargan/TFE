@@ -16,11 +16,9 @@ const { Client } = require('pg');
 
 
 // POST
-exports.registerMDNexercice = (req, res) => {
-    //console.log(req.body.user[0].exo)
-    console.log("on passe iciiii")
+exports.registerMDN = (req, res) => {
     const MaisonDesNombres = new MDN({
-        ...req.body.user[0].exo
+        ...req.body.exo
     })
     MaisonDesNombres.save()
     .then(() => res.status(201).json({ message: 'MDN ajouté' }))
@@ -35,6 +33,13 @@ exports.getMDNexercice = (req, res) => {
     });
 }
 
+exports.getMDNexerciceId = (req,res) => {
+    let idExo = req.params.id;
+    console.log("on passe ici")
+    MDN.find().then((donnees) => {
+        res.send(donnees)
+    });
+}
 
 
 // ===================== abaque =====================

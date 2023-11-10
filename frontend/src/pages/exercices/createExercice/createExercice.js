@@ -31,8 +31,9 @@ const CreateExercice = () => {
                 }
             };
     
-            axios.post("http://localhost:4000/connection/test", {}, config)
+            axios.post("http://localhost:4000/connection/checkToken", {}, config)
                 .then(response => {
+                    console.log(response.data.role)
                     if(response.data.role !== "professeur" || '') {
                         navigate('/')
                     }

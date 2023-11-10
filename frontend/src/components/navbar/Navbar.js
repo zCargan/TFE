@@ -174,6 +174,7 @@ const Navbar = () => {
                                 <div id="popupConnection">
                                     {username !== "" ? (
                                         <div>
+                                            <br />
                                             <h3>Bienvenu sur votre profil</h3>
                                             <p>Bonjour {username} !</p>
                                             <p>Vous êtes connecté à un compte {role}</p>

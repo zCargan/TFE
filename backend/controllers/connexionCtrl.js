@@ -78,7 +78,7 @@ exports.checkToken = (req, res) => {
                 } else if (decoded.role === "eleve") {
                     res.json({role: "eleve", username: decoded.nom})
                 }
-                console.log('JWT vérifié avec succès, payload décrypté :', decoded);
+
             }
         });
     } else {

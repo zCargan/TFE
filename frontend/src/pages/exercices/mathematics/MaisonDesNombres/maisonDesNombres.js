@@ -23,20 +23,22 @@ const MaisonDesNombres = () => {
         console.log(dictionnaireFinal.infoOriginale)
     }
 
-    function ok() {
+    function showSqueleton() {
         var number = document.getElementById('nombre').value;
         if (/^[0-9]+$/.test(number)) {
-            let texte = "<div id='mdn'>"
-            texte += '<h1>' + document.getElementById('nomMDN').value + '</h1>'
-            for(let i = 0; i <number; i ++) {
-                texte += '<input id="' + i + '" class="' +  i+ '"></input><input id="' + i + '" class="' +  i+ '"></input>'
-                texte += "<br></br>"
+            let texte = "<div class='triangle-container'>";
+            //texte += '<div class="triangle-down"></div>'; // Conteneur pour le triangle
+            texte += '<h1>' + document.getElementById('nomMDN').value + '</h1>'; // Titre à l'intérieur du conteneur du triangle
+            texte += "<div id='mdnContent'>";
+            for (let i = 0; i < number; i++) {
+                texte += '<input id="' + i + '" class="inputMDN"></input><input id="' + i + '" class="inputMDN"></input>';
+                texte += "<br></br>";
             }
-            texte += "</div>"
-            document.getElementById("mdn").innerHTML = texte
-        } 
-
+            texte += "</div></div>"; // Fin du conteneur
+            document.getElementById("mdn").innerHTML = texte;
+        }
     }
+    
 
 
     function saveSquelette() {
@@ -89,7 +91,7 @@ const MaisonDesNombres = () => {
     }
 
 
-    function test_mongodb() {
+    function showRedux() {
         console.log(exerciceRedux)
         //axios.post('http://localhost:4000/exercice/post_mdn_exercices', exerciceRedux)
     }
@@ -217,75 +219,23 @@ const MaisonDesNombres = () => {
     }
 
 
-    function seeCorrection() {
-        axios.get('http://localhost:4000/exercice/get_mdn_exercice').then((res)=> {
-            let exo = res.data[0];
-            let nom = exo.nom;
-            let reponseInitiale = exo.reponseInitiale;
-            let reponseFinale = exo.reponseFinale;
-            const nombreDItems = Object.keys(reponseInitiale).length;
-            setNbrItem(nombreDItems)
-            const cles = Object.keys(reponseInitiale);
-
-            console.log("nombre d'items")
-            console.log(nombreDItems)
-
-            console.log("clés ")
-            console.log(cles)
-            
-            console.log("reponse initiale ")
-            console.log(reponseInitiale)
-            
-
-
-            let texte = "<div id='mdn_resulat'>"
-            texte += '<h1>' + nom + '</h1>'
-            for(let i = 0; i <nombreDItems; i ++) {
-                //let clés = reponseInitiale.cles[nombreDItems-1]
-                let clés = cles[i]
-                console.log(clés)
-                
-                console.log(reponseInitiale[clés][0])
-                
-                texte += '<input id="' + (i+1) + '" class="' +  (i+1)+ '" value=' + reponseFinale[clés][0] + '>' + '</input><input id="' + (i+1) + '" class="' +  (i+1) + '" value="' + reponseFinale[clés][1] + '"></input>'
-                texte += "<br></br>"
-
-            }
-            texte += "</div>"
-            document.getElementById("resultat").innerHTML = texte
-            alert("voici la correction des exercices :")
-        })
-    }
-
-    function testTMP() {
-        console.log(document.getElementById("selectSchoolYear").value)
-    }
 
 
     return (
         <div id="MDN_div">
-            Nom de la maison des nombres <input id="nomMDN"></input>
-            <br></br>
-            <p>Description de l'exercice :</p>
-            <textarea id="descriptionExercice">
+            <br />
+            <input id="nomMDN" placeholder='Nom de la maison des nombres'></input>
+            <br />
+            <br />
+            <textarea rows={5} cols={52} id="descriptionExercice" placeholder="Description de l'exercice">
 
             </textarea>
+            <br />
+            <br />
+            <input id="nombre" placeholder='Nombre de ligne de votre maison des nombres'></input>
             <br></br>
-            Nombre de ligne de votre maison des nombres <input id="nombre"></input>
-            <br></br>
-            <button onClick={ok}>ok</button>
-            <p>Votre maison des nombres :</p><p id="mdn"></p>
-            <button onClick={saveSquelette}>Valider le squelette</button>
-            <button onClick={final}>Valider les réponses</button>
-            <button onClick={test_mongodb}>test mongodb</button>
-            
-            <div>
-                <p id="resultat">Résultat</p>
-                <button onClick={get_exos_mdn}>Afficher l'exercice vierge</button>
-                <button id="valideReponse" onClick={valideReponses}>Valider mes réponses</button>
-                <button onClick={seeCorrection}>Voir la correction</button>
-            </div>
-            <br></br>
+            <button onClick={showSqueleton}>Voir mon squelette</button><button onClick={saveSquelette}>Valider le squelette</button><button onClick={final}>Valider les réponses</button>
+            <p id="mdn"></p>
         </div>
     );
 };

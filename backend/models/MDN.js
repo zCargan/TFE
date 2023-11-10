@@ -5,8 +5,9 @@ const MDNSchema = mongoose.Schema({
     anneeScolaire: { type: String, required: true},
     description: { type: String, required: true},
     type: { type: String, required: true},
-    reponseInitiale: { type: mongoose.Schema.Types.Mixed, required: true },
-    reponseFinale: { type: mongoose.Schema.Types.Mixed, required: true }
+    cols: { type: Number, required: true},
+    reponseInitiale: { type:Array, required: true },
+    reponseFinale: { type: Array, required: true }
 });
 
 module.exports = mongoose.model('MDN', MDNSchema);

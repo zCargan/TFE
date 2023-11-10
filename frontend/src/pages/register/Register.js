@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../features/exerciceSlice';
 import Navbar from '../../components/navbar/Navbar';
+import './register.css'
+import HelpCenterIcon from '@mui/icons-material/HelpCenter';
+import Popup from 'reactjs-popup';
+
+
+
 
 
 export function notXSSInjection(string) {
@@ -44,6 +50,7 @@ export function HasNumber(string) {
 
 const Connexion = () => {
 
+    
     const [surname, setSurname] = useState("");
     const [name, setName] = useState("");
     const [pseudo, setPseudo] = useState("");
@@ -55,8 +62,15 @@ const Connexion = () => {
     const passwordHasUppercaseLetter = HasUpperCaseLetter(password);
     const passwordHasSpecialCharacter = HasSpecialCharacter(password);
     const passwordHasNumber = HasNumber(password);
+    const [popupOpen, setPopupOpen] = useState(false);
 
-
+    function handleUserIconHover() {
+        setPopupOpen(true);
+    }
+    
+    function handleUserIconLeave() {
+        setPopupOpen(false);
+    }
 
     const dispatch = useDispatch();
     const tasks = useSelector((state) => state.exercices.exercice)
@@ -102,33 +116,48 @@ const Connexion = () => {
                 <Navbar></Navbar>
             </div>
             <div>
-                <p>==========================================</p>
                 <input placeholder='Prénom' type='text' id="surname" onChange={(e) => setSurname(e.target.value)}></input>
-                <br></br>
-                <input placeholder='Nom' type='text' id="name" onChange={(e) => setName(e.target.value)}></input>
-                <br></br>
-                <input placeholder='Pseudo' type="text" id="username" onChange={(e) => setPseudo(e.target.value)}></input>
                 <br></br>
                 <input placeholder='adresse email' type='text' id="emai" onChange={(e) => setEmail(e.target.value)}></input>
                 <br></br>
-                <div className='text_zone'>
-                    <label style={{ color: passwordHasValidLength ? 'green' : 'red' }}>Mot de passe de 12 caractères </label>
-                    <br />
-                    <label style={{ color: passwordHasLowercaseLetter ? 'green' : 'red' }}>Min 1 caractère minuscule</label>
-                    <br />
-                    <label style={{ color: passwordHasUppercaseLetter ? 'green' : 'red' }}>Min 1 caractère majuscule</label>
-                    <br />
-                    <label style={{ color: passwordHasNumber ? 'green' : 'red' }}>Min 1 nombre</label>
-                    <br />
-                    <label style={{ color: passwordHasSpecialCharacter ? 'green' : 'red' }}>Min 1 caractère spécial</label>
-                </div>
+
                 <br></br>
                 <input type="password" placeholder='Mot de passe' onChange={(e) => setPassword(e.target.value)} />
+                <Popup
+                    trigger={
+                        <a
+                            onMouseEnter={handleUserIconHover}
+                            onMouseLeave={handleUserIconLeave}
+                        >
+                            <div>
+                                <HelpCenterIcon id="infoPassword"></HelpCenterIcon>
+                            </div>
+                        </a>
+                    }
+                        position="bottom center"
+                        open={popupOpen}
+                        on="hover"
+                        closeOnDocumentClick
+                        >
+                        <div id='text_zone'>
+                            <br />
+                            <h4>Votre mot de passe doit contenir: </h4>
+                            <br />
+                            <label style={{ color: passwordHasValidLength ? 'green' : 'red' }}>Mot de passe de 12 caractères </label>
+                            <br />
+                            <label style={{ color: passwordHasLowercaseLetter ? 'green' : 'red' }}>Min 1 caractère minuscule</label>
+                            <br />
+                            <label style={{ color: passwordHasUppercaseLetter ? 'green' : 'red' }}>Min 1 caractère majuscule</label>
+                            <br />
+                            <label style={{ color: passwordHasNumber ? 'green' : 'red' }}>Min 1 nombre</label>
+                            <br />
+                            <label style={{ color: passwordHasSpecialCharacter ? 'green' : 'red' }}>Min 1 caractère spécial</label>
+                        </div>
+                </Popup>
                 <br></br>
                 <input placeholder='Confirmer le mot de passe' type="password" id="passwordConfirm" onChange={(e) => setSamePassword(e.target.value)}></input>
                 <br></br>
                 <button onClick={(e) => registerAccount()}>Register</button>
-                <button onClick={(e) => test()}></button>
             </div>
         </div>
     );

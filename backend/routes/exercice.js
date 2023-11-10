@@ -11,8 +11,9 @@ router.post('/send_test_exercice', exerciceCtrl.sendExercice)
 router.get('/get_exercices', exerciceCtrl.getExos)
 
 // Route MDN
-router.post('/post_mdn_exercices', exerciceCtrl.registerMDNexercice)
-router.get('/get_mdn_exercice', exerciceCtrl.getMDNexercice)
+router.post('/registerMDN', exerciceCtrl.registerMDN)
+router.get('/getMDN', exerciceCtrl.getMDNexercice)
+router.get('/getMDN/:id', exerciceCtrl.getMDNexerciceId)
 
 // Route Abaque
 router.post('/registerAbaque', exerciceCtrl.postAbaque)
