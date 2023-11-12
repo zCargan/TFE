@@ -566,34 +566,6 @@ const Test = () => {
     }
   
 
-    const getSon = async () => {
-        try {
-            const config = {
-                headers: {
-                    'Authorization': `Bearer ${Cookies.get('JWT')}`
-                }
-            }
-    
-            let id = 1;
-    
-            const response = await axios.get(`http://localhost:4000/sound/getSound/${id}`, config);
-            const context = new (window.AudioContext || window.webkitAudioContext)();
-            const audioData = new Uint8Array(response.data.resultat.son_data.data);
-            context.decodeAudioData(audioData.buffer, (buffer) => {
-
-                const source = context.createBufferSource();
-                source.buffer = buffer;
-                source.connect(context.destination);
-                source.start();
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-
-
-
     const getSpecificSon = async (son) => {
         let id = son;
 
@@ -627,25 +599,26 @@ const Test = () => {
     };
     
 
-    function getSon2() {
+    function getSon() {
         const config = {
             headers: {
                 'Authorization': `Bearer ${Cookies.get('JWT')}`
             }
         };
 
-        axios.post("http://localhost:4000/connection/infoUser", {}, config)
-            .then(response => {
-                let id = response.data.id
-                axios
-                .get(`http://localhost:4000/sound/getSound/${id}`, {}, config)
-                .then((res) => {
-                    setSons(anciensSons => [...anciensSons, ...res.data.resultat]);
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
+        axios
+        .post("http://localhost:4000/connection/infoUser", {}, config)
+        .then(response => {
+            let id = response.data.id
+            axios
+            .get(`http://localhost:4000/sound/getSound/${id}`, {}, config)
+            .then((res) => {
+                setSons(anciensSons => [...anciensSons, ...res.data.resultat]);
             })
+            .catch((error) => {
+                console.log(error)
+            })
+        })
     }
 
 
@@ -689,8 +662,8 @@ const Test = () => {
             <div id="zone_sound">
                 <button onClick={getSon}>Click ici pour un son</button>
                 <div id="zoneExoSon">
-                    <h2>Votre Son</h2>
-                    <button onClick={getSon2}>getSon2</button>
+                    <h2>Vos Sons</h2>
+                    <button onClick={getSon}>Récupérer mes </button>
                     {sons && sons.map((son) => (
                         <div key={son.nom_d_origine}>
                             <p>{son.nom_d_origine}</p>
