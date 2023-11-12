@@ -9,9 +9,10 @@ const Test = () => {
     let reponsesAttendues = [];
     const [nbrItem, setNbrItem] = useState("");
     const [arrayMotBonOrdre, setArrayMotBonOrdre] = useState([]);
-    const [audioData, setAudioData] = useState(null);
+    const [sons, setSons] = useState([])
     const [audioContext, setAudioContext] = useState(null);
     const [audioBuffer, setAudioBuffer] = useState(null);
+
 
     const config = {
         headers: {
@@ -565,44 +566,89 @@ const Test = () => {
     }
   
 
-    function getSon() {
+    const getSon = async () => {
+        try {
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${Cookies.get('JWT')}`
+                }
+            }
+    
+            let id = 1;
+    
+            const response = await axios.get(`http://localhost:4000/sound/getSound/${id}`, config);
+            const context = new (window.AudioContext || window.webkitAudioContext)();
+            const audioData = new Uint8Array(response.data.resultat.son_data.data);
+            context.decodeAudioData(audioData.buffer, (buffer) => {
+
+                const source = context.createBufferSource();
+                source.buffer = buffer;
+                source.connect(context.destination);
+                source.start();
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
+
+
+    const getSpecificSon = async (son) => {
+        let id = son;
+
         const config = {
             headers: {
                 'Authorization': `Bearer ${Cookies.get('JWT')}`
             }
         }
-
-        let id = 1;
-
+        
         axios
-        .get(`http://localhost:4000/sound/getSound/${id}`, {}, config)
-        .then((response) => {
+        .get(`http://localhost:4000/sound/getSoundById/${id}`, config)
+        .then((res) => {
             const context = new (window.AudioContext || window.webkitAudioContext)();
             setAudioContext(context);
     
-            // Convertissez les données ArrayBuffer en tableau d'octets
-            const audioData = new Uint8Array(response.data.resultat.son_data.data);
+            const audioData = new Uint8Array(res.data.resultat[0].son_data.data);
     
-            // Décodez les données audio
             context.decodeAudioData(audioData.buffer, (buffer) => {
-              setAudioBuffer(buffer);
+                setAudioBuffer(buffer);
+    
+                const source = context.createBufferSource();
+                source.buffer = buffer;
+                source.connect(context.destination);
+                source.start();
             });
         })
         .catch((error) => {
             console.log(error)
         })
+
+    };
+    
+
+    function getSon2() {
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get('JWT')}`
+            }
+        };
+
+        axios.post("http://localhost:4000/connection/infoUser", {}, config)
+            .then(response => {
+                let id = response.data.id
+                axios
+                .get(`http://localhost:4000/sound/getSound/${id}`, {}, config)
+                .then((res) => {
+                    setSons(anciensSons => [...anciensSons, ...res.data.resultat]);
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+            })
     }
 
 
-    const playAudio = () => {
-        // Vérifiez si l'audio est prêt à être joué
-        if (audioContext && audioBuffer) {
-          const source = audioContext.createBufferSource();
-          source.buffer = audioBuffer;
-          source.connect(audioContext.destination);
-          source.start();
-        }
-      };
 
     return (
         <div>
@@ -644,7 +690,15 @@ const Test = () => {
                 <button onClick={getSon}>Click ici pour un son</button>
                 <div id="zoneExoSon">
                     <h2>Votre Son</h2>
-                    <button onClick={playAudio}>Lire le son</button>
+                    <button onClick={getSon2}>getSon2</button>
+                    {sons && sons.map((son) => (
+                        <div key={son.nom_d_origine}>
+                            <p>{son.nom_d_origine}</p>
+                            <button onClick={() => getSpecificSon(son.id)}>
+                                Lire le son
+                            </button>
+                        </div>
+                    ))}
                 </div>
             </div>
             <br />

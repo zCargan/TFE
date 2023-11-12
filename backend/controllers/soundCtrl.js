@@ -79,7 +79,7 @@ exports.getSound = (req, res, next) => {
             if (error) {
                 res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs' });
             } else {
-                res.status(200).json({ resultat: result.rows[0] });
+                res.status(200).json({ resultat: result.rows });
             }}
         )
     })
@@ -87,4 +87,41 @@ exports.getSound = (req, res, next) => {
         console.error('Erreur lors de la récupération des sons:', error);
         res.status(500).json({ error: 'Erreur lors de la récupération des sons' });
     });
+}
+
+
+exports.getSoundById = (req, res, next) => {
+
+    let idSound = req.params.id;
+
+    console.log(idSound)
+
+    const client = new Client({
+        host: 'localhost',
+        port: 5432,
+        database: 'test',
+        user: 'postgres',
+        password: 'LoganTFE2023',
+    });
+
+    client
+    .connect()
+    .then(() => {
+
+        const query = `SELECT * FROM sons WHERE id='${idSound}'`
+
+
+        client.query(query, (error, result) => {
+            if (error) {
+                res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs' });
+            } else {
+                res.status(200).json({ resultat: result.rows });
+            }}
+        )
+    })
+    .catch(error => {
+        console.error('Erreur lors de la récupération des sons:', error);
+        res.status(500).json({ error: 'Erreur lors de la récupération des sons' });
+    });
+
 }

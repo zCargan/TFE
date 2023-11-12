@@ -10,5 +10,6 @@ const upload = multer({
 
 router.post('/postSound', upload.single('audio'), soundCtrl.postSound);
 router.get('/getSound/:id', soundCtrl.getSound);
+router.get('/getSoundById/:id', soundCtrl.getSoundById)
 
 module.exports = router;
