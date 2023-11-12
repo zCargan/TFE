@@ -5,6 +5,7 @@ const MDN = require('../models/MDN');
 const TTI = require('../models/TTI')
 const LDN = require('../models/LDN')
 const TAT = require('../models/TAT')
+const MB = require('../models/MB')
 const Abaque = require('../models/abaque');
 const jwt = require("jsonwebtoken");
 const { Client } = require('pg');
@@ -261,6 +262,58 @@ exports.getTAT = (req, res) => {
                 });
             }
         })
+    }
+}
+
+
+
+// ===================== MB =====================
+
+// POST 
+
+exports.postMB = (req, res, next) => {
+
+    const token = req.header('Authorization');
+    if (token) {
+        const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
+        const secretKey = "test";
+
+        jwt.verify(jwtToken, secretKey, (err, decoded) => {
+            if (err) {
+                res.status(401).json({ error: "Token JWT invalide" });
+            } else {
+                const mb = new MB({
+                    ...req.body.data
+                })
+                mb.save()
+            }
+        })
+
+    }
+}
+
+// GET 
+exports.getMB = (req, res) => {
+
+    const token = req.header('Authorization');
+    if (token) {
+        const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
+        const secretKey = "test";
+
+        jwt.verify(jwtToken, secretKey, (err, decoded) => {
+            if (err) {
+                res.status(401).json({ error: "Token JWT invalide" });
+            } else {
+                console.log(decoded.id)
+                MB.find().then((donnees) => {
+                    res.send(donnees)
+                });
+            }
+        })
+    } else {
+        MB.find().then((donnees) => {
+            res.send(donnees)
+        });
     }
 }
 

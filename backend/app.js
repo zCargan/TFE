@@ -4,6 +4,7 @@ const connectionRoute = require('./routes/connectionRoute')
 const registerRoute = require('./routes/registerRoute')
 const testRoute = require('./routes/testRoute')
 const photosRoute = require('./routes/photosRoute')
+const soundRoute = require('./routes/soundRoute')
 const { Client } = require('pg');
 
 const cors = require('cors');
@@ -45,6 +46,7 @@ app.use('/test', testRoute);
 app.use('/register', registerRoute);
 app.use('/connection', connectionRoute);
 app.use('/photos', photosRoute);
+app.use('/sound', soundRoute);
 /*
 app.use("/test", (req, res) => {
   client.query("SELECT * FROM public.utilisateurs", (error, result) => {

@@ -3,6 +3,8 @@ import {React, useState} from 'react';
 import BlankText from './BlankText/blankText';
 import AddImg from './AddImg/addImg.js';
 import TextToImg from './TextToImg/textToImg';
+import MB from './motBazard/motBazard'
+import AddSound from './addSound/addSound.js';
 
 const French = () => {
 
@@ -26,6 +28,8 @@ const French = () => {
                     <option value="BlankText">Texte à trou</option>
                     <option value="TextToImg">Image avec texte</option>
                     <option value="AddImg">Ajouter des photos</option>
+                    <option value="MotBazard">Mot bazard</option>
+                    <option value="AddSound">Ajouter un son</option>
                 </select>
                 {selectedOption === 'BlankText' && 
                     <BlankText />
@@ -35,6 +39,12 @@ const French = () => {
                 }
                 {selectedOption === 'TextToImg' &&
                     <TextToImg />
+                }
+                {selectedOption === 'MotBazard' &&
+                    <MB />
+                }
+                {selectedOption === 'AddSound' &&
+                    <AddSound />
                 }
             </div>
         </div>

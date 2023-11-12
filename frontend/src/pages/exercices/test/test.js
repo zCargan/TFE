@@ -8,6 +8,10 @@ const Test = () => {
 
     let reponsesAttendues = [];
     const [nbrItem, setNbrItem] = useState("");
+    const [arrayMotBonOrdre, setArrayMotBonOrdre] = useState([]);
+    const [audioData, setAudioData] = useState(null);
+    const [audioContext, setAudioContext] = useState(null);
+    const [audioBuffer, setAudioBuffer] = useState(null);
 
     const config = {
         headers: {
@@ -124,6 +128,7 @@ const Test = () => {
                 let nbrExos = 0;
                 let score = 0;
                 for(let i = 0; i < length; i ++) {
+                    console.log(inputs[i], reponsesAttendues[i])
                     if(inputs[i].value ===reponsesAttendues[i]) {
                         score += 1;
                     }
@@ -420,7 +425,184 @@ const Test = () => {
         })
 
     }
+
+    function concatenateLetters(id, reponses) {
+        if (reponses[id] && Array.isArray(reponses[id])) {
+            const originalOrderString = reponses[id].join('').toUpperCase();
+            setArrayMotBonOrdre((prevArray) => [...prevArray, originalOrderString]); // Mettre à jour l'état
+            const shuffledLetters = reponses[id].slice();
+            shuffleArray(shuffledLetters);
+            const concatenatedString = shuffledLetters.join('');
+            return concatenatedString.toUpperCase();
+        } else {
+            return '';
+        }
+    }
     
+
+    function removeAllImages() {
+        const imagesToRemove = document.querySelectorAll('#zoneExoMB');
+
+        imagesToRemove.forEach(image => {
+            image.remove(); // Supprime chaque élément avec la classe 'imageContainer'
+        });
+        
+    }
+
+    
+    // Fonction pour mélanger un tableau (algorithme de Fisher-Yates)
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // Échanger les éléments de manière aléatoire
+        }
+    }
+    
+    let idExoMB = ""
+    
+    function getMB() {
+        axios
+            .get('http://localhost:4000/exercice/getMB')
+            .then((res) => {
+                console.log(res.data[0]._id);
+                const img = res.data[0].reponses;
+                idExoMB = res.data[0]._id
+                let cles = Object.keys(img);
+                const imageContainer = document.getElementById('zoneExoMB');
+    
+                imageContainer.style.display = 'flex';
+                imageContainer.style.flexWrap = 'wrap'; // Permettre le retour à la ligne si nécessaire
+                imageContainer.style.justifyContent = 'center'; // Centrez horizontalement
+    
+                for (let i = 0; i < cles.length; i++) {
+                    axios
+                        .get(`http://localhost:4000/photos/getImage/${cles[i]}`, config)
+                        .then((resPhoto) => {
+                            
+                            for (let j = 0; j < resPhoto.data.length; j++) {
+                                reponsesAttendues.push(resPhoto.data[0].nom_d_origine);
+                                const imageBinaryData = resPhoto.data[j].image_data.data;
+                                const blob = new Blob([new Uint8Array(imageBinaryData)], { type: resPhoto.data[j].type_mime });
+                                const objectURL = URL.createObjectURL(blob);
+    
+                                const imageInputContainer = document.createElement('div');
+                                imageInputContainer.style.margin = '20px';
+                                imageInputContainer.style.textAlign = 'center'; // Centrer le contenu
+                                imageInputContainer.style.display = 'flex'; // Conteneur en colonne
+                                imageInputContainer.style.flexDirection = 'column'; // Alignement en colonne
+    
+                                const imageElement = document.createElement('img');
+                                imageElement.src = objectURL;
+                                imageElement.style.width = '200px';
+                                imageElement.style.height = '200px';
+    
+                                const nameElement = document.createElement('div');
+                                const imageName = concatenateLetters(cles[i], res.data[0].reponses);
+                                nameElement.textContent = imageName; // Ajouter le nom en tant que texte
+                                nameElement.style.marginTop = '10px'; // Ajouter un espace en haut du texte
+    
+                                const inputElement = document.createElement('input');
+                                inputElement.type = 'text';
+                                inputElement.placeholder = 'Saisir un texte ici';
+                                inputElement.style.width = '200px';
+                                inputElement.style.marginTop = '10px'; // Ajouter un espace en haut de l'input
+    
+                                inputElement.classList.add('answerExoMB'); // Ajout de la classe 'answerExo'
+    
+                                imageInputContainer.appendChild(imageElement);
+                                imageInputContainer.appendChild(nameElement); // Ajout du nom
+                                imageInputContainer.appendChild(inputElement);
+                                imageContainer.appendChild(imageInputContainer);
+                            }
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+    
+    
+
+    function valideReponsesMB () {
+        axios
+        .get('http://localhost:4000/exercice/getMB')
+        .then((res) => {
+            let inputUser = document.getElementsByClassName('answerExoMB');
+            let score = 0;
+            let nbrExos = 0;
+            for(let i = 0; i < arrayMotBonOrdre.length; i ++) {
+                if(inputUser[i].value.toUpperCase() === arrayMotBonOrdre[i]) {
+                    score += 1;
+                }
+                nbrExos += 1;
+            }
+            console.log((score/nbrExos)*100)
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${Cookies.get('JWT')}`
+                }
+            }
+
+            const data = {
+                type: "MB",
+                score: Math.floor((score/nbrExos)*100),
+                idExercice: res.data[0]._id
+            }
+
+            axios.post("http://localhost:4000/exercice/registerAnswers", {data}, config)
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+
+    function seeCorrectionMB() {
+
+    }
+  
+
+    function getSon() {
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get('JWT')}`
+            }
+        }
+
+        let id = 1;
+
+        axios
+        .get(`http://localhost:4000/sound/getSound/${id}`, {}, config)
+        .then((response) => {
+            const context = new (window.AudioContext || window.webkitAudioContext)();
+            setAudioContext(context);
+    
+            // Convertissez les données ArrayBuffer en tableau d'octets
+            const audioData = new Uint8Array(response.data.resultat.son_data.data);
+    
+            // Décodez les données audio
+            context.decodeAudioData(audioData.buffer, (buffer) => {
+              setAudioBuffer(buffer);
+            });
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }
+
+
+    const playAudio = () => {
+        // Vérifiez si l'audio est prêt à être joué
+        if (audioContext && audioBuffer) {
+          const source = audioContext.createBufferSource();
+          source.buffer = audioBuffer;
+          source.connect(audioContext.destination);
+          source.start();
+        }
+      };
 
     return (
         <div>
@@ -451,7 +633,19 @@ const Test = () => {
                 <div id="zoneExoMDN"></div>
                 <button id="valideReponse" onClick={valideReponses}>Valider mes réponses</button>
                 <button onClick={seeCorrection}>Voir la correction</button>
-                <MDN></MDN>
+            </div>
+            <div id="zone_mb">
+                <button onClick={getMB}>Click ici pour un exo MB</button>
+                <div id="zoneExoMB"></div>
+                <button id="valideReponse" onClick={valideReponsesMB}>Valider mes réponses MB</button>
+                <button onClick={seeCorrectionMB}>Voir la correction</button>
+            </div>
+            <div id="zone_sound">
+                <button onClick={getSon}>Click ici pour un son</button>
+                <div id="zoneExoSon">
+                    <h2>Votre Son</h2>
+                    <button onClick={playAudio}>Lire le son</button>
+                </div>
             </div>
             <br />
             <br />

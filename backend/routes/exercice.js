@@ -31,6 +31,10 @@ router.get('/getLDN', exerciceCtrl.getLDN);
 router.post('/registerTAT', exerciceCtrl.postTAT);
 router.get('/getTAT', exerciceCtrl.getTAT);
 
+// Route MB
+router.post('/registerMB', exerciceCtrl.postMB);
+router.get('/getMB', exerciceCtrl.getMB);
+
 router.get('/MDN/:id', (req, res) => {
     const exerciceId = req.params.id;
     MDN.findById(exerciceId)

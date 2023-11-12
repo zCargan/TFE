@@ -24,7 +24,7 @@ const Connection = (props) => {
       .then((response) => {
         console.log(response.data)
         let nom = response.data.nom;
-        Cookies.set('JWT', response.data.token , { expires: 7 }); // 'expires' dénote la durée de validité en jours
+        Cookies.set('JWT', response.data.token , { expires: 1 }); // 'expires' dénote la durée de validité en jours
         if(response.data.role === "eleve") {
           Swal.fire({
             title: 'Bonjour ' + nom + ' !',

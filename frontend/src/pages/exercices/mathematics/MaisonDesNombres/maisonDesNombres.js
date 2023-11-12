@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 import Popup from 'reactjs-popup';
 
 const MaisonDesNombres = () => {
-
+    let exo = {}
     let dictionnaire = {}
     const dispatch =  useDispatch();
     const exerciceRedux = useSelector(state =>(state))
@@ -42,52 +42,44 @@ const MaisonDesNombres = () => {
 
 
     function saveSquelette() {
-        dictionnaire.nom = document.getElementById("nomMDN").value;
-        dictionnaire.anneeScolaire = document.getElementById("selectSchoolYear").value;
-        dictionnaire.description = document.getElementById("descriptionExercice").value;
-        dictionnaire.type = "MDN";
-        let dictionnaire1 = {}
-
-        var number = document.getElementById('nombre').value
-        for(let i = 0; i < number; i++) {
-        let array_intermédiaire = []
-            for(let j = 0; j < 2; j++) {
-                //console.log("on passe")
-                if(document.getElementsByClassName(i)[j].value !== "") {  
-                    array_intermédiaire.push(document.getElementsByClassName(i)[j].value)
-                } else {
-                    array_intermédiaire.push("")
-                }
-            }
-        let string = "ligne" + (i+1)
-        dictionnaire1[string] = array_intermédiaire
-        console.log(dictionnaire1)
-        }
-        dictionnaire.reponseInitiale = dictionnaire1
-        console.log(dictionnaire)
+        exo.nom = document.getElementById("nomMDN").value;
+        exo.anneeScolaire = document.getElementById("selectSchoolYear").value;
+        exo.description = document.getElementById("descriptionExercice").value;
+        exo.type = "MDN";
+        exo.cols = Number(document.getElementById('nombre').value);
         
+        let arrayEnonce = []
+
+        let input = document.getElementsByClassName('inputMDN')
+        console.log(input)
+
+        for(let i = 0; i < input.length; i++) {
+            arrayEnonce.push(input[i].value)
+        } 
+        
+        exo.reponseInitiale = arrayEnonce
+
+
     }
 
     function final() {
-        let dictionnaire2 = {}
-        var number = document.getElementById('nombre').value
+        let arrayFinal = []
+
+        let input = document.getElementsByClassName('inputMDN')
+
+        for(let i = 0; i < input.length; i++) {
+            arrayFinal.push(input[i].value)
+        } 
         
-        for(let i = 0; i < number; i++) {
-            let array_final = []
-            for(let j = 0; j < 2; j++) {
-                //console.log("on passe")
-                array_final.push(document.getElementsByClassName(i)[j].value)
-                
+        exo.reponseFinal = arrayFinal
+
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get('JWT')}`
             }
-            console.log(array_final)
-        let string = "ligne" + (i+1)
-        dictionnaire2[string] = array_final
         }
-        dictionnaire.reponseFinale = dictionnaire2;
-        console.log(dictionnaire)
-        dispatch(
-            addExercice(dictionnaire)
-        )
+
+        axios.post("http://localhost:4000/exercice/registerMDN", {exo}, config)
     }
 
 

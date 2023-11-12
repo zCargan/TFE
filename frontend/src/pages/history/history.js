@@ -13,7 +13,8 @@ const History = () => {
         abaque: 'abaque.png',
         TTI: 'tti.png',
         LDN: 'LDN.jpg',
-        TAT: 'TAT.png'
+        TAT: 'TAT.png',
+        MB: 'MB.jpg'
     };
 
     useEffect(() => {
