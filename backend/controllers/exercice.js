@@ -6,6 +6,7 @@ const TTI = require('../models/TTI')
 const LDN = require('../models/LDN')
 const TAT = require('../models/TAT')
 const MB = require('../models/MB')
+const STT = require('../models/STT')
 const Abaque = require('../models/abaque');
 const jwt = require("jsonwebtoken");
 const { Client } = require('pg');
@@ -317,6 +318,36 @@ exports.getMB = (req, res) => {
     }
 }
 
+
+
+// ===================== STT =====================
+
+// POST
+exports.postSTT = (req, res) => {
+    const token = req.header('Authorization');
+    if (token) {
+        const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
+        const secretKey = "test";
+
+        jwt.verify(jwtToken, secretKey, (err, decoded) => {
+            if (err) {
+                res.status(401).json({ error: "Token JWT invalide" });
+            } else {
+                console.log(req.body)
+                const stt = new STT({
+                    ...req.body
+                })
+                stt.save()
+            }
+        })
+    }
+}
+
+
+// GET 
+exports.getSTT = (req, res) => {
+    console.log('on passe ici')
+}
 
 // ===================== Answers =====================
 

@@ -5,6 +5,7 @@ import AddImg from './AddImg/addImg.js';
 import TextToImg from './TextToImg/textToImg';
 import MB from './motBazard/motBazard'
 import AddSound from './addSound/addSound.js';
+import SoundToText from './SoundToText/SoundToText.js';
 
 const French = () => {
 
@@ -20,9 +21,8 @@ const French = () => {
 
     return (
         <div style={divStyle}>
-            <p>Exercice de francais</p>
+            <br />
             <div>
-                <p>Type d'exercice</p>
                 <select value={selectedOption} onChange={handleSelectChange} >
                     <option selected>---</option>
                     <option value="BlankText">Texte à trou</option>
@@ -30,6 +30,7 @@ const French = () => {
                     <option value="AddImg">Ajouter des photos</option>
                     <option value="MotBazard">Mot bazard</option>
                     <option value="AddSound">Ajouter un son</option>
+                    <option value="SoundToText">Exercice lié aux sons</option>
                 </select>
                 {selectedOption === 'BlankText' && 
                     <BlankText />
@@ -45,6 +46,9 @@ const French = () => {
                 }
                 {selectedOption === 'AddSound' &&
                     <AddSound />
+                }
+                {selectedOption === 'SoundToText' &&
+                    <SoundToText />
                 }
             </div>
         </div>

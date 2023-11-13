@@ -621,7 +621,9 @@ const Test = () => {
         })
     }
 
-
+    function voirLesSons() {
+        console.log(sons)
+    }
 
     return (
         <div>
@@ -672,6 +674,7 @@ const Test = () => {
                             </button>
                         </div>
                     ))}
+                    <button onClick={voirLesSons}>voirLesSons</button>
                 </div>
             </div>
             <br />
