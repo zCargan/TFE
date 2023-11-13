@@ -9,6 +9,7 @@ import LDN from './LDN/ldn'
 import TAT from './TAT/tat'
 import MDN from './MDN/MDN'
 import MB from './MB/MB'
+import Abaque from './Abaque/Abaque';
 
 const Resultat = () => {
 
@@ -34,6 +35,7 @@ const Resultat = () => {
                     <option value="TAT">TAT</option>
                     <option value="MDN">MDN</option>
                     <option value="MB">MB</option>
+                    <option value="Abaque">Abaque</option>
                 </select>
                 {selectedOption === 'STT' && 
                     <STT />
@@ -52,6 +54,9 @@ const Resultat = () => {
                 }
                 {selectedOption === 'MB' && 
                     <MB />
+                }
+                {selectedOption === 'Abaque' && 
+                    <Abaque />
                 }
         </div>
     );

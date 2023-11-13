@@ -191,6 +191,7 @@ const Abaque = () => {
             <button onClick={showExercice}>ok</button>
             <br></br>
             <p>Votre abaque :</p><p id="abaque"></p>
+            <p>Info</p>
             <br></br>
             <button onClick={saveAbaque}>Sauvez le squelette</button>
             <button onClick={saveAnswer}>Sauvez les réponses</button>
