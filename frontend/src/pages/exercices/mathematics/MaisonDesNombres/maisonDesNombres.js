@@ -71,7 +71,11 @@ const MaisonDesNombres = () => {
             arrayFinal.push(input[i].value)
         } 
         
+        console.log(arrayFinal)
+
         exo.reponseFinal = arrayFinal
+
+        console.log(exo)
 
         const config = {
             headers: {

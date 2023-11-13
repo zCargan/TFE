@@ -346,7 +346,71 @@ exports.postSTT = (req, res) => {
 
 // GET 
 exports.getSTT = (req, res) => {
-    console.log('on passe ici')
+    const token = req.header('Authorization');
+    if (token) {
+        const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
+        const secretKey = "test";
+
+        jwt.verify(jwtToken, secretKey, (err, decoded) => {
+            if (err) {
+                res.status(401).json({ error: "Token JWT invalide" });
+            } else {
+                console.log(decoded.id)
+                MB.find().then((donnees) => {
+                    res.send(donnees)
+                });
+            }
+        })
+    } else {
+        STT.find().then((donnees) => {
+            res.send(donnees)
+        });
+    }
+}
+
+// GET BY ID
+
+exports.getSTTById = (req, res) => {
+
+    let idExo = req.params.id;
+    console.log(idExo)
+    const token = req.header('Authorization');
+    if (token) {
+        const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
+        const secretKey = "test"
+        jwt.verify(jwtToken, secretKey, (err, decoded) => {
+            if (err) {
+                console.error('Erreur lors de la vérification du JWT :', err);
+            } else {
+                const client = new Client({
+                    host: 'localhost',
+                    port: 5432,
+                    database: 'test',
+                    user: 'postgres',
+                    password: 'LoganTFE2023',
+                });
+            
+                client.connect((err) => {
+                    if (err) {
+                        console.error('Erreur de connexion à la base de données :', err);
+                        res.status(500).send('Erreur de connexion à la base de données');
+                      } else {
+                        console.log('Connexion à la base de données établie avec succès');
+                        client.query('SELECT * FROM sons WHERE id = $1', [req.params.id], (err, result) => {
+                        if (err) {
+                            console.error("Erreur lors de la suppression de l'image:", err);
+                            res.status(500).send('Erreur lors de la suppression de l image');
+                        } else {
+                            res.status(200).json(result.rows);
+                        }
+                            client.end(); 
+                        });
+                    }
+                });
+                console.log(req.params.id)
+            }
+        })
+    }
 }
 
 // ===================== Answers =====================

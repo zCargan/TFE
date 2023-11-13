@@ -47,6 +47,10 @@ const GetSounds = ({ onSoundSelect }) => {
     }
   }
 
+  function showSon() {
+    console.log(sons)
+  }
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         <div id="zone_sound">
@@ -64,6 +68,7 @@ const GetSounds = ({ onSoundSelect }) => {
                     </div>
                 ))}
             </div>
+            <button onClick={showSon}>showSon</button>
             <br />
         </div>
     </div>

@@ -1,0 +1,125 @@
+import React, { useEffect, useState } from 'react';
+import axios, { all } from 'axios';
+import Cookies from 'js-cookie';
+import Swal from 'sweetalert2';
+
+
+const MDN = () => {
+
+    const [nbrItem, setNbrItem] = useState("");
+
+    useEffect(() => {
+        getMDN()
+    }, [])
+
+    const config = {
+        headers: {
+          'Authorization': `Bearer ${Cookies.get('JWT')}`,
+          'Content-Type': 'application/json'
+        }
+    };
+
+    function getMDN() {
+        axios.get('http://localhost:4000/exercice/getMDN').then((res)=> {
+            let length = res.data[0].cols
+            let reponseInitiale = res.data[0].reponseInitiale
+            let nom = res.data[0].nom
+            let texte = "<div id='mdn_resulat'>"
+            texte += '<h1>' + nom + '</h1>'
+            let score = 0;
+            for(let i = 0; i <length; i ++) {
+                console.log(reponseInitiale[score], reponseInitiale[score+1])
+                texte += '<input class="answerUser" value=' + reponseInitiale[score] + '>' + '</input><input class="answerUser" value="' + reponseInitiale[score+1] + '"></input>'
+                texte += "<br></br>"
+                score += 2;
+            }
+            
+            texte += "</div>"
+            document.getElementById("zoneExoMDN").innerHTML = texte
+        })
+    }
+
+
+    function valideReponses() {
+        /**
+         * Cette fonction permet de vérifier la validé des reponses et d'afficher un pourcentage de réussite
+         */
+        let reponseUser = [];
+        let index = [];
+
+        for(let j = 0; j < (nbrItem+1); j++) {
+            let ligne1 = document.getElementsByClassName("answerUser");
+            for(let i = 0; i < ligne1.length; i ++) {
+                reponseUser.push(ligne1[i].value)
+            }
+        }
+        
+        axios.get('http://localhost:4000/exercice/getMDN').then((res)=> {
+            let dicFinal = res.data[0].reponseFinal;
+            let dicInitiale = res.data[0].reponseInitiale;
+            let idExercice = res.data[0]._id;
+
+
+            for(let i = 0; i < dicInitiale.length; i ++) {
+                if(dicFinal[i] !== dicInitiale[i]) {
+                    index.push(i)
+                }
+            }
+
+            let score = 0;
+            let nbrExos = 0;
+
+            for(let j = 0; j < index.length; j ++) {
+
+                if(dicFinal[index[j]] === reponseUser[index[j]]) {
+                    score += 1;
+                }
+                nbrExos += 1;
+            }
+
+            const data = {
+                type: "MDN",
+                score: Math.floor((score/nbrExos) * 100),
+                idExercice: idExercice
+            }
+
+            axios.post("http://localhost:4000/exercice/registerAnswers", {data}, config)
+
+        })
+        
+
+    }
+
+    function seeCorrection() {
+        axios.get('http://localhost:4000/exercice/getMDN').then((res)=> {
+
+            let dicFinal = res.data[0].reponseFinal;
+            let dicInitiale = res.data[0].reponseInitiale;
+            let idExercice = res.data[0]._id;
+
+            let inputUser = document.getElementsByClassName("answerUser");
+            
+            for(let i = 0; i < inputUser.length; i ++) {
+                console.log(inputUser[i].value = dicFinal[i])
+            }
+        })
+        Swal.fire({
+            text: 'Voici la correction des exercices',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 900
+          });
+    }
+
+    return (
+        <div>
+            <div id="zone_abaque">
+                <div id="zoneExoMDN"></div>
+                <button id="valideReponse" onClick={valideReponses}>Valider mes réponses</button>
+                <button onClick={seeCorrection}>Voir la correction</button>
+            </div>
+        </div>
+    );
+};
+
+export default MDN;

@@ -364,7 +364,7 @@ const Test = () => {
                 reponseUser.push(ligne1[i].value)
             }
         }
-        axios.get('http://localhost:4000/exercice/get_mdn_exercice').then((res)=> {
+        axios.get('http://localhost:4000/exercice/getMDN').then((res)=> {
             let dicFinale = res.data[0].reponseFinale;
             let dicInitiale = res.data[0].reponseInitiale;
             let idExercice = res.data[0]._id;

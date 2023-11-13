@@ -38,6 +38,7 @@ router.get('/getMB', exerciceCtrl.getMB);
 // Route STT
 router.post('/registerSTT', exerciceCtrl.postSTT);
 router.get('/getSTT', exerciceCtrl.getSTT);
+router.get('/getSTT/:id', exerciceCtrl.getSTTById)
 
 router.get('/MDN/:id', (req, res) => {
     const exerciceId = req.params.id;

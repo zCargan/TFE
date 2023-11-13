@@ -7,7 +7,7 @@ const MDNSchema = mongoose.Schema({
     type: { type: String, required: true},
     cols: { type: Number, required: true},
     reponseInitiale: { type:Array, required: true },
-    reponseFinale: { type: Array, required: true }
+    reponseFinal: { type: Array, required: true }
 });
 
 module.exports = mongoose.model('MDN', MDNSchema);

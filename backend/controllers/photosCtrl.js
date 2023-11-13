@@ -288,7 +288,7 @@ exports.getImage = (req, res) => {
                         console.log('Connexion à la base de données établie avec succès');
                         client.query('SELECT * FROM images WHERE id = $1', [req.params.id], (err, result) => {
                         if (err) {
-                            console.error("Erreur lors de la suppression de l image:", err);
+                            console.error("Erreur lors de la récupération de l image:", err);
                             res.status(500).send('Erreur lors de la suppression de l image');
                         } else {
                             res.status(200).json(result.rows);

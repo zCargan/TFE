@@ -14,7 +14,8 @@ const History = () => {
         TTI: 'tti.png',
         LDN: 'LDN.jpg',
         TAT: 'TAT.png',
-        MB: 'MB.jpg'
+        MB: 'MB.jpg',
+        STT: 'stt.png'
     };
 
     useEffect(() => {
