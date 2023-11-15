@@ -28,13 +28,13 @@ exports.registerMDN = (req, res) => {
 }
 
 // GET
-
 exports.getMDNexercice = (req, res) => {
     MDN.find().then((donnees) => {
         res.send(donnees)
     });
 }
 
+// GET BY ID
 exports.getMDNexerciceId = (req, res) => {
     let idExo = req.params.id;
     console.log("on passe ici")
@@ -60,9 +60,7 @@ exports.postAbaque = (req, res) => {
         .catch(error => res.status(400).json({ error }));
 }
 
-
 // GET
-
 exports.getAbaqueExercice = (req, res) => {
     Abaque.find().then((donnees) => {
         res.send(donnees)
@@ -82,7 +80,6 @@ exports.postExercice = (req, res, next) => {
     })
     exercice.save()
 }
-
 
 //GET
 exports.sendExercice = async (req, res, next) => {
@@ -498,7 +495,9 @@ exports.getExosFromExercice = (req, res) => {
 
 
 
+// ===================== Divers =====================
 
+// Récupere le 1er élément de chaque collection 
 exports.getExosFromAllTablesId1 = (req, res, next) => {
     let array = [];
 
@@ -542,4 +541,30 @@ exports.getExosFromAllTablesId1 = (req, res, next) => {
             res.status(500).send('Erreur lors de la récupération des données.');
         });
 };
+
+
+// mongodb+srv://Cargan:LoganTFE2023@tfe.omhpimu.mongodb.net/monProjet'
+mongoose.connect('mongodb+srv://Cargan:LoganTFE2023@tfe.omhpimu.mongodb.net/test', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => {
+  console.log('Connexion réussie à la base de données');
+})
+.catch((err) => {
+  console.error('Erreur de connexion à la base de données :', err);
+});
+
+exports.countElement = async (req, res, next) => {
+    try {
+      // Utilisez le modèle Mongoose correspondant à votre collection
+      const count = await TTI.countDocuments({});
+      console.log('Nombre total d\'éléments dans la collection :', count);
+      // Vous n'avez pas besoin de fermer la connexion ici car vous l'avez déjà établie au démarrage
+      res.status(200).json({ count: count });
+    } catch (err) {
+      console.error('Erreur lors du comptage des documents :', err);
+      res.status(500).json({ error: 'Erreur lors du comptage des documents' });
+    }
+  };
 

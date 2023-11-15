@@ -29,6 +29,9 @@ const searchBar = () => {
                         <option>Image vers texte</option>
                     </select>   
                 </li>
+                <li>
+                    <button>Rechercher</button>
+                </li>
             </ul>
         </div>
     );
