@@ -3,11 +3,9 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import './LDNCreator.css'
 
-import './ldn.css'
-
-const LDN = () => {
-
+const LDNCreator = ({ exo }) => {
     const [reponses, setReponses] = useState("");
     const [nom, setNom] = useState('');
     const [anneeScolaire, setAnneeScolaire] = useState('');
@@ -176,4 +174,4 @@ const LDN = () => {
     );
 };
 
-export default LDN;
+export default LDNCreator;

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios, { all } from 'axios';
 import Cookies from 'js-cookie';
 import './stt.css'
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const STT = () => {
   const [sons, setSons] = useState([]);
@@ -11,7 +13,9 @@ const STT = () => {
   const [description, setDescription] = useState('');
   const [type, setType] = useState('');
   const [id, setId] = useState('');
-
+  const navigate = useNavigate();
+  const [reponses, setReponses] = useState("");
+  
   useEffect(() => {
     getSTT();
   }, [])
@@ -33,6 +37,9 @@ const STT = () => {
         setDescription(res.data[0].description);
         setType(res.data[0].type);
         let reponses = res.data[0].reponses;
+
+        setReponses(Object.values(reponses))
+
         const cles = Object.keys(reponses);
 
         const promessesReponses = [];
@@ -104,8 +111,50 @@ const STT = () => {
       idExercice: id
     }
 
-    axios.post("http://localhost:4000/exercice/registerAnswers", {data}, config)
+    Swal.fire({
+      title: 'Résultat',
+      text: 'Vous avez obtenu la note de : ' + (score/nbrExos) * 100 + "%",
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 2000
+    });
+
+    axios
+    .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
+    .then((res) => {
+      setTimeout(() => {
+          navigate('/');
+        }, 2000);
+    })
+    .catch((error) => {
+                        Swal.fire({
+                    title: 'Erreur',
+                    text: "Une erreur s'est produite lors de l'enregistrement de votre score",
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+    })
   }
+
+  
+
+  function seeCorrection() {
+    let inputUser = document.getElementsByClassName('inputUserSTT')
+    console.log(inputUser)
+    console.log(reponses)
+    for(let i = 0; i < inputUser.length; i ++) {
+        inputUser[i].value = reponses[i]
+    }
+    Swal.fire({
+        text: "Voici la correction de l'exercice",
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1100
+    });
+    document.getElementById('buttonCorrection').style.display = 'none';
+}
+
 
   return (
     <div id="div_stt">
@@ -130,7 +179,9 @@ const STT = () => {
       </div>
       <br />
       <div>
-        <button onClick={ValiderMesReponses}>Valider mes réponses</button>
+        <button onClick={ValiderMesReponses} id="buttonCorrection">Valider mes réponses</button>
+        <br />
+        <button onClick={seeCorrection}>Voir la correction</button>
       </div>
     </div>
   );

@@ -3,11 +3,9 @@ import axios, { all } from 'axios';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import './MDNCreator.css'
 
-import './MDN.css'
-
-const MDN = () => {
-
+const MDNCreator = ({ exo }) => {
     const [nbrItem, setNbrItem] = useState("");
     const [nom, setNom] = useState('');
     const [anneeScolaire, setAnneeScolaire] = useState('');
@@ -162,4 +160,4 @@ const MDN = () => {
     );
 };
 
-export default MDN;
+export default MDNCreator;

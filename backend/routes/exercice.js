@@ -80,5 +80,6 @@ router.get('/abaque/:id', (req, res) => {
 
 router.post('/registerAnswers', exerciceCtrl.registerAnswer)
 router.post('/getExosFromUser', exerciceCtrl.getExosFromExercice)
+router.get('/getExosFromAllTablesId1', exerciceCtrl.getExosFromAllTablesId1);
 
 module.exports = router;

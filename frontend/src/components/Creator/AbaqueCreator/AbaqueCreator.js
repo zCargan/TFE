@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import './Abaque.css'
 import axios from 'axios'
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
-const Abaque = () => {
+import './AbaqueCreator.css'
 
+const AbaqueCreator = ({ exo }) => {
     const [height, setHeight] = useState(0);
     const [width, setWidth] = useState(0);
     const [word, setWord] = useState("")
@@ -158,4 +158,4 @@ const Abaque = () => {
     );
 };
 
-export default Abaque;
+export default AbaqueCreator;

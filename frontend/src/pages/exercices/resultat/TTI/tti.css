@@ -1,0 +1,10 @@
+.hidden {
+    display: none;
+}
+
+
+#zone_tti {
+    margin: 50px;
+    border: 1px solid black;
+    background-color: white;
+}

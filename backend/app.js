@@ -9,8 +9,6 @@ const { Client } = require('pg');
 
 const cors = require('cors');
 
-
-
 const express = require('express');
 const app = express();
 app.use(express.json())
@@ -47,16 +45,6 @@ app.use('/register', registerRoute);
 app.use('/connection', connectionRoute);
 app.use('/photos', photosRoute);
 app.use('/sound', soundRoute);
-/*
-app.use("/test", (req, res) => {
-  client.query("SELECT * FROM public.utilisateurs", (error, result) => {
-    if (error) {
-      console.error('Erreur lors de la récupération des utilisateurs:', error);
-      res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs' });
-    } else {
-      console.log(result.rows);
-    }}
-)});
-*/
+
 
 module.exports = app

@@ -4,10 +4,9 @@ import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
-import './tat.css'
+import './TATCreator.css'
 
-const TAT = () => {
-
+const TATCreator = ({ exo }) => {
     const [nom, setNom] = useState('');
     const [anneeScolaire, setAnneeScolaire] = useState('');
     const [description, setDescription] = useState('');
@@ -59,7 +58,7 @@ const TAT = () => {
                 setReponses(reponsesFromDB)
 
                 document.getElementById("zoneExoTAT").innerHTML = string
-
+                console.log(reponses)
             })
             .catch((error) => {
                 console.log(error)
@@ -161,4 +160,4 @@ const TAT = () => {
     );
 };
 
-export default TAT;
+export default TATCreator;

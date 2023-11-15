@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
+import './MBCreator.css';
+import axios from 'axios'
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
-import './MB.css'
 
-const MB = () => {
+const MBCreator = ({ exo }) => {
 
     const [arrayMotBonOrdre, setArrayMotBonOrdre] = useState([]);
     const [nom, setNom] = useState('');
@@ -15,12 +15,6 @@ const MB = () => {
     const [type, setType] = useState('');
     const [id, setId] = useState('');
 
-    const getMBCalledRef = useRef(false);
-    const navigate = useNavigate();
-
-    let idExoMB = ""
-    let reponsesAttendues = [];
-
     useEffect(() => {
         if (!getMBCalledRef.current) {
             getMB();
@@ -28,13 +22,18 @@ const MB = () => {
         }
     }, []);
 
-
+    let idExoMB = ""
+    let reponsesAttendues = [];
+    
     const config = {
         headers: {
-          'Authorization': `Bearer ${Cookies.get('JWT')}`,
-          'Content-Type': 'application/json'
+            'Authorization': `Bearer ${Cookies.get('JWT')}`
         }
-    };
+    }
+
+
+    const getMBCalledRef = useRef(false);
+    const navigate = useNavigate();
 
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -42,6 +41,7 @@ const MB = () => {
             [array[i], array[j]] = [array[j], array[i]]; // Échanger les éléments de manière aléatoire
         }
     }
+
 
     function concatenateLetters(id, reponses) {
         if (reponses[id] && Array.isArray(reponses[id])) {
@@ -126,7 +126,6 @@ const MB = () => {
             });
     }
 
-
     function valideReponsesMB () {
         axios
         .get('http://localhost:4000/exercice/getMB')
@@ -197,6 +196,8 @@ const MB = () => {
         document.getElementById('valideReponse').style.display = 'none';
     }
 
+    console.log(exo);
+
     return (
         <div id='div_mb'>
             <h3>{nom}</h3>
@@ -212,4 +213,4 @@ const MB = () => {
     );
 };
 
-export default MB;
+export default MBCreator;

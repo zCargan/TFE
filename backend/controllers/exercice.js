@@ -23,8 +23,8 @@ exports.registerMDN = (req, res) => {
         ...req.body.exo
     })
     MaisonDesNombres.save()
-    .then(() => res.status(201).json({ message: 'MDN ajouté' }))
-    .catch(error => res.status(400).json({ error }));
+        .then(() => res.status(201).json({ message: 'MDN ajouté' }))
+        .catch(error => res.status(400).json({ error }));
 }
 
 // GET
@@ -35,7 +35,7 @@ exports.getMDNexercice = (req, res) => {
     });
 }
 
-exports.getMDNexerciceId = (req,res) => {
+exports.getMDNexerciceId = (req, res) => {
     let idExo = req.params.id;
     console.log("on passe ici")
     MDN.find().then((donnees) => {
@@ -89,31 +89,31 @@ exports.sendExercice = async (req, res, next) => {
     console.log(req.body.user[0].exo)
     const exerciceSchema = new mongoose.Schema({}, { strict: false });
     let typeExercice = req.body.type;
-    if(typeExercice === "LDN") {
+    if (typeExercice === "LDN") {
         console.log()
     }
     mongoose.connect('mongodb+srv://Cargan:LoganTFE2023@tfe.omhpimu.mongodb.net/?retryWrites=true&w=majority',
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-    .then(() => {
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        })
+        .then(() => {
 
-        let dictionnaire = req.body[0];
-        /*
-        const collection = mongoose.connection.db.collection('exercices');
-        collection.insertOne(dictionnaire)
-          .then(() => {
-            console.log('Dictionnaire inséré avec succès dans la collection "exercice" de la base de données "tfe".');
-          })
-          .catch(err => {
-            console.error('Erreur lors de l\'insertion du dictionnaire :', err);
-          });
-          */
-        
-    }
+            let dictionnaire = req.body[0];
+            /*
+            const collection = mongoose.connection.db.collection('exercices');
+            collection.insertOne(dictionnaire)
+              .then(() => {
+                console.log('Dictionnaire inséré avec succès dans la collection "exercice" de la base de données "tfe".');
+              })
+              .catch(err => {
+                console.error('Erreur lors de l\'insertion du dictionnaire :', err);
+              });
+              */
 
-    )
+        }
+
+        )
 }
 
 exports.getExos = (req, res) => {
@@ -176,7 +176,7 @@ exports.getTTI = (req, res) => {
 // POST
 exports.postLDN = (req, res) => {
     //console.log(req.body.exo)
-    
+
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
@@ -193,7 +193,7 @@ exports.postLDN = (req, res) => {
             }
         })
     }
-    
+
 }
 
 // GET
@@ -219,12 +219,12 @@ exports.getLDN = (req, res) => {
 
 
 
-// ===================== TTA =====================
+// ===================== TAT =====================
 
 // POST 
 exports.postTAT = (req, res) => {
     //console.log(req.body.exo)
-    
+
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
@@ -241,7 +241,7 @@ exports.postTAT = (req, res) => {
             }
         })
     }
-    
+
 }
 
 // GET 
@@ -356,7 +356,7 @@ exports.getSTT = (req, res) => {
                 res.status(401).json({ error: "Token JWT invalide" });
             } else {
                 console.log(decoded.id)
-                MB.find().then((donnees) => {
+                STT.find().then((donnees) => {
                     res.send(donnees)
                 });
             }
@@ -389,21 +389,21 @@ exports.getSTTById = (req, res) => {
                     user: 'postgres',
                     password: 'LoganTFE2023',
                 });
-            
+
                 client.connect((err) => {
                     if (err) {
                         console.error('Erreur de connexion à la base de données :', err);
                         res.status(500).send('Erreur de connexion à la base de données');
-                      } else {
+                    } else {
                         console.log('Connexion à la base de données établie avec succès');
                         client.query('SELECT * FROM sons WHERE id = $1', [req.params.id], (err, result) => {
-                        if (err) {
-                            console.error("Erreur lors de la suppression de l'image:", err);
-                            res.status(500).send('Erreur lors de la suppression de l image');
-                        } else {
-                            res.status(200).json(result.rows);
-                        }
-                            client.end(); 
+                            if (err) {
+                                console.error("Erreur lors de la suppression de l'image:", err);
+                                res.status(500).send('Erreur lors de la suppression de l image');
+                            } else {
+                                res.status(200).json(result.rows);
+                            }
+                            client.end();
                         });
                     }
                 });
@@ -420,7 +420,7 @@ exports.registerAnswer = (req, res) => {
     let type = req.body.data.type;
     console.log(type)
     let pourcentage = req.body.data.score; // Assurez-vous que les données sont valides avant utilisation
-    
+
 
     const token = req.header('Authorization');
     if (token) {
@@ -432,10 +432,10 @@ exports.registerAnswer = (req, res) => {
                 res.status(401).json({ error: "Token JWT invalide" });
             } else {
                 let utilisateurId = decoded.id;
-            
+
                 const query = `INSERT INTO exercices (utilisateur_id, identifiant, pourcentage, temps, type)
                 VALUES ($1, $2, $3, CURRENT_TIMESTAMP, $4)`;
- 
+
 
                 const values = [utilisateurId, idExo, pourcentage, type];
 
@@ -482,17 +482,64 @@ exports.getExosFromExercice = (req, res) => {
         password: 'LoganTFE2023',
     });
 
-    client.connect(); 
+    client.connect();
 
-    client.query('SELECT * FROM exercices WHERE utilisateur_id = $1', [req.body.data.id], (err, result) => {        if (err) {
+    client.query('SELECT * FROM exercices WHERE utilisateur_id = $1', [req.body.data.id], (err, result) => {
+        if (err) {
             console.error('Erreur lors de l\'exécution de la requête :', err);
             res.status(500).send('Erreur lors de la récupération des exercices.');
         } else {
             console.log('Résultats de la requête :', result.rows);
-            res.status(200).json(result.rows); 
+            res.status(200).json(result.rows);
         }
-        client.end(); 
+        client.end();
     });
 };
 
+
+
+
+exports.getExosFromAllTablesId1 = (req, res, next) => {
+    let array = [];
+
+    const mdnPromise = MDN.find().then((donnees) => {
+        array.push(donnees[0]);
+    });
+
+    const mbPromise = MB.find().then((donnees) => {
+        array.push(donnees[0]);
+    });
+
+    const tatPromise = TAT.find().then((donnees) => {
+        array.push(donnees[0]);
+    });
+
+    const sttPromise = STT.find().then((donnees) => {
+        array.push(donnees[0]);
+    });
+
+    const ldnPromise = LDN.find().then((donnees) => {
+        array.push(donnees[0]);
+    });
+
+    const ttiPromise = TTI.find().then((donnees) => {
+        array.push(donnees[0]);
+    });
+
+    const abaquePromise = Abaque.find().then((donnees) => {
+        array.push(donnees[0]);
+    });
+
+    // Attendre que toutes les promesses soient résolues
+    Promise.all([mdnPromise, mbPromise, tatPromise, sttPromise, ldnPromise, ttiPromise, abaquePromise])
+        .then(() => {
+            console.log(array);
+            // Vous pouvez faire d'autres choses avec le tableau ici
+            res.json(array); // Envoyer les données en réponse
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Erreur lors de la récupération des données.');
+        });
+};
 

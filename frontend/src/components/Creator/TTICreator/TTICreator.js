@@ -3,10 +3,10 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-import './tti.css'
 
-const TTI = () => {
+import './TTICreator.css'
 
+const TTICreator = ({ exo }) => {
     let reponsesAttendues = [];
     const getMBCalledRef = useRef(false);
     const navigate = useNavigate();
@@ -185,4 +185,5 @@ const TTI = () => {
     );
 };
 
-export default TTI;
+
+export default TTICreator;

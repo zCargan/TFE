@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../../components/navbar/Navbar';
+import SearchBar from '../../components/searchBar/searchBar';
 import { useDispatch, useSelector } from 'react-redux';
 import ZoneTest from '../../components/zoneTest/zoneTest';
 import axios from 'axios'
@@ -39,7 +40,7 @@ const Home = () => {
                 <Navbar />
             </div>
             <div>
-                
+                <SearchBar />
             </div>
         </div>
     );
