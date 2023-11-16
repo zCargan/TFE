@@ -3,7 +3,7 @@ const router = express.Router();
 const MDN = require('../models/MDN');
 const Abaque = require('../models/abaque');
 
-const exerciceCtrl = require('../controllers/exercice')
+const exerciceCtrl = require('../controllers/exerciceCtrl')
 
 router.post('/', exerciceCtrl.postExercice)
 router.post('/send_test_exercice', exerciceCtrl.sendExercice)
@@ -78,9 +78,14 @@ router.get('/abaque/:id', (req, res) => {
     });
 });
 
+
+// DIVERS
 router.post('/registerAnswers', exerciceCtrl.registerAnswer)
 router.post('/getExosFromUser', exerciceCtrl.getExosFromExercice)
 router.get('/getExosFromAllTablesId1', exerciceCtrl.getExosFromAllTablesId1);
-router.get('/countElement', exerciceCtrl.countElement);
+router.get('/countElementByCollection', exerciceCtrl.countElementByCollection);
+router.get('/getNameCollection', exerciceCtrl.getNameCollection);
+router.get('/getTotalCounts', exerciceCtrl.getTotalCounts);
+router.get('/getDetailsExos', exerciceCtrl.getDetailsExos);
 
 module.exports = router;

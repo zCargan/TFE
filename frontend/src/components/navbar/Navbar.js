@@ -36,10 +36,11 @@ const Navbar = () => {
         };
         axios.post("http://localhost:4000/connection/checkToken", {}, config)
             .then(response => {
-                console.log(response.data)
                 setUsername(response.data.username)
-                if(role === "eleve") {
+                if(response.data.role === "eleve") {
                     setRole("élève")
+                } else {
+                    setRole(response.data.role)
                 }
                 // console.log('Réponse du serveur :', response.data); ==> Réponse du serveur : {role: 'professeur'}
             })

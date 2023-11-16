@@ -1,5 +1,4 @@
 const { Client } = require('pg');
-const Test = require('../models/test')
 
 
 exports.getInfoPQ = (req, res, next) => {

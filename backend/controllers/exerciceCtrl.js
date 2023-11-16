@@ -1,17 +1,28 @@
-const Exercice = require('../models/exercice');
 const mongoose = require('mongoose');
-const Test = require('../models/test')
 const MDN = require('../models/MDN');
 const TTI = require('../models/TTI')
 const LDN = require('../models/LDN')
 const TAT = require('../models/TAT')
 const MB = require('../models/MB')
 const STT = require('../models/STT')
-const Abaque = require('../models/abaque');
+const ABAQUE = require('../models/abaque');
 const jwt = require("jsonwebtoken");
 const { Client } = require('pg');
 
 
+
+
+// mongodb+srv://Cargan:LoganTFE2023@tfe.omhpimu.mongodb.net/monProjet'
+mongoose.connect('mongodb+srv://Cargan:LoganTFE2023@tfe.omhpimu.mongodb.net/test', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+    .then(() => {
+        console.log('Connexion réussie à la base de données depuis exercice.js');
+    })
+    .catch((err) => {
+        console.error('Erreur de connexion à la base de données :', err);
+    });
 
 
 // ===================== MDN =====================
@@ -51,7 +62,7 @@ exports.postAbaque = (req, res) => {
     console.log(req.body.data);
 
     // Création d'une nouvelle instance du modèle Abaque
-    const newAbaque = new Abaque({
+    const newAbaque = new ABAQUE({
         ...req.body.data.exercice
     });
 
@@ -62,7 +73,7 @@ exports.postAbaque = (req, res) => {
 
 // GET
 exports.getAbaqueExercice = (req, res) => {
-    Abaque.find().then((donnees) => {
+    ABAQUE.find().then((donnees) => {
         res.send(donnees)
     });
 }
@@ -486,7 +497,6 @@ exports.getExosFromExercice = (req, res) => {
             console.error('Erreur lors de l\'exécution de la requête :', err);
             res.status(500).send('Erreur lors de la récupération des exercices.');
         } else {
-            console.log('Résultats de la requête :', result.rows);
             res.status(200).json(result.rows);
         }
         client.end();
@@ -525,7 +535,7 @@ exports.getExosFromAllTablesId1 = (req, res, next) => {
         array.push(donnees[0]);
     });
 
-    const abaquePromise = Abaque.find().then((donnees) => {
+    const abaquePromise = ABAQUE.find().then((donnees) => {
         array.push(donnees[0]);
     });
 
@@ -543,28 +553,251 @@ exports.getExosFromAllTablesId1 = (req, res, next) => {
 };
 
 
-// mongodb+srv://Cargan:LoganTFE2023@tfe.omhpimu.mongodb.net/monProjet'
-mongoose.connect('mongodb+srv://Cargan:LoganTFE2023@tfe.omhpimu.mongodb.net/test', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => {
-  console.log('Connexion réussie à la base de données');
-})
-.catch((err) => {
-  console.error('Erreur de connexion à la base de données :', err);
-});
 
-exports.countElement = async (req, res, next) => {
+
+
+
+exports.countElementByCollection = async (req, res, next) => {
     try {
-      // Utilisez le modèle Mongoose correspondant à votre collection
-      const count = await TTI.countDocuments({});
-      console.log('Nombre total d\'éléments dans la collection :', count);
-      // Vous n'avez pas besoin de fermer la connexion ici car vous l'avez déjà établie au démarrage
-      res.status(200).json({ count: count });
+        // Utilisez le modèle Mongoose correspondant à votre collection
+        const count = await ABAQUE.countDocuments({});
+        console.log('Nombre total d\'éléments dans la collection :', count);
+        // Vous n'avez pas besoin de fermer la connexion ici car vous l'avez déjà établie au démarrage
+        res.status(200).json({ count: count });
     } catch (err) {
-      console.error('Erreur lors du comptage des documents :', err);
-      res.status(500).json({ error: 'Erreur lors du comptage des documents' });
+        console.error('Erreur lors du comptage des documents :', err);
+        res.status(500).json({ error: 'Erreur lors du comptage des documents' });
     }
-  };
+};
 
+
+
+exports.getNameCollection = async (req, res, next) => {
+    try {
+        // Vérifiez si la connexion à la base de données est établie
+        if (mongoose.connection.readyState !== 1) {
+            throw new Error('La connexion à la base de données n\'est pas établie.');
+        }
+
+        const db = mongoose.connection.db;
+
+        const collections = await db.listCollections().toArray();
+        const collectionNames = collections.map(collection => collection.name);
+
+        console.log('Collections présentes dans la base de données :', collectionNames);
+
+        // Vous pouvez également faire quelque chose avec les noms des collections ici si nécessaire
+
+        res.status(200).json({ collections: collectionNames });
+    } catch (err) {
+        console.error('Erreur lors de la récupération des collections :', err);
+        res.status(500).json({ error: 'Erreur lors de la récupération des collections' });
+    }
+};
+
+
+
+exports.getTotalCounts = async (req, res, next) => {
+    let totalElement = 0;
+    let dictOfCollections = {}
+
+    try {
+        const db = mongoose.connection.db;
+
+        const collections = await db.listCollections().toArray();
+        const collectionNames = collections.map(collection => collection.name);
+
+        console.log('Collections présentes dans la base de données :', collectionNames);
+
+
+        for (let i = 0; i < collectionNames.length; i++) {
+            if (collectionNames[i] == "abaques") {
+                const count = await ABAQUE.countDocuments({});
+                totalElement += count;
+                console.log('Nombre total d\'éléments dans la collection abaques:', count);
+                dictOfCollections.abaques = count
+            }
+            if (collectionNames[i] == "mdns") {
+                const count = await MDN.countDocuments({});
+                totalElement += count;
+                console.log('Nombre total d\'éléments dans la collection mdns:', count);
+                dictOfCollections.mdns = count
+            }
+            if (collectionNames[i] == "mbs") {
+                const count = await MB.countDocuments({});
+                totalElement += count;
+                console.log('Nombre total d\'éléments dans la collection mbs:', count);
+                dictOfCollections.mbs = count
+            }
+            if (collectionNames[i] == "stts") {
+                const count = await STT.countDocuments({});
+                totalElement += count;
+                console.log('Nombre total d\'éléments dans la collection stts:', count);
+                dictOfCollections.stts = count
+            }
+            if (collectionNames[i] == "tats") {
+                const count = await TAT.countDocuments({});
+                totalElement += count;
+                console.log('Nombre total d\'éléments dans la collection tats:', count);
+                dictOfCollections.tats = count
+            }
+            if (collectionNames[i] == "ttis") {
+                const count = await TTI.countDocuments({});
+                totalElement += count;
+                console.log('Nombre total d\'éléments dans la collection ttis:', count);
+                dictOfCollections.ttis = count
+            }
+            if (collectionNames[i] == "ldns") {
+                const count = await LDN.countDocuments({});
+                totalElement += count;
+                console.log('Nombre total d\'éléments dans la collection ldns:', count);
+                dictOfCollections.ldns = count
+            }
+        }
+        console.log("Total d'élements dans la base de données:", totalElement)
+        res.status(200).json({ collections: collectionNames, nbrExercices: totalElement, moreInformations: dictOfCollections });
+
+    } catch (err) {
+        console.error('Erreur lors de la récupération des collections :', err);
+        res.status(500).json({ error: 'Erreur lors de la récupération des collections' });
+
+    }
+};
+
+
+exports.getDetailsExos = (req, res, next) => {
+
+    const token = req.header('Authorization');
+    if (token) {
+        const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
+        const secretKey = "test"
+        jwt.verify(jwtToken, secretKey, (err, decoded) => {
+            if (err) {
+                console.error('Erreur lors de la vérification du JWT :', err);
+            } else {
+                const idExo = req.query.idExo;
+                const typeExo = req.query.typeExo;
+
+                if (typeExo == "abaque") {
+
+                    ABAQUE.findById(idExo)
+                    .then(exercice => {
+                        if (exercice) {
+                            res.status(200).json({ exerciceInfos: exercice });
+                            // Faire quelque chose avec l'exercice récupéré, par exemple, envoyer en réponse à une requête HTTP
+                        } else {
+                            console.log('Aucun exercice trouvé avec l\'ID spécifié.');
+                            // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
+                        // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
+                    });
+
+                }
+                if (typeExo == "MDN") {
+
+                    MDN.findById(idExo)
+                    .then(exercice => {
+                        if (exercice) {
+                            res.status(200).json({ exerciceInfos: exercice });
+                            // Faire quelque chose avec l'exercice récupéré, par exemple, envoyer en réponse à une requête HTTP
+                        } else {
+                            console.log('Aucun exercice trouvé avec l\'ID spécifié.');
+                            // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
+                        // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
+                    });
+
+                }
+                if (typeExo == "LDN") {
+
+                    LDN.findById(idExo)
+                    .then(exercice => {
+                        if (exercice) {
+                            res.status(200).json({ exerciceInfos: exercice });
+                            // Faire quelque chose avec l'exercice récupéré, par exemple, envoyer en réponse à une requête HTTP
+                        } else {
+                            console.log('Aucun exercice trouvé avec l\'ID spécifié.');
+                            // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
+                        // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
+                    });
+
+                }
+                if (typeExo == "MB") {
+
+                    MB.findById(idExo)
+                    .then(exercice => {
+                        if (exercice) {
+                            res.status(200).json({ exerciceInfos: exercice });
+                        } else {
+                            console.log('Aucun exercice trouvé avec l\'ID spécifié.');
+                            // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
+                        // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
+                    });
+
+                }
+                if (typeExo == "STT") {
+                    STT.findById(idExo)
+                    .then(exercice => {
+                        if (exercice) {
+                            res.status(200).json({ exerciceInfos: exercice });
+                            // Faire quelque chose avec l'exercice récupéré, par exemple, envoyer en réponse à une requête HTTP
+                        } else {
+                            console.log('Aucun exercice trouvé avec l\'ID spécifié.');
+                            // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
+                        // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
+                    });
+                }
+                if (typeExo == "TTI") {
+                    TTI.findById(idExo)
+                    .then(exercice => {
+                        if (exercice) {
+                            res.status(200).json({ exerciceInfos: exercice });
+                        } else {
+                            console.log('Aucun exercice trouvé avec l\'ID spécifié.');
+                            // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
+                        // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
+                    });
+                }
+                if (typeExo == "TAT") {
+                    TAT.findById(idExo)
+                    .then(exercice => {
+                        if (exercice) {
+                            res.status(200).json({ exerciceInfos: exercice });
+                        } else {
+                            console.log('Aucun exercice trouvé avec l\'ID spécifié.');
+                            // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
+                        // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
+                    });
+                }
+            }
+        })
+    } else {
+        //console.log("pas de token")
+    }
+}

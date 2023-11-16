@@ -43,9 +43,6 @@ const AbaqueCreator = ({ exo }) => {
             let k = 0;
             for(let i =0; i <hauteur; i ++) {
                 for(let j = 0; j <longueur; j++) {  
-                    console.log(k)
-                    console.log(reponseInitiale)
-                    console.log(reponseInitiale[k])
                     texte += "<input placeholder='valeur ici' class='test'" + " value='" + reponseInitiale[k] +"'></input>"
                     k += 1;
                 }
@@ -68,7 +65,6 @@ const AbaqueCreator = ({ exo }) => {
             for(let i = 0; i < a.length; i ++) {
                 resultatRecu.push(a[i].value)
             }
-            console.log(resultatAttendu, resultatRecu)
             let tailleArray = resultatInitial.length;
             let nbrAnswer = 0;
             let score = 0;
@@ -127,8 +123,6 @@ const AbaqueCreator = ({ exo }) => {
 
     function seeCorrection() {
         let inputUser = document.getElementsByClassName('test')
-        console.log(inputUser)
-        console.log(reponses)
         for(let i = 0; i < inputUser.length; i ++) {
             inputUser[i].value = reponses[i]
         }

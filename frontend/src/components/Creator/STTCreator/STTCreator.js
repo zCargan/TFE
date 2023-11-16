@@ -103,8 +103,7 @@ const STTCreator = ({ exo }) => {
         }
         nbrExos += 1;
       }
-      console.log(allResponses)
-      console.log(score/nbrExos);
+
   
       const data = {
         type: "STT",
@@ -142,8 +141,6 @@ const STTCreator = ({ exo }) => {
   
     function seeCorrection() {
       let inputUser = document.getElementsByClassName('inputUserSTT')
-      console.log(inputUser)
-      console.log(reponses)
       for(let i = 0; i < inputUser.length; i ++) {
           inputUser[i].value = reponses[i]
       }

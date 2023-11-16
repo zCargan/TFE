@@ -13,6 +13,7 @@ const Home = () => {
     const tasks = useSelector((state) => state.exercices.exercice)
     const [nbrItem, setNbrItem] = useState("");
     const [type, setType] = useState('')
+    const [nbrExosDB, setNbrExosDB] = useState('');
 
     useEffect(() => {
 
@@ -23,15 +24,14 @@ const Home = () => {
             }
         }
 
+
         axios
-        .get(`http://localhost:4000/exercice/getMDN/${id}`, {}, config)
+        .get("http://localhost:4000/exercice/getTotalCounts")
         .then((res) => {
-            console.log(res.data[0].type)
-            setType(res.data[0].type)
+            console.log(res)
         })
-        .catch((error) => {
-            console.log(error)
-        })
+        .catch()
+
     })
 
     return (

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const exerciceCtrl = require('../controllers/exercice')
+const exerciceCtrl = require('../controllers/exerciceCtrl')
 const testCtrl = require('../controllers/testController')
 
 router.post('/', testCtrl.getInfoPQ)

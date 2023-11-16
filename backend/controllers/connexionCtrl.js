@@ -5,8 +5,7 @@ const { json } = require('express');
 exports.connection = (req, res, next) => {
 
     const token = req.headers;
-    console.log("token")
-    console.log(token)
+
     const pseudo = req.body.pseudo
     const password = req.body.password
     const test = "Mallo"
@@ -29,7 +28,6 @@ exports.connection = (req, res, next) => {
             res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs' });
         } else {
         if(result.rows.length == 0) {
-            console.log("Utilisateur pas trouvé")
             res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs' });
         } else {
             let passwordDb = result.rows[0].password
@@ -72,7 +70,6 @@ exports.checkToken = (req, res) => {
             if (err) {
                 console.error('Erreur lors de la vérification du JWT :', err);
             } else {
-                console.log(decoded)
                 if(decoded.role === "professeur") {
                     res.json({role: "professeur", username: decoded.nom})
                 } else if (decoded.role === "eleve") {

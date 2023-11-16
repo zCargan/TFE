@@ -39,7 +39,6 @@ const MDNCreator = ({ exo }) => {
             let texte = "<div id='mdn_resulat'>"
             let score = 0;
             for(let i = 0; i <length; i ++) {
-                console.log(reponseInitiale[score], reponseInitiale[score+1])
                 texte += '<input class="answerUser" value=' + reponseInitiale[score] + '>' + '</input><input class="answerUser" value="' + reponseInitiale[score+1] + '"></input>'
                 texte += "<br></br>"
                 score += 2;
@@ -133,7 +132,6 @@ const MDNCreator = ({ exo }) => {
             let inputUser = document.getElementsByClassName("answerUser");
             
             for(let i = 0; i < inputUser.length; i ++) {
-                console.log(inputUser[i].value = dicFinal[i])
             }
         })
         Swal.fire({

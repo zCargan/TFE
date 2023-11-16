@@ -18,6 +18,7 @@ const TTICreator = ({ exo }) => {
     const [id, setId] = useState('');
     const [reponses, setReponses] = useState('');
 
+    let idExos = 2;
     
     useEffect(() => {
         if (!getMBCalledRef.current) {
@@ -34,15 +35,19 @@ const TTICreator = ({ exo }) => {
     };
 
     function getExoTTI() {
+
+        let id = 2;
+
         axios
             .get('http://localhost:4000/exercice/getTTI', config)
             .then((reponse) => {
-                const img = reponse.data[0].reponses;
-                setId(reponse.data[0]._id);
-                setNom(reponse.data[0].nom);
-                setAnneeScolaire(reponse.data[0].anneeScolaire);
-                setDescription(reponse.data[0].description);
-                setType(reponse.data[0].type);
+                const img = reponse.data[id].reponses;
+                console.log(img)
+                setId(reponse.data[idExos]._id);
+                setNom(reponse.data[idExos].nom);
+                setAnneeScolaire(reponse.data[idExos].anneeScolaire);
+                setDescription(reponse.data[idExos].description);
+                setType(reponse.data[idExos].type);
                 let cles = Object.keys(img);
 
                 const imageContainer = document.getElementById('zoneExos');
@@ -55,7 +60,8 @@ const TTICreator = ({ exo }) => {
                     axios
                         .get(`http://localhost:4000/photos/getImage/${cles[i]}`, config)
                         .then((res) => {
-                            reponsesAttendues.push(reponse.data[0].reponses[cles[i]])
+                            console.log(reponse.data[id].reponses)
+                            reponsesAttendues.push(reponse.data[id].reponses[cles[i]])
                             for (let j = 0; j < res.data.length; j++) {
                                 const imageBinaryData = res.data[j].image_data.data;
                                 const blob = new Blob([new Uint8Array(imageBinaryData)], { type: res.data[j].type_mime });
@@ -124,7 +130,7 @@ const TTICreator = ({ exo }) => {
                 const data = {
                     type: "TTI",
                     score: Math.floor((score/nbrExos) * 100),
-                    idExercice: res.data[0]._id
+                    idExercice: res.data[idExos]._id
                 }
 
                 Swal.fire({

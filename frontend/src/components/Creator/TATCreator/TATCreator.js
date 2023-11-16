@@ -50,7 +50,6 @@ const TATCreator = ({ exo }) => {
                         string += " "  
                     } else {
                         string += " <input class='inputTATuser'></input> "
-                        console.log(reponseFinale[i])
                         reponsesFromDB.push(reponseFinale[i])
                     }
                 }
@@ -58,7 +57,6 @@ const TATCreator = ({ exo }) => {
                 setReponses(reponsesFromDB)
 
                 document.getElementById("zoneExoTAT").innerHTML = string
-                console.log(reponses)
             })
             .catch((error) => {
                 console.log(error)
@@ -132,7 +130,6 @@ const TATCreator = ({ exo }) => {
     function seeCorrection() {
         let inputUser = document.getElementsByClassName('inputTATuser')
         for(let i = 0; i < inputUser.length; i ++) {
-            console.log(reponses[i]);
             inputUser[i].value = reponses[i]
         }
         Swal.fire({

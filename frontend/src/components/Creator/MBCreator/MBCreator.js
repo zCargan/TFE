@@ -60,7 +60,6 @@ const MBCreator = ({ exo }) => {
         axios
             .get('http://localhost:4000/exercice/getMB')
             .then((res) => {
-                console.log(res.data[0]._id);
                 const img = res.data[0].reponses;
                 idExoMB = res.data[0]._id
                 setId(res.data[0]._id);
@@ -139,7 +138,6 @@ const MBCreator = ({ exo }) => {
                 }
                 nbrExos += 1;
             }
-            console.log((score/nbrExos)*100)
             const config = {
                 headers: {
                     'Authorization': `Bearer ${Cookies.get('JWT')}`
@@ -196,7 +194,6 @@ const MBCreator = ({ exo }) => {
         document.getElementById('valideReponse').style.display = 'none';
     }
 
-    console.log(exo);
 
     return (
         <div id='div_mb'>

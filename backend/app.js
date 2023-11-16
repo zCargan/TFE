@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const exerciceRoute  = require('./routes/exercice')
+const exerciceRoute  = require('./routes/exerciceRoute')
 const connectionRoute = require('./routes/connectionRoute')
 const registerRoute = require('./routes/registerRoute')
 const testRoute = require('./routes/testRoute')
@@ -29,13 +29,6 @@ client.connect()
     // Libère la pool de connexions
                                               
 
-mongoose.connect('mongodb+srv://Cargan:LoganTFE2023@tfe.omhpimu.mongodb.net/?retryWrites=true&w=majority',
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-    .then(() => console.log('Connexion à MongoDB réussie !'))
-    .catch(() => console.log('Connexion à MongoDB echoué !'));
 
 
 
