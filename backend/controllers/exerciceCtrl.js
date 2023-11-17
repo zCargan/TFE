@@ -801,3 +801,42 @@ exports.getDetailsExos = (req, res, next) => {
         //console.log("pas de token")
     }
 }
+
+exports.getARandomExo = (req, res, next) => {
+    const cles = Object.keys(req.query);
+
+    let collecion = cles[0];
+    console.log(collecion)
+    let numeroExo = (req.query[collecion] - 1)
+
+    if(collecion === "stts") {
+        STT.find().then((donnees) => {
+            res.send(donnees[numeroExo])
+        });
+    } else if(collecion === "mdns") {
+        MDN.find().then((donnees) => {
+            res.send(donnees[numeroExo])
+        });
+    } else if(collecion === "ldns") {
+        LDN.find().then((donnees) => {
+            res.send(donnees[numeroExo])
+        });
+    } else if(collecion === "abaques") {
+        ABAQUE.find().then((donnees) => {
+            res.send(donnees[numeroExo])
+        });
+    } else if(collecion === "ttis") {
+        TTI.find().then((donnees) => {
+            res.send(donnees[numeroExo])
+        });
+    } else if(collecion === "mbs") {
+        MB.find().then((donnees) => {
+            res.send(donnees[numeroExo])
+        });
+    } else if(collecion === "tats") {
+        TAT.find().then((donnees) => {
+            res.send(donnees[numeroExo])
+        });
+    } 
+
+};

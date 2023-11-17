@@ -132,6 +132,7 @@ const MDNCreator = ({ exo }) => {
             let inputUser = document.getElementsByClassName("answerUser");
             
             for(let i = 0; i < inputUser.length; i ++) {
+                console.log(inputUser[i].value = dicFinal[i])
             }
         })
         Swal.fire({

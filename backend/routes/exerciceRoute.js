@@ -87,5 +87,6 @@ router.get('/countElementByCollection', exerciceCtrl.countElementByCollection);
 router.get('/getNameCollection', exerciceCtrl.getNameCollection);
 router.get('/getTotalCounts', exerciceCtrl.getTotalCounts);
 router.get('/getDetailsExos', exerciceCtrl.getDetailsExos);
+router.get('/getARandomExo', exerciceCtrl.getARandomExo)
 
 module.exports = router;
