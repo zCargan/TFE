@@ -20,25 +20,36 @@ const AbaqueCreator = ({ exo }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        console.log("ac")
         recupereExo();
     }, [])
+
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${Cookies.get('JWT')}`,
+            'Content-Type': 'application/json' // Utilisation de 'application/json' pour le Content-Type
+        }
+    };
 
     let dictionnaire = {};
 
     function recupereExo() {
-        axios.get("http://localhost:4000/exercice/get_abaque_exercice").then((res) => {
-            let resultatAttendu =  res.data[0].reponseFinale
+        axios
+        .get(`http://localhost:4000/exercice/getAbaque/${exo}`, config)
+        .then((res) => {
+            console.log(res.data)
+            let resultatAttendu =  res.data.reponseFinale
             setReponses(resultatAttendu)
-            let reponseInitiale = res.data[0].reponseInitiale;
-            let hauteur = res.data[0].hauteur;
-            let description = res.data[0].description;
-            let longueur = res.data[0].longueur;
-            let titre = res.data[0].nom;
-            setId(res.data[0]._id);
-            setNom(res.data[0].nom);
-            setAnneeScolaire(res.data[0].anneeScolaire);
-            setDescription(res.data[0].description);
-            setType(res.data[0].type);
+            let reponseInitiale = res.data.reponseInitiale;
+            let hauteur = res.data.hauteur;
+            let description = res.data.description;
+            let longueur = res.data.longueur;
+            let titre = res.data.nom;
+            setId(res.data._id);
+            setNom(res.data.nom);
+            setAnneeScolaire(res.data.anneeScolaire);
+            setDescription(res.data.description);
+            setType(res.data.type);
             let texte = String("<div id='abaqueFromDB'><table><tbody>");
             let k = 0;
             for(let i =0; i <hauteur; i ++) {
@@ -56,7 +67,7 @@ const AbaqueCreator = ({ exo }) => {
  
 
     function correction() {
-        axios.get("http://localhost:4000/exercice/get_abaque_exercice").then((res) => {
+        axios.get("http://localhost:4000/exercice/getAbaque").then((res) => {
             let resultatAttendu =  res.data[0].reponseFinale
             let resultatInitial = res.data[0].reponseInitiale;
             let resultatRecu = []

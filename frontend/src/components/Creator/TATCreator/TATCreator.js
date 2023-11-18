@@ -32,18 +32,18 @@ const TATCreator = ({ exo }) => {
     function getExoTAT() {
 
         axios
-            .get('http://localhost:4000/exercice/getTAT', config)
+            .get(`http://localhost:4000/exercice/getTAT/${exo}`, config)
             .then((res) => {
                 let reponsesFromDB = []
                 let string = "";
-                let length = res.data[0].reponseFinale.length;
-                let reponseInitiale = res.data[0].reponseFinale;
-                let reponseFinale = res.data[0].reponseInitiale;
-                setId(res.data[0]._id);
-                setNom(res.data[0].nom);
-                setAnneeScolaire(res.data[0].anneeScolaire);
-                setDescription(res.data[0].description);
-                setType(res.data[0].type);
+                let length = res.data.reponseFinale.length;
+                let reponseInitiale = res.data.reponseFinale;
+                let reponseFinale = res.data.reponseInitiale;
+                setId(res.data._id);
+                setNom(res.data.nom);
+                setAnneeScolaire(res.data.anneeScolaire);
+                setDescription(res.data.description);
+                setType(res.data.type);
                 for(let i = 0; i < length; i++ ) {
                     if(reponseInitiale[i] !== "inputUserExercice") {
                         string += reponseInitiale[i]

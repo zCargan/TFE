@@ -36,7 +36,7 @@ const TexteATrou = () => {
                 arrayOfWords.push("inputUserExercice")
             });
 
-            let newSentence = html + textarea + "<span>" + motAAjouter + "</span> "
+            let newSentence = html + textarea + "<span class='spanBT'>" + motAAjouter + "</span> "
             console.log(newSentence)
             document.getElementById("phrase").innerHTML = newSentence
             setHTML(newSentence)

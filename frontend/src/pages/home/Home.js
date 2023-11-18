@@ -8,10 +8,10 @@ import ShowRandomExos from '../../components/showRandomExos/showRandomExos';
 
 const Home = () => {
     const [randomExos, setRandomExos] = useState({});
-    const [arrayOfExos, setArrayOfExos] = useState([]);
 
     const getMBCalledRef = useRef(false);
 
+    let data = {}
 
     useEffect(() => {
         if (!getMBCalledRef.current) {
@@ -21,7 +21,6 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
-        console.log(randomExos)
     })
 
 
@@ -36,6 +35,7 @@ const Home = () => {
         axios
             .get("http://localhost:4000/exercice/getTotalCounts")
             .then((res) => {
+                data = res.data.moreInformations;
                 const max = res.data.nbrExercices;
                 getARandomExos(max);
             })
@@ -55,15 +55,8 @@ const Home = () => {
         const testRandomExos = {};
         let a = giveRandomNumber(max) - 1;
 
-        const data = {
-            abaques: 2,
-            ldns: 1,
-            mbs: 1,
-            mdns: 1,
-            stts: 1,
-            tats: 1,
-            ttis: 3,
-        };
+        console.log("on est ici")
+        console.log(data)
 
         const valeurs = Object.values(data);
         const cles = Object.keys(data);

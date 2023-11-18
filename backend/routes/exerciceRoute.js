@@ -13,32 +13,38 @@ router.get('/get_exercices', exerciceCtrl.getExos)
 // Route MDN
 router.post('/registerMDN', exerciceCtrl.registerMDN)
 router.get('/getMDN', exerciceCtrl.getMDNexercice)
-router.get('/getMDN/:id', exerciceCtrl.getMDNexerciceId)
+router.get('/getMDN/:id', exerciceCtrl.getMDNexerciceById)
 
 // Route Abaque
 router.post('/registerAbaque', exerciceCtrl.postAbaque)
-router.get('/get_abaque_exercice', exerciceCtrl.getAbaqueExercice)
+router.get('/getAbaque', exerciceCtrl.getAbaqueExercice)
+router.get('/getAbaque/:id', exerciceCtrl.getAbaqueExerciceById)
 
 // Route TTI
 router.post('/registerTTI', exerciceCtrl.postTTI)
 router.get('/getTTI', exerciceCtrl.getTTI)
+router.get('/getTTI/:id', exerciceCtrl.getTTIById)
 
 // Route LDN
 router.post('/registerLDN', exerciceCtrl.postLDN);
 router.get('/getLDN', exerciceCtrl.getLDN);
+router.get('/getLDN/:id', exerciceCtrl.getLDNById);
 
 // Route TTA
 router.post('/registerTAT', exerciceCtrl.postTAT);
 router.get('/getTAT', exerciceCtrl.getTAT);
+router.get('/getTAT/:id', exerciceCtrl.getTATById);
 
 // Route MB
 router.post('/registerMB', exerciceCtrl.postMB);
 router.get('/getMB', exerciceCtrl.getMB);
+router.get('/getMB/:id', exerciceCtrl.getMBById);
 
 // Route STT
 router.post('/registerSTT', exerciceCtrl.postSTT);
 router.get('/getSTT', exerciceCtrl.getSTT);
-router.get('/getSTT/:id', exerciceCtrl.getSTTById)
+router.get('/getSTTexo/:id', exerciceCtrl.getSTTexo);
+router.get('/getSTT/:id', exerciceCtrl.getSTTById);
 
 router.get('/MDN/:id', (req, res) => {
     const exerciceId = req.params.id;
@@ -88,5 +94,6 @@ router.get('/getNameCollection', exerciceCtrl.getNameCollection);
 router.get('/getTotalCounts', exerciceCtrl.getTotalCounts);
 router.get('/getDetailsExos', exerciceCtrl.getDetailsExos);
 router.get('/getARandomExo', exerciceCtrl.getARandomExo)
+router.get('/getAPreciseExo', exerciceCtrl.getAPreciseExo);
 
 module.exports = router;

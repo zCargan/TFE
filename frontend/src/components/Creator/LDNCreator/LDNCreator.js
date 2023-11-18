@@ -16,6 +16,7 @@ const LDNCreator = ({ exo }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        console.log(exo)
         getExoLDN()
     }, [])
 
@@ -27,18 +28,19 @@ const LDNCreator = ({ exo }) => {
 
     function getExoLDN() {
         axios
-            .get('http://localhost:4000/exercice/getLDN', config)
+            .get(`http://localhost:4000/exercice/getLDN/${exo}`, config)
             .then((res) => {
-                let resultatAttendu =  res.data[0].reponseFinale
+                console.log(res.data)
+                let resultatAttendu =  res.data.reponseFinale
                 setReponses(resultatAttendu)
-                let length = res.data[0].reponseFinale.length;
-                let enonceIndex = res.data[0].reponseInitiale;
-                let direction = res.data[0].direction
-                setId(res.data[0]._id);
-                setNom(res.data[0].nom);
-                setAnneeScolaire(res.data[0].anneeScolaire);
-                setDescription(res.data[0].description);
-                setType(res.data[0].type);
+                let length = res.data.reponseFinale.length;
+                let enonceIndex = res.data.reponseInitiale;
+                let direction = res.data.direction
+                setId(res.data._id);
+                setNom(res.data.nom);
+                setAnneeScolaire(res.data.anneeScolaire);
+                setDescription(res.data.description);
+                setType(res.data.type);
 
                 let texte = String("<div id='ligneDuTemps'><table><tbody>")
                 

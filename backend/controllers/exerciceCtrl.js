@@ -46,10 +46,10 @@ exports.getMDNexercice = (req, res) => {
 }
 
 // GET BY ID
-exports.getMDNexerciceId = (req, res) => {
+exports.getMDNexerciceById = (req, res) => {
     let idExo = req.params.id;
-    console.log("on passe ici")
-    MDN.find().then((donnees) => {
+    console.log(idExo)
+    MDN.findById(idExo).then((donnees) => {
         res.send(donnees)
     });
 }
@@ -78,7 +78,14 @@ exports.getAbaqueExercice = (req, res) => {
     });
 }
 
-
+// GET BY ID
+exports.getAbaqueExerciceById = (req, res, next) => {
+    let idExo = req.params.id;
+    console.log(idExo)
+    ABAQUE.findById(idExo).then((donnees) => {
+        res.send(donnees)
+    });
+}
 
 
 // ===================== Exercice =====================
@@ -179,6 +186,14 @@ exports.getTTI = (req, res) => {
 }
 
 
+exports.getTTIById = (req, res, next) => {
+    let idExo = req.params.id;
+    console.log(idExo)
+    TTI.findById(idExo).then((donnees) => {
+        res.send(donnees)
+    });
+}
+
 // ===================== LDN =====================
 
 // POST
@@ -226,6 +241,14 @@ exports.getLDN = (req, res) => {
 }
 
 
+exports.getLDNById = (req, res, next) => {
+    let idExo = req.params.id;
+    console.log(idExo)
+    LDN.findById(idExo).then((donnees) => {
+        console.log(donnees)
+        res.send(donnees)
+    });
+}
 
 // ===================== TAT =====================
 
@@ -274,6 +297,13 @@ exports.getTAT = (req, res) => {
     }
 }
 
+exports.getTATById = (req, res, next) => {
+    let idExo = req.params.id;
+    console.log(idExo)
+    TAT.findById(idExo).then((donnees) => {
+        res.send(donnees)
+    });
+}
 
 
 // ===================== MB =====================
@@ -320,13 +350,20 @@ exports.getMB = (req, res) => {
             }
         })
     } else {
-        MB.find().then((donnees) => {
+        MB.findById(idExo).then((donnees) => {
             res.send(donnees)
         });
     }
 }
 
 
+exports.getMBById = (req, res, next) => {
+    let idExo = req.params.id;
+    console.log(idExo)
+    MB.findById(idExo).then((donnees) => {
+        res.send(donnees)
+    });
+}
 
 // ===================== STT =====================
 
@@ -419,6 +456,16 @@ exports.getSTTById = (req, res) => {
             }
         })
     }
+}
+
+
+exports.getSTTexo = (req, res, next) => {
+    let idExo = req.params.id;
+    console.log(idExo)
+    STT.findById(idExo).then((donnees) => {
+        console.log(donnees)
+        res.send(donnees)
+    });
 }
 
 // ===================== Answers =====================
@@ -766,6 +813,7 @@ exports.getDetailsExos = (req, res, next) => {
                     });
                 }
                 if (typeExo == "TTI") {
+                    console.log(idExo)
                     TTI.findById(idExo)
                     .then(exercice => {
                         if (exercice) {
@@ -839,4 +887,42 @@ exports.getARandomExo = (req, res, next) => {
         });
     } 
 
+};
+
+exports.getAPreciseExo = (req, res, next) => {
+    const idExo = req.query.parametre;
+    const typeValue = req.query.type;
+
+    console.log('Parametre:', idExo);
+    console.log('Type:', typeValue);
+
+    if(typeValue === "STT") {
+        STT.findById(idExo).then((donnees) => {
+            res.send(donnees)
+        });
+    } else if(typeValue === "MDN") {
+        MDN.findById(idExo).then((donnees) => {
+            res.send(donnees)
+        });
+    } else if(typeValue === "LDN") {
+        LDN.findById(idExo).then((donnees) => {
+            res.send(donnees)
+        });
+    } else if(typeValue === "abaque") {
+        ABAQUE.findById(idExo).then((donnees) => {
+            res.send(donnees)
+        });
+    } else if(typeValue === "TTI") {
+        TTI.findById(idExo).then((donnees) => {
+            res.send(donnees)
+        });
+    } else if(typeValue === "MB") {
+        MB.findById(idExo).then((donnees) => {
+            res.send(donnees)
+        });
+    } else if(typeValue === "TAT") {
+        TAT.findById(idExo).then((donnees) => {
+            res.send(donnees)
+        });
+    } 
 };

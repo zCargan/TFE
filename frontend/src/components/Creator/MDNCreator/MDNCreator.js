@@ -27,15 +27,17 @@ const MDNCreator = ({ exo }) => {
     };
 
     function getMDN() {
-        axios.get('http://localhost:4000/exercice/getMDN').then((res)=> {
-            let length = res.data[0].cols
-            let reponseInitiale = res.data[0].reponseInitiale
-            let nom = res.data[0].nom
-            setId(res.data[0]._id);
-            setNom(res.data[0].nom);
-            setAnneeScolaire(res.data[0].anneeScolaire);
-            setDescription(res.data[0].description);
-            setType(res.data[0].type);
+        axios
+        .get(`http://localhost:4000/exercice/getMDN/${exo}`, config)
+        .then((res)=> {
+            let length = res.data.cols
+            let reponseInitiale = res.data.reponseInitiale
+            let nom = res.data.nom
+            setId(res.data._id);
+            setNom(res.data.nom);
+            setAnneeScolaire(res.data.anneeScolaire);
+            setDescription(res.data.description);
+            setType(res.data.type);
             let texte = "<div id='mdn_resulat'>"
             let score = 0;
             for(let i = 0; i <length; i ++) {

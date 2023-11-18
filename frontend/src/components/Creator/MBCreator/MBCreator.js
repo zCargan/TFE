@@ -16,6 +16,7 @@ const MBCreator = ({ exo }) => {
     const [id, setId] = useState('');
 
     useEffect(() => {
+        console.log(exo)
         if (!getMBCalledRef.current) {
             getMB();
             getMBCalledRef.current = true;
@@ -24,7 +25,7 @@ const MBCreator = ({ exo }) => {
 
     let idExoMB = ""
     let reponsesAttendues = [];
-    
+
     const config = {
         headers: {
             'Authorization': `Bearer ${Cookies.get('JWT')}`
@@ -58,57 +59,61 @@ const MBCreator = ({ exo }) => {
 
     function getMB() {
         axios
-            .get('http://localhost:4000/exercice/getMB')
+            .get(`http://localhost:4000/exercice/getMB/${exo}`, config)
             .then((res) => {
-                const img = res.data[0].reponses;
-                idExoMB = res.data[0]._id
-                setId(res.data[0]._id);
-                setNom(res.data[0].nom);
-                setAnneeScolaire(res.data[0].anneeScolaire);
-                setDescription(res.data[0].description);
-                setType(res.data[0].type);
+                const img = res.data.reponses;
+                console.log(img)
+                idExoMB = res.data._id
+                setId(res.data._id);
+                setNom(res.data.nom);
+                setAnneeScolaire(res.data.anneeScolaire);
+                setDescription(res.data.description);
+                setType(res.data.type);
                 let cles = Object.keys(img);
                 const imageContainer = document.getElementById('zoneExoMB');
-    
+
                 imageContainer.style.display = 'flex';
                 imageContainer.style.flexWrap = 'wrap'; // Permettre le retour à la ligne si nécessaire
                 imageContainer.style.justifyContent = 'center'; // Centrez horizontalement
-    
+
                 for (let i = 0; i < cles.length; i++) {
                     axios
                         .get(`http://localhost:4000/photos/getImage/${cles[i]}`, config)
                         .then((resPhoto) => {
-                            
+                            reponsesAttendues.push(resPhoto.data.nom_d_origine);
+                            console.log(res.data.reponses)
+
                             for (let j = 0; j < resPhoto.data.length; j++) {
-                                reponsesAttendues.push(resPhoto.data[0].nom_d_origine);
+                                console.log(resPhoto.data[j].image_data)
+
                                 const imageBinaryData = resPhoto.data[j].image_data.data;
                                 const blob = new Blob([new Uint8Array(imageBinaryData)], { type: resPhoto.data[j].type_mime });
                                 const objectURL = URL.createObjectURL(blob);
-    
+
                                 const imageInputContainer = document.createElement('div');
                                 imageInputContainer.style.margin = '20px';
                                 imageInputContainer.style.textAlign = 'center'; // Centrer le contenu
                                 imageInputContainer.style.display = 'flex'; // Conteneur en colonne
                                 imageInputContainer.style.flexDirection = 'column'; // Alignement en colonne
-    
+
                                 const imageElement = document.createElement('img');
                                 imageElement.src = objectURL;
                                 imageElement.style.width = '200px';
                                 imageElement.style.height = '200px';
-    
+
                                 const nameElement = document.createElement('div');
-                                const imageName = concatenateLetters(cles[i], res.data[0].reponses);
+                                const imageName = concatenateLetters(cles[i], res.data.reponses);
                                 nameElement.textContent = imageName; // Ajouter le nom en tant que texte
                                 nameElement.style.marginTop = '10px'; // Ajouter un espace en haut du texte
-    
+
                                 const inputElement = document.createElement('input');
                                 inputElement.type = 'text';
                                 inputElement.placeholder = 'Saisir un texte ici';
                                 inputElement.style.width = '200px';
                                 inputElement.style.marginTop = '10px'; // Ajouter un espace en haut de l'input
-    
+
                                 inputElement.classList.add('answerExoMB'); // Ajout de la classe 'answerExo'
-    
+
                                 imageInputContainer.appendChild(imageElement);
                                 imageInputContainer.appendChild(nameElement); // Ajout du nom
                                 imageInputContainer.appendChild(inputElement);
@@ -127,8 +132,9 @@ const MBCreator = ({ exo }) => {
 
     function valideReponsesMB () {
         axios
-        .get('http://localhost:4000/exercice/getMB')
+        .get(`http://localhost:4000/exercice/getMB/${exo}`, config)
         .then((res) => {
+            console.log(res)
             let inputUser = document.getElementsByClassName('answerExoMB');
             let score = 0;
             let nbrExos = 0;
@@ -147,9 +153,9 @@ const MBCreator = ({ exo }) => {
             const data = {
                 type: "MB",
                 score: Math.floor((score/nbrExos)*100),
-                idExercice: res.data[0]._id
+                idExercice: res.data._id
             }
-            
+
             Swal.fire({
                 title: 'Résultat',
                 text: 'Vous avez obtenu la note de : ' + (score/nbrExos)*100 + "%",
@@ -199,7 +205,7 @@ const MBCreator = ({ exo }) => {
         <div id='div_mb'>
             <h3>{nom}</h3>
             <p id="description">{description}</p>
-            <br />           
+            <br />
             <div id="zone_mb">
                 <div id="zoneExoMB"></div>
                 <button id="valideReponse" onClick={valideReponsesMB} >Valider mes réponses MB</button>
