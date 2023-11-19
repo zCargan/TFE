@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, Redirect  } from 'react-router-dom';
+import { useNavigate, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -29,6 +29,8 @@ const Navbar = () => {
     }
 
     useEffect(() => {
+        
+
         const config = {
             headers: {
                 'Authorization': `Bearer ${Cookies.get('JWT')}`
@@ -37,7 +39,7 @@ const Navbar = () => {
         axios.post("http://localhost:4000/connection/checkToken", {}, config)
             .then(response => {
                 setUsername(response.data.username)
-                if(response.data.role === "eleve") {
+                if (response.data.role === "eleve") {
                     setRole("élève")
                 } else {
                     setRole(response.data.role)
@@ -45,13 +47,13 @@ const Navbar = () => {
                 // console.log('Réponse du serveur :', response.data); ==> Réponse du serveur : {role: 'professeur'}
             })
             .catch(error => {
-            console.error('Erreur de requête :', error);
+                console.error('Erreur de requête :', error);
             });
     })
 
     function CheckPermissions() {
         console.log(Cookies.get('JWT'))
-        if(Cookies.get('JWT') === undefined) {
+        if (Cookies.get('JWT') === undefined) {
             Swal.fire({
                 title: 'Accès refusé!',
                 text: "Vous n'êtes pas connecté",
@@ -68,7 +70,7 @@ const Navbar = () => {
                 .then(response => {
                     console.log(response)
                     // console.log('Réponse du serveur :', response.data); ==> Réponse du serveur : {role: 'professeur'}
-                    if(response.data.role !== "professeur") {
+                    if (response.data.role !== "professeur") {
                         Swal.fire({
                             title: 'Accès refusé!',
                             text: 'Vous devez être un professeur pour avoir accès à cette ressource',
@@ -80,16 +82,16 @@ const Navbar = () => {
                     }
                 })
                 .catch(error => {
-                console.error('Erreur de requête :', error);
+                    console.error('Erreur de requête :', error);
                 });
         }
-        
-        
+
+
     }
 
     function CheckConnection() {
         //console.log(document.getElementById('connectionLogo').innerHTML)
-        if(Cookies.get('JWT') === undefined) {
+        if (Cookies.get('JWT') === undefined) {
             navigate('/connection')
         } else {
             navigate('/profile')
@@ -103,44 +105,47 @@ const Navbar = () => {
     function deconnect() {
         Cookies.remove('JWT');
         Swal.fire({
-          title: 'Déconnection réussie',
-          text: 'Déconnecter avec succès',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 2000
+            title: 'Déconnection réussie',
+            text: 'Déconnecter avec succès',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 2000
         });
         setTimeout(() => {
             window.location.reload();
-          }, 1500);
+        }, 1500);
+        navigate('/')
     }
 
     function connection() {
         const pseudo = document.getElementById('usernamePopup').value;
         const password = document.getElementById('passwordPopup').value;
         const data_to_send = {
-          pseudo: pseudo,
-          password: password,
+            pseudo: pseudo,
+            password: password,
         };
         console.log(data_to_send)
         axios
-          .post('http://localhost:4000/connection', data_to_send)
-          .then((response) => {
-            console.log(response.data)
-            Cookies.set('JWT', response.data.token , { expires: 1 }); // 'expires' dénote la durée de validité en jours
-            Swal.fire({
-                title: 'Bonjour '+ response.data.nom + '!',
-                text: 'Vous êtes connecté !',
-                icon: 'success',
-                showConfirmButton: false,
-                timer: 2000
-              });
-              navigate('/')
-          })
-          .catch((error) => {
-            console.log(error)
-          })
+            .post('http://localhost:4000/connection', data_to_send)
+            .then((response) => {
+                console.log(response.data)
+                setRole(response.data.role);
+                setUsername(response.data.nom)
+                Cookies.set('JWT', response.data.token, { expires: 1 }); // 'expires' dénote la durée de validité en jours
+                Swal.fire({
+                    title: 'Bonjour ' + response.data.nom + '!',
+                    text: 'Vous êtes connecté !',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+                navigate('/')
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
-    
+
     return (
         <div id="mainDiv">
             <nav>
@@ -183,27 +188,23 @@ const Navbar = () => {
                                             <br />
                                             <button onClick={(e) => navigate('/profile')}>Accéder à mon profil</button>
                                             <br />
-                                            <LogoutIcon onClick={(e) =>deconnect()}></LogoutIcon>
+                                            <LogoutIcon onClick={(e) => deconnect()}></LogoutIcon>
                                         </div>
                                     ) : (
                                         <div>
                                             <h3>Vous êtes non connecté</h3>
                                             <button onClick={(e) => navigate('/register')}>Se créer un compte</button>
                                             <h2>Ou se connecter :</h2>
-                                            <input placeholder="Nom d'utilisateur" id="usernamePopup"></input>
-                                            <br />
-                                            <input placeholder='Mot de passe' type="password" id="passwordPopup"></input>
-                                            <br></br>
-                                            <button onClick={(e) => connection()}>Me connecter</button>
+                                            <button onClick={(e) => navigate('/')}>Se connecter</button>
                                         </div>
                                     )}
                                 </div>
                             </Popup>
                         </li>
-                        
-                    </ul>   
+
+                    </ul>
                 </div>
-            </nav>  
+            </nav>
         </div>
     );
 };

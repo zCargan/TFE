@@ -1,7 +1,7 @@
 import './App.css';
 import { Provider } from 'react-redux';
 import store from './app/store';
-import { BrowserRouter, Routes, Route, useNavigate  } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import Connection from './pages/connection/Connection';
 import Home from './pages/home/Home';
 import Test from './components/test/Test';
@@ -24,19 +24,19 @@ function App() {
       <Provider store={store}>
         <BrowserRouter>
           <Routes>
-          <Route path="*" element={<Home />} />
-            <Route exact path="/connection" element={<Connection />} />             
-            <Route path="/" element={< Home/>} />
+            <Route path="*" element={< Connection />} />
+            <Route path="/" element={< Connection />} />
+            <Route path="/home" element={< Home />} />
             <Route path="/test" element={<Test />} />
             <Route path="/register" element={<Register />} />
             <Route path="/create_exercice" element={<CreateExercice />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/history" element={<History />} />
-            <Route path="/infoExercice" element={ <InfoExercice />} />
-            <Route path="/photo" element={ <Photo />} />
-            <Route path="/photo_detail" element={ <PhotoDetail />} />
-            <Route path="/show_exercice" element={ <ShowExercice />} />
-           </Routes>
+            <Route path="/infoExercice" element={<InfoExercice />} />
+            <Route path="/photo" element={<Photo />} />
+            <Route path="/photo_detail" element={<PhotoDetail />} />
+            <Route path="/show_exercice" element={<ShowExercice />} />
+          </Routes>
         </BrowserRouter>
       </Provider>
     </div>

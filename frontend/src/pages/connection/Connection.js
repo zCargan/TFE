@@ -33,6 +33,7 @@ const Connection = (props) => {
             showConfirmButton: false,
             timer: 2000
           });
+          navigate('/home')
         } else if (response.data.role === "professeur") {
           Swal.fire({
             title: 'Bonjour ' + nom + ' !',
@@ -44,9 +45,10 @@ const Connection = (props) => {
           setTimeout(() => {
             window.location.reload();
           }, 2000);
+          navigate('/home')
         } 
 
-        navigate('/profile');
+
         /*
         if (response.status === 200) {
           console.log(response.data)
