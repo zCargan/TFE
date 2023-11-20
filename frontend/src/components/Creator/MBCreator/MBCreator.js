@@ -153,7 +153,7 @@ const MBCreator = ({ exo }) => {
             const data = {
                 type: "MB",
                 score: Math.floor((score/nbrExos)*100),
-                idExercice: res.data._id
+                idExercice: id
             }
 
             Swal.fire({
@@ -168,8 +168,8 @@ const MBCreator = ({ exo }) => {
             .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
             .then((res) => {
                 setTimeout(() => {
-                    navigate('/');
-                  }, 2000);
+                    navigate('/home');
+                }, 2000);
             })
             .catch((error) => {
                 Swal.fire({

@@ -74,6 +74,8 @@ exports.checkToken = (req, res) => {
                     res.json({role: "professeur", username: decoded.nom})
                 } else if (decoded.role === "eleve") {
                     res.json({role: "eleve", username: decoded.nom})
+                } else if (decoded.role === "admin") {
+                    res.json({role: "admin", username: decoded.nom})
                 }
 
             }

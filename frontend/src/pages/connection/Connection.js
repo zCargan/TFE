@@ -24,8 +24,8 @@ const Connection = (props) => {
       .then((response) => {
         console.log(response.data)
         let nom = response.data.nom;
-        Cookies.set('JWT', response.data.token , { expires: 1 }); // 'expires' dénote la durée de validité en jours
-        if(response.data.role === "eleve") {
+        Cookies.set('JWT', response.data.token, { expires: 1 }); // 'expires' dénote la durée de validité en jours
+        if (response.data.role === "eleve") {
           Swal.fire({
             title: 'Bonjour ' + nom + ' !',
             text: 'Vous êtes connecté !',
@@ -33,7 +33,9 @@ const Connection = (props) => {
             showConfirmButton: false,
             timer: 2000
           });
-          navigate('/home')
+          setTimeout(() => {
+            navigate('/home');
+          }, 2000);
         } else if (response.data.role === "professeur") {
           Swal.fire({
             title: 'Bonjour ' + nom + ' !',
@@ -43,29 +45,20 @@ const Connection = (props) => {
             timer: 2000
           });
           setTimeout(() => {
-            window.location.reload();
+            navigate('/home');
           }, 2000);
-          navigate('/home')
-        } 
-
-
-        /*
-        if (response.status === 200) {
-          console.log(response.data)
-          console.log('Vous êtes bien connecté');
-          dispatch(
-            
-            login({
-              pseudo: pseudo,
-              password: password,
-              role: role,
-              loggedIn: true,
-            })
-            
-          );
-          navigate('/');
+        } else if (response.data.role === "admin") {
+          Swal.fire({
+            title: 'Bonjour ' + nom + ' !',
+            text: 'Vous êtes connecté à un compte admin',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          setTimeout(() => {
+            navigate('/home');
+          }, 2000);
         }
-        */
       })
       .catch((response) => {
         console.log(response);
@@ -76,17 +69,17 @@ const Connection = (props) => {
 
   return (
     <div>
-        <div>
-          <Navbar />
-        </div>
-        <div id="input_connection_div">
-          <input placeholder="Pseudo" type="text" id="pseudo" />
-          <input placeholder="password" type="password" id="password" />
-        </div>
-        <div>
-          <button>Change my password</button>
-        </div>
-        <button onClick={(e) => connection()}>Connection</button>
+      <div>
+        <Navbar />
+      </div>
+      <div id="input_connection_div">
+        <input placeholder="Pseudo" type="text" id="pseudo" />
+        <input placeholder="password" type="password" id="password" />
+      </div>
+      <div>
+        <button>Change my password</button>
+      </div>
+      <button onClick={(e) => connection()}>Connection</button>
     </div>
   );
 };

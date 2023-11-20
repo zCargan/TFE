@@ -92,7 +92,7 @@ const MDNCreator = ({ exo }) => {
             const data = {
                 type: "MDN",
                 score: Math.floor((score/nbrExos) * 100),
-                idExercice: idExercice
+                idExercice: id
             }
 
             Swal.fire({
@@ -107,8 +107,8 @@ const MDNCreator = ({ exo }) => {
             .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
             .then((res) => {
                 setTimeout(() => {
-                    navigate('/');
-                  }, 2000);
+                    navigate('/home');
+                }, 2000);
             })
             .catch((error) => {
                 Swal.fire({

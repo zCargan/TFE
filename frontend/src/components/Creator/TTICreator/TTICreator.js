@@ -129,7 +129,7 @@ const TTICreator = ({ exo }) => {
                 const data = {
                     type: "TTI",
                     score: Math.floor((score/nbrExos) * 100),
-                    idExercice: res.data[idExos]._id
+                    idExercice: id
                 }
 
                 Swal.fire({
@@ -144,7 +144,7 @@ const TTICreator = ({ exo }) => {
                 .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
                 .then((res) => {
                     setTimeout(() => {
-                        navigate('/');
+                        navigate('/home');
                       }, 2000);
                 })
                 .catch((error) => {

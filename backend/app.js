@@ -5,6 +5,8 @@ const registerRoute = require('./routes/registerRoute')
 const testRoute = require('./routes/testRoute')
 const photosRoute = require('./routes/photosRoute')
 const soundRoute = require('./routes/soundRoute')
+const userRoute = require('./routes/userRoute')
+
 const { Client } = require('pg');
 
 const cors = require('cors');
@@ -38,6 +40,7 @@ app.use('/register', registerRoute);
 app.use('/connection', connectionRoute);
 app.use('/photos', photosRoute);
 app.use('/sound', soundRoute);
+app.use('/user', userRoute);
 
 
 module.exports = app

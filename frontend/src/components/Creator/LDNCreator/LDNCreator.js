@@ -103,7 +103,7 @@ const LDNCreator = ({ exo }) => {
                 const data = {
                     type: "LDN",
                     score: Math.floor((score/nbrExos) * 100),
-                    idExercice: res.data[0]._id
+                    idExercice: id
                 }
                 Swal.fire({
                     title: 'Résultat',
@@ -117,7 +117,7 @@ const LDNCreator = ({ exo }) => {
                 .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
                 .then((res) => {
                     setTimeout(() => {
-                        navigate('/');
+                        navigate('/home');
                       }, 2000);
                 })
                 .catch((error) => {

@@ -108,14 +108,14 @@ const AbaqueCreator = ({ exo }) => {
             const data = {
                 type: "abaque",
                 score: scoreFinal,
-                idExercice: idExercice
+                idExercice: id
             }
 
             axios
             .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
             .then((res) => {
                 setTimeout(() => {
-                    navigate('/');
+                    navigate('/home');
                   }, 2000);
             })
             .catch((error) => {

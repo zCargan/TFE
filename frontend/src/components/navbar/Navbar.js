@@ -152,7 +152,7 @@ const Navbar = () => {
                 <div>
                     <ul>
                         <li>
-                            <a onClick={(e) => navigate('/')}>Home</a>
+                            <a onClick={(e) => navigate('/home')}>Home</a>
                         </li>
                         <li>
                             <a onClick={(e) => navigate('/register')}>Création de compte</a>

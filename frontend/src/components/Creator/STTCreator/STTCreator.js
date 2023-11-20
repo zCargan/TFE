@@ -123,7 +123,7 @@ const STTCreator = ({ exo }) => {
       .post("http://localhost:4000/exercice/registerAnswers", { data }, config)
       .then((res) => {
         setTimeout(() => {
-          navigate('/');
+          navigate('/home');
         }, 2000);
       })
       .catch((error) => {
