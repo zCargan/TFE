@@ -9,8 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import { store } from '../../../features/exerciceSlice'
 import axios from 'axios';
 import Navbar from '../../../components/navbar/Navbar';
-import ZoneTest from '../test/test'
-import ZoneTest2 from '../test/test2'
 import Resultat from '../resultat/resultat';
 import Cookies from 'js-cookie';
 
@@ -138,8 +136,6 @@ const CreateExercice = () => {
                     <option value="eveil">Eveil</option>
                     <option value="anglais">Anglais</option>
                     <option value="neerlandais">Néérlandais</option>
-                    <option value="test">Zone de tests</option>
-                    <option value="test2">Zone de tests 2</option>
                     <option value="resultat">Zone des résultats</option>
                 </select>
                 {selectedOption === 'mathematique' && 
@@ -156,12 +152,6 @@ const CreateExercice = () => {
                 }
                 {selectedOption === 'neerlandais' && 
                     <Neederlands/>
-                }
-                {selectedOption === 'test' && 
-                    <ZoneTest />
-                }
-                {selectedOption === 'test2' && 
-                    <ZoneTest2 />
                 }
                 {selectedOption === 'resultat' && 
                     <Resultat />

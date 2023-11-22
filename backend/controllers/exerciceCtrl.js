@@ -728,120 +728,120 @@ exports.getDetailsExos = (req, res, next) => {
                 if (typeExo == "abaque") {
 
                     ABAQUE.findById(idExo)
-                    .then(exercice => {
-                        if (exercice) {
-                            res.status(200).json({ exerciceInfos: exercice });
-                            // Faire quelque chose avec l'exercice récupéré, par exemple, envoyer en réponse à une requête HTTP
-                        } else {
-                            console.log('Aucun exercice trouvé avec l\'ID spécifié.');
-                            // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
-                        }
-                    })
-                    .catch(err => {
-                        console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
-                        // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
-                    });
+                        .then(exercice => {
+                            if (exercice) {
+                                res.status(200).json({ exerciceInfos: exercice });
+                                // Faire quelque chose avec l'exercice récupéré, par exemple, envoyer en réponse à une requête HTTP
+                            } else {
+                                console.log('Aucun exercice trouvé avec l\'ID spécifié.');
+                                // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
+                            }
+                        })
+                        .catch(err => {
+                            console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
+                            // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
+                        });
 
                 }
                 if (typeExo == "MDN") {
 
                     MDN.findById(idExo)
-                    .then(exercice => {
-                        if (exercice) {
-                            res.status(200).json({ exerciceInfos: exercice });
-                            // Faire quelque chose avec l'exercice récupéré, par exemple, envoyer en réponse à une requête HTTP
-                        } else {
-                            console.log('Aucun exercice trouvé avec l\'ID spécifié.');
-                            // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
-                        }
-                    })
-                    .catch(err => {
-                        console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
-                        // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
-                    });
+                        .then(exercice => {
+                            if (exercice) {
+                                res.status(200).json({ exerciceInfos: exercice });
+                                // Faire quelque chose avec l'exercice récupéré, par exemple, envoyer en réponse à une requête HTTP
+                            } else {
+                                console.log('Aucun exercice trouvé avec l\'ID spécifié.');
+                                // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
+                            }
+                        })
+                        .catch(err => {
+                            console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
+                            // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
+                        });
 
                 }
                 if (typeExo == "LDN") {
 
                     LDN.findById(idExo)
-                    .then(exercice => {
-                        if (exercice) {
-                            res.status(200).json({ exerciceInfos: exercice });
-                            // Faire quelque chose avec l'exercice récupéré, par exemple, envoyer en réponse à une requête HTTP
-                        } else {
-                            console.log('Aucun exercice trouvé avec l\'ID spécifié.');
-                            // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
-                        }
-                    })
-                    .catch(err => {
-                        console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
-                        // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
-                    });
+                        .then(exercice => {
+                            if (exercice) {
+                                res.status(200).json({ exerciceInfos: exercice });
+                                // Faire quelque chose avec l'exercice récupéré, par exemple, envoyer en réponse à une requête HTTP
+                            } else {
+                                console.log('Aucun exercice trouvé avec l\'ID spécifié.');
+                                // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
+                            }
+                        })
+                        .catch(err => {
+                            console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
+                            // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
+                        });
 
                 }
                 if (typeExo == "MB") {
 
                     MB.findById(idExo)
-                    .then(exercice => {
-                        if (exercice) {
-                            res.status(200).json({ exerciceInfos: exercice });
-                        } else {
-                            console.log('Aucun exercice trouvé avec l\'ID spécifié.');
-                            // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
-                        }
-                    })
-                    .catch(err => {
-                        console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
-                        // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
-                    });
+                        .then(exercice => {
+                            if (exercice) {
+                                res.status(200).json({ exerciceInfos: exercice });
+                            } else {
+                                console.log('Aucun exercice trouvé avec l\'ID spécifié.');
+                                // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
+                            }
+                        })
+                        .catch(err => {
+                            console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
+                            // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
+                        });
 
                 }
                 if (typeExo == "STT") {
                     STT.findById(idExo)
-                    .then(exercice => {
-                        if (exercice) {
-                            res.status(200).json({ exerciceInfos: exercice });
-                            // Faire quelque chose avec l'exercice récupéré, par exemple, envoyer en réponse à une requête HTTP
-                        } else {
-                            console.log('Aucun exercice trouvé avec l\'ID spécifié.');
-                            // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
-                        }
-                    })
-                    .catch(err => {
-                        console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
-                        // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
-                    });
+                        .then(exercice => {
+                            if (exercice) {
+                                res.status(200).json({ exerciceInfos: exercice });
+                                // Faire quelque chose avec l'exercice récupéré, par exemple, envoyer en réponse à une requête HTTP
+                            } else {
+                                console.log('Aucun exercice trouvé avec l\'ID spécifié.');
+                                // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
+                            }
+                        })
+                        .catch(err => {
+                            console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
+                            // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
+                        });
                 }
                 if (typeExo == "TTI") {
                     console.log(idExo)
                     TTI.findById(idExo)
-                    .then(exercice => {
-                        if (exercice) {
-                            res.status(200).json({ exerciceInfos: exercice });
-                        } else {
-                            console.log('Aucun exercice trouvé avec l\'ID spécifié.');
-                            // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
-                        }
-                    })
-                    .catch(err => {
-                        console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
-                        // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
-                    });
+                        .then(exercice => {
+                            if (exercice) {
+                                res.status(200).json({ exerciceInfos: exercice });
+                            } else {
+                                console.log('Aucun exercice trouvé avec l\'ID spécifié.');
+                                // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
+                            }
+                        })
+                        .catch(err => {
+                            console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
+                            // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
+                        });
                 }
                 if (typeExo == "TAT") {
                     TAT.findById(idExo)
-                    .then(exercice => {
-                        if (exercice) {
-                            res.status(200).json({ exerciceInfos: exercice });
-                        } else {
-                            console.log('Aucun exercice trouvé avec l\'ID spécifié.');
-                            // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
-                        }
-                    })
-                    .catch(err => {
-                        console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
-                        // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
-                    });
+                        .then(exercice => {
+                            if (exercice) {
+                                res.status(200).json({ exerciceInfos: exercice });
+                            } else {
+                                console.log('Aucun exercice trouvé avec l\'ID spécifié.');
+                                // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
+                            }
+                        })
+                        .catch(err => {
+                            console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
+                            // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
+                        });
                 }
             }
         })
@@ -857,35 +857,35 @@ exports.getARandomExo = (req, res, next) => {
     console.log(collecion)
     let numeroExo = (req.query[collecion] - 1)
 
-    if(collecion === "stts") {
+    if (collecion === "stts") {
         STT.find().then((donnees) => {
             res.send(donnees[numeroExo])
         });
-    } else if(collecion === "mdns") {
+    } else if (collecion === "mdns") {
         MDN.find().then((donnees) => {
             res.send(donnees[numeroExo])
         });
-    } else if(collecion === "ldns") {
+    } else if (collecion === "ldns") {
         LDN.find().then((donnees) => {
             res.send(donnees[numeroExo])
         });
-    } else if(collecion === "abaques") {
+    } else if (collecion === "abaques") {
         ABAQUE.find().then((donnees) => {
             res.send(donnees[numeroExo])
         });
-    } else if(collecion === "ttis") {
+    } else if (collecion === "ttis") {
         TTI.find().then((donnees) => {
             res.send(donnees[numeroExo])
         });
-    } else if(collecion === "mbs") {
+    } else if (collecion === "mbs") {
         MB.find().then((donnees) => {
             res.send(donnees[numeroExo])
         });
-    } else if(collecion === "tats") {
+    } else if (collecion === "tats") {
         TAT.find().then((donnees) => {
             res.send(donnees[numeroExo])
         });
-    } 
+    }
 
 };
 
@@ -896,33 +896,186 @@ exports.getAPreciseExo = (req, res, next) => {
     console.log('Parametre:', idExo);
     console.log('Type:', typeValue);
 
-    if(typeValue === "STT") {
+    if (typeValue === "STT") {
         STT.findById(idExo).then((donnees) => {
             res.send(donnees)
         });
-    } else if(typeValue === "MDN") {
+    } else if (typeValue === "MDN") {
         MDN.findById(idExo).then((donnees) => {
             res.send(donnees)
         });
-    } else if(typeValue === "LDN") {
+    } else if (typeValue === "LDN") {
         LDN.findById(idExo).then((donnees) => {
             res.send(donnees)
         });
-    } else if(typeValue === "abaque") {
+    } else if (typeValue === "abaque") {
         ABAQUE.findById(idExo).then((donnees) => {
             res.send(donnees)
         });
-    } else if(typeValue === "TTI") {
+    } else if (typeValue === "TTI") {
         TTI.findById(idExo).then((donnees) => {
             res.send(donnees)
         });
-    } else if(typeValue === "MB") {
+    } else if (typeValue === "MB") {
         MB.findById(idExo).then((donnees) => {
             res.send(donnees)
         });
-    } else if(typeValue === "TAT") {
+    } else if (typeValue === "TAT") {
         TAT.findById(idExo).then((donnees) => {
             res.send(donnees)
         });
-    } 
+    }
 };
+
+
+exports.getExosFromRequest = async (req, res, next) => {
+
+    let rechercheSpecifique = req.body.rechercheSpecifique;
+
+    if ((req.body.anneeScolaire === "---") && (req.body.matiere === "---")) {
+
+    } else if ((req.body.anneeScolaire === "---") && (req.body.matiere !== "---")) {
+        let matiere = req.body.matiere;
+        if (matiere === "MDN") {
+            MDN.find().then((donnees) => {
+                res.send(donnees)
+            });
+        } else if (matiere === "LDN") {
+            LDN.find().then((donnees) => {
+                res.send(donnees)
+            });
+        } else if (matiere === "STT") {
+            STT.find().then((donnees) => {
+                res.send(donnees)
+            });
+        } else if (matiere === "abaque") {
+            ABAQUE.find().then((donnees) => {
+                res.send(donnees)
+            });
+        } else if (matiere === "TTI") {
+            TTI.find().then((donnees) => {
+                res.send(donnees)
+            });
+        } else if (matiere === "TAT") {
+            TAT.find().then((donnees) => {
+                res.send(donnees)
+            });
+        } else if (matiere === "MB") {
+            MB.find().then((donnees) => {
+                res.send(donnees)
+            });
+        }
+    } else if ((req.body.anneeScolaire !== "---") && (req.body.matiere === "---")) {
+        try {
+            console.log(req.body);
+
+            let dicOfId = {};
+            let anneeScolaire = req.body.anneeScolaire;
+
+            const addIdsToDictionary = async (model, collectionName) => {
+                const donnees = await model.find({ anneeScolaire });
+                for (let i = 0; i < donnees.length; i++) {
+                    dicOfId[donnees[i]._id] = collectionName;
+                }
+            };
+
+            await addIdsToDictionary(STT, 'STT');
+            await addIdsToDictionary(MDN, 'MDN');
+            await addIdsToDictionary(LDN, 'LDN');
+            await addIdsToDictionary(ABAQUE, 'Abaque');
+            await addIdsToDictionary(TTI, 'TTI');
+            await addIdsToDictionary(MB, 'MB');
+            await addIdsToDictionary(TAT, 'TAT');
+
+            res.status(200).json({ data: dicOfId });
+        } catch (error) {
+            console.error(error);
+        }
+    } else {
+
+        console.log("on passe ici")
+
+        let anneeScolaire = req.body.anneeScolaire;
+        let matiere = req.body.matiere;
+        let model = '';
+
+        if (matiere === "STT") {
+            STT.find().then((donnees) => {
+                let dicAnswers = {}
+                for (let i = 0; i < donnees.length; i++) {
+                    if (donnees[i].anneeScolaire === anneeScolaire) {
+                        dicAnswers[donnees[i]._id] = matiere;
+                        console.log("on en a 1")
+                    }
+                }
+                res.status(200).json({data: dicAnswers});
+            });
+        } else if (matiere === "MDN") {
+            MDN.find().then((donnees) => {
+                let dicAnswers = {}
+                for (let i = 0; i < donnees.length; i++) {
+                    if (donnees[i].anneeScolaire === anneeScolaire) {
+                        dicAnswers[donnees[i]._id] = matiere;
+                    }
+                }
+                res.status(200).json({data: dicAnswers});
+            });
+        } else if (matiere === "LDN") {
+            LDN.find().then((donnees) => {
+                let dicAnswers = {}
+                for (let i = 0; i < donnees.length; i++) {
+                    if (donnees[i].anneeScolaire === anneeScolaire) {
+                        dicAnswers[donnees[i]._id] = matiere;
+                    }
+                }
+                res.status(200).json({data: dicAnswers});
+            });
+        } else if (matiere === "abaque") {
+            ABAQUE.find().then((donnees) => {
+                let dicAnswers = {}
+                for (let i = 0; i < donnees.length; i++) {
+                    if (donnees[i].anneeScolaire === anneeScolaire) {
+                        dicAnswers[donnees[i]._id] = matiere;
+                    }
+                }
+                res.status(200).json({data: dicAnswers});
+            });
+        } else if (matiere === "TTI") {
+            TTI.find().then((donnees) => {
+                let dicAnswers = {}
+                for (let i = 0; i < donnees.length; i++) {
+                    if (donnees[i].anneeScolaire === anneeScolaire) {
+                        dicAnswers[donnees[i]._id] = matiere;
+                    }
+                }
+                res.status(200).json({data: dicAnswers});
+            });
+        } else if (matiere === "MB") {
+            MB.find().then((donnees) => {
+                let dicAnswers = {}
+                for (let i = 0; i < donnees.length; i++) {
+                    if (donnees[i].anneeScolaire === anneeScolaire) {
+                        dicAnswers[donnees[i]._id] = matiere;
+                    }
+                }
+                res.status(200).json({data: dicAnswers});
+            });
+        } else if (matiere === "TAT") {
+            TAT.find().then((donnees) => {
+                let dicAnswers = {}
+                for (let i = 0; i < donnees.length; i++) {
+                    if (donnees[i].anneeScolaire === anneeScolaire) {
+                        dicAnswers[donnees[i]._id] = matiere;
+                    }
+                }
+                res.status(200).json({data: dicAnswers});
+            });
+        }
+
+
+
+    }
+
+
+};
+

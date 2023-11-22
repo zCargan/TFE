@@ -46,43 +46,6 @@ router.get('/getSTT', exerciceCtrl.getSTT);
 router.get('/getSTTexo/:id', exerciceCtrl.getSTTexo);
 router.get('/getSTT/:id', exerciceCtrl.getSTTById);
 
-router.get('/MDN/:id', (req, res) => {
-    const exerciceId = req.params.id;
-    MDN.findById(exerciceId)
-    .then(exercice => {
-      if (exercice) {
-        console.log(exercice);
-        res.status(200).json(exercice); // Envoyer les données trouvées en réponse
-      } else {
-        console.log('Aucun exercice trouvé avec cet ID');
-        res.status(404).send("Aucun exercice trouvé avec cet ID");
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).send("Erreur lors de la récupération des données");
-    });
-});
-
-
-router.get('/abaque/:id', (req, res) => {
-    //const exerciceId = req.params.id;
-    const exerciceId = req.params.id;
-    Abaque.findById(exerciceId)
-    .then(exercice => {
-      if (exercice) {
-        console.log(exercice);
-        res.status(200).json(exercice); // Envoyer les données trouvées en réponse
-      } else {
-        console.log('Aucun exercice trouvé avec cet ID');
-        res.status(404).send("Aucun exercice trouvé avec cet ID");
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).send("Erreur lors de la récupération des données");
-    });
-});
 
 
 // DIVERS
@@ -95,5 +58,6 @@ router.get('/getTotalCounts', exerciceCtrl.getTotalCounts);
 router.get('/getDetailsExos', exerciceCtrl.getDetailsExos);
 router.get('/getARandomExo', exerciceCtrl.getARandomExo)
 router.get('/getAPreciseExo', exerciceCtrl.getAPreciseExo);
+router.post('/getExosFromRequest', exerciceCtrl.getExosFromRequest);
 
 module.exports = router;

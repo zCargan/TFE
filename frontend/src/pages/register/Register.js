@@ -21,7 +21,7 @@ export function checkEmail(email) {
 }
 
 export function allComplete(string1, string2, string3, string4, string5, string6) {
-    return !((string1 === "") || (string2 === "") || (string3 === "") || (string4 === "") || (string5  === "") || string6 === "")
+    return !((string1 === "") || (string2 === "") || (string3 === "") || (string4 === "") || (string5 === "") || string6 === "")
 }
 
 export function sameString(string1, string2) {
@@ -50,7 +50,7 @@ export function HasNumber(string) {
 
 const Connexion = () => {
 
-    
+
     const [surname, setSurname] = useState("");
     const [name, setName] = useState("");
     const [pseudo, setPseudo] = useState("");
@@ -67,7 +67,7 @@ const Connexion = () => {
     function handleUserIconHover() {
         setPopupOpen(true);
     }
-    
+
     function handleUserIconLeave() {
         setPopupOpen(false);
     }
@@ -76,37 +76,33 @@ const Connexion = () => {
     const tasks = useSelector((state) => state.exercices.exercice)
 
 
-    function registerAccount () {
-        if(allComplete(surname, name, pseudo, email, password, samePassword)) {
-            if(checkEmail(email)) {
-                if(sameString(password, samePassword)) {
-                    const data_to_send = {
-                        "surname": surname,
-                        "name": name,
-                        "pseudo": pseudo,
-                        "email": email,
-                        "password": password
-                    }
-                    axios.post("http://localhost:4000/register", data_to_send).then(response => {
-                        if(response.status == 201) {
-                            alert("compte bien créé !")
-                        } else {
-                            alert("Une erreur est survenue lors de la création du compte")
-                        }
-                    })
-                } else {
-                    alert("Vos deux mots de passe ne correspondent pas")
+    function registerAccount() {
+        if (checkEmail(email)) {
+            if (sameString(password, samePassword)) {
+                const data_to_send = {
+                    "surname": surname,
+                    "name": name,
+                    "pseudo": pseudo,
+                    "email": email,
+                    "password": password
                 }
+                axios.post("http://localhost:4000/register", data_to_send).then(response => {
+                    if (response.status == 201) {
+                        alert("compte bien créé !")
+                    } else {
+                        alert("Une erreur est survenue lors de la création du compte")
+                    }
+                })
             } else {
-                alert('Veuillez entrer une adresse email valide')
+                alert("Vos deux mots de passe ne correspondent pas")
             }
         } else {
-            alert('Veuillez compléter tous les champs')
+            alert('Veuillez entrer une adresse email valide')
         }
     }
 
 
-    function test () {
+    function test() {
         console.log(tasks)
     }
 
@@ -134,25 +130,25 @@ const Connexion = () => {
                             </div>
                         </a>
                     }
-                        position="bottom center"
-                        open={popupOpen}
-                        on="hover"
-                        closeOnDocumentClick
-                        >
-                        <div id='text_zone'>
-                            <br />
-                            <h4>Votre mot de passe doit contenir: </h4>
-                            <br />
-                            <label style={{ color: passwordHasValidLength ? 'green' : 'red' }}>Mot de passe de 12 caractères </label>
-                            <br />
-                            <label style={{ color: passwordHasLowercaseLetter ? 'green' : 'red' }}>Min 1 caractère minuscule</label>
-                            <br />
-                            <label style={{ color: passwordHasUppercaseLetter ? 'green' : 'red' }}>Min 1 caractère majuscule</label>
-                            <br />
-                            <label style={{ color: passwordHasNumber ? 'green' : 'red' }}>Min 1 nombre</label>
-                            <br />
-                            <label style={{ color: passwordHasSpecialCharacter ? 'green' : 'red' }}>Min 1 caractère spécial</label>
-                        </div>
+                    position="bottom center"
+                    open={popupOpen}
+                    on="hover"
+                    closeOnDocumentClick
+                >
+                    <div id='text_zone'>
+                        <br />
+                        <h4>Votre mot de passe doit contenir: </h4>
+                        <br />
+                        <label style={{ color: passwordHasValidLength ? 'green' : 'red' }}>Mot de passe de 12 caractères </label>
+                        <br />
+                        <label style={{ color: passwordHasLowercaseLetter ? 'green' : 'red' }}>Min 1 caractère minuscule</label>
+                        <br />
+                        <label style={{ color: passwordHasUppercaseLetter ? 'green' : 'red' }}>Min 1 caractère majuscule</label>
+                        <br />
+                        <label style={{ color: passwordHasNumber ? 'green' : 'red' }}>Min 1 nombre</label>
+                        <br />
+                        <label style={{ color: passwordHasSpecialCharacter ? 'green' : 'red' }}>Min 1 caractère spécial</label>
+                    </div>
                 </Popup>
                 <br></br>
                 <input placeholder='Confirmer le mot de passe' type="password" id="passwordConfirm" onChange={(e) => setSamePassword(e.target.value)}></input>
