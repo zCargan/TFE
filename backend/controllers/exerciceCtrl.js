@@ -932,7 +932,94 @@ exports.getExosFromRequest = async (req, res, next) => {
 
     let rechercheSpecifique = req.body.rechercheSpecifique;
 
-    if ((req.body.anneeScolaire === "---") && (req.body.matiere === "---")) {
+    if (rechercheSpecifique !== "" && req.body.anneeScolaire !== "---" && req.body.matiere !== "---") {
+        let anneeScolaire = req.body.anneeScolaire;
+        let matiere = req.body.matiere;
+
+        console.log(matiere)
+
+        dicAnswers = {};
+
+        let model = '';
+
+        if (matiere === "STT") {
+            STT.find().then((donnees) => {
+                let dicAnswers = {}
+                for (let i = 0; i < donnees.length; i++) {
+                    if (donnees[i].anneeScolaire === anneeScolaire) {
+
+                    }
+                }
+                res.status(200).json({ data: dicAnswers });
+            });
+        } else if (matiere === "MDN") {
+            MDN.find().then((donnees) => {
+                let dicAnswers = {}
+                for (let i = 0; i < donnees.length; i++) {
+                    if (donnees[i].anneeScolaire === anneeScolaire) {
+
+                    }
+                }
+                res.status(200).json({ data: dicAnswers });
+            });
+        } else if (matiere === "LDN") {
+            LDN.find().then((donnees) => {
+                let dicAnswers = {}
+                for (let i = 0; i < donnees.length; i++) {
+                    if (donnees[i].anneeScolaire === anneeScolaire) {
+                        console.log(donnees[i])
+                    }
+                }
+                res.status(200).json({ data: dicAnswers });
+            });
+        } else if (matiere === "abaque") {
+            ABAQUE.find().then((donnees) => {
+                let dicAnswers = {};
+                for (let i = 0; i < donnees.length; i++) {
+                    if (donnees[i].anneeScolaire === anneeScolaire) {
+                        console.log(donnees[i]);
+                        if (donnees[i].nom.includes(rechercheSpecifique)) {
+                            dicAnswers[donnees[i]._id] = matiere;
+                        } else if (donnees[i].description.includes(rechercheSpecifique)) {
+                            dicAnswers[donnees[i]._id] = matiere;
+                        }
+                    }
+                }
+                res.status(200).json({ data: dicAnswers });
+            });
+        } else if (matiere === "TTI") {
+            TTI.find().then((donnees) => {
+                let dicAnswers = {}
+                for (let i = 0; i < donnees.length; i++) {
+                    if (donnees[i].anneeScolaire === anneeScolaire) {
+
+                    }
+                }
+                res.status(200).json({ data: dicAnswers });
+            });
+        } else if (matiere === "MB") {
+            MB.find().then((donnees) => {
+                let dicAnswers = {}
+                for (let i = 0; i < donnees.length; i++) {
+                    if (donnees[i].anneeScolaire === anneeScolaire) {
+
+                    }
+                }
+                res.status(200).json({ data: dicAnswers });
+            });
+        } else if (matiere === "TAT") {
+            TAT.find().then((donnees) => {
+                let dicAnswers = {}
+                for (let i = 0; i < donnees.length; i++) {
+                    if (donnees[i].anneeScolaire === anneeScolaire) {
+
+                    }
+                }
+                res.status(200).json({ data: dicAnswers });
+            });
+        }
+
+        console.log(dicAnswers)
 
     } else if ((req.body.anneeScolaire === "---") && (req.body.matiere !== "---")) {
         let matiere = req.body.matiere;
@@ -993,8 +1080,6 @@ exports.getExosFromRequest = async (req, res, next) => {
         }
     } else {
 
-        console.log("on passe ici")
-
         let anneeScolaire = req.body.anneeScolaire;
         let matiere = req.body.matiere;
         let model = '';
@@ -1008,7 +1093,7 @@ exports.getExosFromRequest = async (req, res, next) => {
                         console.log("on en a 1")
                     }
                 }
-                res.status(200).json({data: dicAnswers});
+                res.status(200).json({ data: dicAnswers });
             });
         } else if (matiere === "MDN") {
             MDN.find().then((donnees) => {
@@ -1018,7 +1103,7 @@ exports.getExosFromRequest = async (req, res, next) => {
                         dicAnswers[donnees[i]._id] = matiere;
                     }
                 }
-                res.status(200).json({data: dicAnswers});
+                res.status(200).json({ data: dicAnswers });
             });
         } else if (matiere === "LDN") {
             LDN.find().then((donnees) => {
@@ -1028,7 +1113,7 @@ exports.getExosFromRequest = async (req, res, next) => {
                         dicAnswers[donnees[i]._id] = matiere;
                     }
                 }
-                res.status(200).json({data: dicAnswers});
+                res.status(200).json({ data: dicAnswers });
             });
         } else if (matiere === "abaque") {
             ABAQUE.find().then((donnees) => {
@@ -1038,7 +1123,7 @@ exports.getExosFromRequest = async (req, res, next) => {
                         dicAnswers[donnees[i]._id] = matiere;
                     }
                 }
-                res.status(200).json({data: dicAnswers});
+                res.status(200).json({ data: dicAnswers });
             });
         } else if (matiere === "TTI") {
             TTI.find().then((donnees) => {
@@ -1048,7 +1133,7 @@ exports.getExosFromRequest = async (req, res, next) => {
                         dicAnswers[donnees[i]._id] = matiere;
                     }
                 }
-                res.status(200).json({data: dicAnswers});
+                res.status(200).json({ data: dicAnswers });
             });
         } else if (matiere === "MB") {
             MB.find().then((donnees) => {
@@ -1058,7 +1143,7 @@ exports.getExosFromRequest = async (req, res, next) => {
                         dicAnswers[donnees[i]._id] = matiere;
                     }
                 }
-                res.status(200).json({data: dicAnswers});
+                res.status(200).json({ data: dicAnswers });
             });
         } else if (matiere === "TAT") {
             TAT.find().then((donnees) => {
@@ -1068,7 +1153,7 @@ exports.getExosFromRequest = async (req, res, next) => {
                         dicAnswers[donnees[i]._id] = matiere;
                     }
                 }
-                res.status(200).json({data: dicAnswers});
+                res.status(200).json({ data: dicAnswers });
             });
         }
 
