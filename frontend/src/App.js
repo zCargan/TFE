@@ -17,7 +17,7 @@ import Photo from './pages/photo/photo'
 import PhotoDetail from './pages/photoDetail/photoDetail';
 import ShowExercice from './pages/showExercice/showExercice';
 import GetExercicesBySearchBar from './pages/getExercicesBySearchBar/getExercicesBySearchBar';
-
+import ManageExercice from './pages/manageExercice/manageExercice';
 
 function App() {
 
@@ -39,6 +39,7 @@ function App() {
             <Route path="/photo_detail" element={<PhotoDetail />} />
             <Route path="/show_exercice" element={<ShowExercice />} />
             <Route path="/exercices" element={<GetExercicesBySearchBar />} />
+            <Route path="/manage_exerices" element={<ManageExercice />} />
           </Routes>
         </BrowserRouter>
       </Provider>

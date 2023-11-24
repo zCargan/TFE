@@ -59,5 +59,6 @@ router.get('/getDetailsExos', exerciceCtrl.getDetailsExos);
 router.get('/getARandomExo', exerciceCtrl.getARandomExo)
 router.get('/getAPreciseExo', exerciceCtrl.getAPreciseExo);
 router.post('/getExosFromRequest', exerciceCtrl.getExosFromRequest);
+router.delete('/deleteExoById', exerciceCtrl.deleteExoById);
 
 module.exports = router;

@@ -5,7 +5,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-
+import SearchBarAdmin from '../../components/searchBarAdmin/searchBarAdmin';
+import SearchBar from '../../components/searchBarAdmin/searchBarAdmin';
 
 const Profile = () => {
 
@@ -96,7 +97,7 @@ const Profile = () => {
             if (result.isConfirmed) {
                 let dictionnaireUser = {};
                 dictionnaireUser[nom] = document.getElementById(nom).value;
-    
+
                 axios
                     .put('http://localhost:4000/user/updateUserInformations', dictionnaireUser)
                     .then((res) => {
@@ -147,7 +148,13 @@ const Profile = () => {
                                 </div>
                             ))}
                         </div>
+                        <div>
+                            <p>Gérer les exercices :
+                            </p>
+                            <SearchBarAdmin />
+                        </div>
                         <br />
+
                     </div>
                 )}
             </div>

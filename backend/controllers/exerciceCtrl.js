@@ -947,7 +947,11 @@ exports.getExosFromRequest = async (req, res, next) => {
                 let dicAnswers = {}
                 for (let i = 0; i < donnees.length; i++) {
                     if (donnees[i].anneeScolaire === anneeScolaire) {
-
+                        if (donnees[i].nom.includes(rechercheSpecifique)) {
+                            dicAnswers[donnees[i]._id] = matiere;
+                        } else if (donnees[i].description.includes(rechercheSpecifique)) {
+                            dicAnswers[donnees[i]._id] = matiere;
+                        }
                     }
                 }
                 res.status(200).json({ data: dicAnswers });
@@ -957,7 +961,11 @@ exports.getExosFromRequest = async (req, res, next) => {
                 let dicAnswers = {}
                 for (let i = 0; i < donnees.length; i++) {
                     if (donnees[i].anneeScolaire === anneeScolaire) {
-
+                        if (donnees[i].nom.includes(rechercheSpecifique)) {
+                            dicAnswers[donnees[i]._id] = matiere;
+                        } else if (donnees[i].description.includes(rechercheSpecifique)) {
+                            dicAnswers[donnees[i]._id] = matiere;
+                        }
                     }
                 }
                 res.status(200).json({ data: dicAnswers });
@@ -967,7 +975,11 @@ exports.getExosFromRequest = async (req, res, next) => {
                 let dicAnswers = {}
                 for (let i = 0; i < donnees.length; i++) {
                     if (donnees[i].anneeScolaire === anneeScolaire) {
-                        console.log(donnees[i])
+                        if (donnees[i].nom.includes(rechercheSpecifique)) {
+                            dicAnswers[donnees[i]._id] = matiere;
+                        } else if (donnees[i].description.includes(rechercheSpecifique)) {
+                            dicAnswers[donnees[i]._id] = matiere;
+                        }
                     }
                 }
                 res.status(200).json({ data: dicAnswers });
@@ -992,7 +1004,11 @@ exports.getExosFromRequest = async (req, res, next) => {
                 let dicAnswers = {}
                 for (let i = 0; i < donnees.length; i++) {
                     if (donnees[i].anneeScolaire === anneeScolaire) {
-
+                        if (donnees[i].nom.includes(rechercheSpecifique)) {
+                            dicAnswers[donnees[i]._id] = matiere;
+                        } else if (donnees[i].description.includes(rechercheSpecifique)) {
+                            dicAnswers[donnees[i]._id] = matiere;
+                        }
                     }
                 }
                 res.status(200).json({ data: dicAnswers });
@@ -1002,7 +1018,11 @@ exports.getExosFromRequest = async (req, res, next) => {
                 let dicAnswers = {}
                 for (let i = 0; i < donnees.length; i++) {
                     if (donnees[i].anneeScolaire === anneeScolaire) {
-
+                        if (donnees[i].nom.includes(rechercheSpecifique)) {
+                            dicAnswers[donnees[i]._id] = matiere;
+                        } else if (donnees[i].description.includes(rechercheSpecifique)) {
+                            dicAnswers[donnees[i]._id] = matiere;
+                        }
                     }
                 }
                 res.status(200).json({ data: dicAnswers });
@@ -1012,7 +1032,11 @@ exports.getExosFromRequest = async (req, res, next) => {
                 let dicAnswers = {}
                 for (let i = 0; i < donnees.length; i++) {
                     if (donnees[i].anneeScolaire === anneeScolaire) {
-
+                        if (donnees[i].nom.includes(rechercheSpecifique)) {
+                            dicAnswers[donnees[i]._id] = matiere;
+                        } else if (donnees[i].description.includes(rechercheSpecifique)) {
+                            dicAnswers[donnees[i]._id] = matiere;
+                        }
                     }
                 }
                 res.status(200).json({ data: dicAnswers });
@@ -1156,11 +1180,49 @@ exports.getExosFromRequest = async (req, res, next) => {
                 res.status(200).json({ data: dicAnswers });
             });
         }
-
-
-
     }
+};
 
 
+exports.deleteExoById = async (req, res, next) => {
+    console.log(req.body.type);
+    const id = req.body.id;
+
+    try {
+        let result;
+        switch (req.body.type) {
+            case "MDN":
+                result = await MDN.findByIdAndDelete(id);
+                break;
+            case "LDN":
+                result = await LDN.findByIdAndDelete(id);
+                break;
+            case "STT":
+                result = await STT.findByIdAndDelete(id);
+                break;
+            case "abaque":
+                result = await ABAQUE.findByIdAndDelete(id);
+                break;
+            case "TTI":
+                result = await TTI.findByIdAndDelete(id);
+                break;
+            case "TAT":
+                result = await TAT.findByIdAndDelete(id);
+                break;
+            case "MB":
+                result = await MB.findByIdAndDelete(id);
+                break;
+            default:
+                return res.status(400).json({ error: "Type non pris en charge" });
+        }
+
+        if (!result) {
+            return res.status(404).json({ error: "Élément non trouvé" });
+        }
+
+        res.status(200).json({ message: "Élément supprimé avec succès" });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
 

@@ -169,7 +169,7 @@ const MBCreator = ({ exo }) => {
             .then((res) => {
                 setTimeout(() => {
                     navigate('/home');
-                }, 2000);
+                }, 1000);
             })
             .catch((error) => {
                 Swal.fire({

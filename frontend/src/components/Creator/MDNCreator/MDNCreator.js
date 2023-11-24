@@ -66,10 +66,10 @@ const MDNCreator = ({ exo }) => {
             }
         }
         
-        axios.get('http://localhost:4000/exercice/getMDN').then((res)=> {
-            let dicFinal = res.data[0].reponseFinal;
-            let dicInitiale = res.data[0].reponseInitiale;
-            let idExercice = res.data[0]._id;
+        axios.get(`http://localhost:4000/exercice/getMDN/${exo}`).then((res)=> {
+            let dicFinal = res.data.reponseFinal;
+            let dicInitiale = res.data.reponseInitiale;
+            let idExercice = res.data._id;
 
 
             for(let i = 0; i < dicInitiale.length; i ++) {
@@ -108,7 +108,7 @@ const MDNCreator = ({ exo }) => {
             .then((res) => {
                 setTimeout(() => {
                     navigate('/home');
-                }, 2000);
+                }, 1000);
             })
             .catch((error) => {
                 Swal.fire({

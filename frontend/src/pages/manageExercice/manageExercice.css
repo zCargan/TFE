@@ -1,0 +1,35 @@
+/* showRandomExos.css */
+
+.showRandomExosContainer {
+    display: flex;
+    align-items: center; /* Centre les enfants verticalement */
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fff;
+    margin: 10px;
+}
+
+.imageContainer img {
+    width: 70px;
+    height: 70px;
+    margin-right: 10px; /* Ajoutez une marge à droite pour séparer l'image du type */
+}
+
+.imageAndTypeContainer {
+    display: flex;
+    align-items: center; /* Centre les enfants verticalement */
+}
+
+.imageAndTypeContainer div {
+    margin-right: 10px; /* Ajoutez une marge à droite pour séparer les éléments h3 et p */
+}
+
+.infoContainer {
+    flex: 1;
+}
+
+
+.SRE {
+    color: red;
+    font-weight: bold;
+}

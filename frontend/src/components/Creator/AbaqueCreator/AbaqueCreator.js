@@ -39,6 +39,7 @@ const AbaqueCreator = ({ exo }) => {
         .then((res) => {
             console.log(res.data)
             let resultatAttendu =  res.data.reponseFinale
+            //console.log(resultatAttendu) ==> ok
             setReponses(resultatAttendu)
             let reponseInitiale = res.data.reponseInitiale;
             let hauteur = res.data.hauteur;
@@ -67,11 +68,11 @@ const AbaqueCreator = ({ exo }) => {
  
 
     function correction() {
-        axios.get("http://localhost:4000/exercice/getAbaque").then((res) => {
-            let resultatAttendu =  res.data[0].reponseFinale
-            let resultatInitial = res.data[0].reponseInitiale;
+        axios.get(`http://localhost:4000/exercice/getAbaque/${exo}`).then((res) => {
+            let resultatAttendu =  res.data.reponseFinale
+            let resultatInitial = res.data.reponseInitiale;
             let resultatRecu = []
-            let idExercice = res.data[0]._id;
+            let idExercice = res.data._id;
             let a = document.getElementsByClassName("test")
             for(let i = 0; i < a.length; i ++) {
                 resultatRecu.push(a[i].value)
@@ -82,8 +83,9 @@ const AbaqueCreator = ({ exo }) => {
             for(let i = 0; i < tailleArray; i ++) {
                 if(resultatInitial[i] === "") {
                     nbrAnswer += 1;
+                    console.log(resultatAttendu[i])
+                    console.log(resultatRecu[i])
                     if(resultatAttendu[i] !== resultatRecu[i]) {
-                        console.log("une faute")
                     } else {
                         score += 1;
                     }
@@ -116,7 +118,7 @@ const AbaqueCreator = ({ exo }) => {
             .then((res) => {
                 setTimeout(() => {
                     navigate('/home');
-                  }, 2000);
+                  }, 1000);
             })
             .catch((error) => {
                 Swal.fire({
@@ -141,7 +143,7 @@ const AbaqueCreator = ({ exo }) => {
             text: "Voici la correction de l'exercice",
             icon: 'success',
             showConfirmButton: false,
-            timer: 1100
+            timer: 800
         });
         document.getElementById('buttonCorrection').style.display = 'none';
     }

@@ -2,10 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-
-import './searchBar.css'
-
-const SearchBar = () => {
+const SearchBarAdmin = () => {
 
     const navigate = useNavigate();
 
@@ -19,7 +16,7 @@ const SearchBar = () => {
             alert("Veuillez selectionner une matiere ou une année")
         } else {
 
-            navigate('/exercices', {
+            navigate('/manage_exerices', {
                 state: {
                     anneeScolaire: anneeScolaire,
                     rechercheSpecifique: rechercheSpecifique,
@@ -72,4 +69,4 @@ const SearchBar = () => {
     );
 };
 
-export default SearchBar;
+export default SearchBarAdmin;
