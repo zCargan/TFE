@@ -15,7 +15,11 @@ exports.registerData = (req, res, next) => {
 
     const surname = req.body.surname
     const password = req.body.password
-    const query = `INSERT INTO utilisateurs (nom, password, role) VALUES ('${surname}', '${password}', 'eleve')`;
+    const email = req.body.email
+
+    console.log(email)
+
+    const query = `INSERT INTO utilisateurs (nom, password, email, role) VALUES ('${surname}', '${password}', '${email}', 'eleve')`;
 
     client.query(query, (error, result) => {
         if (error) {

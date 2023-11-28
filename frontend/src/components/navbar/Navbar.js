@@ -29,26 +29,30 @@ const Navbar = () => {
     }
 
     useEffect(() => {
-        
 
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get('JWT')}`
-            }
-        };
-        axios.post("http://localhost:4000/connection/checkToken", {}, config)
-            .then(response => {
-                setUsername(response.data.username)
-                if (response.data.role === "eleve") {
-                    setRole("élève")
-                } else {
-                    setRole(response.data.role)
+        if (Cookies.get('JWT')) {
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${Cookies.get('JWT')}`
                 }
-                // console.log('Réponse du serveur :', response.data); ==> Réponse du serveur : {role: 'professeur'}
-            })
-            .catch(error => {
-                console.error('Erreur de requête :', error);
-            });
+            };
+            axios.post("http://localhost:4000/connection/checkToken", {}, config)
+                .then(response => {
+                    setUsername(response.data.username)
+                    if (response.data.role === "eleve") {
+                        setRole("élève")
+                    } else {
+                        setRole(response.data.role)
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur de requête :', error);
+                });
+        } else {
+            navigate('/')
+        }
+
+
     })
 
     function CheckPermissions() {
