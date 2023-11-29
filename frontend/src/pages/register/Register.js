@@ -4,11 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../features/exerciceSlice';
 import Navbar from '../../components/navbar/Navbar';
 import './register.css'
+import { useNavigate, Redirect, useHistory } from 'react-router-dom';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import Popup from 'reactjs-popup';
-
-
-
+import Cookies from 'js-cookie';
 
 
 export function notXSSInjection(string) {
@@ -51,6 +50,8 @@ export function HasNumber(string) {
 const Connexion = () => {
 
 
+    const navigate = useNavigate();
+
     const [surname, setSurname] = useState("");
     const [name, setName] = useState("");
     const [pseudo, setPseudo] = useState("");
@@ -89,6 +90,7 @@ const Connexion = () => {
                 axios.post("http://localhost:4000/register", data_to_send).then(response => {
                     if (response.status == 201) {
                         alert("compte bien créé !")
+                        navigate('/home')
                     } else {
                         alert("Une erreur est survenue lors de la création du compte")
                     }
@@ -109,9 +111,7 @@ const Connexion = () => {
     return (
         <div>
             <div>
-                <Navbar></Navbar>
-            </div>
-            <div>
+                <br />
                 <input placeholder='Prénom' type='text' id="surname" onChange={(e) => setSurname(e.target.value)}></input>
                 <br></br>
                 <input placeholder='adresse email' type='text' id="emai" onChange={(e) => setEmail(e.target.value)}></input>

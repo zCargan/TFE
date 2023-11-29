@@ -1,7 +1,8 @@
 import './App.css';
 import { Provider } from 'react-redux';
 import store from './app/store';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import Connection from './pages/connection/Connection';
 import Home from './pages/home/Home';
 import Test from './components/test/Test';
@@ -18,26 +19,23 @@ import GetExercicesBySearchBar from './pages/getExercicesBySearchBar/getExercice
 import ManageExercice from './pages/manageExercice/manageExercice';
 import ResetPassword from './pages/resetPassword/resetPassword';
 import ResetPassword2 from './pages/resetPassword2/resetPassord2';
+import NewExercice from './pages/newExercice/newExercice';
+
+
+import MDN from './pages/MDN/MDN'
+import LDN from './pages/LDN/LDN'
+import Abaque from './pages/Abaque/Abaque';
+import TAT from './pages/TAT/TAT'
+import STT from './pages/STT/STT'
+import TTI from './pages/TTI/TTI'
+import MB from './pages/MB/MB'
+
+import UploadPhoto from './pages/AddIMG/AddIMG'
+import AddIMG from './pages/AddIMG/AddIMG';
+import UploadSound from './pages/uploadSounds/uploadSound';
+import ShowAllSounds from './pages/showAllSounds/showAllSounds';
 
 function App() {
-
-  useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      const modificationsNonEnregistrees = true; 
-
-      if (modificationsNonEnregistrees) {
-        event.preventDefault();
-        document.cookie = "JWT=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-
-      }
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-
-    };
-  }, []);
 
   return (
     <div className="App">
@@ -60,6 +58,19 @@ function App() {
             <Route path="/manage_exerices" element={<ManageExercice />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/reset-password2" element={<ResetPassword2 />} />
+            <Route path='/newExercice' element={<NewExercice />} />
+
+            <Route path='/ldn' element={<LDN />} />
+            <Route path='/mdn' element={<MDN />} />
+            <Route path='/abaque' element={<Abaque />} />
+            <Route path='/tat' element={<TAT />} />
+            <Route path='/stt' element={<STT />} />
+            <Route path='/tti' element={<TTI />} />
+            <Route path='/mb' element={<MB />} />
+
+            <Route path='/uploadPhoto' element={<AddIMG />} />
+            <Route path='/uploadSound' element={<UploadSound />} />
+            <Route path='/showAllSound' element={<ShowAllSounds />} />
           </Routes>
         </BrowserRouter>
       </Provider>

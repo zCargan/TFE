@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store } from '../../../../features/exerciceSlice'
 import { addExercice } from '../../../../features/exerciceSlice'
-
+import Navbar from '../../../../components/navbar/Navbar';
 
 const LigneDeNombre = () => {
 

@@ -45,7 +45,7 @@ const Home = () => {
                 console.error("Error fetching total counts:", error);
             });
     }
-    
+
 
     function giveRandomNumber(max) {
         return Math.floor(Math.random() * max) + 1;
@@ -55,14 +55,14 @@ const Home = () => {
     function getARandomExos(max, count) {
         const currentRandomExosList = [...randomExosList];
         const selectedExosSet = new Set();
-    
+
         const getRandomExo = () => {
             const testRandomExos = {};
             let a = giveRandomNumber(max) - 1;
-    
+
             const valeurs = Object.values(data);
             const cles = Object.keys(data);
-    
+
             for (let j = 0; j < valeurs.length; j++) {
                 a -= valeurs[j];
                 if (a < 0) {
@@ -73,18 +73,18 @@ const Home = () => {
             }
             return testRandomExos;
         };
-    
+
         for (let i = 0; i < count; i++) {
             let testRandomExos = getRandomExo();
-    
+
             // Vérifier si l'exercice est déjà présent dans la liste
             while (selectedExosSet.has(JSON.stringify(testRandomExos))) {
                 testRandomExos = getRandomExo();
             }
-    
+
             // Ajouter l'exercice à l'ensemble pour éviter les doublons
             selectedExosSet.add(JSON.stringify(testRandomExos));
-    
+
             axios
                 .get('http://localhost:4000/exercice/getARandomExo', {
                     params: testRandomExos,
@@ -99,11 +99,11 @@ const Home = () => {
                 });
         }
     }
-    
-    
-    
-    
-    
+
+
+
+
+
 
     return (
         <div>
@@ -115,7 +115,7 @@ const Home = () => {
             ))}
         </div>
     );
-    
+
 };
 
 export default Home;

@@ -42,7 +42,7 @@ router.get('/getMB/:id', exerciceCtrl.getMBById);
 
 // Route STT
 router.post('/registerSTT', exerciceCtrl.postSTT);
-router.get('/getSTT', exerciceCtrl.getSTT);
+//router.get('/getSTT', exerciceCtrl.getSTT);
 router.get('/getSTTexo/:id', exerciceCtrl.getSTTexo);
 router.get('/getSTT/:id', exerciceCtrl.getSTTById);
 

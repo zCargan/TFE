@@ -104,8 +104,9 @@ const GetExercicesBySearchBar = () => {
                                 });
                             break;
                         case 'STT':
+                            console.log("on est la")
                             axios
-                                .get(`http://localhost:4000/exercice/getSTT/${cleActuelle}`)
+                                .get(`http://localhost:4000/exercice/getSTTexo/${cleActuelle}`)
                                 .then((res) => {
                                     if (!STT.some((item) => item.id === res.data.id)) {
                                         setSTT((prevSTT) => [...prevSTT, res.data]);

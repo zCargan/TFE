@@ -1,19 +1,13 @@
 import React, { useState } from 'react';
-import './maisonDesNombres.css'
-import { Provider, useDispatch, useSelector } from 'react-redux';
-import { store } from '../../../../features/exerciceSlice'
-import { addExercice } from '../../../../features/exerciceSlice'
 import axios from 'axios'
 import Cookies from 'js-cookie';
 import Popup from 'reactjs-popup';
-import Navbar from '../../../../components/navbar/Navbar';
+import Navbar from '../../components/navbar/Navbar';
 
 
-const MaisonDesNombres = () => {
+const MDN = () => {
     let exo = {}
     let dictionnaire = {}
-    const dispatch =  useDispatch();
-    const exerciceRedux = useSelector(state =>(state))
     const [nbrItem, setNbrItem] = useState("");
 
 
@@ -44,8 +38,17 @@ const MaisonDesNombres = () => {
 
 
     function saveSquelette() {
+
+        var radios = document.getElementsByName('anneeScolaire');
+        var valeur;
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                valeur = radios[i].value;
+            }
+        }
+        
         exo.nom = document.getElementById("nomMDN").value;
-        //exo.anneeScolaire = document.getElementById("selectSchoolYear").value;
+        exo.anneeScolaire = valeur;
         exo.description = document.getElementById("descriptionExercice").value;
         exo.type = "MDN";
         exo.cols = Number(document.getElementById('nombre').value);
@@ -89,11 +92,6 @@ const MaisonDesNombres = () => {
         axios.post("http://localhost:4000/exercice/registerMDN", {exo}, config)
     }
 
-
-    function showRedux() {
-        console.log(exerciceRedux)
-        //axios.post('http://localhost:4000/exercice/post_mdn_exercices', exerciceRedux)
-    }
 
     function get_exos_mdn() {
         axios.get('http://localhost:4000/exercice/get_mdn_exercice').then((res)=> {
@@ -222,6 +220,19 @@ const MaisonDesNombres = () => {
 
     return (
         <div id="MDN_div">
+            <Navbar />
+            <div>
+                <br />
+                <fieldset>
+                    <legend>Choisissez l'année scolaire ciblée:</legend>
+                    <input type="radio" name="anneeScolaire" value="1" />1er
+                    <input type="radio" name="anneeScolaire" value="2" />2ème
+                    <input type="radio" name="anneeScolaire" value="3" />3ème
+                    <input type="radio" name="anneeScolaire" value="4" />4ème
+                    <input type="radio" name="anneeScolaire" value="5" />5ème
+                    <input type="radio" name="anneeScolaire" value="6" />6ème
+                </fieldset>
+            </div>
             <br />
             <input id="nomMDN" placeholder='Nom de la maison des nombres'></input>
             <br />
@@ -239,4 +250,4 @@ const MaisonDesNombres = () => {
     );
 };
 
-export default MaisonDesNombres;
+export default MDN;

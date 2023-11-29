@@ -41,10 +41,14 @@ const ResetPassword2 = () => {
     return (
         <div>
             <h2>Réinitialiser le Mot de Passe</h2>
-            <label>Nouveau Mot de Passe:</label>
+            <label>Nouveau Mot de Passe : </label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <label>Confirmer le Mot de Passe:</label>
+            <br />
+            <br />
+            <label>Confirmer le Mot de Passe : </label>
             <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+            <br />
+            <br />
             <button onClick={handleResetPassword}>Réinitialiser le Mot de Passe</button>
             {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
             {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}

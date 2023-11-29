@@ -419,6 +419,7 @@ exports.getSTTById = (req, res) => {
 
     let idExo = req.params.id;
     console.log(idExo)
+    console.log("Je suis bien dans exerciceCTRL")
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
@@ -931,12 +932,12 @@ exports.getAPreciseExo = (req, res, next) => {
 exports.getExosFromRequest = async (req, res, next) => {
 
     let rechercheSpecifique = req.body.rechercheSpecifique;
+    let anneeScolaire = req.body.anneeScolaire;
+    let matiere = req.body.matiere;
 
     if (rechercheSpecifique !== "" && req.body.anneeScolaire !== "---" && req.body.matiere !== "---") {
         let anneeScolaire = req.body.anneeScolaire;
         let matiere = req.body.matiere;
-
-        console.log(matiere)
 
         dicAnswers = {};
 
@@ -954,6 +955,9 @@ exports.getExosFromRequest = async (req, res, next) => {
                         }
                     }
                 }
+
+                console.log("on est ici")
+                console.log(dicAnswers)
                 res.status(200).json({ data: dicAnswers });
             });
         } else if (matiere === "MDN") {
@@ -982,6 +986,9 @@ exports.getExosFromRequest = async (req, res, next) => {
                         }
                     }
                 }
+                console.log("on est ici")
+                console.log(dicAnswers)
+
                 res.status(200).json({ data: dicAnswers });
             });
         } else if (matiere === "abaque") {
@@ -1036,6 +1043,7 @@ exports.getExosFromRequest = async (req, res, next) => {
                             dicAnswers[donnees[i]._id] = matiere;
                         } else if (donnees[i].description.includes(rechercheSpecifique)) {
                             dicAnswers[donnees[i]._id] = matiere;
+
                         }
                     }
                 }
@@ -1043,7 +1051,7 @@ exports.getExosFromRequest = async (req, res, next) => {
             });
         }
 
-        console.log(dicAnswers)
+
 
     } else if ((req.body.anneeScolaire === "---") && (req.body.matiere !== "---")) {
         let matiere = req.body.matiere;
@@ -1097,6 +1105,8 @@ exports.getExosFromRequest = async (req, res, next) => {
             await addIdsToDictionary(TTI, 'TTI');
             await addIdsToDictionary(MB, 'MB');
             await addIdsToDictionary(TAT, 'TAT');
+
+            console.log(dicOfId)
 
             res.status(200).json({ data: dicOfId });
         } catch (error) {

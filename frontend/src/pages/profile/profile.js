@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import SearchBarAdmin from '../../components/searchBarAdmin/searchBarAdmin';
 import SearchBar from '../../components/searchBarAdmin/searchBarAdmin';
+import PasswordChanger from '../../components/passwordChanger/passwordChanger';
 
 const Profile = () => {
 
@@ -124,6 +125,9 @@ const Profile = () => {
                         <button onClick={(e) => history()}>Voir mon historique d'exercices</button>
                         <br />
                         <br />
+                        <PasswordChanger text={"Changer mon mot de passe"} />
+                        <br />
+                        <br />
                     </div>
                 ) : (
                     <div>
@@ -154,7 +158,9 @@ const Profile = () => {
                             <SearchBarAdmin />
                         </div>
                         <br />
-
+                        <PasswordChanger text={"Changer mon mot de passe"} />
+                        <br />
+                        <br />
                     </div>
                 )}
             </div>

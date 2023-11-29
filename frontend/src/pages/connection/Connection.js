@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Provider, useDispatch } from 'react-redux';
 import './connection.css';
@@ -6,11 +6,22 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
-
+import PasswordChanger from '../../components/passwordChanger/passwordChanger';
 
 const Connection = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const textButtonPasswordForget = "Mot de passe oublié?";
+
+  useEffect(() => {
+    if (Cookies.get('JWT')) {
+      navigate('/home')
+    } else {
+      console.log('Nous ne sommes pas connecté')
+    }
+  }, []);
+
 
   function connection() {
     const pseudo = document.getElementById('pseudo').value;
@@ -66,6 +77,10 @@ const Connection = (props) => {
       });
   }
 
+  function changePassword() {
+    navigate('/reset-password')
+  }
+
 
   return (
     <div>
@@ -73,13 +88,15 @@ const Connection = (props) => {
         <Navbar />
       </div>
       <div id="input_connection_div">
+        <br />
         <input placeholder="Pseudo" type="text" id="pseudo" />
         <input placeholder="password" type="password" id="password" />
       </div>
       <div>
-        <button>Change my password</button>
+        <PasswordChanger text={textButtonPasswordForget} />
       </div>
       <button onClick={(e) => connection()}>Connection</button>
+
     </div>
   );
 };

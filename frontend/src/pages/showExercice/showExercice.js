@@ -30,6 +30,7 @@ const ShowExercice = () => {
             getExosById();
             getMBCalledRef.current = true;
         }
+        console.log(exo)
     }, []);
 
     function getExosById() {

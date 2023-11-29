@@ -28,8 +28,9 @@ const ResetPasswordPage = () => {
             ) : (
                 <div>
                     <h2>Réinitialiser le mot de passe</h2>
-                    <label>Email:</label>
+                    <label>Email : </label>
                     <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <br />
                     <button onClick={handleResetPassword}>Réinitialiser le mot de passe</button>
                 </div>
             )}

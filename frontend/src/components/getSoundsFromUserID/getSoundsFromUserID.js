@@ -54,7 +54,7 @@ const GetSounds = ({ onSoundSelect }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         <div id="zone_sound">
-            <button onClick={getSon}>Click ici pour un son</button>
+            <button onClick={getSon} id="buttonGetSound">Click ici pour un son</button>
             <div id="zoneExoSon" style={{ display: 'flex', flexDirection: 'row', gap: '10px', justifyContent: 'center' }}>
                 {sons.map((son, index) => (
                     <div key={index} style={{ marginRight: '10px' }}>
@@ -68,7 +68,6 @@ const GetSounds = ({ onSoundSelect }) => {
                     </div>
                 ))}
             </div>
-            <button onClick={showSon}>showSon</button>
             <br />
         </div>
     </div>

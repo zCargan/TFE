@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, Redirect } from 'react-router-dom';
+import { useNavigate, Redirect, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -8,11 +8,12 @@ import './Navbar.css'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { FaUserAlt } from 'react-icons/fa';
+import { FaHistory } from "react-icons/fa";
 import Popup from 'reactjs-popup';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-const Navbar = () => {
 
+const Navbar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const tasks = useSelector((state) => state.exercices.exercice)
@@ -20,15 +21,10 @@ const Navbar = () => {
     const [username, setUsername] = useState("")
     const [role, setRole] = useState("")
 
-    function handleUserIconHover() {
-        setPopupOpen(true);
-    }
-
-    function handleUserIconLeave() {
-        setPopupOpen(false);
-    }
 
     useEffect(() => {
+
+        const hasJWT = Cookies.get('JWT');
 
         if (Cookies.get('JWT')) {
             const config = {
@@ -48,12 +44,12 @@ const Navbar = () => {
                 .catch(error => {
                     console.error('Erreur de requête :', error);
                 });
+
         } else {
             navigate('/')
         }
 
-
-    })
+    }, []);
 
     function CheckPermissions() {
         console.log(Cookies.get('JWT'))
@@ -82,17 +78,14 @@ const Navbar = () => {
                             confirmButtonText: 'Je comprends'
                         });
                     } else {
-                        navigate('/create_exercice');
+                        navigate('/newExercice');
                     }
                 })
                 .catch(error => {
                     console.error('Erreur de requête :', error);
                 });
         }
-
-
     }
-
     function CheckConnection() {
         //console.log(document.getElementById('connectionLogo').innerHTML)
         if (Cookies.get('JWT') === undefined) {
@@ -101,11 +94,9 @@ const Navbar = () => {
             navigate('/profile')
         }
     }
-
-    function history() {
+    function historyy() {
         navigate('/history')
     }
-
     function deconnect() {
         Cookies.remove('JWT');
         Swal.fire({
@@ -120,7 +111,6 @@ const Navbar = () => {
         }, 1500);
         navigate('/')
     }
-
     function connection() {
         const pseudo = document.getElementById('usernamePopup').value;
         const password = document.getElementById('passwordPopup').value;
@@ -149,7 +139,6 @@ const Navbar = () => {
                 console.log(error)
             })
     }
-
     return (
         <div id="mainDiv">
             <nav>
@@ -159,18 +148,26 @@ const Navbar = () => {
                             <a onClick={(e) => navigate('/home')}>Home</a>
                         </li>
                         <li>
-                            <a onClick={(e) => navigate('/register')}>Création de compte</a>
-                        </li>
-                        <li>
                             <a onClick={(e) => CheckPermissions()}>Créer un exercice</a>
                         </li>
                         <li>
                             <Popup
                                 trigger={
-                                    <a
-                                        onMouseEnter={handleUserIconHover}
-                                        onMouseLeave={handleUserIconLeave}
-                                    >
+                                    <a title="Historique"><FaHistory onClick={(e) => { navigate('/history') }} /></a>}
+                                position="bottom center"
+                                open={popupOpen}
+                                on="hover"
+                                closeOnDocumentClick
+                            >
+                                <div>
+                                    <p id="text_history">Votre historique d'exercice</p>
+                                </div>
+                            </Popup>
+                        </li>
+                        <li>
+                            <Popup
+                                trigger={
+                                    <a>
                                         <div>
                                             <FaUserAlt />
                                         </div>
@@ -188,7 +185,7 @@ const Navbar = () => {
                                             <h3>Bienvenu sur votre profil</h3>
                                             <p>Bonjour {username} !</p>
                                             <p>Vous êtes connecté à un compte {role}</p>
-                                            <button onClick={(e) => history()}>Voir mon historique d'exercices</button>
+                                            <button onClick={(e) => historyy()}>Voir mon historique d'exercices</button>
                                             <br />
                                             <button onClick={(e) => navigate('/profile')}>Accéder à mon profil</button>
                                             <br />
@@ -205,12 +202,10 @@ const Navbar = () => {
                                 </div>
                             </Popup>
                         </li>
-
                     </ul>
                 </div>
             </nav>
         </div>
     );
 };
-
 export default Navbar;
