@@ -1,0 +1,25 @@
+.spanBT {
+    color: red;
+}
+
+
+
+#descriptionExo {
+    border-radius: 10px;
+    padding: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#result {
+    width: 430px;
+}
+
+.inputTAT {
+    border-radius: 10px;
+    padding: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#motAAjouter {
+    width: 103px;
+}

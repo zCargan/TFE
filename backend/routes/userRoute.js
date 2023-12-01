@@ -6,5 +6,7 @@ const userCtrl = require('../controllers/userCtrl')
 
 router.get('/getAllInformationsUsers', userCtrl.getAllInformationsUsers);
 router.put('/updateUserInformations', userCtrl.updateUserInformations);
+router.post('/sendRequest', userCtrl.sendRequest);
+
 
 module.exports = router;

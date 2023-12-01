@@ -42,7 +42,7 @@ router.get('/getMB/:id', exerciceCtrl.getMBById);
 
 // Route STT
 router.post('/registerSTT', exerciceCtrl.postSTT);
-//router.get('/getSTT', exerciceCtrl.getSTT);
+router.get('/getSTT', exerciceCtrl.getSTT);
 router.get('/getSTTexo/:id', exerciceCtrl.getSTTexo);
 router.get('/getSTT/:id', exerciceCtrl.getSTTById);
 
@@ -60,5 +60,6 @@ router.get('/getARandomExo', exerciceCtrl.getARandomExo)
 router.get('/getAPreciseExo', exerciceCtrl.getAPreciseExo);
 router.post('/getExosFromRequest', exerciceCtrl.getExosFromRequest);
 router.delete('/deleteExoById', exerciceCtrl.deleteExoById);
+router.post('/saveWorksheet', exerciceCtrl.saveWorksheet);
 
 module.exports = router;

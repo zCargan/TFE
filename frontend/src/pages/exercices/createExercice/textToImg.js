@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './textToImg.css';
-import GetPhotos from '../../../../components/getPhotos/getPhotos';
-import UploadPhoto from '../../../../components/UploadPhoto/uploadPhoto';
+import GetPhotos from '../../../components/getPhotos/getPhotos';
+import UploadPhoto from '../../../components/UploadPhoto/uploadPhoto';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const TextToImg = () => {
+const TextToImg = ({ onTtiData }) => {
     const [tableData, setTableData] = useState([]);
     const [selectedImageInfo, setSelectedImageInfo] = useState({ id: null, name: null });
     const [dictionary, setDictionary] = useState({});
@@ -37,56 +37,36 @@ const TextToImg = () => {
                 const newDictionary = { ...dictionary };
                 newDictionary[selectedImageInfo.id] = newName;
                 setDictionary(newDictionary);
+                document.getElementById('name_photo').value = "";
             }
         }
     }
 
     function saveExo() {
 
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get('JWT')}`,
-                'Content-Type': 'application/json' // Utilisation de 'application/json' pour le Content-Type
-            }
-        };
 
         const data = {
-            nom: document.getElementById('nameExo').value,
-            anneeScolaire: document.getElementById('selectSchoolYear').value,
             description: document.getElementById('descriptionExo').value,
             type: "TTI",
             reponses: dictionary
         }
-        
-        axios.post(`http://localhost:4000/exercice/registerTTI`, data, config).then((res) => {
-
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+        onTtiData(data)
     }
 
     return (
         <div>
-            <h3>Créez ici vos relations entre vos photos et un mot !</h3>
             <br />
             <div>
-                <input id="nameExo" placeholder="Nom de l'exercice"></input>
                 <br></br>
-                <br></br>
-                <textarea id="descriptionExo" placeholder="Description de l'exercice" rows="5" cols="100"></textarea>
-            </div>
-            <div>
-                <p>Veuillez d'abord choisir une image</p>
-                <GetPhotos onImageClick={handleImageClick} />
+                <textarea id="descriptionExo" placeholder="Description DE l'exercice" rows={7} cols={60}></textarea>
             </div>
             {selectedImageInfo.id && (
                 <div>
-                    <h3>Nom de l'image sélectionnée : {selectedImageInfo.name}</h3>
+                    <h3>Image sélectionnée : {selectedImageInfo.name}</h3>
                 </div>
             )}
             <div id="suite">
-                <input placeholder='Placez ici le nom se rapportant à cette image' id="name_photo" style={{width: "300px"}}></input>
+                <input placeholder='Placez ici le nom se rapportant à cette image' id="name_photo" style={{ width: "300px" }}></input>
                 <button onClick={confirm}>Confirmer</button>
             </div>
             <br />
@@ -110,7 +90,9 @@ const TextToImg = () => {
                     </tbody>
                 </table>
             </div>
-            <br />
+            <div>
+                <GetPhotos onImageClick={handleImageClick} />
+            </div>
             <br />
             <button onClick={(e) => saveExo()}>Valider l'exercice</button>
         </div>

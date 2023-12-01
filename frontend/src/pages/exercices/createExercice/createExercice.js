@@ -2,42 +2,71 @@ import React, { useEffect, useState } from 'react';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import Mathematics from '../mathematics/mathematics';
 import French from '../french/french';
-import English from '../english/english';
-import Eveil from '../eveil/eveil';
-import Neederlands from '../neederlands/neederlands';
 import { useNavigate } from 'react-router-dom';
 import { store } from '../../../features/exerciceSlice'
 import axios from 'axios';
 import Navbar from '../../../components/navbar/Navbar';
 import Resultat from '../resultat/resultat';
 import Cookies from 'js-cookie';
+import Popup from 'reactjs-popup';
+import Swal from 'sweetalert2';
+import { FaEye } from "react-icons/fa";
+
+import BlankText from './blankText.js';
+import TextToImg from './textToImg.js';
+import MB from './motBazard.js'
+import SoundToText from '../french/SoundToText/SoundToText.js';
+import MaisonDesNombres from '../mathematics/MaisonDesNombres/maisonDesNombres';
+import LigneDeNombre from '../mathematics/LigneDeNombre/ligneDeNombre';
+import Abaque from '../mathematics/Abaque/abaque.js';
+
+import './createExercice.css'
 
 const CreateExercice = () => {
 
 
     const [selectedOption, setSelectedOption] = useState('');
-    const [colonne, setColonne] = useState(0);
-    const [ligne, setLigne] = useState(0);
-  
+    const [exerciseDataArray, setExerciseDataArray] = useState([]);
+    const [popupOpen, setPopupOpen] = useState(false);
+    const [resetSelect, setResetSelect] = useState(false);
+
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${Cookies.get('JWT')}`,
+            'Content-Type': 'application/json' // Utilisation de 'application/json' pour le Content-Type
+        }
+    };
+
+    const handleExerciseData = (data) => {
+        setExerciseDataArray((prevData) => [...prevData, data]);
+        setResetSelect(true);
+        Swal.fire({
+            title: 'Succès',
+            text: "Ajouter avec succès. Vous pouvez valider la feuille d'exercice, ou ajouter un nouvel exercice",
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 2000
+        });
+    };
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(Cookies.get('JWT')) {
+        if (Cookies.get('JWT')) {
             const config = {
                 headers: {
                     'Authorization': `Bearer ${Cookies.get('JWT')}`
                 }
             };
-    
+
             axios.post("http://localhost:4000/connection/checkToken", {}, config)
                 .then(response => {
                     console.log(response.data.role)
-                    if(response.data.role !== "professeur" || '') {
+                    if (response.data.role !== "professeur" || '') {
                         navigate('/')
                     }
-                
+
                 })
                 .catch(error => {
                     console.log(error)
@@ -45,7 +74,7 @@ const CreateExercice = () => {
         } else {
             navigate('/')
         }
-        
+
     }, []);
 
 
@@ -53,35 +82,9 @@ const CreateExercice = () => {
     const exerciceRedux = useSelector(state => (state))
 
     const handleSelectChange = (event) => {
-      setSelectedOption(event.target.value);
+        setSelectedOption(event.target.value);
+
     };
-
-    const RepeatVariable = () => {
-        const elements = [];
-        const numLignes = 5;
-        for (var i = 0; i < ligne; i++) {
-            for(var j = 0; i < colonne; j++) {
-                elements.push(
-                    <p>Element x</p>
-                )
-            }
-        }
-        return (
-            <div>
-              {elements}
-            </div>
-          );
-        }
-
-    /*
-    function testRedux() {
-        dispatch(
-            ex({
-              test: "test123"
-            })
-          );
-    }
-    */
 
     function valider1exo() {
         console.log(exerciceRedux.user[0])
@@ -94,7 +97,7 @@ const CreateExercice = () => {
         let nbrExercice = exerciceRedux.user.length
         console.log("exercice redux ")
         console.log(exerciceRedux)
-        for(let i = 0; i < nbrExercice; i++) {
+        for (let i = 0; i < nbrExercice; i++) {
             axios.post('http://localhost:4000/exercice/send_test_exercice', exerciceRedux)
             /*
                 .then(response => {
@@ -108,56 +111,123 @@ const CreateExercice = () => {
         }
     }
 
+    function saveWorksheet() {
+
+        var radios = document.getElementsByName('anneeScolaire');
+        var valeur;
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                valeur = radios[i].value;
+            }
+        }
+
+
+        let data = {
+            nom: document.getElementById('nameInput').value,
+            descriptionWorksheet: document.getElementById('textareaCE').value,
+            anneeScolaire: valeur,
+            data: exerciseDataArray
+        }
+
+        axios
+            .post('http://localhost:4000/exercice/saveWorksheet', { data }, config)
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
     return (
         <div>
             <div>
                 <Navbar />
             </div>
             <div>
-                <h1>Création d'exercice</h1>
+                <h3>Bienvenue dans la section de création d'une feuille d'exercice</h3>
+                <div id="divTopPage">
+                    <Popup
+                        trigger={
+                            <p>Preview</p>
+                        }
+                        position="bottom center"
+                        open={popupOpen}
+                        on="hover"
+                        closeOnDocumentClick
+                    >
+                        <div>
+                            {exerciseDataArray.length > 0 && (
+                                <div id="preview">
+                                    <h4>Noms des éléments dans le tableau :</h4>
+                                    <h5>Nombre d'exercice : {exerciseDataArray.length}</h5>
+                                    {exerciseDataArray.map((item, index) => (
+                                        <p key={index}>Type : {item.type}</p>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    </Popup>
+                    <div>
+                        <button onClick={saveWorksheet}>Sauver la feuille d'exercice</button>
+                    </div>
+                </div>
+                <div>
+                    <br />
+                    <fieldset>
+                        <legend>Choisissez l'année scolaire ciblée pour la feuille d'exercice:</legend>
+                        <input type="radio" name="anneeScolaire" value="1" />1er
+                        <input type="radio" name="anneeScolaire" value="2" />2ème
+                        <input type="radio" name="anneeScolaire" value="3" />3ème
+                        <input type="radio" name="anneeScolaire" value="4" />4ème
+                        <input type="radio" name="anneeScolaire" value="5" />5ème
+                        <input type="radio" name="anneeScolaire" value="6" />6ème
+                    </fieldset>
+                </div>
             </div>
+            <br />
             <div>
-                <p>Niveau scolaire de l'exercice</p>
-                <select id="selectSchoolYear">
-                    <option value="1">1ère année primaire</option>
-                    <option value="2">2ème année primaire</option>
-                    <option value="3">3ème année primaire</option>
-                    <option value="4">4ème année primaire</option>
-                    <option value="5">5ème année primaire</option>
-                    <option value="6">6ème année primaire</option>
-                </select>
+                <input id="nameInput" placeholder="Nom de votre feuille d'exercice"></input>
             </div>
+            <br />
             <div>
-                <p>Branche scolaire</p>
-                <select value={selectedOption} onChange={handleSelectChange}>
-                    <option selected>---</option>
-                    <option value="mathematique">Mathématique</option>
-                    <option value="francais">Français</option>
-                    <option value="eveil">Eveil</option>
-                    <option value="anglais">Anglais</option>
-                    <option value="neerlandais">Néérlandais</option>
-                    <option value="resultat">Zone des résultats</option>
+                <textarea id="textareaCE" rows={7} cols={60} placeholder="Description de votre feuille d'exercice..." />
+            </div>
+            <br />
+            <div>
+                <select id="selectFeuilleExercice" value={selectedOption} onChange={handleSelectChange}>
+                    <option selected>Ajouter un exercice</option>
+                    <option value="TAT">Texte à trou</option>
+                    <option value="TTI">Texte avec images</option>
+                    <option value="MB">Mot bazard</option>
+                    <option value="STT">Texte avec du son</option>
+                    <option value="Abaque">Abaque</option>
+                    <option value="MDN">Maison des nombres</option>
+                    <option value="LDN">Ligne des nombres</option>
                 </select>
-                {selectedOption === 'mathematique' && 
-                    <Mathematics />
+                {selectedOption === 'TAT' &&
+                    <BlankText onTatData={handleExerciseData} />
                 }
-                {selectedOption === 'francais' && 
-                    <French />
+                {selectedOption === 'TTI' &&
+                    <TextToImg onTtiData={handleExerciseData} />
                 }
-                {selectedOption === 'eveil' && 
-                    <Eveil />
+                {selectedOption === 'MB' &&
+                    <MB onMbData={handleExerciseData} />
                 }
-                {selectedOption === 'anglais' &&
-                    <English />
+                {selectedOption === 'STT' &&
+                    <SoundToText onSttData={handleExerciseData} />
                 }
-                {selectedOption === 'neerlandais' && 
-                    <Neederlands/>
+                {selectedOption === 'LDN' &&
+                    <LigneDeNombre onLdnData={handleExerciseData} />
                 }
-                {selectedOption === 'resultat' && 
-                    <Resultat />
+                {selectedOption === 'Abaque' &&
+                    <Abaque onAbaqueData={handleExerciseData} />
+                }
+                {selectedOption === 'MDN' &&
+                    <MaisonDesNombres onMdnData={handleExerciseData} />
                 }
             </div>
-            <br></br>
+            <br />
         </div>
     );
 };

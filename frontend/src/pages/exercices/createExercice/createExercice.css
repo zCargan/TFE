@@ -1,0 +1,29 @@
+#preview {
+    padding: 30px;
+    background-color: white;
+    text-align: center;
+}
+
+#textareaCE {
+    padding: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#textareaCE {
+    border-radius: 10px;
+}
+
+#nameInput {
+    border-radius: 5px;
+    width: 300px;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
+#divTopPage {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    flex-direction: row; 
+}

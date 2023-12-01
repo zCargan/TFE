@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './motBazard.css'
-import GetPhotos from '../../../../components/getPhotos/getPhotos';
-import UploadPhoto from '../../../../components/UploadPhoto/uploadPhoto';
+import GetPhotos from '../../../components/getPhotos/getPhotos';
+import UploadPhoto from '../../../components/UploadPhoto/uploadPhoto';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const MotBazard = () => {
+const MotBazard = ({onMbData}) => {
     const [tableData, setTableData] = useState([]);
     const [selectedImageInfo, setSelectedImageInfo] = useState({ id: null, name: null });
     const [dictionary, setDictionary] = useState({});
@@ -54,11 +54,11 @@ const MotBazard = () => {
 
         const data = {
             nom: document.getElementById('nameExo').value,
-            anneeScolaire: document.getElementById("selectSchoolYear").value,
             description: document.getElementById('descriptionExo').value,
             type: "MB",
             reponses: dictionary
         }
+        onMbData(data)
         
 
 

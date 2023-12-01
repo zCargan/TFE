@@ -111,6 +111,15 @@ const Profile = () => {
         });
     }
 
+
+    function goToRequest() {
+        navigate('/request')
+    }
+
+
+
+
+
     return (
         <div>
             <div>
@@ -128,6 +137,7 @@ const Profile = () => {
                         <PasswordChanger text={"Changer mon mot de passe"} />
                         <br />
                         <br />
+                        <button onClick={goToRequest}>Effectuer une requête</button>
                     </div>
                 ) : (
                     <div>

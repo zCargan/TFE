@@ -419,7 +419,6 @@ exports.getSTTById = (req, res) => {
 
     let idExo = req.params.id;
     console.log(idExo)
-    console.log("Je suis bien dans exerciceCTRL")
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
@@ -1236,3 +1235,8 @@ exports.deleteExoById = async (req, res, next) => {
     }
 };
 
+
+exports.saveWorksheet = (req, res, next) => {
+    let arrayExercices = req.body.data
+    console.log(arrayExercices)
+}

@@ -9,7 +9,7 @@ import Popup from 'reactjs-popup';
 import Navbar from '../../../../components/navbar/Navbar';
 
 
-const MaisonDesNombres = () => {
+const MaisonDesNombres = ({onMdnData}) => {
     let exo = {}
     let dictionnaire = {}
     const dispatch =  useDispatch();
@@ -45,7 +45,6 @@ const MaisonDesNombres = () => {
 
     function saveSquelette() {
         exo.nom = document.getElementById("nomMDN").value;
-        //exo.anneeScolaire = document.getElementById("selectSchoolYear").value;
         exo.description = document.getElementById("descriptionExercice").value;
         exo.type = "MDN";
         exo.cols = Number(document.getElementById('nombre').value);
@@ -78,15 +77,11 @@ const MaisonDesNombres = () => {
 
         exo.reponseFinal = arrayFinal
 
+        onMdnData(exo)
+
         console.log(exo)
 
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get('JWT')}`
-            }
-        }
 
-        axios.post("http://localhost:4000/exercice/registerMDN", {exo}, config)
     }
 
 

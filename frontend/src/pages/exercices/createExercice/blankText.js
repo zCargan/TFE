@@ -4,23 +4,26 @@ import axios from 'axios'
 import Cookies from 'js-cookie';
 
 
-const TexteATrou = () => {
+const TexteATrou = ({ onTatData }) => {
 
     const [html, setHTML] = useState("")
     const [arrayEnonce, setArrayEnonce] = useState([])
     const [arrayFinal, setArrayFinal] = useState([])
 
+    let newSentence = "";
+    let enonce = []
+    let arrayOfWords = []
 
     function addWords() {
 
         let enonce = []
         let arrayOfWords = []
 
-        if(document.getElementById("textArea").value === "") {
+        if(document.getElementById("result").value === "") {
             alert("Veuillez entrez une phrase valide")
         } else {
 
-            var textarea = document.getElementById("textArea").value;
+            var textarea = document.getElementById("result").value;
             var motAAjouter = document.getElementById("motAAjouter").value;
             const motsTextArea = textarea.split(' '); // Diviser la chaîne en mots
 
@@ -36,7 +39,7 @@ const TexteATrou = () => {
                 arrayOfWords.push("inputUserExercice")
             });
 
-            let newSentence = html + textarea + "<span class='spanBT'>" + motAAjouter + "</span> "
+            newSentence = html + textarea + "<span class='spanBT'>" + motAAjouter + "</span> "
             console.log(newSentence)
             document.getElementById("phrase").innerHTML = newSentence
             setHTML(newSentence)
@@ -55,8 +58,14 @@ const TexteATrou = () => {
 
     }
 
-    function testState() {
-        console.log(arrayEnonce, arrayFinal)
+    function reset() {
+        setHTML("");
+        document.getElementById('phrase').innerHTML = "";
+        console.log(html, newSentence)
+        enonce = []
+        arrayOfWords = []
+        setArrayEnonce([])
+        setArrayFinal([])
     }
 
     function validateSentence() {
@@ -68,16 +77,13 @@ const TexteATrou = () => {
         }
 
         const data = {
-            nom: document.getElementById("name").value,
-            anneeScolaire: document.getElementById("selectSchoolYear").value,
-            description: document.getElementById("description").value,
+            description: document.getElementById("descriptionExo").value,
             type: "TAT",
             reponseInitiale: arrayEnonce,
             reponseFinale: arrayFinal
         }
 
-        axios.post("http://localhost:4000/exercice/registerTAT", {data}, config)
-
+        onTatData(data)
     }
 
     function changeValueText(event) {
@@ -87,19 +93,19 @@ const TexteATrou = () => {
     return (
         <div id="texteATrou">
             <br />
-            <input placeholder='Titre de votre exercice' id="name"></input>
+            <br />
+            <textarea id="descriptionExo" onChange={changeValueText} placeholder="Description DE l'exercice" rows={7} cols={60}></textarea>
             <br />
             <br />
-            <textarea placeholder='Description de votre exercice' id="description"></textarea>
-            <br />
-            <p>Résultat de la phrase :</p><p id="phrase"></p>
-            <textarea id="textArea" onChange={changeValueText} placeholder='Ecrivez votre phrase ici'></textarea>
+            <input placeholder="Votre phrase" className="inputTAT" id="result" rows={7} cols={60}></input>
             <br></br>
-            <input id="motAAjouter" placeholder='Mot à ajouter'></input><button onClick={addWords}>Ajouter ce mot</button>
-            <br></br>
+            <input id="motAAjouter" className="inputTAT" placeholder='Mot à ajouter'></input><button onClick={addWords}>Ajouter ce mot</button><button onClick={reset}>Remettre le texte à 0</button>
+            <br />
+            <br />
+            <div id="phrase">Votre résultat apparaitra ici</div>
             <br></br>
             <button onClick={validateSentence}>Valider cette phrase</button>
-            <button onClick={testState}>test state</button>
+            
         </div>
     );
 };

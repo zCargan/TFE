@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 
 
-const Abaque = () => {
+const Abaque = ({ onAbaqueData }) => {
 
     const [height, setHeight] = useState(0);
     const [width, setWidth] = useState(0);
@@ -52,7 +52,6 @@ const Abaque = () => {
 
     function saveAbaque() {
         dictionnaire.nom = document.getElementById('titreAbaque').value;
-        dictionnaire.anneeScolaire = document.getElementById("selectSchoolYear").value;
         dictionnaire.description = document.getElementById("descriptionExercice").value;
         dictionnaire.type = "abaque" ;
         dictionnaire.hauteur = Number(height);
@@ -81,14 +80,7 @@ const Abaque = () => {
                 'Authorization': `Bearer ${Cookies.get('JWT')}`
             }
         }
-
-        const data = {
-            exercice: dictionnaire
-        }
-        console.log(data)
-
-        axios.post("http://localhost:4000/exercice/registerAbaque", {data}, config)
-
+        onAbaqueData(dictionnaire);
     }
 
     function recupereExo() {
@@ -172,6 +164,8 @@ const Abaque = () => {
         })
     }
 
+
+        
 
 
     return (

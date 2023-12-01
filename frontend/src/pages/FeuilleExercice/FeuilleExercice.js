@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '../../components/navbar/Navbar'
+import './FeuilleExercice.css'
+import { Provider, useDispatch, useSelector } from 'react-redux';
+import Navbar from '../../components/navbar/Navbar';
 import { useNavigate } from 'react-router-dom';
 import Popup from 'reactjs-popup';
-import './newExercice.css'
 
-import LDN from '../LDN/LDN'
-import MDN from '../MDN/MDN'
-import Abaque from '../Abaque/Abaque';
-import TAT from '../TAT/TAT'
+const FeuilleExercice = () => {
 
-const NewExercice = () => {
     const [popupOpen, setPopupOpen] = useState(false);
     const navigate = useNavigate();
 
+    const dispatch = useDispatch();
+
+    const exerciceRedux = useSelector(state => (state))
 
     function callAbaque() {
         navigate('/abaque')
@@ -42,28 +42,22 @@ const NewExercice = () => {
         navigate('/tti')
     }
 
-    function callGetPhotos() {
-        navigate('/photo')
-    }
-
-    function callUploadPhoto() {
-        navigate('/uploadPhoto')
-    }
-
-    function callUploadSound() {
-        navigate('/uploadSound')
-    }
-
-    function showAllSounds() {
-        navigate('/showAllSound')
+    function testRedux() {
+        console.log(exerciceRedux)
     }
 
     return (
         <div>
             <Navbar />
-            <br />
-            <div id="div_img_create_exercice">
-                <h2>Liste des exercices disponibles :</h2>
+            <div>
+                <h3>Bienvenue dans la section de création d'une feuille d'exercice</h3>
+                <p>Récapitulatif :</p>
+
+
+
+            </div>
+            <h3>Séléctionner un exercice à ajouter à votre feuille :</h3>
+            <h2>Liste des exercices disponibles :</h2>
                 <Popup
                     trigger={
                         <img src="abaque.png" onClick={callAbaque} width="100" height="100" />
@@ -165,38 +159,10 @@ const NewExercice = () => {
                         </p>
                     </div>
                 </Popup>
-                <Popup
-                    trigger={
-                        <img src="feuilleExo.jpg" onClick={(e) => navigate('/create_exercice')} width="100" height="100" />}
-                    position="bottom center"
-                    open={popupOpen}
-                    on="hover"
-                    closeOnDocumentClick
-                >
-                    <div className='popupExos'>
-                    <h3>Feuilles d'exercices</h3>
-                        <p>
-                            Vous pouvez créer ici des feuilles d'exercices, permettant d'en proposer plusieurs à la fois
-                        </p>
-                    </div>
-                </Popup>
-            </div>
-            <br />
-            <br />
-            <div id="div_photo_create_exercice">
-                <h2>Partie photo : </h2>
-                <img src="gallerie.png" onClick={callGetPhotos} width="100" height="100" />
-                <img src="uploadPhoto.jpg" onClick={callUploadPhoto} width="100" height="100" />
-            </div>
-            <br />
-            <br />
-            <div id="div_son_create_exercice">
-                <h2>Partie musique : </h2>
-                <img src="musique.png" onClick={showAllSounds} width="100" height="100" />
-                <img src="uploadMusique.png" onClick={callUploadSound} width="100" height="100" />
-            </div>
+                <br />
+                <button onClick={testRedux}>Test redux</button>
         </div>
     );
 };
 
-export default NewExercice;
+export default FeuilleExercice;

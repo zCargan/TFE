@@ -7,7 +7,7 @@ import { store } from '../../../../features/exerciceSlice'
 import { addExercice } from '../../../../features/exerciceSlice'
 import Navbar from '../../../../components/navbar/Navbar';
 
-const LigneDeNombre = () => {
+const LigneDeNombre = ({onLdnData}) => {
 
     const dispatch =  useDispatch();
     const exerciceRedux = useSelector(state =>(state))
@@ -43,7 +43,7 @@ const LigneDeNombre = () => {
 
         let reponsesEnoncees = []
         exo.nom = document.getElementById("name").value;
-        exo.anneeScolaire = document.getElementById('selectSchoolYear').value;
+
         exo.description = document.getElementById("description").value;
         exo.type = 'LDN'
         let option = document.getElementById("direction").value;
@@ -60,6 +60,8 @@ const LigneDeNombre = () => {
         }
 
         exo.reponseInitiale = reponsesEnoncees
+
+        
 
         console.log(exo)
 
@@ -86,20 +88,12 @@ const LigneDeNombre = () => {
         }
 
         exo.reponseFinale = reponsesFinales
-
+        onLdnData(exo)
         dispatch(
             addExercice(exo)
         )
         console.log(exo)
 
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get('JWT')}`
-            }
-        }
-
-
-        axios.post("http://localhost:4000/exercice/registerLDN", {exo}, config)
 
 
     }

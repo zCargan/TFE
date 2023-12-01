@@ -1,0 +1,24 @@
+#introductionFDR {
+    color:cornflowerblue;
+}
+
+.required {
+    color: red;
+}
+
+#detailReportTextarea::placeholder {
+    padding: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#detailReportTextarea {
+    border-radius: 10px;
+}
+
+#emailInputFDR {
+    width: 200px;
+}
+
+#textReturnRequest {
+    color:aquamarine;
+}

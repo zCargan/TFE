@@ -1,4 +1,5 @@
 const { Client } = require('pg');
+const nodemailer = require('nodemailer');
 
 exports.getAllInformationsUsers = (req, res, next) => {
 
@@ -88,5 +89,44 @@ exports.updateUserInformations = (req, res, next) => {
             console.log('Données mise à jour pour la table utilisateurs');
             res.status(201).json({ message: 'utilisateur modifié' })
         }
+    });
+}
+
+exports.sendRequest = (req, res, next) => {
+    console.log(req.body)
+
+    let emailUser = req.body.email;
+    let motifUser = req.body.motif;
+    let detailsUser=  req.body.details
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail', // Le service à utiliser (ici, Gmail)
+        auth: {
+            user: 'lgc.carlier@gmail.com', // Votre adresse e-mail Gmail
+            pass: 'qfcb hcah xpgg oxpt',   // Votre mot de passe Gmail
+        },
+    });
+    
+    let texte = "Détail de la requete : " +  detailsUser;
+
+    texte += "\n"
+
+    texte += "Email user : " + emailUser
+
+    const mailOptions = {
+        from: emailUser,
+        to: "lgc.carlier@gmail.com",
+        subject: motifUser,
+        text: texte
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error('Erreur lors de l\'envoi de l\'e-mail', error);
+            return res.status(500).json({ message: 'Erreur lors de l\'envoi de la requete.' });
+        }
+        console.log('E-mail envoyé: ' + info.response);
+        // Réponse réussie ici
+        res.status(200).json({ message: 'Demande bien reçue! Merci!' });
     });
 }

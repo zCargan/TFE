@@ -107,7 +107,6 @@ exports.connectionInformations = (req, res) => {
 
 exports.resetPassword = (req, res, next) => {
 
-    console.log("on passe par ici")
 
     const { email } = req.body;
 

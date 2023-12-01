@@ -3,7 +3,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import GetSounds from '../../../../components/getSoundsFromUserID/getSoundsFromUserID';
 
-const SoundToText = () => {
+const SoundToText = ({onSttData}) => {
     const [selectedSounds, setSelectedSounds] = useState([]);
     const [soundName, setSoundName] = useState('');
     const [soundTable, setSoundTable] = useState([]);
@@ -63,25 +63,16 @@ const SoundToText = () => {
 
     function validerExo() {
         
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get('JWT')}`,
-                'Content-Type': 'application/json' // Utilisation de 'application/json' pour le Content-Type
-            }
-        };
+
 
         const data = {
             nom: document.getElementById('nameExo').value,
-            anneeScolaire: document.getElementById('selectSchoolYear').value,
+           
             description: document.getElementById('descriptionExo').value,
             type: "STT",
             reponses: dictionnaire
         }
-
-        axios
-        .post(`http://localhost:4000/exercice/registerSTT`, data, config)
-        .then((res) => {})
-        .catch((error) => {})
+        onSttData(data)
 
     }
 

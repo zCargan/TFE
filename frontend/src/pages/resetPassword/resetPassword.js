@@ -1,6 +1,7 @@
 // ResetPasswordPage.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import Navbar from '../../components/navbar/Navbar';
 
 const ResetPasswordPage = () => {
     const [email, setEmail] = useState('');
@@ -20,6 +21,7 @@ const ResetPasswordPage = () => {
 
     return (
         <div>
+            <Navbar />
             {resetRequested ? (
                 <div>
                     <p>Un e-mail de réinitialisation a été envoyé à votre adresse.</p>

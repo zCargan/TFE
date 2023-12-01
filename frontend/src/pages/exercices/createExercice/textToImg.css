@@ -12,7 +12,7 @@
 
 #table {
     border-collapse: collapse;
-    width: 100%;
+    width: 24%;
   }
   
   #table th,
@@ -23,13 +23,17 @@
   }
   
   #table th {
-    background-color: #f2f2f2; /* Couleur de fond pour les en-têtes */
+    background-color: #f2f2f2; 
   }
   
 
-#table th,
-#table td {
-  border: 1px solid #000; /* Ajoute des bordures autour des cellules */
-  padding: 8px; /* Ajoute de l'espace à l'intérieur des cellules */
-  text-align: center; /* Centre le texte */
+
+
+#descriptionExo {
+  padding: 10px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#descriptionExo {
+  border-radius: 10px;
 }

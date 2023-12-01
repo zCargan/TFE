@@ -35,7 +35,9 @@ const Abaque = () => {
     function showExercice() {
         let texte = String("<div id='abaque'><table><tbody>");
         let titre = document.getElementById('titreAbaque').value;
+        let description = document.getElementById('descriptionExercice').value;
         texte += '<h1>' + titre + '</h1>'
+        texte += '<p>' + description + '</p>'
         for(let i =0; i <height; i ++) {
             for(let j = 0; j <width; j++) {
                 console.log("largeur")
@@ -186,6 +188,7 @@ const Abaque = () => {
     return (
         <div>
             <Navbar />
+            <h2>Menu de création de l'abaque</h2>
             <div>
                 <br />
                 <fieldset>
@@ -197,32 +200,27 @@ const Abaque = () => {
                     <input type="radio" name="anneeScolaire" value="5" />5ème
                     <input type="radio" name="anneeScolaire" value="6" />6ème
                 </fieldset>
+                <br />
             </div>
-            <h2>Abaque</h2>
-            Titre de l'abaque: <input placeholder='Indiquer le titre ici' id="titreAbaque"></input>
-            <br></br>
-            <p>Description de l'exercice :</p>
-            <textarea id="descriptionExercice">
-
-            </textarea>
-            <br></br>
-            Hauteur de l'abaque <input id="hauteur" onChange={(e) => correctHeight(e.target.value)}></input>
-            <br></br>
-            largeur de l'abaque <input id="largeur" onChange={(e) => correctWidth(e.target.value)}></input>
-            <br></br>
+            <input placeholder="Titre de l'abaque" id="titreAbaque"></input>
+            <br />
+            <br />
+            <textarea placeholder="Description de l'exercice" id="descriptionExercice"></textarea>
+            <br />
+            <br />
+            <input id="hauteur" onChange={(e) => correctHeight(e.target.value)} placeholder="Hauteur de l'abaque"></input>
+            <br />
+            <br />
+            <input id="largeur" onChange={(e) => correctWidth(e.target.value)} placeholder="Largeur de l'abaque"></input>
+            <br />
+            <br />
             <button onClick={showExercice}>ok</button>
             <br></br>
-            <p>Votre abaque :</p><p id="abaque"></p>
-            <p>Info</p>
+            <h2>Votre abaque :</h2><p id="abaque"></p>
             <br></br>
             <button onClick={saveAbaque}>Sauvez le squelette</button>
             <button onClick={saveAnswer}>Sauvez les réponses</button>
             <br></br>
-            <div style={{ backgroundColor: 'red' }}>
-                <button onClick={recupereExo}>afficher exercice</button>
-                <p>Votre abaque :</p><p id="abaqueFromDB"></p>
-                <button onClick={correction}>Correction</button>
-            </div>
         </div>
     );
 };

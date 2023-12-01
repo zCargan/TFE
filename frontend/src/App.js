@@ -20,7 +20,8 @@ import ManageExercice from './pages/manageExercice/manageExercice';
 import ResetPassword from './pages/resetPassword/resetPassword';
 import ResetPassword2 from './pages/resetPassword2/resetPassord2';
 import NewExercice from './pages/newExercice/newExercice';
-
+import FormulaireDeRetour from './pages/formDeRetour/FormulaireDeRetour';
+import FeuilleExercice from './pages/FeuilleExercice/FeuilleExercice';
 
 import MDN from './pages/MDN/MDN'
 import LDN from './pages/LDN/LDN'
@@ -59,6 +60,8 @@ function App() {
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/reset-password2" element={<ResetPassword2 />} />
             <Route path='/newExercice' element={<NewExercice />} />
+            <Route path='/request' element={<FormulaireDeRetour />} />
+            <Route path='/feuilleExercice' element={<FeuilleExercice />} />
 
             <Route path='/ldn' element={<LDN />} />
             <Route path='/mdn' element={<MDN />} />

@@ -67,6 +67,8 @@ const GetPhotos = ({ onImageClick }) => {
                         imageContainer.appendChild(container);
                     }
                 }
+                document.getElementById('buttonImg').style.display = 'none';
+
             })
             .catch((error) => {
                 console.error('Error fetching images:', error);
@@ -75,10 +77,10 @@ const GetPhotos = ({ onImageClick }) => {
 
     return (
         <div>
-            <button onClick={getPhotos}>Récupérer mes photos</button>
             <div>
                 <div id="photoUser"></div>
             </div>
+            <button onClick={getPhotos} id="buttonImg">Récupérer mes photos</button>
         </div>
     );
 };
