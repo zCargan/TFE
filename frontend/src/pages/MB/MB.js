@@ -6,6 +6,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Navbar from '../../components/navbar/Navbar';
 
+import './MB.css'
 
 const MB = () => {
     const [tableData, setTableData] = useState([]);
@@ -82,7 +83,7 @@ const MB = () => {
     }
 
     return (
-        <div>
+        <div id="mbPage">
             <Navbar />
             <div>
                 <br />
