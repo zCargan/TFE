@@ -1,7 +1,7 @@
 import {React, useState} from 'react';
-import Abaque from './Abaque/abaque';
-import MaisonDesNombres from './MaisonDesNombres/maisonDesNombres';
-import LigneDeNombre from './LigneDeNombre/ligneDeNombre';
+import Abaque from '../createExercice/abaque';
+import MaisonDesNombres from '../createExercice/maisonDesNombres';
+import LigneDeNombre from '../createExercice/ligneDeNombre';
 const Mathematics = () => {
 
 

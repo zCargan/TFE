@@ -1,25 +1,32 @@
 import React, { useState } from 'react';
 import './blankText.css';
+import { useNavigate, Redirect, useHistory } from 'react-router-dom';
 import axios from 'axios'
 import Cookies from 'js-cookie';
-
+import { IoIosInformationCircle } from "react-icons/io";
+import Popup from 'reactjs-popup';
 
 const TexteATrou = ({ onTatData }) => {
 
     const [html, setHTML] = useState("")
     const [arrayEnonce, setArrayEnonce] = useState([])
     const [arrayFinal, setArrayFinal] = useState([])
+    const [popupOpen, setPopupOpen] = useState(false);
+
+    const navigate = useNavigate();
 
     let newSentence = "";
     let enonce = []
     let arrayOfWords = []
+
+
 
     function addWords() {
 
         let enonce = []
         let arrayOfWords = []
 
-        if(document.getElementById("result").value === "") {
+        if (document.getElementById("result").value === "") {
             alert("Veuillez entrez une phrase valide")
         } else {
 
@@ -51,10 +58,10 @@ const TexteATrou = ({ onTatData }) => {
             setArrayFinal(prevArray => [...prevArray, ...arrayOfWordsFinal]);
             console.log()
 
-           
+
             console.log(arrayEnonce, arrayFinal)
         }
-        
+
 
     }
 
@@ -69,7 +76,7 @@ const TexteATrou = ({ onTatData }) => {
     }
 
     function validateSentence() {
-        
+
         const config = {
             headers: {
                 'Authorization': `Bearer ${Cookies.get('JWT')}`
@@ -88,10 +95,12 @@ const TexteATrou = ({ onTatData }) => {
 
     function changeValueText(event) {
     }
-    
-    
+
+
     return (
         <div id="texteATrou">
+            <br />
+
             <br />
             <br />
             <textarea id="descriptionExo" onChange={changeValueText} placeholder="Description DE l'exercice" rows={7} cols={60}></textarea>
@@ -105,7 +114,7 @@ const TexteATrou = ({ onTatData }) => {
             <div id="phrase">Votre résultat apparaitra ici</div>
             <br></br>
             <button onClick={validateSentence}>Valider cette phrase</button>
-            
+
         </div>
     );
 };

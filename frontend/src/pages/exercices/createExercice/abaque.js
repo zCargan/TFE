@@ -3,14 +3,15 @@ import './abaque.css'
 import axios from 'axios'
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
-
+import Popup from 'reactjs-popup';
 
 const Abaque = ({ onAbaqueData }) => {
 
     const [height, setHeight] = useState(0);
     const [width, setWidth] = useState(0);
     const [word, setWord] = useState("")
-    
+    const [popupOpen, setPopupOpen] = useState(false);
+
     let dictionnaire = {};
 
 
@@ -34,13 +35,12 @@ const Abaque = ({ onAbaqueData }) => {
 
     function showExercice() {
         let texte = String("<div id='abaque'><table><tbody>");
-        let titre = document.getElementById('titreAbaque').value;
-        texte += '<h1>' + titre + '</h1>'
+        texte += "<p>" + document.getElementById('descriptionExercice').value + "</p>"
         for(let i =0; i <height; i ++) {
             for(let j = 0; j <width; j++) {
                 console.log("largeur")
                 console.log("longueur")
-                texte += "<input placeholder='valeur ici' class='test' "+ "></input>"
+                texte += "<input placeholder='' class='inputAbaque' "+ "></input>"
             }
             texte += "<br></br>"
         }
@@ -99,10 +99,10 @@ const Abaque = ({ onAbaqueData }) => {
                     console.log(k)
                     console.log(reponseInitiale)
                     console.log(reponseInitiale[k])
-                    texte += "<input placeholder='valeur ici' class='test'" + " value='" + reponseInitiale[k] +"'></input>"
+                    texte += "<input placeholder='valeur icii' className='inputAbaque'" + " value='" + reponseInitiale[k] +"'></input>"
                     k += 1;
                 }
-                texte += "<br></br>"
+                //texte += "<br></br>"
             }
             texte += "</div>"
 
@@ -170,31 +170,50 @@ const Abaque = ({ onAbaqueData }) => {
 
     return (
         <div>
-            <h2>Abaque</h2>
-            Titre de l'abaque: <input placeholder='Indiquer le titre ici' id="titreAbaque"></input>
-            <br></br>
-            <p>Description de l'exercice :</p>
-            <textarea id="descriptionExercice">
-
-            </textarea>
-            <br></br>
-            Hauteur de l'abaque <input id="hauteur" onChange={(e) => correctHeight(e.target.value)}></input>
-            <br></br>
-            largeur de l'abaque <input id="largeur" onChange={(e) => correctWidth(e.target.value)}></input>
-            <br></br>
-            <button onClick={showExercice}>ok</button>
-            <br></br>
-            <p>Votre abaque :</p><p id="abaque"></p>
-            <p>Info</p>
-            <br></br>
-            <button onClick={saveAbaque}>Sauvez le squelette</button>
-            <button onClick={saveAnswer}>Sauvez les réponses</button>
-            <br></br>
-            <div style={{ backgroundColor: 'red' }}>
-                <button onClick={recupereExo}>afficher exercice</button>
-                <p>Votre abaque :</p><p id="abaqueFromDB"></p>
-                <button onClick={correction}>Correction</button>
-            </div>
+            <br />
+            <textarea id="descriptionExercice" placeholder="Description DE l'exercice" rows={7} cols={60}></textarea>
+            <br />
+            <input className='caractAbaque' id="hauteur" onChange={(e) => {correctHeight(e.target.value)}} placeholder="Hauteur de l'abaque"></input><input className='caractAbaque' id="largeur" onChange={(e) => {correctWidth(e.target.value)}} placeholder="Largeur de l'abaque"></input><button onClick={showExercice}>Créer !</button>
+            <br />
+            <br />
+            <br />
+            <p id="abaque">Votre résultat apparaitra ici</p>
+            <Popup
+                trigger={
+                    <button onClick={saveAbaque}>Sauvez le squelette</button>}
+                position="left center"
+                open={popupOpen}
+                on="hover"
+                closeOnDocumentClick
+            >
+                <div>
+                    <div id="fonctionnement">
+                        <p>
+                            En cliquant sur ce bouton, vous valider le squelette de l'exercice
+                            <br />
+                            Le squelette est le corps de l'exercice avec toute les inconnues, mais sans les réponses
+                        </p>
+                    </div>
+                </div>
+            </Popup>
+            <Popup
+                trigger={
+                    <button onClick={saveAnswer}>Sauvez les réponses</button>}
+                position="right center"
+                open={popupOpen}
+                on="hover"
+                closeOnDocumentClick
+            >
+                <div>
+                    <div id="fonctionnement">
+                        <p>
+                            Permet d'enregistrer l'exercice, avec les réponses introduites après avoir sauvé le squelette
+                            <br />
+                        </p>
+                    </div>
+                </div>
+            </Popup>
+            
         </div>
     );
 };

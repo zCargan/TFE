@@ -23,6 +23,7 @@ const GetSounds = ({ onSoundSelect }) => {
               label: `Son ${index + 1}` // Étiquette du son
             }));
             setSons(anciensSons => [...anciensSons, ...sonsAvecLabels]);
+            document.getElementById('buttonGetSound').style.display = 'none';
           })
           .catch((error) => {
             console.log("Error fetching sounds:", error);

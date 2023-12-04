@@ -2,8 +2,8 @@ import {React, useState} from 'react';
 import axios from 'axios';
 import './addImg.css'
 import { json } from 'react-router-dom';
-import UploadPhoto from '../../../../components/UploadPhoto/uploadPhoto';
-import GetPhotos from '../../../../components/getPhotos/getPhotos'
+import UploadPhoto from '../../../components/UploadPhoto/uploadPhoto';
+import GetPhotos from '../../../components/getPhotos/getPhotos'
 
 
 const TextLinkImage = () => {

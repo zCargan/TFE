@@ -11,14 +11,16 @@ import Cookies from 'js-cookie';
 import Popup from 'reactjs-popup';
 import Swal from 'sweetalert2';
 import { FaEye } from "react-icons/fa";
+import { CSSTransition } from 'react-transition-group';
+
 
 import BlankText from './blankText.js';
 import TextToImg from './textToImg.js';
 import MB from './motBazard.js'
-import SoundToText from '../french/SoundToText/SoundToText.js';
-import MaisonDesNombres from '../mathematics/MaisonDesNombres/maisonDesNombres';
-import LigneDeNombre from '../mathematics/LigneDeNombre/ligneDeNombre';
-import Abaque from '../mathematics/Abaque/abaque.js';
+import SoundToText from './SoundToText.js';
+import MaisonDesNombres from './maisonDesNombres.js';
+import LigneDeNombre from './ligneDeNombre.js';
+import Abaque from './abaque.js';
 
 import './createExercice.css'
 
@@ -29,6 +31,12 @@ const CreateExercice = () => {
     const [exerciseDataArray, setExerciseDataArray] = useState([]);
     const [popupOpen, setPopupOpen] = useState(false);
     const [resetSelect, setResetSelect] = useState(false);
+    const [anneeScolaire, setAnneeScolaire] = useState('');
+
+    // Fonction pour gérer les changements de radio button
+    const handleRadioChange = (event) => {
+        setAnneeScolaire(event.target.value);
+    };
 
     const config = {
         headers: {
@@ -86,10 +94,6 @@ const CreateExercice = () => {
 
     };
 
-    function valider1exo() {
-        console.log(exerciceRedux.user[0])
-        axios.post('http://localhost:4000/exercice/send_test_exercice', exerciceRedux.user)
-    }
 
     function valider() {
         // exerciceRedux.user[0].text.reponseInitiale.ligne2[1] ==> e
@@ -121,22 +125,51 @@ const CreateExercice = () => {
             }
         }
 
+        console.log(valeur)
 
-        let data = {
-            nom: document.getElementById('nameInput').value,
-            descriptionWorksheet: document.getElementById('textareaCE').value,
-            anneeScolaire: valeur,
-            data: exerciseDataArray
+        let nom = document.getElementById('nameInput').value;
+        let descriptionWorksheeto = document.getElementById('textareaCE').value;
+
+
+        if (valeur !== undefined) {
+
+            if(nom !== "") {
+
+                if(descriptionWorksheeto !=="") {
+
+                    if((exerciseDataArray.length) !== 0) {
+                        let data = {
+                            nom: document.getElementById('nameInput').value,
+                            descriptionWorksheet: document.getElementById('textareaCE').value,
+                            anneeScolaire: valeur,
+                            data: exerciseDataArray
+                        }
+            
+                        axios
+                            .post('http://localhost:4000/exercice/saveWorksheet', { data }, config)
+                            .then((res) => {
+                                console.log(res)
+                            })
+                            .catch((error) => {
+                                console.log(error)
+                            })
+                    } else {
+                        alert("Veuillez ajouter au moins un exercice à la feuille de cours")
+                    }
+                } else {
+                    alert("Veuillez choisir une description pour l'exercice")
+                }
+ 
+            } else {
+                alert('Veuillez choisir un nom')
+            }
+            
+        } else {
+            alert('Veuillez choisir une année scolaire')
         }
 
-        axios
-            .post('http://localhost:4000/exercice/saveWorksheet', { data }, config)
-            .then((res) => {
-                console.log(res)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+
+
     }
 
     return (
@@ -159,8 +192,11 @@ const CreateExercice = () => {
                         <div>
                             {exerciseDataArray.length > 0 && (
                                 <div id="preview">
-                                    <h4>Noms des éléments dans le tableau :</h4>
-                                    <h5>Nombre d'exercice : {exerciseDataArray.length}</h5>
+                                    <h3>Noms des éléments dans le tableau :</h3>
+                                    <h4>Nombre d'exercice : {exerciseDataArray.length}</h4>
+                                    <h5>Titre de la feuille d'exercice : {document.getElementById('nameInput').value}</h5>
+                                    <h5>Description de la feuille d'exercice : {document.getElementById('textareaCE').value}</h5>
+                                    <h5>Année scolaire visée : {anneeScolaire}</h5>
                                     {exerciseDataArray.map((item, index) => (
                                         <p key={index}>Type : {item.type}</p>
                                     ))}
@@ -176,12 +212,12 @@ const CreateExercice = () => {
                     <br />
                     <fieldset>
                         <legend>Choisissez l'année scolaire ciblée pour la feuille d'exercice:</legend>
-                        <input type="radio" name="anneeScolaire" value="1" />1er
-                        <input type="radio" name="anneeScolaire" value="2" />2ème
-                        <input type="radio" name="anneeScolaire" value="3" />3ème
-                        <input type="radio" name="anneeScolaire" value="4" />4ème
-                        <input type="radio" name="anneeScolaire" value="5" />5ème
-                        <input type="radio" name="anneeScolaire" value="6" />6ème
+                        <input type="radio" name="anneeScolaire" value="1" onChange={handleRadioChange} required />1er
+                        <input type="radio" name="anneeScolaire" value="2" onChange={handleRadioChange} />2ème
+                        <input type="radio" name="anneeScolaire" value="3" onChange={handleRadioChange} />3ème
+                        <input type="radio" name="anneeScolaire" value="4" onChange={handleRadioChange} />4ème
+                        <input type="radio" name="anneeScolaire" value="5" onChange={handleRadioChange} />5ème
+                        <input type="radio" name="anneeScolaire" value="6" onChange={handleRadioChange} />6ème
                     </fieldset>
                 </div>
             </div>
@@ -195,7 +231,7 @@ const CreateExercice = () => {
             </div>
             <br />
             <div>
-                <select id="selectFeuilleExercice" value={selectedOption} onChange={handleSelectChange}>
+                <select id="selectFeuilleExercice" className="custom-select" value={selectedOption} onChange={handleSelectChange}>
                     <option selected>Ajouter un exercice</option>
                     <option value="TAT">Texte à trou</option>
                     <option value="TTI">Texte avec images</option>

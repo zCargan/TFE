@@ -1,0 +1,14 @@
+body {
+    background-color: lightcyan;
+}
+
+#description {
+    border-radius: 10px;
+    padding: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
+#length {
+    text-align: center;
+}

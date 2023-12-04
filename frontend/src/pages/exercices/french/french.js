@@ -1,11 +1,10 @@
 import {React, useState} from 'react';
 
 import BlankText from '../createExercice/blankText.js';
-import AddImg from './AddImg/addImg.js';
+import AddImg from '../createExercice/addImg.js';
 import TextToImg from '../createExercice/textToImg.js';
 import MB from '../createExercice/motBazard.js'
-import AddSound from './addSound/addSound.js';
-import SoundToText from './SoundToText/SoundToText.js';
+import SoundToText from '../createExercice/SoundToText.js';
 
 const French = () => {
 
@@ -43,9 +42,6 @@ const French = () => {
                 }
                 {selectedOption === 'MotBazard' &&
                     <MB />
-                }
-                {selectedOption === 'AddSound' &&
-                    <AddSound />
                 }
                 {selectedOption === 'SoundToText' &&
                     <SoundToText />

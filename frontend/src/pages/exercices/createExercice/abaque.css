@@ -1,0 +1,27 @@
+#abaque {
+}
+
+.caractAbaque {
+    margin: 5px;
+    width: 150px;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border: 1px solid black;
+}
+
+#descriptionExercice {
+    border-radius: 10px;
+    padding: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.inputAbaque {
+    border-radius: 3px;
+    border: 1px solid black;
+    width: 100px;
+    margin: 3px;
+    padding: 3px;
+    text-align: center;
+}
+

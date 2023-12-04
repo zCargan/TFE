@@ -1,0 +1,15 @@
+#nombreInput {
+    text-align: center;
+    border-radius: 10px;
+    padding: 3px;
+    border: 1px solid black;
+}
+
+.inputMDN {
+    border-radius: 3px;
+    border: 1px solid black;
+    width: 100px;
+    margin: 3px;
+    padding: 3px;
+    text-align: center;
+}

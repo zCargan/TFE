@@ -55,7 +55,7 @@ const AbaqueCreator = ({ exo }) => {
             let k = 0;
             for(let i =0; i <hauteur; i ++) {
                 for(let j = 0; j <longueur; j++) {  
-                    texte += "<input placeholder='valeur ici' class='test'" + " value='" + reponseInitiale[k] +"'></input>"
+                    texte += "<input placeholder='valeur ici' class='inputUserResponse'" + " value='" + reponseInitiale[k] +"'></input>"
                     k += 1;
                 }
                 texte += "<br></br>"

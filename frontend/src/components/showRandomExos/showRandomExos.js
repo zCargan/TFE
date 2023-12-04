@@ -45,7 +45,7 @@ const ShowRandomExos = (props) => {
     }
 
     return (
-        <div className="showRandomExosContainer" onClick={test}> 
+        <div className="showRandomExosContainer" id="showRandomExosContainer" onClick={test}> 
             <div className="imageAndTypeContainer">
                 <div className="imageContainer">
                     <img src={typeImages[randomExos.type]} alt="Type d'exercice" />

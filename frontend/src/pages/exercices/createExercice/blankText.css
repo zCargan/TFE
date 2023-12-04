@@ -23,3 +23,16 @@
 #motAAjouter {
     width: 103px;
 }
+
+#InfoCircle {
+    font-size: 26px;
+    color: green; /* Changez "red" par la couleur souhaitée */
+}
+
+#fonctionnement {
+    background-color: white;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+}

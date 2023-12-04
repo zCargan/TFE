@@ -27,3 +27,41 @@
     justify-content: center; 
     flex-direction: row; 
 }
+
+
+#preview {
+    border: 3px solid black;
+    border-radius: 10px;
+    background-color: rgba(100, 100, 200, 0.97);
+}
+
+.custom-select {
+    appearance: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.custom-select:hover {
+    border-color: #aaa;
+}
+
+.fade-enter {
+    opacity: 0.01;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+}

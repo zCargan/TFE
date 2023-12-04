@@ -5,11 +5,14 @@ import UploadPhoto from '../../../components/UploadPhoto/uploadPhoto';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { IoIosInformationCircle } from "react-icons/io";
+import Popup from 'reactjs-popup';
 
-const MotBazard = ({onMbData}) => {
+const MotBazard = ({ onMbData }) => {
     const [tableData, setTableData] = useState([]);
     const [selectedImageInfo, setSelectedImageInfo] = useState({ id: null, name: null });
     const [dictionary, setDictionary] = useState({});
+    const [popupOpen, setPopupOpen] = useState(false);
 
     const handleImageClick = (id, name) => {
         setSelectedImageInfo({ id, name });
@@ -33,7 +36,7 @@ const MotBazard = ({onMbData}) => {
             } else {
                 // Convertir la chaîne de caractères en tableau
                 const nameArray = newName.split('');
-                
+
                 const newRow = { id: newId, photo: newId, name: nameArray };
                 setTableData([...tableData, newRow]);
 
@@ -59,41 +62,62 @@ const MotBazard = ({onMbData}) => {
             reponses: dictionary
         }
         onMbData(data)
-        
 
 
-        axios.post(`http://localhost:4000/exercice/registerMB`, {data}, config).then((res) => {
+
+        axios.post(`http://localhost:4000/exercice/registerMB`, { data }, config).then((res) => {
 
         })
-        .catch((error) => {
-            console.log(error)
-        })
+            .catch((error) => {
+                console.log(error)
+            })
 
     }
 
     return (
         <div>
-            <h3>Créez ici vos relations entre vos photos et un mot !</h3>
             <br />
+            <Popup
+                trigger={
+                    <a href="#" title="Historique" id="InfoCircle">
+                        <IoIosInformationCircle />
+                    </a>}
+                position="left center"
+                open={popupOpen}
+                on="hover"
+                closeOnDocumentClick
+            >
+                <div>
+                    <div id="fonctionnement">
+                        <h3>Fonctionnement</h3>
+                        <div>
+                            <p>Afin de réussir la création de l'exercice:
+                                <br />
+                                <br />
+                                1° Veuillez récupérer vos images
+                                <br />
+                                2° Cliquez sur l'image désiré (Son nom apparaitra à coté de "Image séléctionnée")
+                                <br />
+                                3° Entrez le nom de l'image choisie et cliquez sur confirmer pour valider
+                                <br /> 
+                                4° Si la relation image apparait avec le nom que vous lui avez donné, c'est bon
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </Popup>
             <div>
-                <input id="nameExo" placeholder="Nom de l'exercice"></input>
                 <br></br>
-                <br></br>
-                <textarea id="descriptionExo" placeholder="Description de l'exercice" rows="5" cols="100"></textarea>
+                <textarea id="descriptionExo" placeholder="Description de l'exercice" rows={7} cols={60}></textarea>
             </div>
             <div>
-                <p>Veuillez d'abord choisir une image</p>
-                <GetPhotos onImageClick={handleImageClick} />
+                <input placeholder='Placez ici le nom se rapportant à cette image' id="name_photo" style={{ width: "300px" }}></input><button onClick={confirm}>Confirmer</button>
             </div>
             {selectedImageInfo.id && (
                 <div>
                     <h3>Nom de l'image sélectionnée : {selectedImageInfo.name}</h3>
                 </div>
             )}
-            <div id="suite">
-                <input placeholder='Placez ici le nom se rapportant à cette image' id="name_photo" style={{width: "300px"}}></input>
-                <button onClick={confirm}>Confirmer</button>
-            </div>
             <br />
             <div className="table-container">
                 <table id="table">
@@ -114,6 +138,9 @@ const MotBazard = ({onMbData}) => {
                         ))}
                     </tbody>
                 </table>
+                <div>
+                    <GetPhotos onImageClick={handleImageClick} />
+                </div>
             </div>
             <br />
             <br />

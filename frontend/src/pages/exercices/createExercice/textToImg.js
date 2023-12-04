@@ -5,11 +5,15 @@ import UploadPhoto from '../../../components/UploadPhoto/uploadPhoto';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { IoIosInformationCircle } from "react-icons/io";
+import Popup from 'reactjs-popup';
+
 
 const TextToImg = ({ onTtiData }) => {
     const [tableData, setTableData] = useState([]);
     const [selectedImageInfo, setSelectedImageInfo] = useState({ id: null, name: null });
     const [dictionary, setDictionary] = useState({});
+    const [popupOpen, setPopupOpen] = useState(false);
 
     const handleImageClick = (id, name) => {
         setSelectedImageInfo({ id, name });
@@ -56,6 +60,35 @@ const TextToImg = ({ onTtiData }) => {
     return (
         <div>
             <br />
+            <Popup
+                trigger={
+                    <a href="#" title="Historique" id="InfoCircle">
+                        <IoIosInformationCircle />
+                    </a>}
+                position="left center"
+                open={popupOpen}
+                on="hover"
+                closeOnDocumentClick
+            >
+                <div>
+                    <div id="fonctionnement">
+                        <h3>Fonctionnement</h3>
+                        <div>
+                            <p>Afin de réussir la création de l'exercice:
+                                <br />
+                                <br />
+                                1° Veuillez récupérer vos images
+                                <br />
+                                2° Cliquez sur l'image désiré (Son nom apparaitra à coté de "Image séléctionnée")
+                                <br />
+                                3° Entrez le nom de l'image choisie et cliquez sur confirmer pour valider
+                                <br /> 
+                                4° Si la relation image apparait avec le nom que vous lui avez donné, c'est bon
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </Popup>
             <div>
                 <br></br>
                 <textarea id="descriptionExo" placeholder="Description DE l'exercice" rows={7} cols={60}></textarea>

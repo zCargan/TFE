@@ -1,8 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import SearchBar from '../../components/searchBar/searchBar';
+import Img from '../../components/IMGbackground/imgbackground'
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { GrRefresh } from "react-icons/gr";
+
+
+import './Home.css'
 
 import ShowRandomExos from '../../components/showRandomExos/showRandomExos';
 
@@ -109,10 +114,13 @@ const Home = () => {
         <div>
             <Navbar />
             <SearchBar />
-            <h3>Proposition d'exercices</h3>
+            <div id="refreshHome">
+                <h2 id="propExos">Proposition d'exercices</h2>
+            </div>
             {randomExosList.map((randomExos, index) => (
                 <ShowRandomExos key={index} randomExos={randomExos} />
             ))}
+            <Img />
         </div>
     );
 

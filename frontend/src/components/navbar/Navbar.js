@@ -154,7 +154,7 @@ const Navbar = () => {
                             <Popup
                                 trigger={
                                     <a title="Historique"><FaHistory onClick={(e) => { navigate('/history') }} /></a>}
-                                position="bottom center"
+                                position="left center"
                                 open={popupOpen}
                                 on="hover"
                                 closeOnDocumentClick

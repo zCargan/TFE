@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import './maisonDesNombres.css'
 import { Provider, useDispatch, useSelector } from 'react-redux';
-import { store } from '../../../../features/exerciceSlice'
-import { addExercice } from '../../../../features/exerciceSlice'
+import { store } from '../../../features/exerciceSlice'
+import { addExercice } from '../../../features/exerciceSlice'
 import axios from 'axios'
 import Cookies from 'js-cookie';
 import Popup from 'reactjs-popup';
-import Navbar from '../../../../components/navbar/Navbar';
-
+import Navbar from '../../../components/navbar/Navbar';
 
 const MaisonDesNombres = ({onMdnData}) => {
     let exo = {}
@@ -15,7 +14,7 @@ const MaisonDesNombres = ({onMdnData}) => {
     const dispatch =  useDispatch();
     const exerciceRedux = useSelector(state =>(state))
     const [nbrItem, setNbrItem] = useState("");
-
+    const [popupOpen, setPopupOpen] = useState(false);
 
     function verifyAvancement() {
         let dictionnaireFinal = {};
@@ -26,11 +25,13 @@ const MaisonDesNombres = ({onMdnData}) => {
     }
 
     function showSqueleton() {
-        var number = document.getElementById('nombre').value;
+        var number = document.getElementById('nombreInput').value;
         if (/^[0-9]+$/.test(number)) {
             let texte = "<div class='triangle-container'>";
+            texte += document.getElementById('descriptionExercice').value;
+            texte += '<br />'
+            texte += '<br />'
             //texte += '<div class="triangle-down"></div>'; // Conteneur pour le triangle
-            texte += '<h1>' + document.getElementById('nomMDN').value + '</h1>'; // Titre à l'intérieur du conteneur du triangle
             texte += "<div id='mdnContent'>";
             for (let i = 0; i < number; i++) {
                 texte += '<input id="' + i + '" class="inputMDN"></input><input id="' + i + '" class="inputMDN"></input>';
@@ -47,7 +48,7 @@ const MaisonDesNombres = ({onMdnData}) => {
         exo.nom = document.getElementById("nomMDN").value;
         exo.description = document.getElementById("descriptionExercice").value;
         exo.type = "MDN";
-        exo.cols = Number(document.getElementById('nombre').value);
+        exo.cols = Number(document.getElementById('nombreInput').value);
         
         let arrayEnonce = []
 
@@ -90,47 +91,6 @@ const MaisonDesNombres = ({onMdnData}) => {
         //axios.post('http://localhost:4000/exercice/post_mdn_exercices', exerciceRedux)
     }
 
-    function get_exos_mdn() {
-        axios.get('http://localhost:4000/exercice/get_mdn_exercice').then((res)=> {
-            let exo = res.data[0];
-            let nom = exo.nom;
-            let reponseInitiale = exo.reponseInitiale;
-            let reponseFinale = exo.reponseFinale;
-            const nombreDItems = Object.keys(reponseInitiale).length;
-            setNbrItem(nombreDItems)
-            const cles = Object.keys(reponseInitiale);
-
-            /*
-            console.log("nombre d'items")
-            console.log(nombreDItems)
-
-            console.log("clés ")
-            console.log(cles)
-            
-            console.log("reponse initiale ")
-            console.log(reponseInitiale)
-            */
-
-
-            let texte = "<div id='mdn_resulat'>"
-            texte += '<h1>' + nom + '</h1>'
-            for(let i = 0; i <nombreDItems; i ++) {
-                //let clés = reponseInitiale.cles[nombreDItems-1]
-                let clés = cles[i]
-                
-                /*
-                console.log(clés)
-                console.log(reponseInitiale[clés][0])
-                */
-
-                texte += '<input id="' + (i+1) + '" class="' +  (i+1)+ '" value=' + reponseInitiale[clés][0] + '>' + '</input><input id="' + (i+1) + '" class="' +  (i+1) + '" value="' + reponseInitiale[clés][1] + '"></input>'
-                texte += "<br></br>"
-
-            }
-            texte += "</div>"
-            document.getElementById("resultat").innerHTML = texte
-        })
-    }
 
     function valideReponses() {
         /**
@@ -218,18 +178,47 @@ const MaisonDesNombres = ({onMdnData}) => {
     return (
         <div id="MDN_div">
             <br />
-            <input id="nomMDN" placeholder='Nom de la maison des nombres'></input>
+            <textarea rows={7} cols={60} id="descriptionExercice" placeholder="Description de l'exercice"></textarea>
             <br />
             <br />
-            <textarea rows={5} cols={52} id="descriptionExercice" placeholder="Description de l'exercice">
-
-            </textarea>
-            <br />
-            <br />
-            <input id="nombre" placeholder='Nombre de ligne de votre maison des nombres'></input>
+            <input id="nombreInput" placeholder='Nombre de colonnes'></input><button onClick={showSqueleton}>Créer !</button>
             <br></br>
-            <button onClick={showSqueleton}>Voir mon squelette</button><button onClick={saveSquelette}>Valider le squelette</button><button onClick={final}>Valider les réponses</button>
-            <p id="mdn"></p>
+            <p id="mdn">Votre résultat apparaitra ici</p>
+            <Popup
+                trigger={
+                    <button onClick={saveSquelette}>Valider le squelette</button>}
+                position="left center"
+                open={popupOpen}
+                on="hover"
+                closeOnDocumentClick
+            >
+                <div>
+                    <div id="fonctionnement">
+                        <p>
+                            En cliquant sur ce bouton, vous valider le squelette de l'exercice
+                            <br />
+                            Le squelette est le corps de l'exercice avec toute les inconnues, mais sans les réponses
+                        </p>
+                    </div>
+                </div>
+            </Popup>
+            <Popup
+                trigger={
+                    <button onClick={final}>Valider les réponses</button>}
+                position="right center"
+                open={popupOpen}
+                on="hover"
+                closeOnDocumentClick
+            >
+                <div>
+                    <div id="fonctionnement">
+                        <p>
+                            Permet d'enregistrer l'exercice, avec les réponses introduites après avoir sauvé le squelette
+                            <br />
+                        </p>
+                    </div>
+                </div>
+            </Popup>
         </div>
     );
 };

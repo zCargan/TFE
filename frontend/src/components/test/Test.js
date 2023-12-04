@@ -1,21 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
+import IMG from '../IMGbackground/imgbackground'
 
 const Test = () => {
 
     const [data, setData] = useState("");
     const [infos, setInfos] = useState("informations")
-    const dispatch = useDispatch();
-    const tasks = useSelector((state) => state.user.user)
+
 
     function testenvoi () {
         console.log("on teste des trucs")
     }
 
-    function testPQ () {
-        console.log(tasks.loggedIn)
-    }
 
     function testPQ2 () {
         console.log('ici')
@@ -42,13 +38,11 @@ const Test = () => {
                 <p>==========================================</p>
                 <input placeholder='username' type="text" id="username"></input><input placeholder='password' type="password" id="password"></input>
                 <br></br>
-                <button onClick={(e) => testPQ()}>Post Data</button>
-                <button onClick={(e) => testPQ2()}>Post Data hardcode</button>
-                <button onClick={(e) => logout_window()}>Déconnection</button>
             </div>
             <div>
                 {infos}
             </div>
+            <IMG />
         </div>
     );
 };
