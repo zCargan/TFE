@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Navbar from '../../components/navbar/Navbar';
 
+import './resetPassword.css'
+
 const ResetPasswordPage = () => {
     const [email, setEmail] = useState('');
     const [resetRequested, setResetRequested] = useState(false);
@@ -20,7 +22,7 @@ const ResetPasswordPage = () => {
     };
 
     return (
-        <div>
+        <div id="rpPage">
             <Navbar />
             {resetRequested ? (
                 <div>

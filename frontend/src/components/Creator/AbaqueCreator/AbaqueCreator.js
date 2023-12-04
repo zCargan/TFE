@@ -73,7 +73,7 @@ const AbaqueCreator = ({ exo }) => {
             let resultatInitial = res.data.reponseInitiale;
             let resultatRecu = []
             let idExercice = res.data._id;
-            let a = document.getElementsByClassName("test")
+            let a = document.getElementsByClassName("inputUserResponse")
             for(let i = 0; i < a.length; i ++) {
                 resultatRecu.push(a[i].value)
             }
@@ -86,7 +86,9 @@ const AbaqueCreator = ({ exo }) => {
                     console.log(resultatAttendu[i])
                     console.log(resultatRecu[i])
                     if(resultatAttendu[i] !== resultatRecu[i]) {
+                        console.log("Mauvaise réponse")
                     } else {
+                        console.log("Bonne réponse")
                         score += 1;
                     }
                 }
@@ -118,7 +120,7 @@ const AbaqueCreator = ({ exo }) => {
             .then((res) => {
                 setTimeout(() => {
                     navigate('/home');
-                  }, 1000);
+                  }, 1300);
             })
             .catch((error) => {
                 Swal.fire({
@@ -158,8 +160,6 @@ const AbaqueCreator = ({ exo }) => {
                 <br />
                 <p id="abaqueFromDB"></p>
                 <button onClick={correction} id="buttonCorrection">Corriger mon exercice !</button>
-                <br />
-                <button onClick={seeCorrection}>Voir la correction</button>
             </div>
         </div>
     );

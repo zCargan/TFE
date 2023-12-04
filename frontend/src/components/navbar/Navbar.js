@@ -151,18 +151,7 @@ const Navbar = () => {
                             <a onClick={(e) => CheckPermissions()}>Créer un exercice</a>
                         </li>
                         <li>
-                            <Popup
-                                trigger={
-                                    <a title="Historique"><FaHistory onClick={(e) => { navigate('/history') }} /></a>}
-                                position="left center"
-                                open={popupOpen}
-                                on="hover"
-                                closeOnDocumentClick
-                            >
-                                <div>
-                                    <p id="text_history">Votre historique d'exercice</p>
-                                </div>
-                            </Popup>
+                            <a title="Historique"><FaHistory onClick={(e) => { navigate('/history') }} /></a>
                         </li>
                         <li>
                             <Popup

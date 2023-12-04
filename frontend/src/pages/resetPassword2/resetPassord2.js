@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import Navbar from '../../components/navbar/Navbar';
 
 const ResetPassword2 = () => {
     const [password, setPassword] = useState('');
@@ -40,6 +41,7 @@ const ResetPassword2 = () => {
 
     return (
         <div>
+            <Navbar />
             <h2>Réinitialiser le Mot de Passe</h2>
             <label>Nouveau Mot de Passe : </label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />

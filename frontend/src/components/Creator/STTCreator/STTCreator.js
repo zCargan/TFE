@@ -97,6 +97,8 @@ const STTCreator = ({ exo }) => {
     let score = 0;
     let nbrExos = 0;
 
+    console.log(allResponses)
+
     for (let j = 0; j < reponseUser.length; j++) {
       if (allResponses[j] === reponseUser[j]) {
         score += 1;

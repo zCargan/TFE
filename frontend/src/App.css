@@ -36,10 +36,3 @@
     transform: rotate(360deg);
   }
 }
-
-
-body {
-  background: linear-gradient(45deg, #FF8C42, #FF6384);
-  background-size: cover; /* Ajustez selon vos préférences */
-  /* Autres styles de votre application */
-}

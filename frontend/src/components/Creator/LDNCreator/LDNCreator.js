@@ -72,15 +72,18 @@ const LDNCreator = ({ exo }) => {
         }
 
         axios
-            .get('http://localhost:4000/exercice/getLDN', config)
+            .get(`http://localhost:4000/exercice/getLDN/${exo}`, config)
             .then((res) => {
-                let reponseAttendue = res.data[0].reponseFinale;
-                let enonceIndex = res.data[0].reponseInitiale;
+                console.log(res.data)
+                let reponseAttendue = res.data.reponseFinale;
+                let enonceIndex = res.data.reponseInitiale;
                 let reponsesRecues = [];
                 let inputClassAnswer = document.getElementsByClassName("inputUserAnswer");
                 for(let i = 0; i < inputClassAnswer.length; i ++) {
                     reponsesRecues.push(inputClassAnswer[i].value)     
                 }
+
+                console.log(reponseAttendue)
 
                 let nbrExos = 0;
                 let score = 0;
@@ -88,8 +91,10 @@ const LDNCreator = ({ exo }) => {
                 for(let i = 0; i < reponseAttendue.length; i ++) {
                     if(enonceIndex[i] === '') {
                         if(reponseAttendue[i] === reponsesRecues[i]) {
+                            console.log("bonne réponse")
                             score += 1;
                         }
+                        console.log("mauvaise réponse")
                         nbrExos +=1;
                     }
                 }

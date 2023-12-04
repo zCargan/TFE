@@ -5,6 +5,8 @@ import Img from '../../components/IMGbackground/imgbackground'
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { GrRefresh } from "react-icons/gr";
+import { LuRefreshCcw } from "react-icons/lu";
+import Logo from '../../components/LCDMS_logo/LCDMS_logo'
 
 
 import './Home.css'
@@ -111,16 +113,18 @@ const Home = () => {
 
 
     return (
-        <div>
+        <div id="div_home">
             <Navbar />
             <SearchBar />
             <div id="refreshHome">
-                <h2 id="propExos">Proposition d'exercices</h2>
+                <h2 id="propExos">Proposition d'exercices</h2><LuRefreshCcw className="iconRefresh" id="iconRefresh" onClick={(e) => {window.location.reload()}}/>
             </div>
             {randomExosList.map((randomExos, index) => (
                 <ShowRandomExos key={index} randomExos={randomExos} />
             ))}
             <Img />
+            <Logo />
+
         </div>
     );
 

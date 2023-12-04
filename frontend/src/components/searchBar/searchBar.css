@@ -29,7 +29,7 @@
 }
 
 .navbar button {
-    background-color: #333;
+    background-color: #555;
     color: #fff;
     cursor: pointer;
 }
@@ -48,8 +48,20 @@
     cursor: pointer;
     transition: border-color 0.3s;
     text-align: center;
+    background-color: #555;
+    color: white;
 }
 
 .custom-select:hover {
     border-color: #aaa;
+}
+
+#rechercheSpecifique {
+    background-color: #555;
+    color: white;
+    text-align: center;
+}
+
+#rechercheSpecifique::placeholder {
+    color: white;
 }

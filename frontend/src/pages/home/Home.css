@@ -1,7 +1,23 @@
-body {
-    background-color: linear-gradient(45deg, #FF8C42, #FF6384);
-    /* Autres styles de votre application */
+#div_home {}
+
+#propExos {
+    color: #fff; /* Couleur du texte */
+    font-family: 'Chewy', cursive;
+    text-decoration: underline;
 }
 
+#refreshHome {
+    margin-top: -22px;
+    display: flex;
+    flex-direction:row; /* Aligne les éléments en colonne */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
 
-
+.iconRefresh {
+    margin-top: 8px;
+    margin-left: 10px;
+    color: white;
+    font-size: 25px;
+}

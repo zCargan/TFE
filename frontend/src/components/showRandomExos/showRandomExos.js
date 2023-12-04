@@ -11,6 +11,9 @@ const ShowRandomExos = (props) => {
 
 
     useEffect(() => {
+
+        console.log(randomExos)
+
         if(randomExos.type === "MDN") {
             setType("Maison des nombres")
         } else if (randomExos.type === "abaque"){

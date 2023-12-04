@@ -34,7 +34,6 @@ const ShowExercice = () => {
     }, []);
 
     function getExosById() {
-        // Sélectionnez le composant en fonction de la valeur de typeValue
         switch (typeValue) {
             case 'MB':
                 setComponent(<MBCreator exo={exo} />);
