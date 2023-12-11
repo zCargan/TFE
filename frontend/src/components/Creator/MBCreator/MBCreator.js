@@ -16,7 +16,6 @@ const MBCreator = ({ exo }) => {
     const [id, setId] = useState('');
 
     useEffect(() => {
-        console.log(exo)
         if (!getMBCalledRef.current) {
             getMB();
             getMBCalledRef.current = true;

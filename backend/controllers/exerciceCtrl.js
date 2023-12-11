@@ -6,8 +6,11 @@ const TAT = require('../models/TAT')
 const MB = require('../models/MB')
 const STT = require('../models/STT')
 const ABAQUE = require('../models/abaque');
+const Worksheet = require('../models/worksheet')
+
 const jwt = require("jsonwebtoken");
 const { Client } = require('pg');
+const worksheet = require('../models/worksheet');
 
 
 
@@ -711,6 +714,26 @@ exports.getTotalCounts = async (req, res, next) => {
     }
 };
 
+exports.getTotalCountsWS = async (req, res, next) => {
+    const count = await worksheet.countDocuments({});
+    res.status(200).json({count: count})
+}
+
+exports.getARandomWorksheets = async (req, res, next) => {
+    const { selectedWorksheets } = req.query;
+
+    try {
+        const randomWorksheets = await Worksheet.find(/* Votre logique de recherche ici */)
+            .select('-__v') // Exclure le champ "__v" si vous ne le souhaitez pas
+            .limit(selectedWorksheets.length)
+            .lean(); // Utilisez la méthode lean pour convertir en objet JavaScript simple
+
+        res.status(200).json(randomWorksheets);
+    } catch (error) {
+        console.error("Error fetching random worksheets:", error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
 
 exports.getDetailsExos = (req, res, next) => {
 
@@ -1237,6 +1260,47 @@ exports.deleteExoById = async (req, res, next) => {
 
 
 exports.saveWorksheet = (req, res, next) => {
-    let arrayExercices = req.body.data
-    console.log(arrayExercices)
+    const token = req.header('Authorization');
+    if (token) {
+        const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
+        const secretKey = "test"
+        jwt.verify(jwtToken, secretKey, (err, decoded) => {
+            if (err) {
+                console.error('Erreur lors de la vérification du JWT :', err);
+            } else {
+                console.log(decoded)
+                let arrayExercices = req.body.data
+                console.log(arrayExercices)
+                const worksheet = new Worksheet({
+                    ...req.body.data
+                })
+                worksheet.save()
+            }
+        })
+    }
+}
+
+exports.getWorksheet = (req, res, next) => {
+    const token = req.header('Authorization');
+    if (token) {
+        const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
+        const secretKey = "test"
+        jwt.verify(jwtToken, secretKey, (err, decoded) => {
+            if (err) {
+                console.error('Erreur lors de la vérification du JWT :', err);
+            } else {
+                console.log("on passe ici")
+                Worksheet.find().then((donnees) => {
+                    res.send(donnees)
+                });
+            }
+        })
+    }
+}
+
+exports.getWS = (req, res, next) => {
+    let idExo = req.params.id;
+    worksheet.findById(idExo).then((donnees) => {
+        res.send(donnees)
+    });
 }

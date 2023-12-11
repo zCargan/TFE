@@ -46,6 +46,10 @@ router.get('/getSTT', exerciceCtrl.getSTT);
 router.get('/getSTTexo/:id', exerciceCtrl.getSTTexo);
 router.get('/getSTT/:id', exerciceCtrl.getSTTById);
 
+// Route worksheet
+router.post('/saveWorksheet', exerciceCtrl.saveWorksheet);
+router.get('/getWorksheet', exerciceCtrl.getWorksheet);
+
 
 
 // DIVERS
@@ -55,11 +59,14 @@ router.get('/getExosFromAllTablesId1', exerciceCtrl.getExosFromAllTablesId1);
 router.get('/countElementByCollection', exerciceCtrl.countElementByCollection);
 router.get('/getNameCollection', exerciceCtrl.getNameCollection);
 router.get('/getTotalCounts', exerciceCtrl.getTotalCounts);
+router.get('/getTotalCountsWS', exerciceCtrl.getTotalCountsWS);
+router.get('/getARandomWorksheets', exerciceCtrl.getARandomWorksheets);
 router.get('/getDetailsExos', exerciceCtrl.getDetailsExos);
 router.get('/getARandomExo', exerciceCtrl.getARandomExo)
 router.get('/getAPreciseExo', exerciceCtrl.getAPreciseExo);
 router.post('/getExosFromRequest', exerciceCtrl.getExosFromRequest);
 router.delete('/deleteExoById', exerciceCtrl.deleteExoById);
 router.post('/saveWorksheet', exerciceCtrl.saveWorksheet);
+router.get('/getWS/:id', exerciceCtrl.getWS);
 
 module.exports = router;

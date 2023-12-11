@@ -92,9 +92,8 @@ const LigneDeNombre = ({ onLdnData }) => {
 
         exo.reponseFinale = reponsesFinales
         onLdnData(exo)
-        dispatch(
-            addExercice(exo)
-        )
+
+        
         console.log(exo)
 
 

@@ -56,21 +56,11 @@ const MotBazard = ({ onMbData }) => {
         };
 
         const data = {
-            nom: document.getElementById('nameExo').value,
             description: document.getElementById('descriptionExo').value,
             type: "MB",
             reponses: dictionary
         }
         onMbData(data)
-
-
-
-        axios.post(`http://localhost:4000/exercice/registerMB`, { data }, config).then((res) => {
-
-        })
-            .catch((error) => {
-                console.log(error)
-            })
 
     }
 

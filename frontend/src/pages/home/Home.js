@@ -46,6 +46,7 @@ const Home = () => {
             .then((res) => {
                 data = res.data.moreInformations;
                 const max = res.data.nbrExercices;
+                console.log(data, max)
                 getARandomExos(max, 5); // Générer 5 exercices aléatoires
             })
             .catch((error) => {

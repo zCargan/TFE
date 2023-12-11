@@ -69,8 +69,6 @@ const SoundToText = ({ onSttData }) => {
 
 
         const data = {
-            nom: document.getElementById('nameExo').value,
-
             description: document.getElementById('descriptionExo').value,
             type: "STT",
             reponses: dictionnaire

@@ -66,6 +66,9 @@ const SearchBar = () => {
                         </select>
                     </li>
                     <li>
+                    <button onClick={(e) => navigate('/showWorksheet')}>Voir les feuilles</button>
+                    </li>
+                    <li>
                         <button onClick={sendRequest}>Rechercher</button>
                     </li>
                 </ul>

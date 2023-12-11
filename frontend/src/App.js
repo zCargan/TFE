@@ -22,6 +22,8 @@ import ResetPassword2 from './pages/resetPassword2/resetPassord2';
 import NewExercice from './pages/newExercice/newExercice';
 import FormulaireDeRetour from './pages/formDeRetour/FormulaireDeRetour';
 import FeuilleExercice from './pages/FeuilleExercice/FeuilleExercice';
+import ShowWorksheet from './pages/showWorksheet/ShowWorksheet';
+import ShowWorksheetById from './pages/ShowWorksheetById/ShowWorksheetById';
 
 import MDN from './pages/MDN/MDN'
 import LDN from './pages/LDN/LDN'
@@ -62,6 +64,8 @@ function App() {
             <Route path='/newExercice' element={<NewExercice />} />
             <Route path='/request' element={<FormulaireDeRetour />} />
             <Route path='/feuilleExercice' element={<FeuilleExercice />} />
+            <Route path='/showWorksheet' element={<ShowWorksheet />} />
+            <Route path="/show_worksheet_by_id" element={<ShowWorksheetById />} />
 
             <Route path='/ldn' element={<LDN />} />
             <Route path='/mdn' element={<MDN />} />

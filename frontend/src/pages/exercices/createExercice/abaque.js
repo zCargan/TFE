@@ -51,13 +51,12 @@ const Abaque = ({ onAbaqueData }) => {
 
 
     function saveAbaque() {
-        dictionnaire.nom = document.getElementById('titreAbaque').value;
         dictionnaire.description = document.getElementById("descriptionExercice").value;
         dictionnaire.type = "abaque" ;
         dictionnaire.hauteur = Number(height);
         dictionnaire.longueur = Number(width);
         let array1 = []
-        let a = document.getElementsByClassName("test")
+        let a = document.getElementsByClassName("inputAbaque")
         for(let i = 0; i < a.length; i ++) {
             array1.push(a[i].value)
         }
@@ -68,7 +67,7 @@ const Abaque = ({ onAbaqueData }) => {
 
     function saveAnswer() {
         let array1 = []
-        let a = document.getElementsByClassName("test")
+        let a = document.getElementsByClassName("inputAbaque")
         for(let i = 0; i < a.length; i ++) {
             array1.push(a[i].value)
         }

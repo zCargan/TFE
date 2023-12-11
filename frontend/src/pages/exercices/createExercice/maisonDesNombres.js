@@ -45,7 +45,6 @@ const MaisonDesNombres = ({onMdnData}) => {
 
 
     function saveSquelette() {
-        exo.nom = document.getElementById("nomMDN").value;
         exo.description = document.getElementById("descriptionExercice").value;
         exo.type = "MDN";
         exo.cols = Number(document.getElementById('nombreInput').value);
@@ -79,8 +78,6 @@ const MaisonDesNombres = ({onMdnData}) => {
         exo.reponseFinal = arrayFinal
 
         onMdnData(exo)
-
-        console.log(exo)
 
 
     }
