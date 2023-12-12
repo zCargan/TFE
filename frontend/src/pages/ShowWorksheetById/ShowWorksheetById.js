@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie';
 
 import TATWSCreator from '../../components/Creator/TATWSCreator/TATWSCreator';
@@ -28,7 +30,9 @@ const ShowWorksheetById = () => {
 
 
     const [component, setComponent] = useState(null);
+
     const location = useLocation();
+    const navigate = useNavigate();
     const params = new URLSearchParams(location.search);
     const exo = params.get('parametre');
     const typeValue = params.get('type');
@@ -59,22 +63,22 @@ const ShowWorksheetById = () => {
                     res.data[0].data.forEach(item => {
                         switch (item.type) {
                             case "TAT":
-                                setTAT(item);
+                                setTAT(prevState => [...prevState, item]);
                                 break;
                             case "TTI":
-                                setTTI(item);
+                                setTTI(prevState => [...prevState, item]);
                                 break;
                             case "STT":
-                                setSTT(item);
+                                setSTT(prevState => [...prevState, item]);
                                 break;
                             case "abaque":
-                                setAbaque(item);
+                                setAbaque(prevState => [...prevState, item]);
                                 break;
                             case "MDN":
-                                setMDN(item);
+                                setMDN(prevState => [...prevState, item]);
                                 break;
                             case "LDN":
-                                setLDN(item);
+                                setLDN(prevState => [...prevState, item]);
                                 break;
                             case "MB":
                                 setMB(item);
@@ -132,6 +136,38 @@ const ShowWorksheetById = () => {
                     }
                 });
 
+                /*
+                
+                res.data.data.forEach(item => {
+                    switch (item.type) {
+                        case "TAT":
+                            setTAT(prevState => [...prevState, item]);
+                            break;
+                        case "TTI":
+                            setTTI(prevState => [...prevState, item]);
+                            break;
+                        case "STT":
+                            setSTT(prevState => [...prevState, item]);
+                            break;
+                        case "abaque":
+                            setAbaque(prevState => [...prevState, item]);
+                            break;
+                        case "MDN":
+                            setMDN(prevState => [...prevState, item]);
+                            break;
+                        case "LDN":
+                            setLDN(prevState => [...prevState, item]);
+                            break;
+                        case "MB":
+                            setMB(prevState => [...prevState, item]);
+                            break;
+                        default:
+                            break;
+                    }
+                });
+                
+                */
+
                 setLoaded(true);
 
             })
@@ -143,7 +179,42 @@ const ShowWorksheetById = () => {
 
 
     function testVraitest() {
-        console.log(score)
+        var somme = 0;
+        for (var i = 0; i < score.length; i++) {
+            somme += score[i];
+        }
+        var moyenne = somme / score.length;
+
+        console.log(moyenne)
+
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get('JWT')}`
+            }
+        }
+
+        const data = {
+            type: "WS",
+            score: Math.floor(moyenne),
+            idExercice: exo
+        }
+
+        axios
+        .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
+        .then((res) => {
+            setTimeout(() => {
+                navigate('/home');
+            }, 1000);
+        })
+        .catch((error) => {
+            Swal.fire({
+                title: 'Erreur',
+                text: "Une erreur s'est produite lors de l'enregistrement de votre score",
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        })
     }
 
 

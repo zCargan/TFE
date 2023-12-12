@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
 
-const MBWSCreator = ({ exo, onMBDataChange }) => {
+const MBWSCreatorCorrection = ({ exo, onMBDataChange }) => {
 
     const [arrayMotBonOrdre, setArrayMotBonOrdre] = useState([]);
     const [nom, setNom] = useState('');
@@ -62,7 +62,7 @@ const MBWSCreator = ({ exo, onMBDataChange }) => {
             const img = exo.reponses;
             console.log(img)
             let cles = Object.keys(img);
-            const imageContainer = document.getElementById('zoneExoMBWS');
+            const imageContainer = document.getElementById('zoneExoMBWSCorrection');
 
             imageContainer.style.display = 'flex';
             imageContainer.style.flexWrap = 'wrap'; // Permettre le retour à la ligne si nécessaire
@@ -74,7 +74,6 @@ const MBWSCreator = ({ exo, onMBDataChange }) => {
                     .then((resPhoto) => {
                         console.log(img[cles[i]]);
                         reponsesAttendues.push(img[cles[i]].join(''));
-
                         for (let j = 0; j < resPhoto.data.length; j++) {
                             console.log(resPhoto.data[j].image_data)
 
@@ -98,17 +97,13 @@ const MBWSCreator = ({ exo, onMBDataChange }) => {
                             nameElement.textContent = imageName; // Ajouter le nom en tant que texte
                             nameElement.style.marginTop = '10px'; // Ajouter un espace en haut du texte
 
-                            const inputElement = document.createElement('input');
-                            inputElement.type = 'text';
-                            inputElement.placeholder = 'Saisir un texte ici';
-                            inputElement.style.width = '200px';
-                            inputElement.style.marginTop = '10px'; // Ajouter un espace en haut de l'input
-
-                            inputElement.classList.add('answerExoMB'); // Ajout de la classe 'answerExo'
+                            const headingElement = document.createElement('h4');
+                            headingElement.innerText = img[cles[i]].join('');
+                            headingElement.style.marginTop = '10px';
 
                             imageInputContainer.appendChild(imageElement);
                             imageInputContainer.appendChild(nameElement); // Ajout du nom
-                            imageInputContainer.appendChild(inputElement);
+                            imageInputContainer.appendChild(headingElement);
                             imageContainer.appendChild(imageInputContainer);
                         }
                     })
@@ -149,7 +144,8 @@ const MBWSCreator = ({ exo, onMBDataChange }) => {
                     <p id="description">{exo.description}</p>
                     <br />
                     <div id="zone_mb">
-                        <div id="zoneExoMBWS"></div>
+                        <div id="zoneExoMBWSCorrection"></div>
+                        <p></p>
                     </div>
                 </div>
             ) : (
@@ -161,4 +157,4 @@ const MBWSCreator = ({ exo, onMBDataChange }) => {
 
 };
 
-export default MBWSCreator;
+export default MBWSCreatorCorrection;

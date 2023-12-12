@@ -48,16 +48,15 @@ const CreateExercice = () => {
     const handleExerciseData = (data) => {
     const isElementPresent = exerciseDataArray.some((element) => element.type === data.type);
 
-    if (isElementPresent) {
-        // Gérer le cas où l'élément est déjà présent
-        Swal.fire({
-            title: 'Erreur',
-            text: "Vous avez déja ajouter un exercice de ce type sur la feuille",
-            icon: 'error',
-            showConfirmButton: true,
-        });
-    } else {
-        // Ajouter l'élément s'il n'est pas déjà présent
+    // if (isElementPresent) {
+    //     Swal.fire({
+    //         title: 'Erreur',
+    //         text: "Vous avez déja ajouter un exercice de ce type sur la feuille",
+    //         icon: 'error',
+    //         showConfirmButton: true,
+    //     });
+    // } else {
+
         setExerciseDataArray((prevData) => [...prevData, data]);
         setResetSelect(true);
         Swal.fire({
@@ -67,7 +66,7 @@ const CreateExercice = () => {
             showConfirmButton: false,
             timer: 2000
         });
-    }
+    // }
     };
 
     const dispatch = useDispatch();

@@ -4,6 +4,22 @@ import Navbar from '../../components/navbar/Navbar';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+import TATWSCreator from '../../components/Creator/TATWSCreator/TATWSCreator';
+import TTIWSCreator from '../../components/Creator/TTIWSCreator/TTIWSCreator';
+import AbaqueWSCreator from '../../components/Creator/AbaqueWSCreator/AbaqueWSCreator';
+import LDNWSCreator from '../../components/Creator/LDNWSCreator/LDNWSCreator';
+import MBWSCreator from '../../components/Creator/MBWSCreator/MBWSCreator';
+import MDNWSCreator from '../../components/Creator/MDNWSCreator/MDNWSCreator';
+import STTWSCreator from '../../components/Creator/STTWSCreator/STTWSCreator';
+
+import MBWSCreatorCorrection from '../../components/Creator/MBWSCreatorCorrection/MBWSCreatorCorrection';
+import TATWSCreatorCorrection from '../../components/Creator/TATWSCreatorCorrection/TATWSCreatorCorrection';
+import TTIWSCreatorCorrection from '../../components/Creator/TTIWSCreatorCorrection/TTIWSCreatorCorrection';
+import AbaqueWSCreatorCorrection from '../../components/Creator/AbaqueWSCreatorCorrection/AbaqueWSCreatorCorrection';
+import LDNWSCreatorCorrection from '../../components/Creator/LDNWSCreatorCorrection/LDNWSCreatorCorrection';
+import MDNWSCreatorCorrection from '../../components/Creator/MDNWSCreatorCorrection/MDNWSCreatorCorrection';
+import STTWSCreatorCorrection from '../../components/Creator/STTWSCreatorCorrection/STTWSCreatorCorrection';
+
 const InfoExercice = () => {
     const location = useLocation();
     const { state } = location;
@@ -11,7 +27,7 @@ const InfoExercice = () => {
     const { type } = state;
 
     const getMBCalledRef = useRef(false);
-
+    const [score, setScore] = useState([]);
     const [sons, setSons] = useState([]);
     const [allResponses, setAllResponses] = useState([]);
     const [name, setName] = useState("/");
@@ -21,6 +37,15 @@ const InfoExercice = () => {
     const [reponseAttendues, setReponsesAttendues] = useState("/")
     const [reponses, setReponses] = useState("/")
     const [arrayMotBonOrdre, setArrayMotBonOrdre] = useState([]);
+    const [infos, setInfos] = useState([]);
+    const [loaded, setLoaded] = useState(false);
+    const [TAT, setTAT] = useState([]);
+    const [TTI, setTTI] = useState([]);
+    const [MB, setMB] = useState([]);
+    const [Abaque, setAbaque] = useState([]);
+    const [LDN, setLDN] = useState([]);
+    const [STT, setSTT] = useState([]);
+    const [MDN, setMDN] = useState([]);
 
 
     useEffect(() => {
@@ -33,7 +58,34 @@ const InfoExercice = () => {
 
 
 
+    const handleMBScoreChange = (newScore) => {
+        setScore(prevScore => [...prevScore, newScore]);
+    };
 
+    const handleTATScoreChange = (newScore) => {
+        setScore(prevScore => [...prevScore, newScore]);
+
+    };
+
+    const handleLDNScoreChange = (newScore) => {
+        setScore(prevScore => [...prevScore, newScore]);
+    };
+
+    const handleTTIScoreChange = (newScore) => {
+        setScore(prevScore => [...prevScore, newScore]);
+    };
+
+    const handleAbaqueScoreChange = (newScore) => {
+        setScore(prevScore => [...prevScore, newScore]);
+    };
+
+    const handleMDNScoreChange = (newScore) => {
+        setScore(prevScore => [...prevScore, newScore]);
+    };
+
+    const handleSTTScoreChange = (newScore) => {
+        setScore(prevScore => [...prevScore, newScore]);
+    };
 
     function showDetails() {
         const config = {
@@ -59,6 +111,8 @@ const InfoExercice = () => {
             TATdetails(config, data)
         } else if (type === "MDN") {
             MDNdetails(config, data)
+        } else if (type === "WS") {
+            WSdetails(config, data)
         }
 
     }
@@ -319,7 +373,7 @@ const InfoExercice = () => {
             .catch((error) => {
 
             })
-            document.getElementById('infosSansCorrection').style.display = 'none';
+        document.getElementById('infosSansCorrection').style.display = 'none';
 
     }
 
@@ -327,41 +381,41 @@ const InfoExercice = () => {
 
     function Abaquedetails(config, data) {
         axios
-        .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
-        .then((res) => {
+            .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
+            .then((res) => {
 
-            let reponseInitiale = res.data.exerciceInfos.reponseInitiale;
-            let reponseFinale = res.data.exerciceInfos.reponseFinale;
-            let hauteur = res.data.exerciceInfos.hauteur;
-            let longueur = res.data.exerciceInfos.longueur;
+                let reponseInitiale = res.data.exerciceInfos.reponseInitiale;
+                let reponseFinale = res.data.exerciceInfos.reponseFinale;
+                let hauteur = res.data.exerciceInfos.hauteur;
+                let longueur = res.data.exerciceInfos.longueur;
 
-            console.log(res.data.exerciceInfos)
-            setName(res.data.exerciceInfos.nom)
-            setAnnee(res.data.exerciceInfos.anneeScolaire)
-            setDescription(res.data.exerciceInfos.description)
+                console.log(res.data.exerciceInfos)
+                setName(res.data.exerciceInfos.nom)
+                setAnnee(res.data.exerciceInfos.anneeScolaire)
+                setDescription(res.data.exerciceInfos.description)
 
-            let texte = String("<div id='abaqueFromDB'><table><tbody>");
-            let texte2 = String("<div><table><tbody>");
-            let k = 0;
-            for(let i =0; i <hauteur; i ++) {
-                for(let j = 0; j <longueur; j++) {  
-                    texte += "<input placeholder='valeur ici' class='test'" + " value='" + reponseInitiale[k] +"'></input>"
-                    texte2 += "<input placeholder='valeur ici' class='test'" + " value='" + reponseFinale[k] +"'></input>"
+                let texte = String("<div id='abaqueFromDB'><table><tbody>");
+                let texte2 = String("<div><table><tbody>");
+                let k = 0;
+                for (let i = 0; i < hauteur; i++) {
+                    for (let j = 0; j < longueur; j++) {
+                        texte += "<input placeholder='valeur ici' class='test'" + " value='" + reponseInitiale[k] + "'></input>"
+                        texte2 += "<input placeholder='valeur ici' class='test'" + " value='" + reponseFinale[k] + "'></input>"
 
-                    k += 1;
+                        k += 1;
+                    }
+                    texte += "<br></br>"
+                    texte2 += "<br></br>"
                 }
-                texte += "<br></br>"
-                texte2 += "<br></br>"
-            }
-            texte += "</div>"
-            texte2 += "</div>"
+                texte += "</div>"
+                texte2 += "</div>"
 
-            
 
-            document.getElementById("infoSansCorrection").innerHTML = texte;
-            document.getElementById("infoAvecCorrection").innerHTML = texte2;
-        })
-        .catch((error) => {})
+
+                document.getElementById("infoSansCorrection").innerHTML = texte;
+                document.getElementById("infoAvecCorrection").innerHTML = texte2;
+            })
+            .catch((error) => { })
     }
 
     // ========================== Partie TAT ==========================
@@ -382,10 +436,10 @@ const InfoExercice = () => {
                 setName(res.data.exerciceInfos.nom)
                 setAnnee(res.data.exerciceInfos.anneeScolaire)
                 setDescription(res.data.exerciceInfos.description)
-                for(let i = 0; i < length; i++ ) {
-                    if(reponseInitiale[i] !== "inputUserExercice") {
+                for (let i = 0; i < length; i++) {
+                    if (reponseInitiale[i] !== "inputUserExercice") {
                         string += reponseInitiale[i]
-                        string += " "  
+                        string += " "
                     } else {
                         string += " <input class='inputTATuser'></input> "
                         reponsesFromDB.push(reponseFinale[i])
@@ -408,42 +462,94 @@ const InfoExercice = () => {
 
     function MDNdetails(config, data) {
         axios
-        .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
-        .then((res) => {
+            .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
+            .then((res) => {
 
-            let length = res.data.exerciceInfos.cols
-            let reponseInitiale = res.data.exerciceInfos.reponseInitiale
-            let reponseFinale = res.data.exerciceInfos.reponseFinal
+                let length = res.data.exerciceInfos.cols
+                let reponseInitiale = res.data.exerciceInfos.reponseInitiale
+                let reponseFinale = res.data.exerciceInfos.reponseFinal
 
-            console.log(reponseFinale)
-            setName(res.data.exerciceInfos.nom)
-            setAnnee(res.data.exerciceInfos.anneeScolaire)
-            setDescription(res.data.exerciceInfos.description)
+                console.log(reponseFinale)
+                setName(res.data.exerciceInfos.nom)
+                setAnnee(res.data.exerciceInfos.anneeScolaire)
+                setDescription(res.data.exerciceInfos.description)
 
-            let texte = "<div id='mdn_resulat'>";
-            let texte2 = "<div>";
+                let texte = "<div id='mdn_resulat'>";
+                let texte2 = "<div>";
 
-            let score = 0;
-            for(let i = 0; i <length; i ++) {
-                texte += '<input class="answerUser" value=' + reponseInitiale[score] + '>' + '</input><input class="answerUser" value="' + reponseInitiale[score+1] + '"></input>'
-                texte2 += '<input class="answerUser" value=' + reponseFinale[score] + '>' + '</input><input class="answerUser" value="' + reponseFinale[score+1] + '"></input>'
+                let score = 0;
+                for (let i = 0; i < length; i++) {
+                    texte += '<input class="answerUser" value=' + reponseInitiale[score] + '>' + '</input><input class="answerUser" value="' + reponseInitiale[score + 1] + '"></input>'
+                    texte2 += '<input class="answerUser" value=' + reponseFinale[score] + '>' + '</input><input class="answerUser" value="' + reponseFinale[score + 1] + '"></input>'
 
-                texte += "<br></br>"
-                texte2 += "<br></br>"
+                    texte += "<br></br>"
+                    texte2 += "<br></br>"
 
-                score += 2;
-            }
-            
-            texte += "</div>"
-            texte2 += "</div>"
+                    score += 2;
+                }
 
-            document.getElementById("infoSansCorrection").innerHTML = texte
-            document.getElementById("infoAvecCorrection").innerHTML = texte2
+                texte += "</div>"
+                texte2 += "</div>"
 
-        })
-        .catch((error) => {
-        
-        })
+                document.getElementById("infoSansCorrection").innerHTML = texte
+                document.getElementById("infoAvecCorrection").innerHTML = texte2
+
+            })
+            .catch((error) => {
+
+            })
+    }
+
+    // ========================== Partie WS ==========================
+
+    function WSdetails(config, data) {
+        axios
+            .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
+            .then((res) => {
+                console.log(res.data.exerciceInfos.data)
+                setName(res.data.exerciceInfos.nom)
+                setAnnee(res.data.exerciceInfos.anneeScolaire)
+                setDescription(res.data.exerciceInfos.descriptionWorksheet)
+                res.data.exerciceInfos.data.forEach(item => {
+                    console.log(item)
+                    switch (item.type) {
+                        case "TAT":
+                            setTAT(item);
+                            break;
+                        case "TTI":
+                            setTTI(item);
+                            break;
+                        case "STT":
+                            setSTT(item);
+                            break;
+                        case "abaque":
+                            setAbaque(item);
+                            break;
+                        case "MDN":
+                            setMDN(item);
+                            break;
+                        case "LDN":
+                            setLDN(item);
+                            break;
+                        case "MB":
+                            setMB(item);
+                            break;
+                        default:
+                            break;
+                    }
+                })
+                setLoaded(true);
+            })
+            .catch(err => {
+                console.log(err);
+                setLoaded(true); // Set loaded à true même en cas d'erreur pour éviter de rester dans un état de chargement infini
+            });
+
+    }
+
+    function efezczczc() {
+        setLoaded(!loaded);
+        console.log(loaded)
     }
 
     return (
@@ -453,11 +559,35 @@ const InfoExercice = () => {
             <p>Nom de l'exercice : {name}</p>
             <p>Année scolaire visée : {annee}</p>
             <p>Description : {description}</p>
-            <br />
-
             <h3 id="infosSansCorrection">Exercice vierge</h3>
+            <div>
+                {loaded && (
+                    <div>
+                        <TATWSCreator exo={TAT} onTATDataChange={handleTATScoreChange} />
+                        <TTIWSCreator exo={TTI} onTTIDataChange={handleTTIScoreChange} />
+                        <AbaqueWSCreator exo={Abaque} onAbaqueDataChange={handleAbaqueScoreChange} />
+                        <LDNWSCreator exo={LDN} onTATDataChange={handleLDNScoreChange} />
+                        <MBWSCreator exo={MB} onMBDataChange={handleMBScoreChange} />
+                        <MDNWSCreator exo={MDN} onMDNDataChange={handleMDNScoreChange} />
+                        <STTWSCreator exo={STT} onSTTDataChange={handleSTTScoreChange} />
+                    </div>
+                )}
+            </div>
             <div id="infoSansCorrection"></div>
             <h3>Exercice corrigé</h3>
+            <div>
+            {loaded && (
+                    <div>
+                        <TATWSCreatorCorrection exo={TAT} onTATDataChange={handleTATScoreChange} />
+                        <TTIWSCreatorCorrection exo={TTI} onTTIDataChange={handleTTIScoreChange} />
+                        <AbaqueWSCreatorCorrection exo={Abaque} onAbaqueDataChange={handleAbaqueScoreChange} />
+                        <LDNWSCreatorCorrection exo={LDN} onTATDataChange={handleLDNScoreChange} />
+                        <MBWSCreatorCorrection exo={MB} onMBDataChange={handleMBScoreChange} />
+                        <MDNWSCreatorCorrection exo={MDN} onMDNDataChange={handleMDNScoreChange} />
+                        <STTWSCreatorCorrection exo={STT} onSTTDataChange={handleSTTScoreChange} />
+                    </div>
+                )}
+            </div>
             <div id="infoAvecCorrection"></div>
             {sons.map((son, index) => (
                 <div key={index} style={{ marginRight: '10px' }}>
@@ -471,6 +601,7 @@ const InfoExercice = () => {
                     <br />
                 </div>
             ))}
+            <button onClick={efezczczc}>adzadadad</button>
         </div>
     );
 };

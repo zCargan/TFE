@@ -15,7 +15,8 @@ const History = () => {
         LDN: 'LDN.jpg',
         TAT: 'TAT.png',
         MB: 'MB.jpg',
-        STT: 'stt.png'
+        STT: 'stt.png',
+        WS: 'feuilleExo.jpg'
     };
 
     useEffect(() => {
@@ -62,7 +63,7 @@ const History = () => {
                             </div>
                             <div className="exercice-details">
                                 <h3>Exercice</h3>
-                                <p>Type de l'exercice: {exercice.type}</p>
+                                <p>Type de l'exercice: {exercice.type === 'WS' ? 'Feuille d\'exercice' : exercice.type}</p>
                                 <p>Pourcentage de l'exo: {exercice.pourcentage}%</p>
                                 <p>Date de réalisation: {exercice.temps}</p>
                                 <button onClick={(e) => seeDetails(exercice.identifiant, exercice.type)}>Voir Détails</button>

@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
-const LDNWSCreator = ({ exo, onTATDataChange }) => {
+const LDNWSCreatorCorrection = ({ exo, onTATDataChange }) => {
     const [reponses, setReponses] = useState("");
     const [nom, setNom] = useState('');
     const [anneeScolaire, setAnneeScolaire] = useState('');
@@ -37,7 +37,6 @@ const LDNWSCreator = ({ exo, onTATDataChange }) => {
     function getExoLDN() {
         if (exo.length !== 0) {
             let resultatAttendu = exo.reponseFinale
-            console.log(exo.reponseFinal)
             let length = exo.reponseFinale.length;
             let enonceIndex = exo.reponseInitiale;
             let direction = exo.direction
@@ -47,17 +46,17 @@ const LDNWSCreator = ({ exo, onTATDataChange }) => {
             if (direction === "G") {
                 texte += '◀'
                 for (let i = 0; i < length; i++) {
-                    texte += String("<input id='" + (i + 1) + "' class='inputUserAnswerLDN' value='" + enonceIndex[i] + "'></input>");
+                    texte += String("<input id='" + (i + 1) + "' class='inputUserAnswerLDN' value='" + resultatAttendu[i] + "'></input>");
                 }
                 texte += String("</tbody></table></div>");
             } else {
                 for (let i = 0; i < length; i++) {
-                    texte += String("<input id='" + (i + 1) + "' class='inputUserAnswerLDN' value='" + enonceIndex[i] + "'></input>");
+                    texte += String("<input id='" + (i + 1) + "' class='inputUserAnswerLDN' value='" + resultatAttendu[i] + "'></input>");
                 }
                 texte += '▶'
                 texte += String("</tbody></table></div>");
             }
-            document.getElementById("zoneExoLDN").innerHTML = texte
+            document.getElementById("zoneExoLDNCorrection").innerHTML = texte
         }
     }
 
@@ -94,7 +93,7 @@ const LDNWSCreator = ({ exo, onTATDataChange }) => {
                     <br />
                     <div id='zone_ldn'>
                         <br />
-                        <div id="zoneExoLDN"></div>
+                        <div id="zoneExoLDNCorrection"></div>
                     </div>
                     <br />
                 </div>
@@ -107,4 +106,4 @@ const LDNWSCreator = ({ exo, onTATDataChange }) => {
 
 };
 
-export default LDNWSCreator;
+export default LDNWSCreatorCorrection;

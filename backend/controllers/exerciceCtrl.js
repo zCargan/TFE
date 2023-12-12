@@ -851,6 +851,21 @@ exports.getDetailsExos = (req, res, next) => {
                             // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
                         });
                 }
+                if (typeExo == "WS") {
+                    worksheet.findById(idExo)
+                        .then(exercice => {
+                            if (exercice) {
+                                res.status(200).json({ exerciceInfos: exercice });
+                            } else {
+                                console.log('Aucun exercice trouvé avec l\'ID spécifié.');
+                                // Gérer le cas où aucun exercice n'est trouvé avec l'ID spécifié (envoyer une réponse HTTP 404, etc.)
+                            }
+                        })
+                        .catch(err => {
+                            console.error('Erreur lors de la recherche de l\'exercice par ID :', err);
+                            // Gérer l'erreur de manière appropriée (envoyer une réponse HTTP 500, etc.)
+                        });
+                }
                 if (typeExo == "TAT") {
                     TAT.findById(idExo)
                         .then(exercice => {
