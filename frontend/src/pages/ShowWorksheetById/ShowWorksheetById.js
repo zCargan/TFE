@@ -90,7 +90,7 @@ const ShowWorksheetById = () => {
 
                     setLoaded(true);
                 } else {
-                    setLoaded(true); // Peut-être setLoaded(false) si vous ne voulez pas considérer cela comme chargé en cas d'absence de données.
+                    setLoaded(true); 
                 }
             })
             .catch(err => {
@@ -136,37 +136,35 @@ const ShowWorksheetById = () => {
                     }
                 });
 
-                /*
                 
-                res.data.data.forEach(item => {
-                    switch (item.type) {
-                        case "TAT":
-                            setTAT(prevState => [...prevState, item]);
-                            break;
-                        case "TTI":
-                            setTTI(prevState => [...prevState, item]);
-                            break;
-                        case "STT":
-                            setSTT(prevState => [...prevState, item]);
-                            break;
-                        case "abaque":
-                            setAbaque(prevState => [...prevState, item]);
-                            break;
-                        case "MDN":
-                            setMDN(prevState => [...prevState, item]);
-                            break;
-                        case "LDN":
-                            setLDN(prevState => [...prevState, item]);
-                            break;
-                        case "MB":
-                            setMB(prevState => [...prevState, item]);
-                            break;
-                        default:
-                            break;
-                    }
-                });
+                // res.data.data.forEach(item => {
+                //     switch (item.type) {
+                //         case "TAT":
+                //             setTAT(prevState => [...prevState, item]);
+                //             break;
+                //         case "TTI":
+                //             setTTI(prevState => [...prevState, item]);
+                //             break;
+                //         case "STT":
+                //             setSTT(prevState => [...prevState, item]);
+                //             break;
+                //         case "abaque":
+                //             setAbaque(prevState => [...prevState, item]);
+                //             break;
+                //         case "MDN":
+                //             setMDN(prevState => [...prevState, item]);
+                //             break;
+                //         case "LDN":
+                //             setLDN(prevState => [...prevState, item]);
+                //             break;
+                //         case "MB":
+                //             setMB(prevState => [...prevState, item]);
+                //             break;
+                //         default:
+                //             break;
+                //     }
+                // });
                 
-                */
 
                 setLoaded(true);
 

@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
+import './LDNWSCreator.css'
+
 const LDNWSCreator = ({ exo, onTATDataChange }) => {
     const [reponses, setReponses] = useState("");
     const [nom, setNom] = useState('');
@@ -33,6 +35,44 @@ const LDNWSCreator = ({ exo, onTATDataChange }) => {
             'Authorization': `Bearer ${Cookies.get('JWT')}`
         }
     }
+
+    // function getExoLDN() {
+    //     if (exo.length !== 0) {
+    //         let texte = String("<div id='ligneDuTemps'><table><tbody>")
+    //         let resultatAttendu = exo.reponseFinale
+    //         console.log(exo)
+    //         for(let i = 0; i < exo.length; i++) {
+    //             texte += "<div>"
+    //             console.log(exo[i].direction)
+    //             let length = exo[i].reponseFinale.length;
+    //             let stringTMP = "<div  class='divLDNWS'>";
+    //             texte += "<h4>" + exo[i].description + "</h4>"
+    //             if (exo[i].direction === "G") {
+    //                 stringTMP += '◀'
+    //             }
+    //             for(let j = 0; j < length; j++) {
+    //                 let enonceIndex = exo.reponseInitiale;
+    //                 let direction = exo.direction
+
+    //                 if(exo[i].reponseInitiale[j] === '') {
+    //                     console.log(exo[i].reponseInitiale[j])
+    //                     stringTMP += "<input></input>"
+    //                 } else {
+    //                     stringTMP += "<input placeholder='" + exo[i].reponseInitiale[j] + "'></input>"
+    //                 }
+    //             }
+    //             if (exo[i].direction === "D") {
+    //                 stringTMP += '▶'
+    //             }
+    //             stringTMP += '</div>'
+    //             texte += stringTMP
+    //             console.log(stringTMP)  
+    //         }
+    //         texte += "</div>"
+    //         texte += String("</tbody></table></div>");
+    //         document.getElementById("zoneExoLDN").innerHTML = texte
+    //     }
+    // }
 
     function getExoLDN() {
         if (exo.length !== 0) {

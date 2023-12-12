@@ -46,27 +46,27 @@ const CreateExercice = () => {
     };
 
     const handleExerciseData = (data) => {
-    const isElementPresent = exerciseDataArray.some((element) => element.type === data.type);
+        const isElementPresent = exerciseDataArray.some((element) => element.type === data.type);
 
-    // if (isElementPresent) {
-    //     Swal.fire({
-    //         title: 'Erreur',
-    //         text: "Vous avez déja ajouter un exercice de ce type sur la feuille",
-    //         icon: 'error',
-    //         showConfirmButton: true,
-    //     });
-    // } else {
+        if (isElementPresent) {
+            Swal.fire({
+                title: 'Erreur',
+                text: "Vous avez déja ajouter un exercice de ce type sur la feuille",
+                icon: 'error',
+                showConfirmButton: true,
+            });
+        } else {
 
-        setExerciseDataArray((prevData) => [...prevData, data]);
-        setResetSelect(true);
-        Swal.fire({
-            title: 'Succès',
-            text: "Ajouter avec succès. Vous pouvez valider la feuille d'exercice, ou ajouter un nouvel exercice",
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 2000
-        });
-    // }
+            setExerciseDataArray((prevData) => [...prevData, data]);
+            setResetSelect(true);
+            Swal.fire({
+                title: 'Succès',
+                text: "Ajouter avec succès. Vous pouvez valider la feuille d'exercice, ou ajouter un nouvel exercice",
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
     };
 
     const dispatch = useDispatch();
@@ -145,18 +145,18 @@ const CreateExercice = () => {
 
         if (valeur !== undefined) {
 
-            if(nom !== "") {
+            if (nom !== "") {
 
-                if(descriptionWorksheeto !=="") {
+                if (descriptionWorksheeto !== "") {
 
-                    if((exerciseDataArray.length) !== 0) {
+                    if ((exerciseDataArray.length) !== 0) {
                         let data = {
                             nom: document.getElementById('nameInput').value,
                             descriptionWorksheet: document.getElementById('textareaCE').value,
                             anneeScolaire: valeur,
                             data: exerciseDataArray
                         }
-            
+
                         axios
                             .post('http://localhost:4000/exercice/saveWorksheet', { data }, config)
                             .then((res) => {
@@ -171,11 +171,11 @@ const CreateExercice = () => {
                 } else {
                     alert("Veuillez choisir une description pour l'exercice")
                 }
- 
+
             } else {
                 alert('Veuillez choisir un nom')
             }
-            
+
         } else {
             alert('Veuillez choisir une année scolaire')
         }

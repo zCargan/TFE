@@ -14,7 +14,6 @@ const TATWSCreator = ({ exo, onTATDataChange }) => {
             createExos();
             getMBCalledRef.current = true;
 
-            // Attacher l'événement de clic ici après le premier rendu
             const testVraitestElement = document.getElementById("testVraitest");
             if (testVraitestElement) {
                 testVraitestElement.addEventListener("click", buttonClicked);
