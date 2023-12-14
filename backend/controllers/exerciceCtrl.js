@@ -721,18 +721,35 @@ exports.getTotalCountsWS = async (req, res, next) => {
 
 exports.getARandomWorksheets = async (req, res, next) => {
     const { selectedWorksheets } = req.query;
+    
 
-    try {
-        const randomWorksheets = await Worksheet.find(/* Votre logique de recherche ici */)
-            .select('-__v') // Exclure le champ "__v" si vous ne le souhaitez pas
-            .limit(selectedWorksheets.length)
-            .lean(); // Utilisez la méthode lean pour convertir en objet JavaScript simple
+    // try {
+    //     const randomWorksheets = await Worksheet.find(/* Votre logique de recherche ici */)
+    //         .select('-__v') // Exclure le champ "__v" si vous ne le souhaitez pas
+    //         .limit(selectedWorksheets.length)
+    //         .lean(); // Utilisez la méthode lean pour convertir en objet JavaScript simple
 
-        res.status(200).json(randomWorksheets);
-    } catch (error) {
-        console.error("Error fetching random worksheets:", error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
+    //     res.status(200).json(randomWorksheets);
+    // } catch (error) {
+    //     console.error("Error fetching random worksheets:", error);
+    //     res.status(500).json({ error: 'Internal Server Error' });
+    // }
+
+
+
+    // const { selectedWorksheets } = req.query;
+
+    let arrayOfResponses = [];
+
+    console.log(selectedWorksheets)
+
+    worksheet.find().then((donnees) => {
+        for(let i = 0; i < selectedWorksheets.length; i ++) {
+            arrayOfResponses.push(donnees[selectedWorksheets[i]])
+        }
+        res.status(200).json(arrayOfResponses);
+    });
+
 };
 
 exports.getDetailsExos = (req, res, next) => {

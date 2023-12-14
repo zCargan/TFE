@@ -20,6 +20,7 @@ const ShowWorksheet = () => {
             .get("http://localhost:4000/exercice/getTotalCountsWS")
             .then((res) => {
                 const max = res.data.count;
+                console.log(max)
                 getARandomWorksheets(max, 5); // Générer 5 worksheets aléatoires
             })
             .catch((error) => {
@@ -34,22 +35,52 @@ const ShowWorksheet = () => {
     const getARandomWorksheets = (max, count) => {
         const selectedWorksheets = [];
 
-        for (let i = 0; i < count; i++) {
-            const randomIndex = giveRandomNumber(max);
-            selectedWorksheets.push(randomIndex);
+        console.log(count)
+
+        if (max < 6) {
+            for (let i = 0; i < count; i++) {
+                const randomIndex = giveRandomNumber(max);
+                console.log(randomIndex)
+                selectedWorksheets.push(randomIndex);
+            }
+
+            axios
+                .get('http://localhost:4000/exercice/getARandomWorksheets', {
+                    params: { selectedWorksheets },
+                })
+                .then((res) => {
+                    console.log(res.data)
+                    setRandomWorksheets(res.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else {
+            for (let i = 0; i < count; i++) {
+                let randomIndex;
+                do {
+                    randomIndex = giveRandomNumber(max);
+                } while (selectedWorksheets.includes(randomIndex));
+    
+                console.log(randomIndex);
+                selectedWorksheets.push(randomIndex);
+            }
+
+            axios
+                .get('http://localhost:4000/exercice/getARandomWorksheets', {
+                    params: { selectedWorksheets },
+                })
+                .then((res) => {
+                    console.log(res.data)
+                    setRandomWorksheets(res.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
         }
 
-        axios
-            .get('http://localhost:4000/exercice/getARandomWorksheets', {
-                params: { selectedWorksheets },
-            })
-            .then((res) => {
-                console.log(res.data)
-                setRandomWorksheets(res.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+
     };
 
     return (
