@@ -160,10 +160,19 @@ const CreateExercice = () => {
                         axios
                             .post('http://localhost:4000/exercice/saveWorksheet', { data }, config)
                             .then((res) => {
-                                console.log(res)
-                            })
-                            .catch((error) => {
-                                console.log(error)
+
+                                let data = {
+                                    idExo: res.data.data._id,
+                                    type: "WS"
+                                }
+                    
+                                axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                                .then((res) => {
+                                    console.log(res)
+                                })
+                                .catch((error) => {
+                                    console.log(error)
+                                })
                             })
                     } else {
                         alert("Veuillez ajouter au moins un exercice à la feuille de cours")

@@ -89,7 +89,24 @@ const MDN = () => {
             }
         }
 
-        axios.post("http://localhost:4000/exercice/registerMDN", {exo}, config)
+        axios.post("http://localhost:4000/exercice/registerMDN", {exo}, config).then((res) => {
+
+        let data = {
+            idExo: res.data.data._id,
+            type: "MDN"
+        }
+
+        axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+        .then((res) => {
+            console.log(res)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    })
+        .catch((error) => {
+            console.log(error)
+        })
     }
 
 

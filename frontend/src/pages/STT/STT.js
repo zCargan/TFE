@@ -90,7 +90,21 @@ const STT = () => {
 
         axios
         .post(`http://localhost:4000/exercice/registerSTT`, data, config)
-        .then((res) => {})
+        .then((res) => {
+
+            let data = {
+                idExo: res.data.data._id,
+                type: "STT"
+            }
+
+            axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        })
         .catch((error) => {})
 
     }

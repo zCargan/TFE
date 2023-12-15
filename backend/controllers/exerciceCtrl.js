@@ -38,8 +38,12 @@ exports.registerMDN = (req, res) => {
         ...req.body.exo
     })
     MaisonDesNombres.save()
-        .then(() => res.status(201).json({ message: 'MDN ajouté' }))
-        .catch(error => res.status(400).json({ error }));
+        .then((mdnData) => {
+            res.status(201).json({ message: "TTI enregistré avec succès", data: mdnData });
+        })
+        .catch((saveError) => {
+            res.status(500).json({ error: "Erreur lors de l'enregistrement du TTI", saveError });
+        });
 }
 
 // GET
@@ -71,8 +75,12 @@ exports.postAbaque = (req, res) => {
     });
 
     newAbaque.save()
-        .then(() => res.status(201).json({ message: 'Abaque ajouté' }))
-        .catch(error => res.status(400).json({ error }));
+        .then((AbaqueData) => {
+            res.status(201).json({ message: "TTI enregistré avec succès", data: AbaqueData });
+        })
+        .catch((saveError) => {
+            res.status(500).json({ error: "Erreur lors de l'enregistrement du TTI", saveError });
+        });
 }
 
 // GET
@@ -226,6 +234,12 @@ exports.postLDN = (req, res) => {
                     ...req.body.exo
                 })
                 ldn.save()
+                    .then((ldnData) => {
+                        res.status(201).json({ message: "TTI enregistré avec succès", data: ldnData });
+                    })
+                    .catch((saveError) => {
+                        res.status(500).json({ error: "Erreur lors de l'enregistrement du TTI", saveError });
+                    });
             }
         })
     }
@@ -282,6 +296,12 @@ exports.postTAT = (req, res) => {
                     ...req.body.data
                 })
                 tat.save()
+                .then((tatData) => {
+                    res.status(201).json({ message: "TTI enregistré avec succès", data: tatData });
+                })
+                .catch((saveError) => {
+                    res.status(500).json({ error: "Erreur lors de l'enregistrement du TTI", saveError });
+                });
             }
         })
     }
@@ -338,6 +358,12 @@ exports.postMB = (req, res, next) => {
                     ...req.body.data
                 })
                 mb.save()
+                    .then((mbData) => {
+                        res.status(201).json({ message: "TTI enregistré avec succès", data: mbData });
+                    })
+                    .catch((saveError) => {
+                        res.status(500).json({ error: "Erreur lors de l'enregistrement du TTI", saveError });
+                    });
             }
         })
 
@@ -396,6 +422,12 @@ exports.postSTT = (req, res) => {
                     ...req.body
                 })
                 stt.save()
+                .then((sttData) => {
+                    res.status(201).json({ message: "TTI enregistré avec succès", data: sttData });
+                })
+                .catch((saveError) => {
+                    res.status(500).json({ error: "Erreur lors de l'enregistrement du TTI", saveError });
+                });
             }
         })
     }
@@ -1317,6 +1349,12 @@ exports.saveWorksheet = (req, res, next) => {
                     ...req.body.data
                 })
                 worksheet.save()
+                .then((wsData) => {
+                    res.status(201).json({ message: "TTI enregistré avec succès", data: wsData });
+                })
+                .catch((saveError) => {
+                    res.status(500).json({ error: "Erreur lors de l'enregistrement du TTI", saveError });
+                });
             }
         })
     }
@@ -1360,19 +1398,19 @@ exports.getSpecificWS = (req, res, next) => {
             for (let i = 0; i < donnees.length; i++) {
                 if (donnees[i].anneeScolaire === anneeScolaire) {
                     if ((titreSpecifique !== "") && (descriptionSpecifique === "")) {
-                        if(donnees[i].nom.includes(titreSpecifique)) {
+                        if (donnees[i].nom.includes(titreSpecifique)) {
                             arrayAnswer.push(donnees[i])
                         }
                     } else if ((descriptionSpecifique !== "") && (titreSpecifique === "")) {
-                        if(donnees[i].descriptionWorksheet.includes(descriptionSpecifique)) {
+                        if (donnees[i].descriptionWorksheet.includes(descriptionSpecifique)) {
                             arrayAnswer.push(donnees[i])
                         }
                     } else if ((descriptionSpecifique !== "") && (titreSpecifique !== "")) {
-                        if(donnees[i].descriptionWorksheet.includes(descriptionSpecifique)) {
+                        if (donnees[i].descriptionWorksheet.includes(descriptionSpecifique)) {
                             arrayAnswer.push(donnees[i]);
                             break;
-                        } 
-                        if(donnees[i].nom.includes(titreSpecifique)) {
+                        }
+                        if (donnees[i].nom.includes(titreSpecifique)) {
                             arrayAnswer.push(donnees[i])
                             break;
                         }
@@ -1384,10 +1422,10 @@ exports.getSpecificWS = (req, res, next) => {
 };
 
 exports.addExoToUser = (req, res, next) => {
-   
+
     const token = req.header('Authorization');
     if (token) {
-        const jwtToken = token.replace('Bearer ', ''); 
+        const jwtToken = token.replace('Bearer ', '');
         const secretKey = "test";
 
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
@@ -1397,7 +1435,7 @@ exports.addExoToUser = (req, res, next) => {
 
                 let utilisateurId = decoded.id;
                 let idExo = req.body.idExo;
-                let type =  req.body.type;
+                let type = req.body.type;
                 const query = `INSERT INTO exercicereference (utilisateur_id, exercice_id, type)
                 VALUES ($1, $2, $3)`;
 
@@ -1439,6 +1477,76 @@ exports.deleteExo = async (req, res, next) => {
     try {
         if (req.query.type === "TTI") {
             const result = await TTI.findByIdAndDelete(req.query.id);
+
+            if (result) {
+                console.log('Élément supprimé avec succès :', result);
+                res.status(200).json({ message: 'Élément supprimé avec succès' });
+            } else {
+                console.log('Aucun élément trouvé avec cet ID');
+                res.status(404).json({ message: 'Aucun élément trouvé avec cet ID' });
+            }
+        } else if (req.query.type === "abaque") {
+            const result = await ABAQUE.findByIdAndDelete(req.query.id);
+
+            if (result) {
+                console.log('Élément supprimé avec succès :', result);
+                res.status(200).json({ message: 'Élément supprimé avec succès' });
+            } else {
+                console.log('Aucun élément trouvé avec cet ID');
+                res.status(404).json({ message: 'Aucun élément trouvé avec cet ID' });
+            }
+        } else if (req.query.type === "LDN") {
+            const result = await LDN.findByIdAndDelete(req.query.id);
+
+            if (result) {
+                console.log('Élément supprimé avec succès :', result);
+                res.status(200).json({ message: 'Élément supprimé avec succès' });
+            } else {
+                console.log('Aucun élément trouvé avec cet ID');
+                res.status(404).json({ message: 'Aucun élément trouvé avec cet ID' });
+            }
+        } else if (req.query.type === "MB") {
+            const result = await MB.findByIdAndDelete(req.query.id);
+
+            if (result) {
+                console.log('Élément supprimé avec succès :', result);
+                res.status(200).json({ message: 'Élément supprimé avec succès' });
+            } else {
+                console.log('Aucun élément trouvé avec cet ID');
+                res.status(404).json({ message: 'Aucun élément trouvé avec cet ID' });
+            }
+        } else if (req.query.type === "MDN") {
+            const result = await MDN.findByIdAndDelete(req.query.id);
+
+            if (result) {
+                console.log('Élément supprimé avec succès :', result);
+                res.status(200).json({ message: 'Élément supprimé avec succès' });
+            } else {
+                console.log('Aucun élément trouvé avec cet ID');
+                res.status(404).json({ message: 'Aucun élément trouvé avec cet ID' });
+            }
+        } else if (req.query.type === "STT") {
+            const result = await STT.findByIdAndDelete(req.query.id);
+
+            if (result) {
+                console.log('Élément supprimé avec succès :', result);
+                res.status(200).json({ message: 'Élément supprimé avec succès' });
+            } else {
+                console.log('Aucun élément trouvé avec cet ID');
+                res.status(404).json({ message: 'Aucun élément trouvé avec cet ID' });
+            }
+        } else if (req.query.type === "TAT") {
+            const result = await TAT.findByIdAndDelete(req.query.id);
+
+            if (result) {
+                console.log('Élément supprimé avec succès :', result);
+                res.status(200).json({ message: 'Élément supprimé avec succès' });
+            } else {
+                console.log('Aucun élément trouvé avec cet ID');
+                res.status(404).json({ message: 'Aucun élément trouvé avec cet ID' });
+            }
+        } else if (req.query.type === "WS") {
+            const result = await worksheet.findByIdAndDelete(req.query.id);
 
             if (result) {
                 console.log('Élément supprimé avec succès :', result);

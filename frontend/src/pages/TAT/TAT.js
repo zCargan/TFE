@@ -86,7 +86,22 @@ const TAT = () => {
         }
 
         axios.post("http://localhost:4000/exercice/registerTAT", {data}, config)
+        .then((res) => {
 
+            let data = {
+                idExo: res.data.data._id,
+                type: "TAT"
+            }
+
+            axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        })
+        .catch((error) => {})
     }
 
     function changeValueText(event) {

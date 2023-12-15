@@ -9,7 +9,8 @@ const TAT = require('../models/TAT')
 const MB = require('../models/MB')
 const STT = require('../models/STT')
 const ABAQUE = require('../models/abaque');
-const Worksheet = require('../models/worksheet')
+const Worksheet = require('../models/worksheet');
+const worksheet = require('../models/worksheet');
 
 exports.getAllInformationsUsers = (req, res, next) => {
 
@@ -167,11 +168,49 @@ exports.getAllExercicesFromProfesseur = async (req, res, next) => {
 
                 let arrayExos = [];
 
+                console.log(result.rows)
+
                 // Utilisation de Promise.all pour attendre la résolution de toutes les promesses
                 await Promise.all(result.rows.map(async (row) => {
                     if (row.type === "TTI") {
                         // Utilisation de await pour attendre la résolution de la promesse
                         const donnees = await TTI.findById(row.exercice_id);
+                        console.log("Données : ")
+                        console.log(donnees);
+                        arrayExos.push(donnees);
+                    } else if (row.type === "abaque") {
+                        const donnees = await ABAQUE.findById(row.exercice_id);
+                        console.log("Données : ")
+                        console.log(donnees);
+                        arrayExos.push(donnees);
+                    } else if (row.type === "LDN") {
+                        const donnees = await LDN.findById(row.exercice_id);
+                        console.log("Données : ")
+                        console.log(donnees);
+                        arrayExos.push(donnees);
+                    } else if (row.type === "MB") {
+                        const donnees = await MB.findById(row.exercice_id);
+                        console.log("Données : ")
+                        console.log(donnees);
+                        arrayExos.push(donnees);
+                    } else if (row.type === "MDN") {
+                        const donnees = await MDN.findById(row.exercice_id);
+                        console.log("Données : ")
+                        console.log(donnees);
+                        arrayExos.push(donnees);
+                    } else if (row.type === "STT") {
+                        const donnees = await STT.findById(row.exercice_id);
+                        console.log("Données : ")
+                        console.log(donnees);
+                        arrayExos.push(donnees);
+                    } else if (row.type === "TAT") {
+                        const donnees = await TAT.findById(row.exercice_id);
+                        console.log("Données : ")
+                        console.log(donnees);
+                        arrayExos.push(donnees);
+                    } else if (row.type === "WS") {
+                        const donnees = await worksheet.findById(row.exercice_id);
+                        console.log("Données : ")
                         console.log(donnees);
                         arrayExos.push(donnees);
                     }

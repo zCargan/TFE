@@ -99,7 +99,24 @@ const Abaque = () => {
         console.log(data)
 
         axios.post("http://localhost:4000/exercice/registerAbaque", {data}, config)
+        .then((res) => {
 
+            let data = {
+                idExo: res.data.data._id,
+                type: "abaque"
+            }
+
+            axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        })
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
     function recupereExo() {

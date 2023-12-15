@@ -35,7 +35,7 @@ const MB = () => {
             } else {
                 // Convertir la chaîne de caractères en tableau
                 const nameArray = newName.split('');
-                
+
                 const newRow = { id: newId, photo: newId, name: nameArray };
                 setTableData([...tableData, newRow]);
 
@@ -55,7 +55,7 @@ const MB = () => {
                 valeur = radios[i].value;
             }
         }
-        
+
         const config = {
             headers: {
                 'Authorization': `Bearer ${Cookies.get('JWT')}`,
@@ -70,15 +70,27 @@ const MB = () => {
             type: "MB",
             reponses: dictionary
         }
-        
 
 
-        axios.post(`http://localhost:4000/exercice/registerMB`, {data}, config).then((res) => {
 
+        axios.post(`http://localhost:4000/exercice/registerMB`, { data }, config).then((res) => {
+
+            let data = {
+                idExo: res.data.data._id,
+                type: "MB"
+            }
+
+            axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                .then((res) => {
+                    console.log(res)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
         })
-        .catch((error) => {
-            console.log(error)
-        })
+            .catch((error) => {
+                console.log(error)
+            })
 
     }
 
@@ -115,7 +127,7 @@ const MB = () => {
                 </div>
             )}
             <div id="suite">
-                <input placeholder='Placez ici le nom se rapportant à cette image' id="name_photo" style={{width: "300px"}}></input>
+                <input placeholder='Placez ici le nom se rapportant à cette image' id="name_photo" style={{ width: "300px" }}></input>
                 <button onClick={confirm}>Confirmer</button>
             </div>
             <br />
