@@ -61,6 +61,7 @@ router.get('/getNameCollection', exerciceCtrl.getNameCollection);
 router.get('/getTotalCounts', exerciceCtrl.getTotalCounts);
 router.get('/getTotalCountsWS', exerciceCtrl.getTotalCountsWS);
 router.get('/getARandomWorksheets', exerciceCtrl.getARandomWorksheets);
+router.get('/getSpecificWS', exerciceCtrl.getSpecificWS);
 router.get('/getDetailsExos', exerciceCtrl.getDetailsExos);
 router.get('/getARandomExo', exerciceCtrl.getARandomExo)
 router.get('/getAPreciseExo', exerciceCtrl.getAPreciseExo);
@@ -68,5 +69,8 @@ router.post('/getExosFromRequest', exerciceCtrl.getExosFromRequest);
 router.delete('/deleteExoById', exerciceCtrl.deleteExoById);
 router.post('/saveWorksheet', exerciceCtrl.saveWorksheet);
 router.get('/getWS/:id', exerciceCtrl.getWS);
+
+router.delete('/deleteExo', exerciceCtrl.deleteExo)
+router.post('/addExoToUser', exerciceCtrl.addExoToUser);
 
 module.exports = router;

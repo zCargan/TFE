@@ -16,16 +16,18 @@ const Profile = () => {
     const [role, setRole] = useState("");
     const [rolesData, setRolesData] = useState({});
     const [selectedRoles, setSelectedRoles] = useState({});
-
+    const [exercices, setExercices] = useState([]);
 
     const navigate = useNavigate();
 
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${Cookies.get('JWT')}`
+        }
+    };
+
     useEffect(() => {
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get('JWT')}`
-            }
-        };
+
         axios
             .post("http://localhost:4000/connection/infoUser", {}, config)
             .then(response => {
@@ -37,8 +39,27 @@ const Profile = () => {
                     setRole(response.data.role)
                 }
             })
-    })
+    }, [])
 
+    useEffect(() => {
+        if (role === "professeur") {
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${Cookies.get('JWT')}`
+                }
+            };
+
+            axios
+                .get('http://localhost:4000/user/getAllExercicesFromProfesseur', config)
+                .then((res) => {
+                    console.log(res.data);
+                    setExercices(res.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }, [role]);
 
     function deconnect() {
         Cookies.remove('JWT');
@@ -116,7 +137,10 @@ const Profile = () => {
         navigate('/request')
     }
 
-
+    function deleteExos(idExo, typeExo) {
+        console.log(idExo, typeExo)
+        axios.delete(`http://localhost:4000/exercice/deleteExo?type=${typeExo}&id=${idExo}`)
+    }
 
 
 
@@ -126,7 +150,7 @@ const Profile = () => {
                 <Navbar></Navbar>
             </div>
             <div>
-                {role !== "admin" ? (
+                {role === "eleve" ? (
                     <div>
                         <br />
                         <h3>Bienvenu sur votre profil, {nom}</h3>
@@ -141,36 +165,69 @@ const Profile = () => {
                     </div>
                 ) : (
                     <div>
-                        <br />
-                        <h3>Bienvenu sur votre profil, {nom}</h3>
-                        <p>Vous êtes connecté à un compte {role}</p>
-                        <br />
-                        <p>Ici, vous pourrez gérer toute la gestion des utilisateurs</p>
-                        <button onClick={getUsersInformations}>Manager les utilisateurs</button>
-                        <div id='managementUsers' />
-                        <br />
-                        <div className="container">
-                            {Object.entries(rolesData).map(([nom, role]) => (
-                                <div key={nom} className="divUserInformation">
-                                    <p>{nom} : </p>
-                                    <select value={selectedRoles[nom]} onChange={(event) => handleRoleChange(nom, event)} id={nom}>
-                                        <option value="professeur">Professeur</option>
-                                        <option value="eleve">Élève</option>
-                                        <option value="admin">Admin</option>
-                                    </select>
-                                    <button onClick={() => changeRoleUser(nom)}>Confirmer</button>
+                        {role === "professeur" ? (
+                            <div>
+                                <br />
+                                <h3>Bienvenu sur votre profil, {nom}</h3>
+                                <p>Vous êtes connecté à un compte {role}</p>
+                                <button onClick={(e) => history()}>Voir mon historique d'exercices</button>
+                                <br />
+                                <br />
+                                <div>
+                                    {exercices && exercices.length > 0 && (
+                                        <div>
+                                            {exercices.map((element) => (
+                                                element && (
+                                                    <div key={element._id} className='divExoDelete'>
+                                                        <p>Nom : {element.nom}</p>
+                                                        <button onClick={(e) => deleteExos(element._id, element.type)}>Supprimer cet exercice</button>
+                                                    </div>
+                                                )
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
-                            ))}
-                        </div>
-                        <div>
-                            <p>Gérer les exercices :
-                            </p>
-                            <SearchBarAdmin />
-                        </div>
-                        <br />
-                        <PasswordChanger text={"Changer mon mot de passe"} />
-                        <br />
-                        <br />
+                                <br />
+                                <br />
+                                <PasswordChanger text={"Changer mon mot de passe"} />
+                                <br />
+                                <br />
+                                <button onClick={goToRequest}>Effectuer une requête</button>
+                            </div>
+                        ) : (
+                            <div>
+                                <br />
+                                <h3>Bienvenu sur votre profil, {nom}</h3>
+                                <p>Vous êtes connecté à un compte {role}</p>
+                                <br />
+                                <p>Ici, vous pourrez gérer toute la gestion des utilisateurs</p>
+                                <button onClick={getUsersInformations}>Manager les utilisateurs</button>
+                                <div id='managementUsers' />
+                                <br />
+                                <div className="container">
+                                    {Object.entries(rolesData).map(([nom, role]) => (
+                                        <div key={nom} className="divUserInformation">
+                                            <p>{nom} : </p>
+                                            <select value={selectedRoles[nom]} onChange={(event) => handleRoleChange(nom, event)} id={nom}>
+                                                <option value="professeur">Professeur</option>
+                                                <option value="eleve">Élève</option>
+                                                <option value="admin">Admin</option>
+                                            </select>
+                                            <button onClick={() => changeRoleUser(nom)}>Confirmer</button>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div>
+                                    <p>Gérer les exercices :
+                                    </p>
+                                    <SearchBarAdmin />
+                                </div>
+                                <br />
+                                <PasswordChanger text={"Changer mon mot de passe"} />
+                                <br />
+                                <br />
+                            </div>
+                        )}
                     </div>
                 )}
             </div>

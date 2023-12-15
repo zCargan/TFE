@@ -68,6 +68,18 @@ const TTI = () => {
 
         axios.post(`http://localhost:4000/exercice/registerTTI`, data, config).then((res) => {
 
+            let data = {
+                idExo: res.data.data._id,
+                type: "TTI"
+            }
+
+            axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
         })
             .catch((error) => {
                 console.log(error)

@@ -1,5 +1,15 @@
 const { Client } = require('pg');
 const nodemailer = require('nodemailer');
+const jwt = require("jsonwebtoken");
+
+const MDN = require('../models/MDN');
+const TTI = require('../models/TTI')
+const LDN = require('../models/LDN')
+const TAT = require('../models/TAT')
+const MB = require('../models/MB')
+const STT = require('../models/STT')
+const ABAQUE = require('../models/abaque');
+const Worksheet = require('../models/worksheet')
 
 exports.getAllInformationsUsers = (req, res, next) => {
 
@@ -100,10 +110,10 @@ exports.sendRequest = (req, res, next) => {
     let detailsUser=  req.body.details
 
     const transporter = nodemailer.createTransport({
-        service: 'gmail', // Le service à utiliser (ici, Gmail)
+        service: 'gmail', 
         auth: {
-            user: 'lgc.carlier@gmail.com', // Votre adresse e-mail Gmail
-            pass: 'qfcb hcah xpgg oxpt',   // Votre mot de passe Gmail
+            user: 'lgc.carlier@gmail.com', 
+            pass: 'qfcb hcah xpgg oxpt',  
         },
     });
     
@@ -130,3 +140,57 @@ exports.sendRequest = (req, res, next) => {
         res.status(200).json({ message: 'Demande bien reçue! Merci!' });
     });
 }
+
+exports.getAllExercicesFromProfesseur = async (req, res, next) => {
+    const token = req.header('Authorization');
+
+    console.log("getAllExercicesFromProfesseur");
+
+    if (token) {
+        try {
+            const jwtToken = token.replace('Bearer ', '');
+            const secretKey = "test";
+            const decoded = jwt.verify(jwtToken, secretKey);
+
+            const client = new Client({
+                host: 'localhost',
+                port: 5432,
+                database: 'test',
+                user: 'postgres',
+                password: 'LoganTFE2023',
+            });
+
+            client.connect();
+
+            try {
+                const result = await client.query('SELECT * FROM exercicereference WHERE utilisateur_id = $1', [decoded.id]);
+
+                let arrayExos = [];
+
+                // Utilisation de Promise.all pour attendre la résolution de toutes les promesses
+                await Promise.all(result.rows.map(async (row) => {
+                    if (row.type === "TTI") {
+                        // Utilisation de await pour attendre la résolution de la promesse
+                        const donnees = await TTI.findById(row.exercice_id);
+                        console.log(donnees);
+                        arrayExos.push(donnees);
+                    }
+                }));
+
+                console.log(arrayExos);
+                res.send(arrayExos);
+            } catch (error) {
+                console.error('Erreur lors de l\'exécution de la requête :', error);
+                res.status(500).send('Erreur lors de la récupération des exercices.');
+            } finally {
+                client.end();
+            }
+        } catch (error) {
+            console.log('Erreur lors de la vérification du JWT :', error);
+            res.status(500).send('Erreur lors de la vérification du JWT.');
+        }
+    } else {
+        console.log("Pas de token");
+        res.status(401).send('Pas de token fourni');
+    }
+};

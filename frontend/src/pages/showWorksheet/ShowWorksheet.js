@@ -3,6 +3,7 @@ import axios from 'axios';
 import Navbar from '../../components/navbar/Navbar';
 
 import ShowRandomWS from '../../components/showRandomWS/showRandomWS';
+import SearchBarWS from '../../components/searchBarWS/searchBarWS';
 
 const ShowWorksheet = () => {
     const [randomWorksheets, setRandomWorksheets] = useState([]);
@@ -61,8 +62,6 @@ const ShowWorksheet = () => {
                 do {
                     randomIndex = giveRandomNumber(max);
                 } while (selectedWorksheets.includes(randomIndex));
-    
-                console.log(randomIndex);
                 selectedWorksheets.push(randomIndex);
             }
 
@@ -71,21 +70,24 @@ const ShowWorksheet = () => {
                     params: { selectedWorksheets },
                 })
                 .then((res) => {
-                    console.log(res.data)
                     setRandomWorksheets(res.data);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
-
         }
-
-
     };
+
+
+    const fonctionDeRetour = (data) => {
+        console.log(data);
+        setRandomWorksheets(data);
+      };
 
     return (
         <div>
             <Navbar />
+            <SearchBarWS dataDeLenfant={fonctionDeRetour}/>
             {randomWorksheets.map((worksheet, index) => (
                 <ShowRandomWS randomWS={worksheet} />
             ))}

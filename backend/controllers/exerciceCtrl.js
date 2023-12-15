@@ -11,6 +11,7 @@ const Worksheet = require('../models/worksheet')
 const jwt = require("jsonwebtoken");
 const { Client } = require('pg');
 const worksheet = require('../models/worksheet');
+const e = require('express');
 
 
 
@@ -150,21 +151,30 @@ exports.postTTI = (req, res) => {
 
     const token = req.header('Authorization');
     if (token) {
-        const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
+        const jwtToken = token.replace('Bearer ', '');
         const secretKey = "test";
 
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
                 res.status(401).json({ error: "Token JWT invalide" });
             } else {
+
                 const tti = new TTI({
                     ...req.body
-                })
+                });
+
                 tti.save()
+                    .then((ttiData) => {
+                        res.status(201).json({ message: "TTI enregistré avec succès", data: ttiData });
+                    })
+                    .catch((saveError) => {
+                        res.status(500).json({ error: "Erreur lors de l'enregistrement du TTI", saveError });
+                    });
             }
-        })
+        });
     }
-}
+};
+
 
 
 // GET
@@ -716,12 +726,12 @@ exports.getTotalCounts = async (req, res, next) => {
 
 exports.getTotalCountsWS = async (req, res, next) => {
     const count = await worksheet.countDocuments({});
-    res.status(200).json({count: count})
+    res.status(200).json({ count: count })
 }
 
 exports.getARandomWorksheets = async (req, res, next) => {
     const { selectedWorksheets } = req.query;
-    
+
 
     // try {
     //     const randomWorksheets = await Worksheet.find(/* Votre logique de recherche ici */)
@@ -744,7 +754,7 @@ exports.getARandomWorksheets = async (req, res, next) => {
     console.log(selectedWorksheets)
 
     worksheet.find().then((donnees) => {
-        for(let i = 0; i < selectedWorksheets.length; i ++) {
+        for (let i = 0; i < selectedWorksheets.length; i++) {
             arrayOfResponses.push(donnees[selectedWorksheets[i]])
         }
         res.status(200).json(arrayOfResponses);
@@ -1336,3 +1346,112 @@ exports.getWS = (req, res, next) => {
         res.send(donnees)
     });
 }
+
+exports.getSpecificWS = (req, res, next) => {
+    const { anneeScolaire, titreSpecifique, descriptionSpecifique } = req.query;
+    console.log('Annee Scolaire:', anneeScolaire);
+    console.log('Titre Specifique:', titreSpecifique);
+    console.log('Description Specifique:', descriptionSpecifique);
+
+    let arrayAnswer = [];
+
+    worksheet.find()
+        .then((donnees) => {
+            for (let i = 0; i < donnees.length; i++) {
+                if (donnees[i].anneeScolaire === anneeScolaire) {
+                    if ((titreSpecifique !== "") && (descriptionSpecifique === "")) {
+                        if(donnees[i].nom.includes(titreSpecifique)) {
+                            arrayAnswer.push(donnees[i])
+                        }
+                    } else if ((descriptionSpecifique !== "") && (titreSpecifique === "")) {
+                        if(donnees[i].descriptionWorksheet.includes(descriptionSpecifique)) {
+                            arrayAnswer.push(donnees[i])
+                        }
+                    } else if ((descriptionSpecifique !== "") && (titreSpecifique !== "")) {
+                        if(donnees[i].descriptionWorksheet.includes(descriptionSpecifique)) {
+                            arrayAnswer.push(donnees[i]);
+                            break;
+                        } 
+                        if(donnees[i].nom.includes(titreSpecifique)) {
+                            arrayAnswer.push(donnees[i])
+                            break;
+                        }
+                    }
+                }
+            }
+            res.send(arrayAnswer)
+        })
+};
+
+exports.addExoToUser = (req, res, next) => {
+   
+    const token = req.header('Authorization');
+    if (token) {
+        const jwtToken = token.replace('Bearer ', ''); 
+        const secretKey = "test";
+
+        jwt.verify(jwtToken, secretKey, (err, decoded) => {
+            if (err) {
+                res.status(401).json({ error: "Token JWT invalide" });
+            } else {
+
+                let utilisateurId = decoded.id;
+                let idExo = req.body.idExo;
+                let type =  req.body.type;
+                const query = `INSERT INTO exercicereference (utilisateur_id, exercice_id, type)
+                VALUES ($1, $2, $3)`;
+
+
+                const values = [utilisateurId, idExo, type];
+
+                const client = new Client({
+                    host: 'localhost',
+                    port: 5432,
+                    database: 'test',
+                    user: 'postgres',
+                    password: 'LoganTFE2023',
+                });
+
+                client.connect()
+                    .then(() => {
+                        return client.query(query, values);
+                    })
+                    .then((result) => {
+                        client.end();
+                        console.log(result);
+                        res.status(200).json({ success: "Données insérées avec succès" });
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        res.status(500).json({ error: "Erreur lors de l'insertion des données" });
+                    });
+            }
+        });
+    } else {
+        res.status(401).json({ error: "Utilisateur non connecté" });
+    }
+}
+
+
+exports.deleteExo = async (req, res, next) => {
+    console.log(req.query);
+
+    try {
+        if (req.query.type === "TTI") {
+            const result = await TTI.findByIdAndDelete(req.query.id);
+
+            if (result) {
+                console.log('Élément supprimé avec succès :', result);
+                res.status(200).json({ message: 'Élément supprimé avec succès' });
+            } else {
+                console.log('Aucun élément trouvé avec cet ID');
+                res.status(404).json({ message: 'Aucun élément trouvé avec cet ID' });
+            }
+        } else {
+            res.status(400).json({ message: 'Le type spécifié n\'est pas pris en charge' });
+        }
+    } catch (error) {
+        console.error('Erreur lors de la suppression de l\'élément :', error);
+        res.status(500).json({ message: 'Erreur lors de la suppression de l\'élément' });
+    }
+};
