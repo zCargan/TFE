@@ -24,6 +24,7 @@ import FormulaireDeRetour from './pages/formDeRetour/FormulaireDeRetour';
 import FeuilleExercice from './pages/FeuilleExercice/FeuilleExercice';
 import ShowWorksheet from './pages/showWorksheet/ShowWorksheet';
 import ShowWorksheetById from './pages/ShowWorksheetById/ShowWorksheetById';
+import SoundDetail from './pages/SoundDetail/SoundDetail';
 
 import MDN from './pages/MDN/MDN'
 import LDN from './pages/LDN/LDN'
@@ -56,6 +57,7 @@ function App() {
             <Route path="/infoExercice" element={<InfoExercice />} />
             <Route path="/photo" element={<Photo />} />
             <Route path="/photo_detail" element={<PhotoDetail />} />
+            <Route path="/sound_detail" element={<SoundDetail   />} />   
             <Route path="/show_exercice" element={<ShowExercice />} />
             <Route path="/exercices" element={<GetExercicesBySearchBar />} />
             <Route path="/manage_exerices" element={<ManageExercice />} />

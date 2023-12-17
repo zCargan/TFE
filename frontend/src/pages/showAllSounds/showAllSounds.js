@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import GetSounds from '../../components/getSoundsFromUserID/getSoundsFromUserID';
+import UpdateSounds from '../../components/updateSounds/updateSounds';
 import './showAllSounds.css'
 
 const ShowAllSounds = () => {
@@ -7,8 +7,7 @@ const ShowAllSounds = () => {
 
     return (
         <div>
-            <GetSounds />
-            <p>Test</p>
+            <UpdateSounds />
         </div>
     );
 };
