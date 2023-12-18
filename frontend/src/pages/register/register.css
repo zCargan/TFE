@@ -66,3 +66,14 @@ body {
     height: 200px;
     text-align: center;
 }
+
+
+.inputRegister {
+  text-align: center;
+  border-radius: 7px;
+  height: 15px;
+  margin: 5px;
+  border: 1px solid black;
+  padding: 5px;
+  width: 200;
+}

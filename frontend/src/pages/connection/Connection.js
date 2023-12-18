@@ -89,14 +89,20 @@ const Connection = (props) => {
       </div>
       <div id="input_connection_div">
         <br />
-        <input placeholder="Pseudo" type="text" id="pseudo" />
-        <input placeholder="password" type="password" id="password" />
+        <input className="inputConnection" placeholder="Pseudo" type="text" id="pseudo" />
+        <input className="inputConnection" placeholder="password" type="password" id="password" />
+        <br />
+        <br />
+        <button id="connection_register" onClick={(e) => connection()}>Connection</button>
+        <br />
       </div>
-      <div>
-        <PasswordChanger text={textButtonPasswordForget} />
+      <h5>Ou</h5>
+      <div className="bottom-button">
+        <button id="button_register" onClick={(e) => navigate('/register')}>Se créer un compte</button>
       </div>
-      <button onClick={(e) => connection()}>Connection</button>
-
+      <div className="connection-button">
+      <PasswordChanger text={textButtonPasswordForget} />
+      </div>
     </div>
   );
 };

@@ -112,13 +112,18 @@ const Connexion = () => {
         <div>
             <div>
                 <br />
-                <input placeholder='Prénom' type='text' id="surname" onChange={(e) => setSurname(e.target.value)}></input>
+                <br />
+                <input className="inputRegister" placeholder='Prénom' type='text' id="surname" onChange={(e) => setSurname(e.target.value)}></input>
                 <br></br>
-                <input placeholder='adresse email' type='text' id="emai" onChange={(e) => setEmail(e.target.value)}></input>
-                <br></br>
+                <input className="inputRegister" placeholder='adresse email' type='text' id="emai" onChange={(e) => setEmail(e.target.value)}></input>
+                <br />
+                <br />
+                <br />
+                <br />
 
-                <br></br>
-                <input type="password" placeholder='Mot de passe' onChange={(e) => setPassword(e.target.value)} />
+                <input className="inputRegister" type="password" placeholder='Mot de passe' onChange={(e) => setPassword(e.target.value)} />
+                <br />
+                <br />
                 <Popup
                     trigger={
                         <a
@@ -150,9 +155,10 @@ const Connexion = () => {
                         <label style={{ color: passwordHasSpecialCharacter ? 'green' : 'red' }}>Min 1 caractère spécial</label>
                     </div>
                 </Popup>
-                <br></br>
-                <input placeholder='Confirmer le mot de passe' type="password" id="passwordConfirm" onChange={(e) => setSamePassword(e.target.value)}></input>
-                <br></br>
+                <br />
+                <input className="inputRegister" placeholder='Confirmer le mot de passe' type="password" id="passwordConfirm" onChange={(e) => setSamePassword(e.target.value)}></input>
+                <br />
+                <br />
                 <button onClick={(e) => registerAccount()}>Register</button>
             </div>
         </div>

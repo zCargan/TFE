@@ -1,0 +1,27 @@
+#input_connection_div {
+}
+
+
+  
+.bottom-button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.connection-button {
+    position: absolute;
+    bottom: 125px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.inputConnection {
+    text-align: center;
+    border-radius: 7px;
+    height: 15px;
+    margin: 5px;
+    border: 1px solid black;
+    padding: 5px;
+    width: 200;
+}
