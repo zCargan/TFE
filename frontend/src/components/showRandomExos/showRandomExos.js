@@ -32,12 +32,12 @@ const ShowRandomExos = (props) => {
     })
 
     const typeImages = {
-        MDN: 'mdn.jpg',
+        MDN: 'mdn.png',
         abaque: 'abaque.png',
         TTI: 'tti.png',
-        LDN: 'LDN.jpg',
+        LDN: 'LDN.png',
         TAT: 'TAT.png',
-        MB: 'MB.jpg',
+        MB: 'MB.png',
         STT: 'stt.png'
     };
 

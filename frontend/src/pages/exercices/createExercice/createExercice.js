@@ -199,7 +199,7 @@ const CreateExercice = () => {
                 <Navbar />
             </div>
             <div>
-                <h3>Bienvenue dans la section de création d'une feuille d'exercice</h3>
+                <h3>Bienvenuee dans la section de création d'une feuille d'exercice</h3>
                 <div id="divTopPage">
                     <Popup
                         trigger={

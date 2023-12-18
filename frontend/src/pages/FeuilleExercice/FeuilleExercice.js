@@ -50,7 +50,7 @@ const FeuilleExercice = () => {
         <div>
             <Navbar />
             <div>
-                <h3>Bienvenue dans la section de création d'une feuille d'exercice</h3>
+                <h3>Bienvenuee dans la section de création d'une feuille d'exercice</h3>
                 <p>Récapitulatif :</p>
 
 
@@ -74,7 +74,7 @@ const FeuilleExercice = () => {
                 </Popup>
                 <Popup
                     trigger={
-                        <img src="LDN.jpg" onClick={callLDN} width="100" height="100" />}
+                        <img src="LDN.png" onClick={callLDN} width="100" height="100" />}
                     position="bottom center"
                     open={popupOpen}
                     on="hover"
@@ -87,7 +87,7 @@ const FeuilleExercice = () => {
                 </Popup>
                 <Popup
                     trigger={
-                        <img src="MB.jpg" onClick={callMB} width="100" height="100" />}
+                        <img src="MB.png" onClick={callMB} width="100" height="100" />}
                     position="bottom center"
                     open={popupOpen}
                     on="hover"
@@ -100,7 +100,7 @@ const FeuilleExercice = () => {
                 </Popup>
                 <Popup
                     trigger={
-                        <img src="mdn.jpg" onClick={callMDN} width="100" height="100" />}
+                        <img src="mdn.png" onClick={callMDN} width="100" height="100" />}
                     position="bottom center"
                     open={popupOpen}
                     on="hover"

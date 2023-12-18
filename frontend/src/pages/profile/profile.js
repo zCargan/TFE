@@ -153,7 +153,7 @@ const Profile = () => {
                 {role === "eleve" ? (
                     <div>
                         <br />
-                        <h3>Bienvenu sur votre profil, {nom}</h3>
+                        <h3>Bienvenue sur votre profil, {nom}</h3>
                         <p>Vous êtes connecté à un compte {role}</p>
                         <button onClick={(e) => history()}>Voir mon historique d'exercices</button>
                         <br />
@@ -168,7 +168,7 @@ const Profile = () => {
                         {role === "professeur" ? (
                             <div>
                                 <br />
-                                <h3>Bienvenu sur votre profil, {nom}</h3>
+                                <h3>Bienvenue sur votre profil, {nom}</h3>
                                 <p>Vous êtes connecté à un compte {role}</p>
                                 <button onClick={(e) => history()}>Voir mon historique d'exercices</button>
                                 <br />
@@ -197,7 +197,7 @@ const Profile = () => {
                         ) : (
                             <div>
                                 <br />
-                                <h3>Bienvenu sur votre profil, {nom}</h3>
+                                <h3>Bienvenue sur votre profil, {nom}</h3>
                                 <p>Vous êtes connecté à un compte {role}</p>
                                 <br />
                                 <p>Ici, vous pourrez gérer toute la gestion des utilisateurs</p>

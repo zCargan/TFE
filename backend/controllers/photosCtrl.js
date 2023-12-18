@@ -214,7 +214,7 @@ exports.updateImageName = (req, res, next) => {
                     values: [newName, photoId],
                 };
 
-                client.connect(); // Établir une connexion
+                client.connect(); 
                 
                 client.query(query, (error, result) => {
                     if (error) {
@@ -266,7 +266,7 @@ exports.deleteImage = (req, res, next) => {
 exports.getImage = (req, res) => {
     const token = req.header('Authorization');
     if (token) {
-        const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
+        const jwtToken = token.replace('Bearer ', ''); 
         const secretKey = "test"
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
@@ -293,7 +293,7 @@ exports.getImage = (req, res) => {
                         } else {
                             res.status(200).json(result.rows);
                         }
-                            client.end(); // Fermer la connexion après utilisation
+                            client.end(); 
                         });
                     }
                 });

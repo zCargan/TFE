@@ -171,7 +171,7 @@ const Navbar = () => {
                                     {username !== "" ? (
                                         <div>
                                             <br />
-                                            <h3>Bienvenu sur votre profil</h3>
+                                            <h3>Bienvenue sur votre profil</h3>
                                             <p>Bonjour {username} !</p>
                                             <p>Vous êtes connecté à un compte {role}</p>
                                             <button onClick={(e) => historyy()}>Voir mon historique d'exercices</button>

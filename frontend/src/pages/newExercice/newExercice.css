@@ -1,17 +1,49 @@
+@font-face {
+    font-family: 'cool';
+    src: local('cool'), url('./font/chomixi/Chomixi3D-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'cool2';
+    src: local('cool2'), url('./font/badly_stuffed_animal/badlystuffedanimalDEMO.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'cool3';
+    src: local('cool3'), url('./font/slowly_lovely_script/Slowly\ Lovely\ Script.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'cool4';
+    src: local('cool4'), url('./font/leafine/Leafine.otf') format('truetype');
+}
+
+@font-face {
+    font-family: 'cool5';
+    src: local('cool5'), url('./font/f_from_home/fFromHome.ttf') format('truetype');
+}
+
+/* PARTIE POPUP */
+
 .popupExos {
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.85);
-    padding: 4%;
-    border: 1px solid white;
-    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 1%;
+    border: 2px solid rgb(256,108,124);
+    border-radius: 20px;
+}   
+
+.popupExos p {
+    font-size: 25px;
+    font-family: 'cool4';
+    color: rgb(256,108,124);
 }
 
-popup {
-    background-color: red;
-}
-
-.popupExos a {
-    color: black;
+.popupExos h3 {
+    font-size: 25px;
+    font-family: 'cool5';
+    color: rgb(256,108,124);
+    font-size: 35px;
 }
 
 img {
@@ -19,16 +51,47 @@ img {
 }
 
 #div_img_create_exercice {
-   border: 1px solid black;
-   background-color: rgba(255, 255, 255, 0.45);
+    margin-top: 2%;
 }
 
-#div_photo_create_exercice {
-    border: 1px solid black;
-    background-color: rgba(255, 255, 255, 0.45);
+#bigDiv {
+    background-image: url('./img/background4.jpg');
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    background-position-y: 50%;
 }
 
-#div_son_create_exercice {
-    border: 1px solid black;
-    background-color: rgba(255, 255, 255, 0.45);
+#newExercice {
+
 }
+
+#newExercice h2 {
+    font-family: 'cool4';
+    font-size: 190%;
+    color: rgb(56,52,52);
+}
+
+.divExoCreation {
+    background-color: white;
+    margin-left: 15%;
+    margin-right: 15%;
+    border-radius: 25px;
+    background-color: rgba(0, 0, 0, 0.35);
+    border: 2px solid linen;
+}
+
+
+#soundLink {
+    color: red;
+}
+
+#soundLink:hover {
+    color: orange;
+}
+
+@media only screen and (max-width: 600px) {
+    #bigDiv {
+      background-image: none; /* Retire le fond d'écran lorsque la largeur de l'écran est de 600 pixels ou moins */
+    }
+  }

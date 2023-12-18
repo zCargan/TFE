@@ -1,11 +1,9 @@
-/* ... autres styles ... */
-
 .exercice-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: bisque;
-    padding: 20px; /* Ajout de marge intérieure pour aérer */
+    padding: 20px;
+}
+
+.exercice-details p {
+    color: white;
 }
 
 .exercice-item {
@@ -13,8 +11,8 @@
     border-radius: 5px;
     margin: 10px;
     max-width: 600px;
-    background-color: #fff; /* Couleur de fond pour chaque item d'exercice */
-    padding: 15px; /* Marge intérieure pour aérer chaque item */
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px; 
 }
 
 .exercice-content {
@@ -22,28 +20,54 @@
 }
 
 .image-container {
-    margin-right: 20px; /* Espace entre l'image et les détails de l'exercice */
-}
-
-/* Couleurs pour les textes et boutons */
-h3 {
-    color: #333; /* Couleur du titre */
-}
-
-p {
-    color: #555; /* Couleur du texte principal */
+    margin-right: 20px; 
 }
 
 button {
     margin: 10px;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
-/* ... autres styles ... */
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+}
+
+
+#mainDivHistory {
+    background-image: url('./img/historique3.jpg');
+    background-position-y: 10%;
+    background-size: cover; 
+}
+
+
+  @media screen and (max-width: 1200px) {
+    .grid-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    #mainDivHistory {
+        background-image: none; 
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    #mainDivHistory {
+        background-image: none; 
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .grid-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    #mainDivHistory {
+        background-image: none; /* Retire le fond d'écran lorsque la largeur de l'écran est de 600 pixels ou moins */
+    }
+}
+
+#G2 {
+    height: 94.5vh;
+}

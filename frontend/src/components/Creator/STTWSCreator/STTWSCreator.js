@@ -125,13 +125,23 @@ const STTWSCreator = ({ exo, onSTTDataChange }) => {
             {sons.map((son, index) => (
               <div key={index} style={{ marginRight: '10px' }}>
                 <p>Son {index + 1}</p>
-                <audio controls>
-                  <source src={URL.createObjectURL(new Blob([new Uint8Array(son.son_data.data)], { type: 'audio/mpeg' }))} type="audio/mpeg" />
-                  Votre navigateur ne supporte pas l'élément audio.
-                </audio>
+                {son.son_data.data ? (
+                  <audio controls>
+                    <source
+                      src={URL.createObjectURL(new Blob([new Uint8Array(son.son_data.data)], { type: 'audio/mpeg' }))}
+                      type="audio/mpeg"
+                    />
+                    Votre navigateur ne supporte pas l'élément audio.
+                  </audio>
+                ) : <div><p>Aucun fichier trouvé</p></div>}
                 <br />
                 <br />
-                <input placeholder='Votre réponse' id={son.name} class="inputUserSTT"></input>
+                {son.nom ? (
+                  <audio controls>
+                    <input placeholder='Votre réponse' id={son.name} class="inputUserSTT"></input>
+                    Votre navigateur ne supporte pas l'élément audio.
+                  </audio>
+                ) : <div><p>Aucun fichier trouvé</p></div>}
                 <br />
                 <br />
               </div>

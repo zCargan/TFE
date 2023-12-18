@@ -17,8 +17,6 @@ const Connection = (props) => {
   useEffect(() => {
     if (Cookies.get('JWT')) {
       navigate('/home')
-    } else {
-      console.log('Nous ne sommes pas connecté')
     }
   }, []);
 
@@ -78,30 +76,34 @@ const Connection = (props) => {
   }
 
   function changePassword() {
-    navigate('/reset-password')
+    console.log("change password")
+    navigate('/reset')
   }
 
 
   return (
-    <div>
+    <div id="input_connection_div">
       <div>
         <Navbar />
       </div>
-      <div id="input_connection_div">
+      <div>
         <br />
+        <h1>Bienvenue sur la classe de madame Séverine!</h1>
+        <br />
+        <h2 >Afin d'utiliser le site, merci de vous connecter</h2>
         <input className="inputConnection" placeholder="Pseudo" type="text" id="pseudo" />
-        <input className="inputConnection" placeholder="password" type="password" id="password" />
+        <input className="inputConnection" placeholder="Mot de passe" type="password" id="password" />
         <br />
         <br />
         <button id="connection_register" onClick={(e) => connection()}>Connection</button>
         <br />
       </div>
-      <h5>Ou</h5>
+      <h5>Où</h5>
       <div className="bottom-button">
         <button id="button_register" onClick={(e) => navigate('/register')}>Se créer un compte</button>
       </div>
       <div className="connection-button">
-      <PasswordChanger text={textButtonPasswordForget} />
+        <button id="button_register" onClick={(e) => navigate('/resetPassword')}>Changer mon mot de passe!</button>
       </div>
     </div>
   );

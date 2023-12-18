@@ -1,7 +1,6 @@
 // ResetPasswordPage.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import Navbar from '../../components/navbar/Navbar';
 
 import './resetPassword.css'
 
@@ -23,7 +22,6 @@ const ResetPasswordPage = () => {
 
     return (
         <div id="rpPage">
-            <Navbar />
             {resetRequested ? (
                 <div>
                     <p>Un e-mail de réinitialisation a été envoyé à votre adresse.</p>

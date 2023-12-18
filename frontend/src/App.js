@@ -51,6 +51,8 @@ function App() {
             <Route path="/home" element={< Home />} />
             <Route path="/test" element={<Test />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/resetPassword" element={<ResetPassword />} />
+
             <Route path="/create_exercice" element={<CreateExercice />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/history" element={<History />} />
@@ -62,6 +64,7 @@ function App() {
             <Route path="/exercices" element={<GetExercicesBySearchBar />} />
             <Route path="/manage_exerices" element={<ManageExercice />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path='/reset' element={<ResetPassword />} />
             <Route path="/reset-password2" element={<ResetPassword2 />} />
             <Route path='/newExercice' element={<NewExercice />} />
             <Route path='/request' element={<FormulaireDeRetour />} />

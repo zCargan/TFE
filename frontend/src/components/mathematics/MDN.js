@@ -84,7 +84,7 @@ return (
             trigger={
                 <div onMouseEnter={handleUserIconHover} onMouseLeave={handleUserIconLeave}>
                 <img
-                    src='mdn.jpg'
+                    src='mdn.png'
                     alt='Image pour popup'
                     style={{ width: '150px', height: '150px' }} // Les styles doivent être dans un objet JavaScript
                 />
