@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
+import './MBWSCreatorCorrection.css'
 
 const MBWSCreatorCorrection = ({ exo, onMBDataChange }) => {
 
@@ -139,7 +140,7 @@ const MBWSCreatorCorrection = ({ exo, onMBDataChange }) => {
     return (
         <div>
             {exo.length !== 0 ? (
-                <div id='div_mbws'>
+                <div id="mbwscc">
                     <h3>{nom}</h3>
                     <p id="description">{exo.description}</p>
                     <br />

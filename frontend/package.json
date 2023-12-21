@@ -27,6 +27,7 @@
     "react-transition-group": "^4.4.5",
     "reactjs-popup": "^2.0.6",
     "redux": "^4.2.1",
+    "simplebar-react": "^3.2.4",
     "sweetalert2": "^11.9.0",
     "sweetalert2-react-content": "^5.0.7",
     "wavencoder": "^1.0.0",

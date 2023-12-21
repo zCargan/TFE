@@ -3,7 +3,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom'
-
+import './AbaqueWSCreator.css'
 
 const AbaqueWSCreator = ({ exo, onAbaqueDataChange }) => {
 
@@ -112,9 +112,9 @@ const AbaqueWSCreator = ({ exo, onAbaqueDataChange }) => {
 
 
     return (
-        <div>
+        <div className='divShowWorksheet' id="abaqueWSCreator">
             {exo.length !== 0 ? (
-                <div id='div_abaque'>
+                <div>
                     <h3>{exo.description}</h3>
                     <p id="description">{description}</p>
                     <br />

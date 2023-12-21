@@ -4,15 +4,234 @@
     margin-bottom: 10px;  
 }
 
-.divUserInformation p {
-    margin-right: 10px; 
-}
-
 
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 10;  
+    height: 10; 
+    height: 500%; 
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid white;
+    margin-left: 100px;
+    margin-top: -240px;
 }
+
+
+.profImg {
+    position: fixed;
+    bottom: -20px;
+    left: 30%;
+    opacity: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+}
+
+
+.adminImg {
+    position: fixed;
+    bottom: -230px;
+    transform: rotate(180deg);
+    left: 49%;
+    opacity: 50%;
+    transform: translateX(50%);
+    transform: scaleX(-1);
+    z-index: -1;
+}
+
+#divExos {
+    position: fixed;
+    border: 1px solid white;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.25);
+    top: 8%;
+    right: 1%;
+    padding: 2%;
+    width: 500px;
+}
+
+
+
+.divExoDelete {
+    background: rgb(170, 18, 137, 0.35);
+    padding: 1%;
+    border: 1px solid white;
+    border-radius: 20px;
+}
+
+.nameElement {
+    font-weight: bold;
+}
+
+#compteConnecte {
+    top: -60px;
+    left: -28%;
+    position: relative;
+
+}
+
+#compteConnecteAdmin {
+    top: -60px;
+    right: -32%;
+    position: relative;
+
+}
+
+.pConnection {
+    font-size: 220%;
+    font-family: joli;
+}
+
+.pConnectionAdmin {
+    font-size: 220%;
+    font-family: joli;
+}
+
+.roleUser {
+    color:rgb(170, 18, 137);
+
+}
+
+@font-face {
+    font-family: 'joli';
+    src: local('joli'), url('../connection/font/overthink_3/Overthink.otf') format('truetype'), url('../connection/font/overthink_3/Overthink.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'joli';
+    src: local('joli'), url('../connection/font/overthink_3/Overthink.ttf') format('truetype'), url('../connection/font/overthink_3/Overthink.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'homeKitchen';
+    src: local('homeKitchen'), url('../connection/font/home_kitchen/Home\ Kitchen.ttf') format('truetype'), url('../connection/font/home_kitchen/Home\ Kitchen.otf') format('opentype');
+}
+
+.welcomeUsername {
+    position: relative;
+    top: -50px;
+    font-family: homeKitchen;
+    font-size: 370%;
+}
+
+.h3exoslist {
+    font-size: 220%;
+    font-family: joli;
+}
+
+.buttonProfile:hover {
+    background-color: white;
+    color: rgb(170, 18, 137);
+    border: 1px solid rgb(170, 18, 137); 
+}
+
+.buttonProfile {
+    font-size: 30px;
+    font-family: 'homeKitchen';
+    background-color: rgb(170, 18, 137);
+    color: white;
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+.buttonDeleteExo {
+    background-color: white;
+    color: red;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+.buttonDeleteExo:hover {
+    background: rgb(170, 18, 137, 0.01);
+    color: white;
+    border-radius: 20px;
+    border: 1px solid white;
+}
+
+.divButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 230px;
+}
+
+.divButton > div {
+    margin: 0;
+}
+
+.divButton > div:nth-child(1) {
+    margin-right: 150px; 
+}
+
+.divButton > div:nth-child(2) {
+    margin: 0 20px; 
+}
+
+.divButton > div:nth-child(3) {
+    margin-left: 150px; 
+}
+
+
+.textProfile {
+    font-size: 40px;
+    color: black;
+    font-family: homeKitchen;
+    font-weight: bold;
+    
+}
+
+
+#divProfile {
+    overflow: hidden;
+}
+
+
+.changeRoleButton {
+    background-color: black;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+.h3exoslistUser {
+    font-size: 220%;
+    font-family: joli;
+    color: rgb(170, 18, 137);  
+}
+
+.changeRoleButton:hover {
+    background: rgb(228, 205, 205);
+    color: black;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+#SearchBarAdmin {
+    display: flex;
+    margin-top: -238px;
+    /* margin-left: 1100px; */
+    margin-left: 55%;
+    width: 700px;
+}
+
+.pConnectionE {
+    font-size: 220%;
+    font-family: joli;
+    margin-top: 10%;
+    margin-left: 56%;
+    font-size: 45px;
+}
+
+.eleveImg {
+    position: fixed;
+    bottom: -20px;
+    left: 33%;
+    opacity: 50%;
+    transform: translateX(-50%);
+    transform: scaleX(-1);
+    z-index: -1;
+}
+

@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
+import './MDNWSCreator.css'
+
 const MDNWSCreator = ({ exo, onMDNDataChange }) => {
     const [nbrItem, setNbrItem] = useState("");
     const [nom, setNom] = useState('');
@@ -94,7 +96,7 @@ const MDNWSCreator = ({ exo, onMDNDataChange }) => {
     return (
         <div>
             {exo.length !== 0 ? (
-                <div id="div_mdn">
+                <div  className='divShowWorksheet' id="MDNWSCreator">
                     <h3>{nom}</h3>
                     <p id="description">{exo.description}</p>
                     <br />

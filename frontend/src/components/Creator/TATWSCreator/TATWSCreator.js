@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
+import './TATWSCreator.css'
 
 const TATWSCreator = ({ exo, onTATDataChange }) => {
 
@@ -92,7 +93,7 @@ const TATWSCreator = ({ exo, onTATDataChange }) => {
     return (
         <div>
             {exo.length !== 0 ? (
-                <div id="div_tat">
+                <div  className='divShowWorksheet' id="TATWSCreator">
                     <p id="description">{exo.description}</p>
                     <br />
                     <div id="zone_tat">

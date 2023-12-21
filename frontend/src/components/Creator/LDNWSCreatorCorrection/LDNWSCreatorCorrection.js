@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
+import './LDNWSCreatorCorrection.css'
+
 const LDNWSCreatorCorrection = ({ exo, onTATDataChange }) => {
     const [reponses, setReponses] = useState("");
     const [nom, setNom] = useState('');
@@ -86,9 +88,9 @@ const LDNWSCreatorCorrection = ({ exo, onTATDataChange }) => {
     return (
         <div>
             {exo.length !== 0 ? (
-                <div id='div_ldn'>
+                <div id="ldnwscc">
                     <h3>{nom}</h3>
-                    <p id="description">{description}</p>
+                    <p id="description">{exo.description}</p>
                     <br />
                     <br />
                     <div id='zone_ldn'>

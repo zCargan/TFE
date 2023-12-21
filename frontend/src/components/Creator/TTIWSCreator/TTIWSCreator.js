@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
+import './TTIWSCreator.css'
 
 const TTIWSCreator = ({ exo, onTTIDataChange }) => {
     let reponsesAttendues = [];
@@ -129,7 +130,7 @@ const TTIWSCreator = ({ exo, onTTIDataChange }) => {
     return (
         <div>
             {exo.length !== 0 ? (
-                <div id='zone_tti'>
+                <div className='divShowWorksheet' id="TTIWSCreator">
                     <h3>{nom}</h3>
                     <p id="description">{exo.description}</p>
                     <br />

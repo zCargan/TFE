@@ -4,6 +4,8 @@ import Navbar from '../../components/navbar/Navbar';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+import './infoExercice.css'
+
 import TATWSCreator from '../../components/Creator/TATWSCreator/TATWSCreator';
 import TTIWSCreator from '../../components/Creator/TTIWSCreator/TTIWSCreator';
 import AbaqueWSCreator from '../../components/Creator/AbaqueWSCreator/AbaqueWSCreator';
@@ -555,58 +557,62 @@ const InfoExercice = () => {
     return (
         <div>
             <Navbar></Navbar>
-            <p>test info exercice : {id}</p>
-            <p>Nom de l'exercice : {name}</p>
-            <p>Année scolaire visée : {annee}</p>
-            <p>Description : {description}</p>
-            <h3 id="infosSansCorrection">Exercice vierge</h3>
-            <div>
-                {loaded && (
-                    <div>
-                        <TATWSCreator exo={TAT} onTATDataChange={handleTATScoreChange} />
-                        <TTIWSCreator exo={TTI} onTTIDataChange={handleTTIScoreChange} />
-                        <AbaqueWSCreator exo={Abaque} onAbaqueDataChange={handleAbaqueScoreChange} />
-                        <LDNWSCreator exo={LDN} onTATDataChange={handleLDNScoreChange} />
-                        <MBWSCreator exo={MB} onMBDataChange={handleMBScoreChange} />
-                        <MDNWSCreator exo={MDN} onMDNDataChange={handleMDNScoreChange} />
-                        <STTWSCreator exo={STT} onSTTDataChange={handleSTTScoreChange} />
-                    </div>
-                )}
+            <div className="exercise-details">
+                <p><span className='pInfoExercice'>Nom de l'exercice</span>  : <span className='infoData'>{name}</span></p>
+                <p><span className='pInfoExercice'>Année scolaire visée</span>  : <span className='infoData'>{annee}</span></p>
+                <p><span className='pInfoExercice'>Description</span>  : <span className='infoData'>{description}</span></p>
             </div>
-            <div id="infoSansCorrection"></div>
-            <h3>Exercice corrigé</h3>
-            <div>
-            {loaded && (
-                    <div>
-                        <TATWSCreatorCorrection exo={TAT} onTATDataChange={handleTATScoreChange} />
-                        <TTIWSCreatorCorrection exo={TTI} onTTIDataChange={handleTTIScoreChange} />
-                        <AbaqueWSCreatorCorrection exo={Abaque} onAbaqueDataChange={handleAbaqueScoreChange} />
-                        <LDNWSCreatorCorrection exo={LDN} onTATDataChange={handleLDNScoreChange} />
-                        <MBWSCreatorCorrection exo={MB} onMBDataChange={handleMBScoreChange} />
-                        <MDNWSCreatorCorrection exo={MDN} onMDNDataChange={handleMDNScoreChange} />
-                        <STTWSCreatorCorrection exo={STT} onSTTDataChange={handleSTTScoreChange} />
-                    </div>
-                )}
-            </div>
-            <div id="infoAvecCorrection"></div>
-            {sons.map((son, index) => (
-                <div key={index} style={{ marginRight: '10px' }}>
-                    <p>Son numéro :{index + 1}</p>
-                    <audio controls>
-                        <source src={URL.createObjectURL(new Blob([new Uint8Array(son.son_data.data)], { type: 'audio/mpeg' }))} type="audio/mpeg" />
-                        Votre navigateur ne supporte pas l'élément audio.
-                    </audio>
-                    <p>Réponse: {son.nom_d_origine}</p>
-                    <br />
-                    <br />
+            <div className="zoneSC">
+                <h3 id="infosSansCorrection" className='h3ie'>Exercice vierge</h3>
+                <div>
+                    {loaded && (
+                        <div>
+                            <TATWSCreator exo={TAT} onTATDataChange={handleTATScoreChange} />
+                            <TTIWSCreator exo={TTI} onTTIDataChange={handleTTIScoreChange} />
+                            <AbaqueWSCreator exo={Abaque} onAbaqueDataChange={handleAbaqueScoreChange} />
+                            <LDNWSCreator exo={LDN} onTATDataChange={handleLDNScoreChange} />
+                            <MBWSCreator exo={MB} onMBDataChange={handleMBScoreChange} />
+                            <MDNWSCreator exo={MDN} onMDNDataChange={handleMDNScoreChange} />
+                            <STTWSCreator exo={STT} onSTTDataChange={handleSTTScoreChange} />
+                        </div>
+                    )}
                 </div>
-            ))}
-            <button onClick={efezczczc}>adzadadad</button>
-        </div>
+                <div id="infoSansCorrection"></div>
+            </div>
+
+            <div className="zoneAC">
+                <h3 className='h3ie'>Exercice corrigé</h3>
+                <div>
+                    {loaded && (
+                        <div>
+                            <TATWSCreatorCorrection exo={TAT} onTATDataChange={handleTATScoreChange} />
+                            <TTIWSCreatorCorrection exo={TTI} onTTIDataChange={handleTTIScoreChange} />
+                            <AbaqueWSCreatorCorrection exo={Abaque} onAbaqueDataChange={handleAbaqueScoreChange} />
+                            <LDNWSCreatorCorrection exo={LDN} onTATDataChange={handleLDNScoreChange} />
+                            <MBWSCreatorCorrection exo={MB} onMBDataChange={handleMBScoreChange} />
+                            <MDNWSCreatorCorrection exo={MDN} onMDNDataChange={handleMDNScoreChange} />
+                            <STTWSCreatorCorrection exo={STT} onSTTDataChange={handleSTTScoreChange} />
+                        </div>
+                    )}
+                </div>
+                <div id="infoAvecCorrection"></div>
+                {
+                    sons.map((son, index) => (
+                        <div key={index} style={{ marginRight: '10px' }}>
+                            <p>Son numéro :{index + 1}</p>
+                            <audio controls>
+                                <source src={URL.createObjectURL(new Blob([new Uint8Array(son.son_data.data)], { type: 'audio/mpeg' }))} type="audio/mpeg" />
+                                Votre navigateur ne supporte pas l'élément audio.
+                            </audio>
+                            <p className='son_nom_d_origine'>Réponse: {son.nom_d_origine}</p>
+                            <br />
+                            <br />
+                        </div>
+                    ))
+                }
+            </div>
+        </div >
     );
 };
 
 export default InfoExercice;
-
-
-

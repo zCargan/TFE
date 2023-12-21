@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom'
 
+import './AbaqueWSCreatorCorrection.css'
 
 const AbaqueWSCreatorCorrection = ({ exo, onAbaqueDataChange }) => {
 
@@ -117,7 +118,7 @@ const AbaqueWSCreatorCorrection = ({ exo, onAbaqueDataChange }) => {
     return (
         <div>
             {exo.length !== 0 ? (
-                <div id='div_abaque'>
+                <div id="awscc">
                     <h3>{exo.description}</h3>
                     <p id="description">{description}</p>
                     <br />

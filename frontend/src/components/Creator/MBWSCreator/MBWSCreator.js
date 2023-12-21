@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
+import './MBWSCreator.css'
 
 const MBWSCreator = ({ exo, onMBDataChange }) => {
 
@@ -144,7 +145,7 @@ const MBWSCreator = ({ exo, onMBDataChange }) => {
     return (
         <div>
             {exo.length !== 0 ? (
-                <div id='div_mbws'>
+                <div className='divShowWorksheet' id="MBWSCreator">
                     <h3>{nom}</h3>
                     <p id="description">{exo.description}</p>
                     <br />

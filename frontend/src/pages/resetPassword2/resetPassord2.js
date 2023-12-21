@@ -1,59 +1,174 @@
-// ResetPassword2.js
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import Navbar from '../../components/navbar/Navbar';
+import Cookies from 'js-cookie';
+import HelpCenterIcon from '@mui/icons-material/HelpCenter';
+
+import Popup from 'reactjs-popup';
+
+import './resetPassword2.css';
 
 const ResetPassword2 = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
-
+    const [popupOpen, setPopupOpen] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
 
+
+    const passwordHasValidLength = HasValidLength(password);
+    const passwordHasLowercaseLetter = HasLowerCaseLetter(password);
+    const passwordHasUppercaseLetter = HasUpperCaseLetter(password);
+    const passwordHasSpecialCharacter = HasSpecialCharacter(password);
+    const passwordHasNumber = HasNumber(password);
+
+
     const handleResetPassword = async () => {
         try {
-            // Validez que les mots de passe correspondent
-            if (password !== confirmPassword) {
-                setErrorMessage('Les mots de passe ne correspondent pas.');
+            if (!passwordOk(password, confirmPassword)) {
+                Swal.fire({
+                    title: 'Erreur',
+                    text: 'Les mots de passe ne respecte pas tous les critères, ou ne sont pas les même.',
+                    icon: 'error',
+                });
                 return;
             }
 
-            // Récupérez le token de réinitialisation à partir de l'URL
             const token = new URLSearchParams(location.search).get('token');
 
-            // Envoyez la demande de réinitialisation de mot de passe
             const response = await axios.post('http://localhost:4000/connection/newPassword', { token, password });
 
-            // Affichez un message de succès
-            setSuccessMessage('Le mot de passe a été réinitialisé avec succès.');
+            Swal.fire({
+                title: 'Succès',
+                text: 'Le mot de passe a été réinitialisé avec succès.',
+                icon: 'success',
+            }).then(() => {
+                if (Cookies.get('JWT')) {
+                    Cookies.remove('JWT');
+                }
+                navigate('/')
 
-            // Ajoutez ici une logique de redirection si nécessaire
+            });
+
         } catch (error) {
             console.error('Erreur lors de la réinitialisation du mot de passe', error);
 
-            // Gérez les erreurs et affichez un message d'erreur approprié
-            setErrorMessage('Une erreur s\'est produite lors de la réinitialisation du mot de passe.');
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Une erreur s\'est produite lors de la réinitialisation du mot de passe.',
+                icon: 'error',
+            });
         }
     };
 
+
+    function handleUserIconHover() {
+        setPopupOpen(true);
+    }
+
+    function handleUserIconLeave() {
+        setPopupOpen(false);
+    }
+
+    function sameString(string1, string2) {
+        return (string1 === string2)
+    }
+
+    function HasValidLength(string) {
+        return (string.length >= 12)
+    }
+
+    function HasLowerCaseLetter(string) {
+        return (/[a-z]/.test(string))
+    }
+
+    function HasUpperCaseLetter(string) {
+        return (/[A-Z]/.test(string))
+    }
+
+    function HasSpecialCharacter(string) {
+        return (/[!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?]/.test(string))
+    }
+
+    function HasNumber(string) {
+        return (/[0-9]/.test(string))
+    }
+
+    
+    // function passwordOk(string1, string2) {
+    //     if (passwordHasValidLength && passwordHasLowercaseLetter && passwordHasUppercaseLetter && passwordHasNumber && passwordHasSpecialCharacter) {
+    //         if (sameString(string1, string2)) {
+    //             Swal.fire({
+    //                 title: 'Succès',
+    //                 text: 'Les mots de passe sont corrects',
+    //                 icon: 'success',
+    //             });
+    //         } else {
+    //             Swal.fire({
+    //                 title: 'Erreur',
+    //                 text: 'Les mots de passe ne correspondent pas',
+    //                 icon: 'error',
+    //             });
+    //         }
+    //     } else {
+    //         Swal.fire({
+    //             title: 'Erreur',
+    //             text: 'Les critères du mot de passe ne sont pas remplis',
+    //             icon: 'error',
+    //         });
+    //     }
+    // }
+
+    function passwordOk(string1, string2) {
+        if (passwordHasValidLength && passwordHasLowercaseLetter && passwordHasUppercaseLetter && passwordHasNumber && passwordHasSpecialCharacter) {
+            return sameString(string1, string2);
+        } else {
+            return false;
+        }
+    }
+
     return (
         <div>
-            <Navbar />
-            <h2>Réinitialiser le Mot de Passe</h2>
-            <label>Nouveau Mot de Passe : </label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <div id="divh2RP">
+                <h2>Réinitialiser le Mot de Passe</h2>
+            </div>
+            <input
+                placeholder='Nouveau mot de passe'
+                className='inputRP3'
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
             <br />
             <br />
-            <label>Confirmer le Mot de Passe : </label>
-            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+            <input
+                placeholder='Confirmer votre mot de passe'
+                className='inputRP3'
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+            />
             <br />
             <br />
-            <button onClick={handleResetPassword}>Réinitialiser le Mot de Passe</button>
-            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-            {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+            <div id='text_zone2'>
+                <h4>Votre mot de passe doit contenir: </h4>
+                <label className='requiredRP' style={{ color: passwordHasValidLength ? '#A3E571' : 'rgb(256,124,92)' }}>Mot de passe de 12 caractères </label>
+                <br />
+                <label className='requiredRP' style={{ color: passwordHasLowercaseLetter ? '#A3E571' :'rgb(256,124,92)' }}>Min 1 caractère minuscule</label>
+                <br />
+                <label className='requiredRP' style={{ color: passwordHasUppercaseLetter ? '#A3E571' : 'rgb(256,124,92)' }}>Min 1 caractère majuscule</label>
+                <br />
+                <label className='requiredRP' style={{ color: passwordHasNumber ? '#A3E571' : 'rgb(256,124,92)' }}>Min 1 nombre</label>
+                <br />
+                <label className='requiredRP' style={{ color: passwordHasSpecialCharacter ? '#A3E571' : 'rgb(256,124,92)' }}>Min 1 caractère spécial</label>
+            </div>
+            <br />
+            <button id="buttonRP" onClick={handleResetPassword}>Réinitialiser le Mot de Passe</button>
+            <div>
+                <img className='imgRP2' src='rp.png' alt="Reset Password" />
+            </div>
         </div>
     );
 };

@@ -1,0 +1,18 @@
+#abaqueWSCreator {
+    background-color: rgb(255,255,255, 0.40);
+    border: 1px solid white;
+    width: 85%;
+    height: 100%;
+    margin-left: 7.5%;
+    border-radius: 20px;
+    margin-bottom: 1%;
+    color: rgb(218, 27, 27);
+}
+
+#abaqueWSCreator input {
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid white;
+    margin-left: 1%;
+    margin-right: 1%;
+}

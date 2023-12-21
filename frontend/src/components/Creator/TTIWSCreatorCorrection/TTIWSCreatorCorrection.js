@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
+import './TTIWSCreatorCorrection.css'
 
 const TTIWSCreatorCorrection = ({ exo, onTTIDataChange }) => {
     let reponsesAttendues = [];
@@ -125,7 +126,7 @@ const TTIWSCreatorCorrection = ({ exo, onTTIDataChange }) => {
     return (
         <div>
             {exo.length !== 0 ? (
-                <div id='zone_tti'>
+                <div id="ttiwscc">
                     <h3>{nom}</h3>
                     <p id="description">{exo.description}</p>
                     <br />

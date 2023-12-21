@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
+import './STTWSCreator.css'
 
 const STTWSCreator = ({ exo, onSTTDataChange }) => {
   const [sons, setSons] = useState([]);
@@ -118,7 +119,7 @@ const STTWSCreator = ({ exo, onSTTDataChange }) => {
   return (
     <div>
       {exo.length !== 0 ? (
-        <div id="div_stt">
+        <div className='divShowWorksheet' id="STTWSCreator">
           <p id="description">{exo.description}</p>
           <br />
           <div id="zoneExoSon" style={{ display: 'flex', flexDirection: 'row', gap: '10px', justifyContent: 'center' }}>
@@ -136,12 +137,7 @@ const STTWSCreator = ({ exo, onSTTDataChange }) => {
                 ) : <div><p>Aucun fichier trouvé</p></div>}
                 <br />
                 <br />
-                {son.nom ? (
-                  <audio controls>
-                    <input placeholder='Votre réponse' id={son.name} class="inputUserSTT"></input>
-                    Votre navigateur ne supporte pas l'élément audio.
-                  </audio>
-                ) : <div><p>Aucun fichier trouvé</p></div>}
+                <input placeholder='Votre réponse' id={son.name} class="inputUserSTT"></input>
                 <br />
                 <br />
               </div>

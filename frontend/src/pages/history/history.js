@@ -60,7 +60,12 @@ const History = () => {
 
 
     function seeDetails(id, type) {
-        navigate('/infoExercice', { state: { id, type } });
+        if(type === "WS") {
+            navigate('/infoExerciceWS', { state: { id, type } })
+        } else {
+            navigate('/infoExercice', { state: { id, type } });
+
+        }
     }
 
     function handlePageChange(page) {

@@ -8,7 +8,7 @@ import { useNavigate, Redirect, useHistory } from 'react-router-dom';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import Popup from 'reactjs-popup';
 import Cookies from 'js-cookie';
-
+import Swal from 'sweetalert2';
 
 export function notXSSInjection(string) {
     return !(string.includes("<"))
@@ -87,19 +87,45 @@ const Connexion = () => {
                     "email": email,
                     "password": password
                 }
-                axios.post("http://localhost:4000/register", data_to_send).then(response => {
-                    if (response.status == 201) {
-                        alert("compte bien créé !")
-                        navigate('/home')
-                    } else {
-                        alert("Une erreur est survenue lors de la création du compte")
-                    }
-                })
+                axios.post("http://localhost:4000/register", data_to_send)
+                    .then(response => {
+                        if (response.status === 201) {
+                            Swal.fire({
+                                title: 'Compte créé',
+                                text: 'Votre compte a été créé avec succès!',
+                                icon: 'success',
+                            }).then(() => {
+                                navigate('/home');
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Erreur',
+                                text: 'Une erreur est survenue lors de la création du compte.',
+                                icon: 'error',
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur lors de la création du compte', error);
+                        Swal.fire({
+                            title: 'Erreur',
+                            text: 'Une erreur s\'est produite lors de la création du compte.',
+                            icon: 'error',
+                        });
+                    });
             } else {
-                alert("Vos deux mots de passe ne correspondent pas")
+                Swal.fire({
+                    title: 'Erreur',
+                    text: 'Vos deux mots de passe ne correspondent pas.',
+                    icon: 'error',
+                });
             }
         } else {
-            alert('Veuillez entrer une adresse email valide')
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Veuillez entrer une adresse email valide.',
+                icon: 'error',
+            });
         }
     }
 
@@ -109,57 +135,42 @@ const Connexion = () => {
     }
 
     return (
-        <div>
+        <div id="registerdiv">
             <div>
                 <br />
-                <br />
+                <h1 className='h1r'>Bienvenue sur la page de création de compte</h1>
+                <div>
+                    <h3 className='h3r'>Nous avons besoin des données suivantes afin d'enregister votre compte</h3>
+                </div>
+                <div>
+                    <p className='pR'>Elles ne seront en aucun cas utilisée, elles sont uniquement nécessaire pour un bon fonctionnement de l'application</p>
+                </div>
                 <input className="inputRegister" placeholder='Prénom' type='text' id="surname" onChange={(e) => setSurname(e.target.value)}></input>
-                <br></br>
+                <br />
+                <br />
                 <input className="inputRegister" placeholder='adresse email' type='text' id="emai" onChange={(e) => setEmail(e.target.value)}></input>
                 <br />
                 <br />
                 <br />
-                <br />
-
                 <input className="inputRegister" type="password" placeholder='Mot de passe' onChange={(e) => setPassword(e.target.value)} />
                 <br />
                 <br />
-                <Popup
-                    trigger={
-                        <a
-                            onMouseEnter={handleUserIconHover}
-                            onMouseLeave={handleUserIconLeave}
-                        >
-                            <div>
-                                <HelpCenterIcon id="infoPassword"></HelpCenterIcon>
-                            </div>
-                        </a>
-                    }
-                    position="bottom center"
-                    open={popupOpen}
-                    on="hover"
-                    closeOnDocumentClick
-                >
-                    <div id='text_zone'>
-                        <br />
-                        <h4>Votre mot de passe doit contenir: </h4>
-                        <br />
-                        <label style={{ color: passwordHasValidLength ? 'green' : 'red' }}>Mot de passe de 12 caractères </label>
-                        <br />
-                        <label style={{ color: passwordHasLowercaseLetter ? 'green' : 'red' }}>Min 1 caractère minuscule</label>
-                        <br />
-                        <label style={{ color: passwordHasUppercaseLetter ? 'green' : 'red' }}>Min 1 caractère majuscule</label>
-                        <br />
-                        <label style={{ color: passwordHasNumber ? 'green' : 'red' }}>Min 1 nombre</label>
-                        <br />
-                        <label style={{ color: passwordHasSpecialCharacter ? 'green' : 'red' }}>Min 1 caractère spécial</label>
-                    </div>
-                </Popup>
-                <br />
                 <input className="inputRegister" placeholder='Confirmer le mot de passe' type="password" id="passwordConfirm" onChange={(e) => setSamePassword(e.target.value)}></input>
                 <br />
+                <div id='text_zone3'>
+                    <h4>Votre mot de passe doit contenir: </h4>
+                    <label className='requiredRP' style={{ color: passwordHasValidLength ? '#A3E571' : 'rgb(256,124,92)' }}>Mot de passe de 12 caractères </label>
+                    <br />
+                    <label className='requiredRP' style={{ color: passwordHasLowercaseLetter ? '#A3E571' : 'rgb(256,124,92)' }}>Min 1 caractère minuscule</label>
+                    <br />
+                    <label className='requiredRP' style={{ color: passwordHasUppercaseLetter ? '#A3E571' : 'rgb(256,124,92)' }}>Min 1 caractère majuscule</label>
+                    <br />
+                    <label className='requiredRP' style={{ color: passwordHasNumber ? '#A3E571' : 'rgb(256,124,92)' }}>Min 1 nombre</label>
+                    <br />
+                    <label className='requiredRP' style={{ color: passwordHasSpecialCharacter ? '#A3E571' : 'rgb(256,124,92)' }}>Min 1 caractère spécial</label>
+                </div>
                 <br />
-                <button onClick={(e) => registerAccount()}>Register</button>
+                <button className="buttonRegister" onClick={(e) => registerAccount()}>M'enregister !</button>
             </div>
         </div>
     );

@@ -25,6 +25,7 @@ import FeuilleExercice from './pages/FeuilleExercice/FeuilleExercice';
 import ShowWorksheet from './pages/showWorksheet/ShowWorksheet';
 import ShowWorksheetById from './pages/ShowWorksheetById/ShowWorksheetById';
 import SoundDetail from './pages/SoundDetail/SoundDetail';
+import InfoExerciceWS from './pages/infoExerciceWS/infoExerciceWS';
 
 import MDN from './pages/MDN/MDN'
 import LDN from './pages/LDN/LDN'
@@ -71,6 +72,7 @@ function App() {
             <Route path='/feuilleExercice' element={<FeuilleExercice />} />
             <Route path='/showWorksheet' element={<ShowWorksheet />} />
             <Route path="/show_worksheet_by_id" element={<ShowWorksheetById />} />
+            <Route path='/infoExerciceWS' element={<InfoExerciceWS />} />
 
             <Route path='/ldn' element={<LDN />} />
             <Route path='/mdn' element={<MDN />} />

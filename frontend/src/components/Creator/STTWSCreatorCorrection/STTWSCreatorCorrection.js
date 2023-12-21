@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
+import './STTWSCreatorCorrection.css'
 
 const STTWSCreatorCorrection = ({ exo, onSTTDataChange }) => {
   const [sons, setSons] = useState([]);
@@ -119,7 +120,7 @@ const STTWSCreatorCorrection = ({ exo, onSTTDataChange }) => {
   return (
     <div>
       {exo.length !== 0 ? (
-        <div id="div_stt">
+        <div id="sttwscc">
           <p id="description">{exo.description}</p>
           <br />
           <div id="zoneExoSon" style={{ display: 'flex', flexDirection: 'row', gap: '10px', justifyContent: 'center' }}>

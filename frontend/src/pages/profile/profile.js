@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './profile.css'
 import Navbar from '../../components/navbar/Navbar';
 import axios from 'axios';
@@ -11,12 +11,27 @@ import PasswordChanger from '../../components/passwordChanger/passwordChanger';
 
 const Profile = () => {
 
+    const getMBCalledRef = useRef(false);
+
     const [id, setId] = useState("");
     const [nom, setNom] = useState("");
     const [role, setRole] = useState("");
     const [rolesData, setRolesData] = useState({});
     const [selectedRoles, setSelectedRoles] = useState({});
     const [exercices, setExercices] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPageUser, setCurrentPageUser] = useState(1);
+    const exercicesPerPage = 4;
+    const itemsPerPageRoles = 5;
+
+
+    const sortedRolesEntries = Object.entries(rolesData).sort(([a], [b]) => b.localeCompare(a)); // Tri par ordre décroissant
+    const indexOfLastRole = currentPageUser * itemsPerPageRoles;
+    const indexOfFirstRole = indexOfLastRole - itemsPerPageRoles;
+    const currentRolesPage = sortedRolesEntries.slice(indexOfFirstRole, indexOfLastRole);
+
+    const totalPagesRoles = Math.ceil(sortedRolesEntries.length / itemsPerPageRoles);
+
 
     const navigate = useNavigate();
 
@@ -38,7 +53,12 @@ const Profile = () => {
                 } else {
                     setRole(response.data.role)
                 }
+                if (response.data.role === "admin") {
+                    getUsersInformations();
+                }
             })
+
+
     }, [])
 
     useEffect(() => {
@@ -60,6 +80,16 @@ const Profile = () => {
                 });
         }
     }, [role]);
+
+    useEffect(() => {
+        console.log(role)
+        console.log(role === "admin")
+        if (role === "admin") {
+            getUsersInformations();
+        }
+    }, []);
+
+
 
     function deconnect() {
         Cookies.remove('JWT');
@@ -142,89 +172,140 @@ const Profile = () => {
         axios.delete(`http://localhost:4000/exercice/deleteExo?type=${typeExo}&id=${idExo}`)
     }
 
+    const reversedExercices = [...exercices].reverse();
+
+    const indexOfLastExercice = currentPage * exercicesPerPage;
+    const indexOfFirstExercice = indexOfLastExercice - exercicesPerPage;
+    const currentExercices = reversedExercices.slice(indexOfFirstExercice, indexOfLastExercice);
+
+
 
 
     return (
-        <div>
+        <div id="divProfile">
             <div>
                 <Navbar></Navbar>
             </div>
             <div>
-                {role === "eleve" ? (
+                {role === "éleve" ? (
                     <div>
                         <br />
-                        <h3>Bienvenue sur votre profil, {nom}</h3>
-                        <p>Vous êtes connecté à un compte {role}</p>
-                        <button onClick={(e) => history()}>Voir mon historique d'exercices</button>
                         <br />
-                        <br />
-                        <PasswordChanger text={"Changer mon mot de passe"} />
-                        <br />
-                        <br />
-                        <button onClick={goToRequest}>Effectuer une requête</button>
+                        <h3 className='welcomeUsername'>Bienvenue sur votre profil, <span className='roleUser'>{nom}</span></h3>
+                        <div id="compteConnecte">
+                            <p className='pConnectionE'>Vous êtes connecté à un compte <span className='roleUser'>{role}</span></p>
+                        </div>
+                        <div className='divButton'>
+                            <div>
+                                <button className="buttonProfile" onClick={(e) => history()}>Voir mon historique d'exercices</button>
+                            </div>
+                            <div>
+                                <button className="buttonProfile" onClick={(e) => navigate('/reset-password')}>Changer mon mot de passe</button>
+                            </div>
+                            <div>
+                                <button className="buttonProfile" onClick={goToRequest}>Effectuer une requête</button>
+                            </div>
+                            <div>
+                                <img className='eleveImg' src='b11.webp'></img>
+                            </div>
+                        </div>
                     </div>
                 ) : (
                     <div>
                         {role === "professeur" ? (
                             <div>
                                 <br />
-                                <h3>Bienvenue sur votre profil, {nom}</h3>
-                                <p>Vous êtes connecté à un compte {role}</p>
-                                <button onClick={(e) => history()}>Voir mon historique d'exercices</button>
-                                <br />
-                                <br />
-                                <div>
-                                    {exercices && exercices.length > 0 && (
-                                        <div>
-                                            {exercices.map((element) => (
-                                                element && (
-                                                    <div key={element._id} className='divExoDelete'>
-                                                        <p>Nom : {element.nom}</p>
-                                                        <button onClick={(e) => deleteExos(element._id, element.type)}>Supprimer cet exercice</button>
-                                                    </div>
-                                                )
-                                            ))}
-                                        </div>
-                                    )}
+                                <h3 className='welcomeUsername'>Bienvenue sur votre profil, <span className='roleUser'>{nom}</span></h3>
+                                <div id="compteConnecte">
+                                    <p className='pConnection'>Vous êtes connecté à un compte <span className='roleUser'>{role}</span></p>
                                 </div>
                                 <br />
                                 <br />
-                                <PasswordChanger text={"Changer mon mot de passe"} />
-                                <br />
-                                <br />
-                                <button onClick={goToRequest}>Effectuer une requête</button>
+                                <div id="divExos">
+                                    <h3 className='h3exoslist'>Listes de vos exercices</h3>
+                                    {currentExercices.map((element) => (
+                                        element && (
+                                            <div key={element._id} className='divExoDelete'>
+                                                <p>Nom : <span className='nameElement'>{element.nom}</span></p>
+                                                <button className='buttonDeleteExo' onClick={(e) => deleteExos(element._id, element.type)}>Supprimer cet exercice</button>
+                                            </div>
+                                        )
+                                    ))}
+                                    <div>
+                                        {currentPage > 1 && (
+                                            <button className="buttonProfile" onClick={() => setCurrentPage(currentPage - 1)}>Précédent</button>
+                                        )}
+                                        {currentPage < Math.ceil(reversedExercices.length / exercicesPerPage) && (
+                                            <button className="buttonProfile" onClick={() => setCurrentPage(currentPage + 1)}>Suivant</button>
+                                        )}
+                                    </div>
+                                </div>
+                                <div className='textProfile'>
+                                    <p>Vous pouvez ici effectuée toute la gestion de votre compte!</p>
+                                    <p>En cas de question, merci de nous contacter via les requêtes</p>
+                                </div>
+                                <div className='divButton'>
+                                    <div>
+                                        <button className="buttonProfile" onClick={(e) => history()}>Voir mon historique d'exercices</button>
+                                    </div>
+                                    <div>
+                                        <button className="buttonProfile" onClick={(e) => navigate('/reset-password')}>Changer mon mot de passe</button>
+                                    </div>
+                                    <div>
+                                        <button className="buttonProfile" onClick={goToRequest}>Effectuer une requête</button>
+                                    </div>
+                                    <div>
+                                        <img className='profImg' src='prof.png'></img>
+                                    </div>
+                                </div>
                             </div>
                         ) : (
                             <div>
                                 <br />
-                                <h3>Bienvenue sur votre profil, {nom}</h3>
-                                <p>Vous êtes connecté à un compte {role}</p>
+                                <h3 className='welcomeUsername'>Bienvenue sur votre profil, <span className='roleUser'>{nom}</span></h3>
+                                <div id="compteConnecteAdmin">
+                                    <p className='pConnectionAdmin'>Vous êtes connecté à un compte <span className='roleUser'>{role}</span></p>
+                                </div>
                                 <br />
                                 <p>Ici, vous pourrez gérer toute la gestion des utilisateurs</p>
-                                <button onClick={getUsersInformations}>Manager les utilisateurs</button>
                                 <div id='managementUsers' />
                                 <br />
                                 <div className="container">
-                                    {Object.entries(rolesData).map(([nom, role]) => (
+                                    <h3 className='h3exoslistUser'>Gérer ici vos utilisateurs</h3>
+                                    {currentRolesPage.map(([nom, role]) => (
                                         <div key={nom} className="divUserInformation">
-                                            <p>{nom} : </p>
+                                            <p>{nom} :  </p>
                                             <select value={selectedRoles[nom]} onChange={(event) => handleRoleChange(nom, event)} id={nom}>
                                                 <option value="professeur">Professeur</option>
                                                 <option value="eleve">Élève</option>
                                                 <option value="admin">Admin</option>
                                             </select>
-                                            <button onClick={() => changeRoleUser(nom)}>Confirmer</button>
+                                            <button className="changeRoleButton" onClick={() => changeRoleUser(nom)}>Confirmer</button>
                                         </div>
                                     ))}
+                                    <br />
+                                    <div>
+                                        <button className="buttonProfile" onClick={() => setCurrentPageUser(1)}>Première page</button>
+                                        {currentPageUser > 1 && (
+                                            <button className="buttonProfile" onClick={() => setCurrentPageUser(currentPageUser - 1)}>Précédent</button>
+                                        )}
+                                        {currentPageUser < totalPagesRoles && (
+                                            <button className="buttonProfile" onClick={() => setCurrentPageUser(currentPageUser + 1)}>Suivant</button>
+                                        )}
+                                        <button className="buttonProfile" onClick={() => setCurrentPageUser(totalPagesRoles)}>Dernière page</button>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p>Gérer les exercices :
-                                    </p>
+                                <div id="SearchBarAdmin">
                                     <SearchBarAdmin />
                                 </div>
                                 <br />
-                                <PasswordChanger text={"Changer mon mot de passe"} />
+                                <div>
+                                    <button id="resetPasswordAdmin" className="buttonProfile" onClick={(e) => navigate('/request')}>Changer mon mot de passe</button>
+                                </div>
                                 <br />
+                                <div>
+                                    <img className='adminImg' src='geek-removebg.png'></img>
+                                </div>
                                 <br />
                             </div>
                         )}
