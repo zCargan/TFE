@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import './Navbar.css'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
+
 import { FaUserAlt } from 'react-icons/fa';
 import { FaHistory } from "react-icons/fa";
 import Popup from 'reactjs-popup';
@@ -174,9 +175,9 @@ const Navbar = () => {
                                             <h3>Bienvenue sur votre profil</h3>
                                             <p>Bonjour {username} !</p>
                                             <p>Vous êtes connecté à un compte {role}</p>
-                                            <button onClick={(e) => historyy()}>Voir mon historique d'exercices</button>
+                                            <button className="buttonProfile2" onClick={(e) => historyy()}>Voir mon historique d'exercices</button>
                                             <br />
-                                            <button onClick={(e) => navigate('/profile')}>Accéder à mon profil</button>
+                                            <button  className="buttonProfile2" onClick={(e) => navigate('/profile')}>Accéder à mon profil</button>
                                             <br />
                                             <LogoutIcon onClick={(e) => deconnect()}></LogoutIcon>
                                         </div>

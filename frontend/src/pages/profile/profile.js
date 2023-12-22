@@ -195,7 +195,7 @@ const Profile = () => {
                         <div id="compteConnecte">
                             <p className='pConnectionE'>Vous êtes connecté à un compte <span className='roleUser'>{role}</span></p>
                         </div>
-                        <div className='divButton'>
+                        <div className='divButton2'>
                             <div>
                                 <button className="buttonProfile" onClick={(e) => history()}>Voir mon historique d'exercices</button>
                             </div>
@@ -241,8 +241,7 @@ const Profile = () => {
                                     </div>
                                 </div>
                                 <div className='textProfile'>
-                                    <p>Vous pouvez ici effectuée toute la gestion de votre compte!</p>
-                                    <p>En cas de question, merci de nous contacter via les requêtes</p>
+
                                 </div>
                                 <div className='divButton'>
                                     <div>
@@ -267,15 +266,18 @@ const Profile = () => {
                                     <p className='pConnectionAdmin'>Vous êtes connecté à un compte <span className='roleUser'>{role}</span></p>
                                 </div>
                                 <br />
-                                <p>Ici, vous pourrez gérer toute la gestion des utilisateurs</p>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <p className='pProfileAdmin'></p>
                                 <div id='managementUsers' />
                                 <br />
                                 <div className="container">
                                     <h3 className='h3exoslistUser'>Gérer ici vos utilisateurs</h3>
                                     {currentRolesPage.map(([nom, role]) => (
                                         <div key={nom} className="divUserInformation">
-                                            <p>{nom} :  </p>
-                                            <select value={selectedRoles[nom]} onChange={(event) => handleRoleChange(nom, event)} id={nom}>
+                                            <p className='userNameRole'>{nom} :  </p>
+                                            <select className='selectUserRole' value={selectedRoles[nom]} onChange={(event) => handleRoleChange(nom, event)} id={nom}>
                                                 <option value="professeur">Professeur</option>
                                                 <option value="eleve">Élève</option>
                                                 <option value="admin">Admin</option>
@@ -300,7 +302,7 @@ const Profile = () => {
                                 </div>
                                 <br />
                                 <div>
-                                    <button id="resetPasswordAdmin" className="buttonProfile" onClick={(e) => navigate('/request')}>Changer mon mot de passe</button>
+                                    <button id="resetPasswordAdmin" className="buttonProfile" onClick={(e) => navigate('/reset-password')}>Changer mon mot de passe</button>
                                 </div>
                                 <br />
                                 <div>

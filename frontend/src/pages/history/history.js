@@ -84,25 +84,25 @@ const History = () => {
 
         if (totalPages > 1) {
             buttons.push(
-                <button key="first" onClick={() => handlePageChange(1)} disabled={currentPage === 1}>
+                <button key="first" className="buttonProfile" onClick={() => handlePageChange(1)} disabled={currentPage === 1}>
                     Première page
                 </button>
             );
 
             buttons.push(
-                <button key="prev" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+                <button key="prev" className="buttonProfile" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
                     Page précédente
                 </button>
             );
 
             buttons.push(
-                <button key="next" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+                <button key="next" className="buttonProfile" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
                     Page suivante
                 </button>
             );
 
             buttons.push(
-                <button key="last" onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages}>
+                <button key="last" className="buttonProfile" onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages}>
                     Dernière page
                 </button>
             );
@@ -127,7 +127,7 @@ const History = () => {
                                         <p>Type de l'exercice: {exercice.type === 'WS' ? 'Feuille d\'exercice' : exercice.type}</p>
                                         <p>Pourcentage de l'exo: {exercice.pourcentage}%</p>
                                         <p>Date de réalisation: {formatDate(exercice.temps)}</p>
-                                        <button onClick={(e) => seeDetails(exercice.identifiant, exercice.type)}>Voir Détails</button>
+                                        <button className="buttonProfileH" onClick={(e) => seeDetails(exercice.identifiant, exercice.type)}>Voir Détails</button>
                                     </div>
                                 </div>
                             </div>

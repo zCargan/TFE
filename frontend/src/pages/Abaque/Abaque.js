@@ -10,7 +10,7 @@ const Abaque = () => {
     const [height, setHeight] = useState(0);
     const [width, setWidth] = useState(0);
     const [word, setWord] = useState("")
-    
+
     let dictionnaire = {};
 
 
@@ -36,16 +36,19 @@ const Abaque = () => {
         let texte = String("<div id='abaque'><table><tbody>");
         let titre = document.getElementById('titreAbaque').value;
         let description = document.getElementById('descriptionExercice').value;
-        texte += '<h1>' + titre + '</h1>'
-        texte += '<p>' + description + '</p>'
-        for(let i =0; i <height; i ++) {
-            for(let j = 0; j <width; j++) {
+        texte += '<h1>Titre : ' + titre + '</h1>'
+        texte += '<p>Description : ' + description + '</p>'
+        texte += '<div class="abaqueInputDivCreation">'
+        texte += '<br />'
+        for (let i = 0; i <height; i++) {
+            for (let j = 0; j < width; j++) {
                 console.log("largeur")
                 console.log("longueur")
-                texte += "<input placeholder='valeur ici' class='test' "+ "></input>"
+                texte += "<input class='inputAbaqueCreation' " + "></input>"
             }
             texte += "<br></br>"
         }
+        texte += "</div>"
         texte += "</div>"
         console.log(texte)
         document.getElementById("abaque").innerHTML = texte;
@@ -65,12 +68,12 @@ const Abaque = () => {
         dictionnaire.nom = document.getElementById('titreAbaque').value;
         dictionnaire.anneeScolaire = valeur;
         dictionnaire.description = document.getElementById("descriptionExercice").value;
-        dictionnaire.type = "abaque" ;
+        dictionnaire.type = "abaque";
         dictionnaire.hauteur = Number(height);
         dictionnaire.longueur = Number(width);
         let array1 = []
         let a = document.getElementsByClassName("test")
-        for(let i = 0; i < a.length; i ++) {
+        for (let i = 0; i < a.length; i++) {
             array1.push(a[i].value)
         }
         dictionnaire.reponseInitiale = array1;
@@ -81,7 +84,7 @@ const Abaque = () => {
     function saveAnswer() {
         let array1 = []
         let a = document.getElementsByClassName("test")
-        for(let i = 0; i < a.length; i ++) {
+        for (let i = 0; i < a.length; i++) {
             array1.push(a[i].value)
         }
         dictionnaire.reponseFinale = array1;
@@ -98,22 +101,22 @@ const Abaque = () => {
         }
         console.log(data)
 
-        axios.post("http://localhost:4000/exercice/registerAbaque", {data}, config)
-        .then((res) => {
-
-            let data = {
-                idExo: res.data.data._id,
-                type: "abaque"
-            }
-
-            axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+        axios.post("http://localhost:4000/exercice/registerAbaque", { data }, config)
             .then((res) => {
-                console.log(res)
+
+                let data = {
+                    idExo: res.data.data._id,
+                    type: "abaque"
+                }
+
+                axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                    .then((res) => {
+                        console.log(res)
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
             })
-            .catch((error) => {
-                console.log(error)
-            })
-        })
             .catch((error) => {
                 console.log(error)
             })
@@ -130,12 +133,12 @@ const Abaque = () => {
             let texte = String("<div id='abaqueFromDB'><table><tbody>");
             texte += '<h1>' + titre + '</h1>'
             let k = 0;
-            for(let i =0; i <hauteur; i ++) {
-                for(let j = 0; j <longueur; j++) {  
+            for (let i = 0; i < hauteur; i++) {
+                for (let j = 0; j < longueur; j++) {
                     console.log(k)
                     console.log(reponseInitiale)
                     console.log(reponseInitiale[k])
-                    texte += "<input placeholder='valeur ici' class='test'" + " value='" + reponseInitiale[k] +"'></input>"
+                    texte += "<input placeholder='valeur ici' class='test'" + " value='" + reponseInitiale[k] + "'></input>"
                     k += 1;
                 }
                 texte += "<br></br>"
@@ -145,26 +148,26 @@ const Abaque = () => {
             document.getElementById("abaqueFromDB").innerHTML = texte;
         })
     }
- 
+
 
     function correction() {
         axios.get("http://localhost:4000/exercice/getAbaque").then((res) => {
-            let resultatAttendu =  res.data[0].reponseFinale
+            let resultatAttendu = res.data[0].reponseFinale
             let resultatInitial = res.data[0].reponseInitiale;
             let resultatRecu = []
             let idExercice = res.data[0]._id;
             let a = document.getElementsByClassName("test")
-            for(let i = 0; i < a.length; i ++) {
+            for (let i = 0; i < a.length; i++) {
                 resultatRecu.push(a[i].value)
             }
             console.log(resultatAttendu, resultatRecu)
             let tailleArray = resultatInitial.length;
             let nbrAnswer = 0;
             let score = 0;
-            for(let i = 0; i < tailleArray; i ++) {
-                if(resultatInitial[i] === "") {
+            for (let i = 0; i < tailleArray; i++) {
+                if (resultatInitial[i] === "") {
                     nbrAnswer += 1;
-                    if(resultatAttendu[i] !== resultatRecu[i]) {
+                    if (resultatAttendu[i] !== resultatRecu[i]) {
                         console.log("une faute")
                     } else {
                         score += 1;
@@ -172,7 +175,7 @@ const Abaque = () => {
                 }
             }
 
-            let scoreFinal = (Math.floor((score/nbrAnswer) *100))
+            let scoreFinal = (Math.floor((score / nbrAnswer) * 100))
             Swal.fire({
                 title: 'Résultat',
                 text: 'Vous avez obtenu la note de : ' + scoreFinal + "%",
@@ -193,8 +196,8 @@ const Abaque = () => {
                 idExercice: idExercice
             }
 
-            axios.post("http://localhost:4000/exercice/registerAnswers", {data}, config)
-            
+            axios.post("http://localhost:4000/exercice/registerAnswers", { data }, config)
+
 
 
         })
@@ -205,39 +208,53 @@ const Abaque = () => {
     return (
         <div>
             <Navbar />
-            <h2>Menu de création de l'abaque</h2>
-            <div>
+            <div id="divCreationAbaque">
+                <h2 className='MenuAbaqueTitle'>Menu de création de l'abaque</h2>
+                <div className='anneeScolaire'>
+                    <p className='legendAnneeScolaire'>Choisissez l'année scolaire ciblée:</p>
+                    <div className="AnneeScolaireChoice">
+                        <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="1" />1er
+                        <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="2" />2ème
+                        <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="3" />3ème
+                        <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="4" />4ème
+                        <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="5" />5ème
+                        <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="6" />6ème
+                    </div>
+                </div>
                 <br />
-                <fieldset>
-                    <legend>Choisissez l'année scolaire ciblée:</legend>
-                    <input type="radio" name="anneeScolaire" value="1" />1er
-                    <input type="radio" name="anneeScolaire" value="2" />2ème
-                    <input type="radio" name="anneeScolaire" value="3" />3ème
-                    <input type="radio" name="anneeScolaire" value="4" />4ème
-                    <input type="radio" name="anneeScolaire" value="5" />5ème
-                    <input type="radio" name="anneeScolaire" value="6" />6ème
-                </fieldset>
+                <div className='divInputs'>
+                    <div className='divAbaqueCreationTitle'>
+                        <input className="inputAbaque" placeholder="Titre de l'abaque" id="titreAbaque"></input>
+                    </div>
+                    <div className='divAbaqueCreationTextarea'>
+                        <textarea placeholder="Description de l'exercice" id="descriptionExercice"></textarea>
+                    </div>
+                    <div className='hauteurlargeur'>
+                        <div className='hauteurInputdiv'>
+                            <input className="inputAbaque" id="hauteur" onChange={(e) => correctHeight(e.target.value)} placeholder="Hauteur de l'abaque"></input>
+                        </div>
+                        <div className='largeurInputdiv'>
+                            <input className="inputAbaque" id="largeur" onChange={(e) => correctWidth(e.target.value)} placeholder="Largeur de l'abaque"></input>
+                        </div>
+                    </div>
+                </div>
                 <br />
+                <div className='divButtons'>
+                    <div>
+                        <button className="boutonOfCreation" onClick={showExercice}>Créer mon abaque</button>
+                    </div>
+                    <div>
+                        <button className="boutonOfSaveSquelet" onClick={saveAbaque}>Sauvez le squelette</button>
+                    </div>
+                    <div>
+                        <button className="boutonOfSaveExo" onClick={saveAnswer}>Sauvez les réponses</button>
+                    </div>
+                </div>
+                <div>
+                    <img id='creatifImg' src='creatif2.png'></img>
+                </div>
             </div>
-            <input placeholder="Titre de l'abaque" id="titreAbaque"></input>
-            <br />
-            <br />
-            <textarea placeholder="Description de l'exercice" id="descriptionExercice"></textarea>
-            <br />
-            <br />
-            <input id="hauteur" onChange={(e) => correctHeight(e.target.value)} placeholder="Hauteur de l'abaque"></input>
-            <br />
-            <br />
-            <input id="largeur" onChange={(e) => correctWidth(e.target.value)} placeholder="Largeur de l'abaque"></input>
-            <br />
-            <br />
-            <button onClick={showExercice}>ok</button>
-            <br></br>
-            <h2>Votre abaque :</h2><p id="abaque"></p>
-            <br></br>
-            <button onClick={saveAbaque}>Sauvez le squelette</button>
-            <button onClick={saveAnswer}>Sauvez les réponses</button>
-            <br></br>
+            <h2 className='abaqueH2'>Votre abaque :</h2><p id="abaque"></p>
         </div>
     );
 };

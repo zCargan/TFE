@@ -1,24 +1,19 @@
 #searchBarContainerA {
-    margin: 20px auto;
+  margin-top: -2px;
+    width: 1000px;
     padding: 10px;
     background: rgba(255, 255, 255, 0.45);
     border-radius: 5px;
-    max-width: 700px;
     border: 1px solid white;
   }
   
   .h3SBC {
     font-size: 220%;
-    font-family: 'joli';
+    font-family: 'j2';
     color: rgb(170, 18, 137);
   }
   
-  .ulSBC {
-    list-style-type: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+
   
   .liSBC {
     margin: 0 10px;
@@ -27,8 +22,13 @@
   .selectSBC,
   .inputSBC {
     padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    margin-left: 10px;
+    width: 80px;
+    text-align: center;
+    height: 35px;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
   }
   
   .inputSBC {
@@ -67,3 +67,26 @@
     background-color: #0056b3;
   }
   
+
+#matiere {
+  width: 170px;
+}
+
+#rechercheSpecifiqueAdmin {
+  background-color: black;
+  height: 16px;
+  width: 130px;
+  color: white;
+}
+
+#rechercheSpecifiqueAdmin::placeholder {
+  color: white;
+}
+
+#resetPasswordAdmin {
+  margin-top: 40px;
+}
+
+.ulSBC {
+  margin-left: -25px;
+}

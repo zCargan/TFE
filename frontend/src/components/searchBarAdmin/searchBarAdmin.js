@@ -50,7 +50,7 @@ const SearchBarAdmin = () => {
                     </select>
                 </li>
                 <li className='liSBC'>
-                    <input className="inputSBC" placeholder='Champs spécifique' id="rechercheSpecifique"></input>
+                    <input className="inputSBC" placeholder='Champs spécifique' id="rechercheSpecifiqueAdmin"></input>
                 </li>
                 <li className='liSBC'>
                     <select className="selectSBC" id="matiere">

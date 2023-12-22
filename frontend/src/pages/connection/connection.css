@@ -34,21 +34,26 @@
     src: local('homeKitchen'), url('./font/home_kitchen/Home\ Kitchen.ttf') format('truetype'), url('./font/home_kitchen/Home\ Kitchen.otf') format('opentype');
 }
 
+@font-face {
+    font-family: 'j2';
+    src: local('j2'), url('./font/fabulous_signature/Fabulous\ Signature.ttf') format('truetype'), url('./font/fabulous_signature/Fabulous\ Signature.otf') format('opentype');
+}
+
 #input_connection_div h1 {
     font-weight: bold;
     font-size: 50px;
-    font-family: 'joli';
+    font-family: 'j2';
 }
 
 #input_connection_div h2 {
     font-size: 35px;
-    font-family: 'joli';
+    font-family: 'j2';
     color: linear-gradient(to right, #ff0000, #00ff00);
 
 }
 
 #input_connection_div h5 {
-    font-family: 'joli';
+    font-family: 'j2';
     color: black;
     font-size: 30px;
 }
@@ -92,4 +97,9 @@
     border: 1px solid black;
     padding: 5px;
     width: 200;
+}
+
+
+.h1Connection {
+    margin-top: 1%
 }

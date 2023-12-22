@@ -1,24 +1,118 @@
-#introductionFDR {
-    color:cornflowerblue;
-}
 
 .required {
     color: red;
 }
 
-#detailReportTextarea::placeholder {
+#detailReportTextarea {
+    background: linear-gradient(45deg,#FF6384, #FF8C42);
+    border-radius: 10px;
+    border: 1px solid black;
+    color: white;
     padding: 10px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-#detailReportTextarea {
-    
+
+#detailReportTextarea::placeholder {
+    color: white;
+    border-radius: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.h1fdr {
+    font-weight: bold;
+    font-size: 80px;
+    font-family: 'joli';
+    margin-top: 1%;
+}
+
+.h12fdr {
+    font-weight: bold;
+    font-size: 80px;
+    font-family: j2;
+    margin-top: 3%;
+}
+
+.h3fdr {
+    margin-top: -45px;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: j2; 
+}
+
+.formDeRetour {
+    background: rgba(255, 255, 255, 0.5);
+    margin-left: auto;
+    margin-right: auto;
+    width: 38%;
+    padding: 1%;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+#motifRequest {
+    border-radius: 10px;
+    border: 1px solid black;
+    width: 93%;
+    height: 20px;
+    text-align: center;
 }
 
 #emailInputFDR {
-    width: 200px;
+    background: linear-gradient(45deg,#FF6384, #FF8C42);
+    border: 1px solid black;
+    color: white;
+    border-radius: 10px;
+    height: 20px;
+    width: 93%;
+    text-align: center;
 }
 
-#textReturnRequest {
-    color:aquamarine;
+#emailInputFDR::placeholder {
+    background: linear-gradient(45deg,#FF6384, #FF8C42);
+    color: white;
+
+}
+
+.buttonfdr {
+    font-size: 30px;
+    font-family: 'homeKitchen';
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease; 
+}
+
+.buttonfdr:hover {
+    background-color: white;
+    color: black;
+    border-color: black; 
+}
+
+#motifRequest {
+    background: linear-gradient(45deg,#FF6384, #FF8C42);
+    color: white;
+}
+
+#motifRequest option {
+    color: white;
+    background-color:  rgb(256,116,108);
+}
+
+.pfdr {
+    font-family: j2;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+
+.assistanceImg {
+    position: fixed;
+    width: 32%;
+    bottom: -20px;
+    left: 18%;
+    opacity: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
 }

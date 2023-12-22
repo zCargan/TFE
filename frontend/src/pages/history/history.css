@@ -3,15 +3,15 @@
 }
 
 .exercice-details p {
-    color: rgb(251,214,140);
+    color: black;
 }
 
 .exercice-item {
-    border: 1px solid #ccc;
+    border: 2px solid rgb(170, 18, 137, 0.35);
     border-radius: 5px;
     margin: 10px;
     max-width: 600px;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.35);
     padding: 15px; 
 }
 
@@ -36,7 +36,7 @@ button {
 
 #mainDivHistory {
     background-image: url('./img/historique3.jpg');
-    background-position-y: 10%;
+    background-position-y: 90%;
     background-size: cover; 
 }
 
@@ -70,4 +70,20 @@ button {
 
 #G2 {
     height: 94.5vh;
+}
+
+.buttonProfileH:hover {
+    background-color: white;
+    color: rgb(170, 18, 137);
+    border: 1px solid rgb(170, 18, 137); 
+}
+
+.buttonProfileH  {
+    font-size:15px;
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
 }

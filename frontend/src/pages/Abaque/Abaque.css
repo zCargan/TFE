@@ -1,0 +1,171 @@
+.MenuAbaqueTitle {
+    margin-top: -2%;
+    font-family: j2;
+    font-size: 50px;
+    text-decoration: underline;
+}
+
+/* Année scolaire */
+.anneeScolaire {
+    margin-top: -2%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.inputAnneeScolaire {
+    position:relative;
+    margin-left: 50%;
+    font-size: 30px;
+    margin-left: 20px;
+}
+
+.AnneeScolaireChoice {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
+.legendAnneeScolaire {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 180%;
+}
+
+/* Input abaque */
+
+.divInputs {
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: 19vh;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.inputAbaque {
+    width: 92%;
+    height: 20px;
+    border-radius: 10px;
+    background-color: black;
+    color: white
+}
+
+.inputAbaque::placeholder {
+    color: white
+}
+
+#descriptionExercice {
+    text-align: center;
+    height: 5vh;
+    width: 90%;
+    background-color: black;
+    color: white
+}
+
+#descriptionExercice::placeholder {
+    color: white
+}
+
+
+/* Button abaque */
+.divButtons {
+    display: flex;
+    justify-content: space-around; 
+    align-items: center;
+    width: 37%;
+    margin-left: 32%;
+    background: rgb(0, 0, 0, 0.5);
+    border: 1px solid white;
+    border-radius: 10px;
+    height: 6vh;
+}
+
+
+
+.boutonOfCreation, .boutonOfSaveSquelet, .boutonOfSaveExo {
+    background-color: black;
+    color: white;
+    padding: 2%;
+    height: 4vh;
+    text-align: center;
+    width: 15vh;
+    border-radius: 10px;
+    border: 1px solid transparent;
+}
+
+.boutonOfCreation:hover, .boutonOfSaveSquelet:hover, .boutonOfSaveExo:hover {
+    background-color: rgb(248, 222, 222);
+    color: black;
+    padding: 2%;
+    height: 4vh;
+    text-align: center;
+    width: 15vh;
+    border-radius: 10px;
+    border: 1px solid bla;
+}
+
+
+
+
+
+
+
+#divCreationAbaque {
+    padding: 2%;
+}
+
+#creatifImg {
+    position: fixed;
+    top:-1%;
+    left: -3%;
+    opacity: 50%;
+    transform: translateX(-50%);
+    transform: scaleX(-1);
+    z-index: -1;
+}
+
+
+.abaqueH2 {
+    margin-top: 1%;
+    font-family: j2;
+    font-size: 50px;
+}
+
+#abaque {
+    margin-top: -3%;
+
+}
+
+.inputAbaqueCreation {
+
+    text-align: center;
+    width: 5%;
+    height: 3vh;
+    margin-left: 1%;
+}
+
+.abaqueInputDivCreation {
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: auto;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.inputAbaqueCreation {
+    background-color: black;
+    border: 1px solid transparent;
+    color: white;
+    border-radius: 10px;
+
+}

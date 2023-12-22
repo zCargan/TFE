@@ -87,23 +87,21 @@ const Connection = (props) => {
         <Navbar />
       </div>
       <div>
-        <br />
-        <h1>Bienvenue sur la classe de madame Séverine!</h1>
+        <h1 className='h1Connection'>Bienvenue sur la classe de madame Séverine!</h1>
         <br />
         <h2 >Afin d'utiliser le site, merci de vous connecter</h2>
         <input className="inputConnection" placeholder="Pseudo" type="text" id="pseudo" />
         <input className="inputConnection" placeholder="Mot de passe" type="password" id="password" />
         <br />
-        <br />
+        
         <button id="connection_register" onClick={(e) => connection()}>Connection</button>
-        <br />
       </div>
       <h5>Où</h5>
       <div className="bottom-button">
         <button id="button_register" onClick={(e) => navigate('/register')}>Se créer un compte</button>
       </div>
       <div className="connection-button">
-        <button id="button_register" onClick={(e) => navigate('/resetPassword')}>Changer mon mot de passe!</button>
+        <button id="button_register" onClick={(e) => navigate('/reset-password')}>Changer mon mot de passe</button>
       </div>
     </div>
   );

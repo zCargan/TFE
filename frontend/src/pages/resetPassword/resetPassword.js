@@ -61,20 +61,21 @@ const ResetPasswordPage = () => {
         <div id="rpPage">
             {resetRequested ? (
                 <div>
-                    <Navbar />
                     <div id="divh2RP2">
-                        <p>Un e-mail de réinitialisation a été envoyé à votre adresse email.</p>
+                        <p className='pEmailRP'>Un e-mail de réinitialisation a été envoyé à votre adresse email.</p>
                     </div>
-                    <p id="divpRP2">Veuillez vérifier votre boîte de réception pour les instructions.</p>
+                    <p className='pEmailRP2'>Veuillez vérifier votre boîte de réception pour les instructions.</p>
                     <div>
-                        <button id="buttonRP2" onClick={(e) => { deconnect() }}>Me déconnecter</button>
+                        <button id="buttonDeconnect" onClick={(e) => { deconnect() }}>Me déconnecter</button>
+                    </div>
+                    <div>
+                        <img className='imgSuccesMan' src='succesMan.webp'></img>
                     </div>
                 </div>
             ) : (
                 <div>
-                    <Navbar />
                     <div id="divh2RP">
-                        <h2>Page pour réinitialiser son mot de passe</h2>
+                        <h2 className='h2rp'>Page pour réinitialiser son mot de passe</h2>
                     </div>
                     <div>
                         <p id="divpRP">Si votre adresse email existe, un email de récupération vous sera envoyé</p>
@@ -87,7 +88,11 @@ const ResetPasswordPage = () => {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <br />
+                    <div id="buttonRPDiv">
                     <button id="buttonRP" onClick={handleResetPassword}>Réinitialiser le mot de passe</button>
+                    <br />
+                    <button id="buttonHome" onClick={(e) => navigate('/')}>Retourner à la page d'accueil</button>
+                    </div>
                     <div>
                         <img className='imgRP1' src='rp.png'></img>
                     </div>

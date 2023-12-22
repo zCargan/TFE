@@ -59,34 +59,42 @@ function FormulaireDeRetour() {
             <Navbar />
             {resetRequested ? (
                 <div id="textReturnRequest">
-                    <p>Votre demande a bien été reçue !</p>
-                    <p>Nous ferons notre maximum pour vous répondre le plus vite possible.</p>
+                    <h1 className='h12fdr'>Votre demande a bien été reçue !</h1>
+                    <h3 className='h3fdr'>Nous ferons notre maximum pour vous répondre le plus vite possible.</h3>
                     <img src="received-message-received.gif" />
                     <br />
-                    <button onClick={(e) => navigate('/home')}>Page d'accueil</button>
+                    <button id="buttonHome" onClick={(e) => navigate('/')}>Retourner à la page d'accueil</button>
                 </div>
             ) : (
                 <div>
                     <div id="introductionFDR">
-                        <h1>Nous contacter</h1>
-                        <h3>Besoin d'assist ou simplement envie de discuter ? Tu es au bon endroit !</h3>
+                        <h1 className='h1fdr'>Nous contacter</h1>
+                        <h3 className='h3fdr'>Besoin d'assist ou simplement envie de discuter ? Tu es au bon endroit !</h3>      
+                    </div>
+                    <br/>
+                    <div>
+                        <h3 className='h3fdr'>Envoie nous un email</h3>
+
+                        <div className='formDeRetour'>
+                            <p className='pfdr'>Email<span class="required" >*</span></p>
+                            <input required id="emailInputFDR" placeholder='Préciser votre email ici' />
+                            <p className='pfdr'>Motif<span class="required" >*</span></p>
+                            <select id="motifRequest">
+                                <option className='optionSelect' value="/">---</option>
+                                <option className='optionSelect' value="bug">Informer d'un bug</option>
+                                <option className='optionSelect' value="request">Faire une demande</option>
+                                <option className='optionSelect' value="report">Signaler un utilisateur</option>
+                            </select>
+                            <p className='pfdr'>Comment pouvons nous t'aider?<span class="required" >*</span></p>
+                            <textarea id="detailReportTextarea" rows={7} cols={92} placeholder='Donne nous un maximum de détails sur la situations...'>
+                            </textarea>
+                        </div>
                     </div>
                     <div>
-                        <h2>Envoie un mail</h2>
-                        <p>Email<span class="required" >*</span></p>
-                        <input required id="emailInputFDR" />
-                        <p>Motif<span class="required" >*</span></p>
-                        <select id="motifRequest">
-                            <option value="/">---</option>
-                            <option value="bug">Informer d'un bug</option>
-                            <option value="request">Faire une demande</option>
-                            <option value="report">Signaler un utilisateur</option>
-                        </select>
-                        <p>Comment pouvons nous t'aider?<span class="required" >*</span></p>
-                        <textarea id="detailReportTextarea" rows={7} cols={60} placeholder='Donne nous un maximum de détails sur la situations...'>
-                        </textarea>
+                        <img className='assistanceImg' src='assistance.png'></img>
                     </div>
-                    <button onClick={sendForm}>Envoyer ma demande!</button>
+                    <br />
+                    <button className='buttonfdr' onClick={sendForm}>Envoyer ma demande</button>
                 </div>
             )}
         </div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+import Navbar from '../../components/navbar/Navbar';
 
 const UploadSound = () => {
   const [audioFile, setAudioFile] = useState(null);
@@ -50,7 +51,8 @@ const UploadSound = () => {
 
   return (
     <div>
-      <h2>Uploader un fichier audio</h2>
+      <Navbar />
+      <h1 className='h12fdr'>Uploader un fichier audio</h1>
       <form onSubmit={handleSubmit}>
         <input type="file" accept="audio/*" onChange={handleFileChange} />
         <input id="newNameAudio" placeholder='Ecrivez ici le nouveau nom de votre fichier'></input>

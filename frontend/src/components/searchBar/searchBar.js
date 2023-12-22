@@ -51,7 +51,7 @@ const SearchBar = () => {
                         </select>
                     </li>
                     <li>
-                        <input placeholder='Rechercher un champs spécifique' id="rechercheSpecifique"></input>
+                        <input placeholder='Recherche spécifique' id="rechercheSpecifique"></input>
                     </li>
                     <li>
                         <select id="matiere" className="custom-select-searchBar">

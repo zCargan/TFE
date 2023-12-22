@@ -10,6 +10,8 @@ import Popup from 'reactjs-popup';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 
+import PersonIcon from '@mui/icons-material/Person';
+
 export function notXSSInjection(string) {
     return !(string.includes("<"))
 }
@@ -137,25 +139,24 @@ const Connexion = () => {
     return (
         <div id="registerdiv">
             <div>
-                <br />
-                <h1 className='h1r'>Bienvenue sur la page de création de compte</h1>
+                <div id="h1div">
+                    <h1 className='h1r'>Bienvenue sur la page de création de compte</h1>
+                </div>
                 <div>
                     <h3 className='h3r'>Nous avons besoin des données suivantes afin d'enregister votre compte</h3>
                 </div>
                 <div>
                     <p className='pR'>Elles ne seront en aucun cas utilisée, elles sont uniquement nécessaire pour un bon fonctionnement de l'application</p>
                 </div>
-                <input className="inputRegister" placeholder='Prénom' type='text' id="surname" onChange={(e) => setSurname(e.target.value)}></input>
-                <br />
-                <br />
-                <input className="inputRegister" placeholder='adresse email' type='text' id="emai" onChange={(e) => setEmail(e.target.value)}></input>
-                <br />
-                <br />
-                <br />
-                <input className="inputRegister" type="password" placeholder='Mot de passe' onChange={(e) => setPassword(e.target.value)} />
-                <br />
-                <br />
-                <input className="inputRegister" placeholder='Confirmer le mot de passe' type="password" id="passwordConfirm" onChange={(e) => setSamePassword(e.target.value)}></input>
+                <div id="formInputR">
+                    <input className="inputRegister" placeholder='Prénom' type='text' id="surname" onChange={(e) => setSurname(e.target.value)}></input>
+                    <br />
+                    <input className="inputRegister" placeholder='adresse email' type='text' id="emai" onChange={(e) => setEmail(e.target.value)}></input>
+                    <br />
+                    <input className="inputRegister" type="password" placeholder='Mot de passe' onChange={(e) => setPassword(e.target.value)} />
+                    <br />
+                    <input className="inputRegister" placeholder='Confirmer le mot de passe' type="password" id="passwordConfirm" onChange={(e) => setSamePassword(e.target.value)}></input>
+                </div>
                 <br />
                 <div id='text_zone3'>
                     <h4>Votre mot de passe doit contenir: </h4>
