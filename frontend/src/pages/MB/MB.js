@@ -97,25 +97,22 @@ const MB = () => {
     return (
         <div id="mbPage">
             <Navbar />
-            <div>
-                <br />
-                <fieldset>
-                    <legend>Choisissez l'année scolaire ciblée:</legend>
-                    <input type="radio" name="anneeScolaire" value="1" />1er
-                    <input type="radio" name="anneeScolaire" value="2" />2ème
-                    <input type="radio" name="anneeScolaire" value="3" />3ème
-                    <input type="radio" name="anneeScolaire" value="4" />4ème
-                    <input type="radio" name="anneeScolaire" value="5" />5ème
-                    <input type="radio" name="anneeScolaire" value="6" />6ème
-                </fieldset>
+            <h2 className='MenuMBTitle'>Menu de création votre mot bazard</h2>
+            <div className='anneeScolaire'>
+                <p className='legendAnneeScolaire'>Choisissez l'année scolaire ciblée:</p>
+                <div className="AnneeScolaireChoice">
+                    <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="1" />1er
+                    <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="2" />2ème
+                    <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="3" />3ème
+                    <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="4" />4ème
+                    <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="5" />5ème
+                    <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="6" />6ème
+                </div>
             </div>
-            <h3>Créez ici vos relations entre vos photos et un mot !</h3>
             <br />
-            <div>
-                <input id="nameExo" placeholder="Nom de l'exercice"></input>
-                <br></br>
-                <br></br>
-                <textarea id="descriptionExo" placeholder="Description de l'exercice" rows="5" cols="100"></textarea>
+            <div className="MBdivcreation">
+                <input className="inputMB" placeholder="Titre de l'abaque" id="name"></input>
+                <textarea placeholder="Description de l'exercice" className="descriptionMB"></textarea>
             </div>
             <div>
                 <p>Veuillez d'abord choisir une image</p>

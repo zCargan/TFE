@@ -3,6 +3,8 @@ import axios from 'axios'
 import Cookies from 'js-cookie';
 import Navbar from '../../components/navbar/Navbar';
 
+import './LDN.css'
+
 const LDN = () => {
 
 
@@ -27,12 +29,6 @@ const LDN = () => {
     }
 
     function saveSqueleton() {
-        /*
-
-        cette fonction a pour but de sauver le squelette de l'excerice
-
-        */
-
         var radios = document.getElementsByName('anneeScolaire');
         var valeur;
         for (var i = 0; i < radios.length; i++) {
@@ -98,22 +94,22 @@ const LDN = () => {
 
         axios.post("http://localhost:4000/exercice/registerLDN", { exo }, config).then((res) => {
 
-        let data = {
-            idExo: res.data.data._id,
-            type: "LDN"
-        }
+            let data = {
+                idExo: res.data.data._id,
+                type: "LDN"
+            }
 
-        axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
-        .then((res) => {
-            console.log(res)
+            axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                .then((res) => {
+                    console.log(res)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
         })
-        .catch((error) => {
-            console.log(error)
-        })
-    })
-        .catch((error) => {
-            console.log(error)
-        })
+            .catch((error) => {
+                console.log(error)
+            })
 
 
     }
@@ -138,18 +134,18 @@ const LDN = () => {
         if (option === "gauche") {
             texte += '◀'
             for (let i = 0; i < length; i++) {
-                texte += String("<input id='" + (i + 1) + "' class='inputUser'></input>");
+                texte += String("<input id='" + (i + 1) + "' class='inputUser inputLDNCreator'></input>");
             }
             texte += String("</tbody></table></div>");
             console.log(texte)
         } else {
             for (let i = 0; i < length; i++) {
-                texte += String("<input id='" + (i + 1) + "' class='inputUser'></input>");
+                texte += String("<input id='" + (i + 1) + "' class='inputUser inputLDNCreator'></input>");
             }
             texte += '▶'
             texte += String("</tbody></table></div>");
         }
-        document.getElementById("result").innerHTML = texte
+        document.getElementById("showResult").innerHTML = texte
     }
 
 
@@ -158,55 +154,39 @@ const LDN = () => {
     return (
         <div>
             <Navbar />
-            <div>
-                <br />
-                <fieldset>
-                    <legend>Choisissez l'année scolaire ciblée:</legend>
-                    <input type="radio" name="anneeScolaire" value="1" />1er
-                    <input type="radio" name="anneeScolaire" value="2" />2ème
-                    <input type="radio" name="anneeScolaire" value="3" />3ème
-                    <input type="radio" name="anneeScolaire" value="4" />4ème
-                    <input type="radio" name="anneeScolaire" value="5" />5ème
-                    <input type="radio" name="anneeScolaire" value="6" />6ème
-                </fieldset>
+            <h2 className='MenuLDNTitle'>Menu de création de la maison des nombres</h2>
+            <div className='anneeScolaire'>
+                <p className='legendAnneeScolaire'>Choisissez l'année scolaire ciblée:</p>
+                <div className="AnneeScolaireChoice">
+                    <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="1" />1er
+                    <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="2" />2ème
+                    <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="3" />3ème
+                    <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="4" />4ème
+                    <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="5" />5ème
+                    <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="6" />6ème
+                </div>
             </div>
-            <h3>Ligne des nombres</h3>
-            <div id="administratif">
-                <h4>Coin chippo</h4>
-                Entrez ici le nom de votre exercice <input id="name"></input>
-                <br></br>
-                <h5>Description de l'exercice :</h5>
-                <textarea rows="5" cols="40" id="description"></textarea>
-                <br></br>
-                <br></br>
-                Entrez ici la taille de votre ligne des nombres <input id="length"></input>
-                <br></br>
-                <br></br>
-                Direction de ma droite des nombres <select id="direction">
-                    <option value="droite">▶</option>
-                    <option value="gauche">◀</option>
-                </select>
-                <br></br>
-                <br></br>
-                <button onClick={createLine}>Créer ma ligne des nombres</button>
-                <br></br>
-                <br></br>
+            <br />
+            <div id="LDNdivcreation">
+                <input className="inputAbaque" placeholder="Titre de l'abaque" id="name"></input>
+                <textarea placeholder="Description de l'exercice" id="description"></textarea>
+                <input id="length" placeholder='Taille de la LDN' className='inputLDNCreation'></input>
+                <div id="selectLDNcreation">
+                    Direction de ma droite des nombres <select id="direction">
+                        <option value="droite">▶</option>
+                        <option value="gauche">◀</option>
+                    </select>
+                </div>
             </div>
-            <div id="zonedetests">
-                <p>Résultat :</p><p id="result"></p>
-                <button id="button_squelette" onClick={saveSqueleton}>Valider le squelette</button>
-            </div>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <div>
-
-                <p>Zone de tests</p>
-                <button onClick={testSaveAll}>Valider les réponses</button>
+            <br />
+            <div className='divButtonsLDN'>
+                <button className="boutonOfCreationLDN" onClick={createLine}>Créer ma ligne des nombres</button>
+                <button className="boutonOfSaveSqueletLDN" id="button_squelette" onClick={saveSqueleton}>Valider le squelette</button>
+                <button className="boutonOfSaveExoLDN" onClick={testSaveAll}>Valider les réponses</button>
             </div>
             <div>
-
+                <h2 className='ldnResultatCreator'>Votre ligne des nombres</h2>
+                <p id="showResult"></p>
             </div>
         </div>
     );

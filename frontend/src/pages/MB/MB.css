@@ -1,4 +1,51 @@
 #mbPage {
     background-color: orange;
-    height: 100vh;
+    height: 100%;
+}
+
+.MenuMBTitle {
+    margin-top: 0%;
+    font-family: j2;
+    font-size: 50px;
+    text-decoration: underline;
+}
+
+.MBdivcreation {
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: 10vh;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+    
+}
+
+.inputMB {
+    width: 92%;
+    height: 20px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.inputMB::placeholder {
+    color: white
+}
+
+.descriptionMB {
+    text-align: center;
+    height: 5vh;
+    width: 92%;
+    margin-top: 1%;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.descriptionMB::placeholder {
+    color: white;
 }

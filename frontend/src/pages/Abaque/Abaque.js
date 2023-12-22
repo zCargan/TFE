@@ -36,8 +36,9 @@ const Abaque = () => {
         let texte = String("<div id='abaque'><table><tbody>");
         let titre = document.getElementById('titreAbaque').value;
         let description = document.getElementById('descriptionExercice').value;
+        texte += "<br />"
         texte += '<h1>Titre : ' + titre + '</h1>'
-        texte += '<p>Description : ' + description + '</p>'
+        texte += '<h2>Description : ' + description + '</h2>'
         texte += '<div class="abaqueInputDivCreation">'
         texte += '<br />'
         for (let i = 0; i <height; i++) {
@@ -51,7 +52,7 @@ const Abaque = () => {
         texte += "</div>"
         texte += "</div>"
         console.log(texte)
-        document.getElementById("abaque").innerHTML = texte;
+        document.getElementById("abaqueCreation").innerHTML = texte;
     }
 
 
@@ -254,7 +255,8 @@ const Abaque = () => {
                     <img id='creatifImg' src='creatif2.png'></img>
                 </div>
             </div>
-            <h2 className='abaqueH2'>Votre abaque :</h2><p id="abaque"></p>
+            <h2 className='abaqueH2'>Votre abaque :</h2>
+            <p id="abaqueCreation">Test</p>
         </div>
     );
 };
