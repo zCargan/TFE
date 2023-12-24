@@ -1,0 +1,57 @@
+#searchBarWSContainer {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .navbarWS ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .navbarWS li {
+    text-align: center;
+  }
+  
+  .custom-select-searchBarWS,
+  #titreSpecifiqueWS,
+  #descriptionSpecifiqueWS, .navbarWS button {
+    width: 20vh;
+    text-align: center;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background: rgb(0,0,0, 0.5);
+    border: 1px solid #000000;
+    color: white;
+    font-weight: bold;
+  }
+  
+  #titreSpecifiqueWS,
+  #descriptionSpecifiqueWS {
+    margin-left: 5px; /* Ajustez la marge selon vos besoins */
+  }
+  
+  .SWBI {
+    color: gray;
+    cursor: pointer;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    border: 1px solid black;
+  }
+  
+  .SWBI:hover {
+    background: rgba(255, 255, 255, 0.5);
+    color: rgb(136,60,52);
+    border: 1px solid rgb(136,60,52);
+  }
+  
+
+
+.navbarWS input::placeholder {
+  color: white;
+}

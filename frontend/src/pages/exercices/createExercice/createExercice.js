@@ -224,7 +224,7 @@ const CreateExercice = () => {
                         )}
                     </div>
                 </Popup>
-                <button onClick={saveWorksheet}>Sauver la feuille d'exercice</button>
+                <button className='buttonCreationWS' onClick={saveWorksheet}>Sauver la feuille d'exercice</button>
             </div>
             <div>
                 <div>

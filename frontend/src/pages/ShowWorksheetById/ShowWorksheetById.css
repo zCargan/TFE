@@ -1,0 +1,48 @@
+.infoWS {
+    margin-top: 2%;
+    background-color: rgb(255,255,255, 0.40);
+    border: 1px solid white;
+    width: 85%;
+    margin-left: 7.5%;
+    border-radius: 20px;
+    margin-bottom: 1%;
+}
+
+.h1WS {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-family: j2;
+    color: rgb(223, 64, 64);
+    font-weight: bold;
+    font-size: 7vh
+}
+
+.h3WS {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-family: j2;
+    color: rgb(223, 64, 64);
+    font-weight: bold;
+    font-size: 3vh
+}
+
+
+
+.buttonGlobalCSS {
+    width: auto;
+    text-align: center;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background: rgb(0,0,0, 0.5);
+    border: 1px solid #000000;
+    color: white;
+    font-weight: bold;
+}
+  
+.buttonGlobalCSS:hover {
+    background: rgba(255, 255, 255, 0.5);
+    color: rgb(136,60,52);
+    border: 1px solid rgb(136,60,52);
+}

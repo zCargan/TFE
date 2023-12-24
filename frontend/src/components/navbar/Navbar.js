@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, Redirect, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
@@ -8,6 +8,9 @@ import './Navbar.css'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
 
+import HomeIcon from '@mui/icons-material/Home';
+import { FaBars, FaTimes } from "react-icons/fa";
+import CreateIcon from '@mui/icons-material/Create';
 import { FaUserAlt } from 'react-icons/fa';
 import { FaHistory } from "react-icons/fa";
 import Popup from 'reactjs-popup';
@@ -15,6 +18,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 
 const Navbar = () => {
+    
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const tasks = useSelector((state) => state.exercices.exercice)
@@ -140,62 +144,68 @@ const Navbar = () => {
                 console.log(error)
             })
     }
+
+    const navRef = useRef();
+
+    const showNavbar = () => {
+        navRef.current.classList.toggle(
+            "responsive_nav"
+        );
+    };
+
     return (
-        <div id="mainDiv">
-            <nav>
-                <div>
-                    <ul>
-                        <li>
-                            <a onClick={(e) => navigate('/home')}>Home</a>
-                        </li>
-                        <li>
-                            <a onClick={(e) => CheckPermissions()}>Créer un exercice</a>
-                        </li>
-                        <li>
-                            <a title="Historique"><FaHistory onClick={(e) => { navigate('/history') }} /></a>
-                        </li>
-                        <li>
-                            <Popup
-                                trigger={
-                                    <a>
-                                        <div>
-                                            <FaUserAlt />
-                                        </div>
-                                    </a>
-                                }
-                                position="bottom center"
-                                open={popupOpen}
-                                on="hover"
-                                closeOnDocumentClick
-                            >
-                                <div id="popupConnection">
-                                    {username !== "" ? (
-                                        <div>
-                                            <br />
-                                            <h3>Bienvenue sur votre profil</h3>
-                                            <p>Bonjour {username} !</p>
-                                            <p>Vous êtes connecté à un compte {role}</p>
-                                            <button className="buttonProfile2" onClick={(e) => historyy()}>Voir mon historique d'exercices</button>
-                                            <br />
-                                            <button  className="buttonProfile2" onClick={(e) => navigate('/profile')}>Accéder à mon profil</button>
-                                            <br />
-                                            <LogoutIcon onClick={(e) => deconnect()}></LogoutIcon>
-                                        </div>
-                                    ) : (
-                                        <div>
-                                            <h3>Vous êtes non connecté</h3>
-                                            <button onClick={(e) => navigate('/register')}>Se créer un compte</button>
-                                            <h2>Ou se connecter :</h2>
-                                            <button onClick={(e) => navigate('/')}>Se connecter</button>
-                                        </div>
-                                    )}
-                                </div>
-                            </Popup>
-                        </li>
-                    </ul>
-                </div>
+        <header>
+            <h3>LCDMS</h3>
+            <nav ref={navRef} className=''>
+                <a title="Retourner à la page d'accueil" onClick={(e) => navigate('/home')}><HomeIcon /></a>
+                <a title="Créer un exercice" onClick={(e) => CheckPermissions()}><CreateIcon /></a>
+                <a title="Historique"><FaHistory onClick={(e) => { navigate('/history') }} /></a>
+                <Popup
+                    trigger={
+                        <a title="Accéder à mon profil">
+                            <FaUserAlt />
+                        </a>
+                    }
+                    position="bottom center"
+                    open={popupOpen}
+                    on="hover"
+                    closeOnDocumentClick
+                >
+                    <div id="popupConnection">
+                        {username !== "" ? (
+                            <div>
+                                <br />
+                                <h3>Bienvenue sur votre profil</h3>
+                                <p>Bonjour {username} !</p>
+                                <p>Vous êtes connecté à un compte {role}</p>
+                                <button className="buttonProfile2" onClick={(e) => historyy()}>Voir mon historique d'exercices</button>
+                                <br />
+                                <button className="buttonProfile2" onClick={(e) => navigate('/profile')}>Accéder à mon profil</button>
+                                <br />
+                                <LogoutIcon onClick={(e) => deconnect()}></LogoutIcon>
+                            </div>
+                        ) : (
+                            <div>
+                                <h3>Vous êtes non connecté</h3>
+                                <button onClick={(e) => navigate('/register')}>Se créer un compte</button>
+                                <h2>Ou se connecter :</h2>
+                                <button onClick={(e) => navigate('/')}>Se connecter</button>
+                            </div>
+                        )}
+                    </div>
+                </Popup>
+                <button
+                    className="nav-btn nav-close-btn"
+                    onClick={showNavbar}>
+                    <FaTimes />
+                </button>
             </nav>
-        </div>
+            <button
+                className="nav-btn"
+                onClick={showNavbar}>
+                <FaBars />
+            </button>
+        </header>
     );
 };
 export default Navbar;

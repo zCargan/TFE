@@ -187,7 +187,6 @@ const NewExercice = () => {
                 <div className="divExoCreation" id="div_photo_create_exercice">
                     <h2>Partie photo : </h2>
                     <img src="gallerie.png" onClick={callGetPhotos} width="100" height="100" />
-                    <img src="uploadPhoto.png" onClick={callUploadPhoto} width="100" height="100" />
                 </div>
                 <br />
                 <br />

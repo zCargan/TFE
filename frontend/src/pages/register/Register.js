@@ -142,12 +142,15 @@ const Connexion = () => {
                 <div id="h1div">
                     <h1 className='h1r'>Bienvenue sur la page de création de compte</h1>
                 </div>
+                <br />
                 <div>
                     <h3 className='h3r'>Nous avons besoin des données suivantes afin d'enregister votre compte</h3>
                 </div>
+                <br />
                 <div>
                     <p className='pR'>Elles ne seront en aucun cas utilisée, elles sont uniquement nécessaire pour un bon fonctionnement de l'application</p>
                 </div>
+                <br />
                 <div id="formInputR">
                     <input className="inputRegister" placeholder='Prénom' type='text' id="surname" onChange={(e) => setSurname(e.target.value)}></input>
                     <br />

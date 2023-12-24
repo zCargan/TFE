@@ -1,0 +1,26 @@
+.detailSound {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Aligne les éléments enfants au centre horizontalement */
+    margin-top: 1%;
+    margin-left: 32%;
+    max-width: 36%;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.newNameSound {
+    margin-bottom: 3%;
+}
+
+.detailSound p {
+    font-family: j2;
+    font-weight: bold;
+    color: white;
+    font-size: 200%;
+}

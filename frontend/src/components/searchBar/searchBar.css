@@ -1,44 +1,46 @@
+#searchBarContainer {
+    text-align: center;
+    margin-bottom: -2%;
+}
+
 .navbar {
-
-    width: 60%;
-    margin: 0 auto;
-
+    margin-bottom: 2%;
 }
 
 .navbar ul {
     list-style: none;
     padding: 0;
-    text-align: center; /* Centre les éléments enfants horizontalement */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .navbar li {
-    width: 170px; /* Augmentez la largeur selon vos besoins */
-    margin-left: 8%; /* Ajoutez une marge pour l'espace entre les éléments li */
+    flex: 1; /* Chaque li occupe une part égale de l'espace disponible */
     text-align: center;
-    border-radius: 10px;
+    margin: 0 5px; /* Ajoutez une marge entre les éléments li si nécessaire */
 }
 
 .navbar select,
 .navbar input,
 .navbar button {
-    width: 130%; /* Faites en sorte que les éléments occupent toute la largeur de la navbar */
-    padding: 4px;
+    width: 90%;
+    padding: 10px;
+    margin-top: 5px;
     border: 1px solid #ccc;
-    border-radius: 7px;
-
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
 .navbar button {
     background-color: #555;
-    color: #fff;
+    color: white;
     cursor: pointer;
 }
 
 .navbar button:hover {
-    background-color: #555;
+    background-color: #444;
 }
-
-
 
 .custom-select-searchBar {
     appearance: none;
@@ -52,7 +54,7 @@
     color: white;
 }
 
-.custom-select:hover {
+.custom-select-searchBar:hover {
     border-color: #aaa;
 }
 
@@ -60,8 +62,23 @@
     background-color: #555;
     color: white;
     text-align: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
 #rechercheSpecifique::placeholder {
     color: white;
+}
+
+
+.navbar button {
+    margin-top: 14px; /* Ajustez la valeur selon vos besoins */
+}
+
+
+
+#showWS {
+    background-color: rgb(125, 196, 20);
 }

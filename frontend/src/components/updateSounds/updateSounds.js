@@ -76,15 +76,21 @@ const UpdateSounds = ({ onSoundSelect }) => {
             },
         });
     }
- 
+
     return (
         <div>
             <Navbar />
-            <div  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                 <div id="zone_sound">
+                    <div className='h1us'>
+                        <h1>Ici, vous pouvez intéragir avec vos sons</h1>
+                    </div>
+                    <div  className='pus'>
+                        <p>Il vous suffit de cliquer sur le son voulu</p>
+                    </div>
                     <div id="zoneExoSon" className='zoneSons' style={{ display: 'flex', flexDirection: 'row', gap: '10px', justifyContent: 'center' }} >
                         {sons.map((son, index) => (
-                            <div key={index} style={{ marginRight: '10px' }} className='divSonUnique' onClick={(e)  => {getDetails(son)}}>
+                            <div key={index} style={{ marginRight: '10px' }} className='divSonUnique' onClick={(e) => { getDetails(son) }}>
                                 <p>{son.nom_d_origine}</p>
                                 <audio controls>
                                     <source src={URL.createObjectURL(new Blob([new Uint8Array(son.son_data.data)], { type: 'audio/mpeg' }))} type="audio/mpeg" />

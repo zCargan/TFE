@@ -4,6 +4,9 @@ import Navbar from '../../components/navbar/Navbar';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
+
+import './soundDetail.css'
+
 const SoundDetail = () => {
     const { state } = useLocation();
     const { son } = state;
@@ -45,7 +48,7 @@ const SoundDetail = () => {
     }
 
 
-    function deleteSound () {
+    function deleteSound() {
 
 
         const config = {
@@ -90,16 +93,18 @@ const SoundDetail = () => {
     return (
         <div>
             <Navbar />
-            <p>{son.nom_d_origine}</p>
-            <br />
-            <audio controls>
-                <source src={URL.createObjectURL(new Blob([new Uint8Array(son.son_data.data)], { type: 'audio/mpeg' }))} type="audio/mpeg" />
-                Votre navigateur ne supporte pas l'élément audio.
-            </audio>
-            <br />
-            <input placeholder='Nouveau nom de votre son' id="newName"></input><button onClick={renameSound}>Renommer</button>
-            <button onClick={downloadSound}>Download</button>
-            <button onClick={deleteSound}>Supprimer</button>
+            <div className='detailSound'>
+                <p>{son.nom_d_origine}</p>
+                <br />
+                <audio controls>
+                    <source src={URL.createObjectURL(new Blob([new Uint8Array(son.son_data.data)], { type: 'audio/mpeg' }))} type="audio/mpeg" />
+                    Votre navigateur ne supporte pas l'élément audio.
+                </audio>
+                <br />
+                <input placeholder='Nouveau nom de votre son' className='newNameSound' id="newName"></input><button class="buttonGlobalCSS" onClick={renameSound}>Renommer</button>
+                <button  class="buttonGlobalCSS" onClick={downloadSound}>Download</button>
+                <button class="buttonGlobalCSS" onClick={deleteSound}>Supprimer</button>
+            </div>
         </div>
     );
 };

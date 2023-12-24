@@ -11,7 +11,7 @@ const SearchBarAdmin = () => {
     function sendRequest() {
 
         let anneeScolaire = document.getElementById('anneeScolaire').value;
-        let rechercheSpecifique = document.getElementById('rechercheSpecifique').value;
+        let rechercheSpecifique = document.getElementById('rechercheSpecifiqueAdmin').value;
         let matiere = document.getElementById('matiere').value;
 
         if ((anneeScolaire === '---') && (rechercheSpecifique === '---') && (matiere === '---')) {

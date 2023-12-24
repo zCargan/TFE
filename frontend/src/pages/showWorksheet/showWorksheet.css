@@ -1,7 +1,28 @@
-.divShowWorksheet {
-    background-color: red;
-}   
+.bigTitle {
+    font-family: j2;
+    font-weight: bold;
+    color: black;
+    text-decoration: underline;
+}
 
-#abaqueWSCreator {
-    background-color: red;
+.pPage {
+    font-family: j2;
+    font-size: 150%;
+    color: black;
+    font-weight: bold;
+}
+
+
+.divP {
+    margin-top: 2%;
+}
+
+#WSImg {
+    position: fixed;
+    top: 25%;
+    left: 7%;
+    opacity: 30%;
+    transform: scaleX(-1);
+    z-index: -1;
+    width: 600px;    
 }

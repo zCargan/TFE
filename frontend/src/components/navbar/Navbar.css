@@ -1,80 +1,114 @@
-/* Navbar container */
-#mainDiv {
-    background-color: #333;
-    color: #fff;
-    box-sizing: border-box;
-    width: 100%;
-    height: 8%;
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap");
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: "Titillium Web", sans-serif;
 }
 
+:root {
+	--mainColor: rgb(128,60,52);
+	--mainColorLight: #5767aa;
+	--secondaryColor: rgba(255,114,107,255);
+	--textColor: #eee;
+}
+
+header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 80px;
+	padding: 0 2rem;
+	background-color: var(--mainColor);
+	color: var(--textColor);
+}
+
+nav a {
+	margin: 0 1rem;
+	color: var(--textColor);
+	text-decoration: none;
+}
+
+nav a:hover {
+	color: var(--secondaryColor);
+}
+
+header .nav-btn {
+	padding: 5px;
+	cursor: pointer;
+	background: transparent;
+	border: none;
+	outline: none;
+	color: var(--textColor);
+	visibility: hidden;
+	opacity: 0;
+	font-size: 1.8rem;
+}
+
+header div,
 nav {
-    display: flex;
-    width: 100%;
+	display: flex;
+	align-items: center;
 }
 
-/* Navbar links */
-ul {
-    list-style: none;
-    display: flex;
-    align-items: center;
+@media only screen and (max-width: 1024px) {
+	header .nav-btn {
+		visibility: visible;
+		opacity: 1;
+	}
+
+	header nav {
+		position: fixed;
+		top: -100vh;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 1.5rem;
+		background-color: var(--mainColor);
+		transition: 1s;
+	}
+
+	header .responsive_nav {
+		transform: translateY(100vh);
+		z-index: 100;
+	}
+
+	nav .nav-close-btn {
+		position: absolute;
+		top: 2rem;
+		right: 2rem;
+	}
+
+	nav a {
+		font-size: 1.5rem;
+	}
 }
-
-li {
-    margin-left: 300px;
-}
-
-a {
-    text-decoration: none;
-    color: #fff;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-a:hover {
-    color: #FF8C42;
-}
-
-
-.fa-user-alt {
-    font-size: 40px; /* Ajustez la taille de l'icône selon vos besoins */
-}
-
-.swal2-icon {
-    color: #ff0000;
-}
-
-#popupConnection {
-    height: 300px;
-    width: 500px;
-    background-color: rgba(255, 255, 255, 0.85);
-    text-align: center;
-    border-radius: 20px;
-    border: 1px solid black;
-}
-
-
-
-#text_history {
-    background-color: white;
-    padding: 2%;
-    height: 20px;
-    width: 200px;
-    border-radius: 30px;
-    text-align: center;
-}
-
 
 .buttonProfile2:hover {
-    background-color: white;
-    color: rgb(170, 18, 137);
-    border: 1px solid rgb(170, 18, 137); 
+  background-color: white;
+  color: rgb(170, 18, 137);
+  border: 1px solid rgb(170, 18, 137); 
 }
 
 .buttonProfile2 {
-    font-size:15px;
-    background-color: rgb(170, 18, 137);
-    color: white;
-    padding: 10px 20px;
-    border: 1px solid transparent;
-    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+  font-size:15px;
+  background-color: rgb(170, 18, 137);
+  color: white;
+  padding: 10px 20px;
+  border: 1px solid transparent;
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+#popupConnection {
+  height: 300px;
+  width: 500px;
+  background-color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  border-radius: 20px;
+  border: 1px solid black;
 }

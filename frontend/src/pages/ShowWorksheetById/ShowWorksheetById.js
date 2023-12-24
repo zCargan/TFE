@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie';
 
+import './ShowWorksheetById.css'
+
 import TATWSCreator from '../../components/Creator/TATWSCreator/TATWSCreator';
 import TTIWSCreator from '../../components/Creator/TTIWSCreator/TTIWSCreator';
 import AbaqueWSCreator from '../../components/Creator/AbaqueWSCreator/AbaqueWSCreator';
@@ -25,6 +27,9 @@ const ShowWorksheetById = () => {
     const [LDN, setLDN] = useState([]);
     const [STT, setSTT] = useState([]);
     const [MDN, setMDN] = useState([]);
+    const [name, setName] = useState();
+    const [anneeScolaire, setAnneeScolaire] = useState();
+    const [descriptionWorksheet, setDescriptionWorksheet] = useState();
 
     const [score, setScore] = useState([]);
 
@@ -90,7 +95,7 @@ const ShowWorksheetById = () => {
 
                     setLoaded(true);
                 } else {
-                    setLoaded(true); 
+                    setLoaded(true);
                 }
             })
             .catch(err => {
@@ -104,6 +109,9 @@ const ShowWorksheetById = () => {
         axios.get(`http://localhost:4000/exercice/getWS/${exo}`, config)
             .then(res => {
                 console.log(res.data)
+                setName(res.data.nom)
+                setDescriptionWorksheet(res.data.descriptionWorksheet)
+                setAnneeScolaire(res.data.anneeScolaire)
                 console.log(res.data.data)
                 console.log(res.data.data)
                 setInfos(res.data.data);
@@ -136,7 +144,7 @@ const ShowWorksheetById = () => {
                     }
                 });
 
-                
+
                 // res.data.data.forEach(item => {
                 //     switch (item.type) {
                 //         case "TAT":
@@ -164,7 +172,7 @@ const ShowWorksheetById = () => {
                 //             break;
                 //     }
                 // });
-                
+
 
                 setLoaded(true);
 
@@ -198,21 +206,21 @@ const ShowWorksheetById = () => {
         }
 
         axios
-        .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
-        .then((res) => {
-            setTimeout(() => {
-                navigate('/home');
-            }, 1000);
-        })
-        .catch((error) => {
-            Swal.fire({
-                title: 'Erreur',
-                text: "Une erreur s'est produite lors de l'enregistrement de votre score",
-                icon: 'error',
-                showConfirmButton: false,
-                timer: 1500
-            });
-        })
+            .post("http://localhost:4000/exercice/registerAnswers", { data }, config)
+            .then((res) => {
+                setTimeout(() => {
+                    navigate('/home');
+                }, 1000);
+            })
+            .catch((error) => {
+                Swal.fire({
+                    title: 'Erreur',
+                    text: "Une erreur s'est produite lors de l'enregistrement de votre score",
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            })
     }
 
 
@@ -262,11 +270,24 @@ const ShowWorksheetById = () => {
     return (
         <div>
             <Navbar />
-            <p onClick={getWSById}>{exo}</p>
             <div>
+                <div className='infoWS'>
+                    <div>
+                        <h1 className='h1WS'>Titre de la feuille d'exercice : {name}</h1>
+                    </div>
+                    <div>
+                        <h3 className='h3WS'>Description de la feuille d'exercice : {descriptionWorksheet}</h3>
+                    </div>
+                    <div>
+                        <h3 className='h3WS'>
+                            Année scolaire ciblée : {anneeScolaire}
+                            {anneeScolaire === '1' ? 'er' : 'ème'}
+                        </h3>
+                    </div>
+                </div>
+                <br />
                 {loaded && (
                     <div>
-                        <p>Test de chargements</p>
                         <TATWSCreator exo={TAT} onTATDataChange={handleTATScoreChange} />
                         <TTIWSCreator exo={TTI} onTTIDataChange={handleTTIScoreChange} />
                         <AbaqueWSCreator exo={Abaque} onAbaqueDataChange={handleAbaqueScoreChange} />
@@ -277,7 +298,7 @@ const ShowWorksheetById = () => {
                     </div>
                 )}
                 <div>
-                    <button id="testVraitest" onClick={testVraitest}>test fonctionnalitée</button>
+                    <button className='buttonGlobalCSS' id="testVraitest" onClick={testVraitest}>Corriger mon exercice</button>
                 </div>
             </div>
         </div>

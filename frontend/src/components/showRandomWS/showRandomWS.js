@@ -18,14 +18,14 @@ const ShowRandomWS = (props) => {
 
     return (
         <div className='divShowRandomWS' onClick={getInfosFromWS}>
-            <p><span class='SRE'>Titre : </span>{randomWS.nom}</p>
-            <p>Description : {randomWS.descriptionWorksheet}</p>
-            <p>Année Scolaire : {randomWS.anneeScolaire}</p>
-            <p>Nombre d'exercice :  {randomWS.data.length}</p>
+            <p className='descriptionWS'>Titre : {randomWS.nom}</p>
+            <p className='descriptionWS'>Description : {randomWS.descriptionWorksheet}</p>
+            <p className='descriptionWS'>Année Scolaire : {randomWS.anneeScolaire}</p>
+            <p className='descriptionWS'>Nombre d'exercice :  {randomWS.data.length}</p>
             <ul>
                 {randomWS.data.map((dataItem, dataIndex) => (
                     <li key={dataIndex}>
-                        <p>Type : {dataItem.type}</p>
+                        <p  className='descriptionWS'>Type : {dataItem.type}</p>
                     </li>
                 ))}
             </ul>

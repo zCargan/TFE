@@ -137,3 +137,21 @@
     padding-top: 1%;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+
+.buttonCreationWS:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+  
+  
+.buttonCreationWS {
+    background-color: black;
+    color: white;
+    padding: 2%;
+    height: 5vh;
+    text-align: center;
+    width: 20vh;
+    border-radius: 10px;
+    border: 1px solid transparent;
+}

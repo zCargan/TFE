@@ -5,6 +5,8 @@ import Navbar from '../../components/navbar/Navbar';
 import ShowRandomWS from '../../components/showRandomWS/showRandomWS';
 import SearchBarWS from '../../components/searchBarWS/searchBarWS';
 
+import './showWorksheet.css'
+
 const ShowWorksheet = () => {
     const [randomWorksheets, setRandomWorksheets] = useState([]);
     const getMBCalledRef = useRef(false);
@@ -22,7 +24,7 @@ const ShowWorksheet = () => {
             .then((res) => {
                 const max = res.data.count;
                 console.log(max)
-                getARandomWorksheets(max, 5); // Générer 5 worksheets aléatoires
+                getARandomWorksheets(max, 1);
             })
             .catch((error) => {
                 console.error("Error fetching total counts:", error);
@@ -82,15 +84,28 @@ const ShowWorksheet = () => {
     const fonctionDeRetour = (data) => {
         console.log(data);
         setRandomWorksheets(data);
-      };
+    };
 
     return (
         <div>
             <Navbar />
-            <SearchBarWS dataDeLenfant={fonctionDeRetour}/>
+            <br />
+            <SearchBarWS dataDeLenfant={fonctionDeRetour} />
+            <div>
+                <br />
+                <h1 className='bigTitle'>Feuille d'exercices aléatoires</h1>
+                <div className='divP'>
+                    <p className='pPage'>Ici, vous retrouverez une feuille aléatoire d'exercice</p>
+                    <p className='pPage'>Vous pouvez afiner vos recherches afin de trouver la feuille d'entrainement qu'il vous faut!</p>
+                </div>
+            </div>
             {randomWorksheets.map((worksheet, index) => (
                 <ShowRandomWS randomWS={worksheet} />
             ))}
+            <button className='buttonGlobalCSS' onClick={(e) => {window.location.reload();}}>Me donner un autre exercice aléatoire</button>
+            <div>
+                <img src="createWS.png" id="WSImg"></img>
+            </div>
         </div>
     );
 };

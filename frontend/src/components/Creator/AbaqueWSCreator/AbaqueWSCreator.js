@@ -112,9 +112,9 @@ const AbaqueWSCreator = ({ exo, onAbaqueDataChange }) => {
 
 
     return (
-        <div className='divShowWorksheet' id="abaqueWSCreator">
+        <div>
             {exo.length !== 0 ? (
-                <div>
+                <div className='divShowWorksheet' id="abaqueWSCreator">
                     <h3>{exo.description}</h3>
                     <p id="description">{description}</p>
                     <br />

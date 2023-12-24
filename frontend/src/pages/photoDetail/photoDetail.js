@@ -48,38 +48,38 @@ const PhotoDetail = () => {
     };
 
     function renameImg() {
-        let newName = document.getElementById('newName').value;
-    
+        let newNameS = document.getElementById('newNameS').value;
+
         const config = {
             headers: {
                 'Authorization': `Bearer ${Cookies.get('JWT')}`,
                 'Content-Type': 'application/json' // Utilisation de 'application/json' pour le Content-Type
             }
         };
-    
+
         const data = {
-            newNameValue: newName
+            newNameSValue: newNameS
         };
-    
+
         axios.post(`http://localhost:4000/photos/changeName/${id}`, data, config).then((res) => {
             console.log(res)
         })
-        .catch((error) => {
-            console.log(error)
-            Swal.fire({
-                icon: "success",
-                title: "Nom changé avec succès",
-                showConfirmButton: false,
-                timer: 1500
-            });
-        })
+            .catch((error) => {
+                console.log(error)
+                Swal.fire({
+                    icon: "success",
+                    title: "Nom changé avec succès",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            })
         navigate('/photo')
 
 
     }
-    
 
-    function deleteImg () {
+
+    function deleteImg() {
 
 
         const config = {
@@ -105,21 +105,24 @@ const PhotoDetail = () => {
     return (
         <div>
             <Navbar />
-            <h3>Détail de la photo</h3>
-            <p>Id de la photo : {id}</p>
-            <p>Type de la photo : {type}</p>
-            <p>Nom de la photo : {name}</p>
-            <div>
-                {imageSrc && (
-                    <div>
-                        <img src={imageSrc} alt="Détail de la photo" style={{ width: '200px', height: '200px' }} />
-                        <br></br>
-                        <input placeholder='Renommer la photo' id="newName"></input><button onClick={renameImg}>Renommer</button>
-                        <br></br>
-                        <button onClick={downloadImage}>Télécharger</button><button onClick={deleteImg}>Supprimer la photo</button>
-                    </div>
-                )}
+            <div className='photoDetail'>
+                <h3>Détail de la photo</h3>
+                <p>Id de la photo : {id}</p>
+                <p>Type de la photo : {type}</p>
+                <p>Nom de la photo : {name}</p>
+                <div>
+                    {imageSrc && (
+                        <div>
+                            <img src={imageSrc} alt="Détail de la photo" style={{ width: '200px', height: '200px' }} />
+                            <br></br>
+                            <input placeholder='Renommer la photo' id="newNameS"></input><button class="buttonGlobalCSS" onClick={renameImg}>Renommer</button>
+                            <br></br>
+                            <button class="buttonGlobalCSS" onClick={downloadImage}>Télécharger</button><button class="buttonGlobalCSS" onClick={deleteImg}>Supprimer la photo</button>
+                        </div>
+                    )}
+                </div>
             </div>
+
         </div>
     );
 };

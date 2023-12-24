@@ -3,3 +3,76 @@
     width: 400px;
     height: 400px;
 }
+
+#photoUserP{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1%;
+    margin-left: 10%;
+    max-width: 80%; /* Ajoutez une largeur maximale pour le cadre des images */
+    border: 2px solid #ddd; /* Ajoute une bordure autour du cadre */
+    border-radius: 10px; /* Ajoute des coins arrondis au cadre */
+    padding: 20px; /* Ajoute un espace intérieur au cadre */
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ajoute une légère ombre pour donner du relief au cadre */
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.divh1photo {
+    margin-top: 1%;
+}
+
+.divh1photo h1 {
+    font-family: j2;
+    font-weight: bold;
+    color: white;
+}
+
+.divh3photo {
+    margin-top: 4%;
+}
+
+.divh3photo h3 {
+    font-family: j2;
+    font-weight: bold;
+    color: white;
+}
+
+.digDivPhoto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1%;
+    margin-left: 10%;
+    max-width: 80%; /* Ajoutez une largeur maximale pour le cadre des images */
+    border: 2px solid #ddd; /* Ajoute une bordure autour du cadre */
+    border-radius: 10px; /* Ajoute des coins arrondis au cadre */
+    padding: 20px; /* Ajoute un espace intérieur au cadre */
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ajoute une légère ombre pour donner du relief au cadre */
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 20px;
+    
+}
+
+#newName {
+    margin-top: 1%;
+    width: 40%;
+    height: 3vh;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#newName::placeholder {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+}

@@ -1,0 +1,33 @@
+.photoDetail {
+    margin-top: 2%;
+}
+
+#newNameS {
+    background-color: white;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: black;
+}
+
+.photoDetail h3 {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-family: j2;
+    font-weight: bold;
+    color: white;
+    font-size: 200%;
+}
+
+.photoDetail {
+    background:rgb(0,0,0,0.5);
+    border: 1px solid white;
+    border-radius: 10px;
+    padding-bottom: 3%;
+    width: 36%;
+    margin-left: 32%;
+}
+
+.photoDetail p {
+    color: white
+}

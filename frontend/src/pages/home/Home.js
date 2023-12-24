@@ -124,7 +124,7 @@ const Home = () => {
                 <ShowRandomExos key={index} randomExos={randomExos} />
             ))}
             <Img />
-            <Logo />
+            {/* <Logo /> */}
 
         </div>
     );

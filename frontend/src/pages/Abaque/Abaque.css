@@ -7,7 +7,7 @@
 
 /* Année scolaire */
 .anneeScolaireAbaque {
-    margin-top: -2%;
+    margin-top: 0%;
     background: rgb(0, 0, 0, 0.5);
     padding: 10px;
     width: 36%;
@@ -32,7 +32,6 @@
 
 .inputAnneeScolaire {
     position:relative;
-    margin-left: 50%;
     font-size: 30px;
     margin-left: 20px;
 }
@@ -65,7 +64,7 @@
 #descriptionExercice {
     text-align: center;
     height: 5vh;
-    width: 90%;
+    width: 92%;
     background-color: black;
     color: white
 }
@@ -79,7 +78,7 @@
     display: flex;
     justify-content: space-around; 
     align-items: center;
-    width: 37%;
+    width: 36%;
     margin-left: 32%;
     background: rgb(0, 0, 0, 0.5);
     border: 1px solid white;

@@ -2,8 +2,39 @@
     background-color: white;
     border: 1px solid black;
     margin: 50px;
+    padding: 20px;
+    text-align: center; 
+    background: rgb(0,0,0, 0.5);
+    border-radius: 10px;
+    border: 1px solid white;
 }
 
-#detailExoWS {
-    display: block;
+.divShowRandomWS p {
+    margin: 10px 0; 
+}
+
+.SRE {
+    font-weight: bold; 
+}
+
+.divShowRandomWS ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center; 
+}
+
+.divShowRandomWS ul li {
+    margin: 0 15px; 
+}
+
+.divShowRandomWS ul li p {
+    margin: 0; 
+}
+
+
+.descriptionWS {
+    color: white;
+    font-family: joli;
+    font-size: 2.5vh;
 }

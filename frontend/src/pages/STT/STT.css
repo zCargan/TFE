@@ -1,5 +1,4 @@
 .anneeScolaireSTT {
-    margin-top: -2%;
     background: rgb(0, 0, 0, 0.5);
     padding: 10px;
     width: 36%;
@@ -93,6 +92,7 @@
     font-family: j2;
     font-weight: bold;
     font-size: 180%;
+    margin-bottom: 3%;
 }
 
 .selectConfirmSTT {

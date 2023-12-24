@@ -1,8 +1,8 @@
 .inputConnection {
+    margin: 2%;
     text-align: center;
     border-radius: 7px;
-    height: 15px;
-    margin: 5px;
+    height: 4vh;
     border: 1px solid black;
     padding: 5px;
     width: 200;
@@ -89,17 +89,7 @@
     transform: translateX(-50%);
 }
 
-.inputConnection {
-    text-align: center;
-    border-radius: 7px;
-    height: 15px;
-    margin: 5px;
-    border: 1px solid black;
-    padding: 5px;
-    width: 200;
-}
-
 
 .h1Connection {
-    margin-top: 1%
+    margin-top: 3.4%
 }

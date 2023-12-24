@@ -66,10 +66,10 @@ const SearchBar = () => {
                         </select>
                     </li>
                     <li>
-                    <button onClick={(e) => navigate('/showWorksheet')}>Voir les feuilles</button>
+                        <button onClick={sendRequest}>Rechercher</button>
                     </li>
                     <li>
-                        <button onClick={sendRequest}>Rechercher</button>
+                        <button className="showWS" id="showWS" onClick={(e) => navigate('/showWorksheet')}>Voir les feuilles d'exerices disponibles</button>
                     </li>
                 </ul>
             </div>

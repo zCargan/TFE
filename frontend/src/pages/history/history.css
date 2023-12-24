@@ -69,7 +69,8 @@ button {
 }
 
 #G2 {
-    height: 94.5vh;
+    height: 91.5vh;
+    overflow-y: auto;
 }
 
 .buttonProfileH:hover {
