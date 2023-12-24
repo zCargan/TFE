@@ -102,7 +102,7 @@ const SoundDetail = () => {
                 </audio>
                 <br />
                 <input placeholder='Nouveau nom de votre son' className='newNameSound' id="newName"></input><button class="buttonGlobalCSS" onClick={renameSound}>Renommer</button>
-                <button  class="buttonGlobalCSS" onClick={downloadSound}>Download</button>
+                <button  onClick={downloadSound}>Download</button>
                 <button class="buttonGlobalCSS" onClick={deleteSound}>Supprimer</button>
             </div>
         </div>
