@@ -37,9 +37,9 @@ const Abaque = () => {
         let titre = document.getElementById('titreAbaque').value;
         let description = document.getElementById('descriptionExercice').value;
         texte += "<br />"
+        texte += '<div class="abaqueInputDivCreation">'
         texte += '<h1>Titre : ' + titre + '</h1>'
         texte += '<h2>Description : ' + description + '</h2>'
-        texte += '<div class="abaqueInputDivCreation">'
         texte += '<br />'
         for (let i = 0; i <height; i++) {
             for (let j = 0; j < width; j++) {
@@ -211,9 +211,9 @@ const Abaque = () => {
             <Navbar />
             <div id="divCreationAbaque">
                 <h2 className='MenuAbaqueTitle'>Menu de création de l'abaque</h2>
-                <div className='anneeScolaire'>
-                    <p className='legendAnneeScolaire'>Choisissez l'année scolaire ciblée:</p>
-                    <div className="AnneeScolaireChoice">
+                <div className='anneeScolaireAbaque'>
+                    <p className='legendAnneeScolaireAbaque'>Choisissez l'année scolaire ciblée:</p>
+                    <div className="AnneeScolaireChoiceAbaque">
                         <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="1" />1er
                         <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="2" />2ème
                         <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="3" />3ème
@@ -256,7 +256,7 @@ const Abaque = () => {
                 </div>
             </div>
             <h2 className='abaqueH2'>Votre abaque :</h2>
-            <p id="abaqueCreation">Test</p>
+            <p id="abaqueCreation"></p>
         </div>
     );
 };

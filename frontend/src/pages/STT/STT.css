@@ -1,0 +1,152 @@
+.anneeScolaireSTT {
+    margin-top: -2%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.AnneeScolaireChoiceSTT {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.legendAnneeScolaireSTT {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 180%;
+}
+
+
+
+.MenuSTTTitle {
+    margin-top: 0%;
+    font-family: j2;
+    font-size: 50px;
+    text-decoration: underline;
+}
+
+
+.textareaSTT {
+    margin-top: 1%;
+    text-align: center;
+    height: 7vh;
+    width: 90%;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.textareaSTT::placeholder {
+    color: white;
+    padding-top: 1%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.inputSTTBottom {
+    margin-top: 1%;
+    width: 92%;
+    height: 20px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.inputSTTBottom::placeholder {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+}
+
+.divInputsSTT {
+    margin-top: 1%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: 14vh;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+#soundPart {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: auto;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.h3stt {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 180%;
+}
+
+.selectConfirmSTT {
+    margin-top: -4%;
+}
+
+#inputSound {
+    margin-top: 1%;
+    width: 92%;
+    height: 20px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+
+#inputSound::placeholder {
+    color: white;
+}
+
+
+.buttonConfirmSTT {
+    background-color: black;
+    color: white;
+    height: 3.5vh;
+    text-align: center;
+    width: 15vh;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+.buttonConfirmSTT:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+
+.buttonConfirmSTTValideExo {
+    margin-top: 4%;
+    background-color: black;
+    color: white;
+    height: 3.5vh;
+    text-align: center;
+    width: 15vh;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+.buttonConfirmSTTValideExo:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}

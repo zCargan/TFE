@@ -6,7 +6,7 @@
 }
 
 /* Année scolaire */
-.anneeScolaire {
+.anneeScolaireAbaque {
     margin-top: -2%;
     background: rgb(0, 0, 0, 0.5);
     padding: 10px;
@@ -16,6 +16,20 @@
     border-radius: 10px;
 }
 
+.AnneeScolaireChoiceAbaque {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.legendAnneeScolaireAbaque {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 180%;
+}
+
 .inputAnneeScolaire {
     position:relative;
     margin-left: 50%;
@@ -23,19 +37,7 @@
     margin-left: 20px;
 }
 
-.AnneeScolaireChoice {
-    color: white;
-    font-family: j2;
-    font-weight: bold;
-    font-size: 20px;
-}
 
-.legendAnneeScolaire {
-    color: white;
-    font-family: j2;
-    font-weight: bold;
-    font-size: 180%;
-}
 
 /* Input abaque */
 .divInputs {

@@ -4,6 +4,14 @@
     background-color: white;
 }
 
-#description {
+#descriptionSTT {
+    border-radius: 10px;
+    padding: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-decoration: underline;
+    text-align: center;
+    height: 5vh;
+    width: 90%;
+    background-color: black;
+    color: white
 }

@@ -6,6 +6,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Navbar from '../../components/navbar/Navbar';
 
+import './TTI.css'
+
 const TTI = () => {
     const [tableData, setTableData] = useState([]);
     const [selectedImageInfo, setSelectedImageInfo] = useState({ id: null, name: null });
@@ -74,12 +76,12 @@ const TTI = () => {
             }
 
             axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
-            .then((res) => {
-                console.log(res)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+                .then((res) => {
+                    console.log(res)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
         })
             .catch((error) => {
                 console.log(error)
@@ -89,63 +91,69 @@ const TTI = () => {
     return (
         <div>
             <Navbar />
-            <h3>Créez ici vos relations entre vos photos et un mot !</h3>
             <div>
-                <br />
-                <fieldset>
-                    <legend>Choisissez l'année scolaire ciblée:</legend>
-                    <input type="radio" name="anneeScolaire" value="1" />1er
-                    <input type="radio" name="anneeScolaire" value="2" />2ème
-                    <input type="radio" name="anneeScolaire" value="3" />3ème
-                    <input type="radio" name="anneeScolaire" value="4" />4ème
-                    <input type="radio" name="anneeScolaire" value="5" />5ème
-                    <input type="radio" name="anneeScolaire" value="6" />6ème
-                </fieldset>
-            </div>
-            <br />
-            <div>
-                <input id="nameExo" placeholder="Nom de l'exercice"></input>
-                <br></br>
-                <br></br>
-                <textarea id="descriptionExo" placeholder="Description de l'exercice" rows="5" cols="100"></textarea>
-            </div>
-            <div>
-                <p>Veuillez d'abord choisir une image</p>
-                <GetPhotos onImageClick={handleImageClick} />
-            </div>
-            {selectedImageInfo.id && (
-                <div>
-                    <h3>Nom de l'image sélectionnée : {selectedImageInfo.name}</h3>
+                <h2 className='MenuTTITitle'>Menu de création du "Texte avec images"</h2>
+                <div className='anneeScolaireTTI'>
+                    <p className='legendAnneeScolaireTTI'>Choisissez l'année scolaire ciblée:</p>
+                    <div className="AnneeScolaireChoiceTTI">
+                        <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="1" />1er
+                        <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="2" />2ème
+                        <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="3" />3ème
+                        <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="4" />4ème
+                        <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="5" />5ème
+                        <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="6" />6ème
+                    </div>
                 </div>
-            )}
-            <div id="suite">
-                <input placeholder='Placez ici le nom se rapportant à cette image' id="name_photo" style={{ width: "300px" }}></input>
-                <button onClick={confirm}>Confirmer</button>
             </div>
             <br />
-            <div className="table-container">
-                <table id="table">
-                    <thead>
-                        <tr>
-                            <th style={{ display: "none" }}>ID de l'image</th>
-                            <th>Nom de l'image</th>
-                            <th>Mot(s) associé(s)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {tableData.map(row => (
-                            <tr key={row.photo}>
-                                <td style={{ display: "none" }}>{row.id}</td>
-                                <td>{row.photo}</td>
-                                <td>{row.name}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+            <div className='divInputsTTI'>
+                <input className="inputTTIBottom" id="nameExo" placeholder="Nom de l'exercice"></input>
+                <textarea className="textareaTTI" id="descriptionExo" placeholder="Description de l'exercice" rows="5" cols="100"></textarea>
             </div>
             <br />
+            <div className="divDuDessous">
+                <div id="bigdiv" className='divConfig'>
+                    {selectedImageInfo.id && (
+                        <div>
+                            <h3 className='imgSelected'>Nom de l'image sélectionnée : {selectedImageInfo.name}</h3>
+                        </div>
+                    )}
+                    <div id="suite">
+                        <input className='sonImageTTI' placeholder='Placez ici le nom se rapportant à cette image' id="name_photo" style={{ width: "300px" }}></input>
+                        <button className='buttonTTI' onClick={confirm}>Confirmer</button>
+                    </div>
+                    <br />
+                    <div className="table-container">
+                        <table id="table">
+                            <thead>
+                                <tr>
+                                    <th style={{ display: "none" }}>ID de l'image</th>
+                                    <th>Nom de l'image</th>
+                                    <th>Mot(s) associé(s)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {tableData.map(row => (
+                                    <tr key={row.photo}>
+                                        <td style={{ display: "none" }}>{row.id}</td>
+                                        <td>{row.photo}</td>
+                                        <td>{row.name}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <button className='buttonTTI' onClick={(e) => saveExo()}>Valider l'exercice</button>
+                </div>
+                <div>
+                    <GetPhotos onImageClick={handleImageClick} />
+                </div>
+            </div>
+
+            <div>
+                <img id='creatifImg' src='creatif2.png'></img>
+            </div>
             <br />
-            <button onClick={(e) => saveExo()}>Valider l'exercice</button>
         </div>
     );
 };

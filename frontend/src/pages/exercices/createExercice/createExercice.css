@@ -13,19 +13,16 @@
     border-radius: 10px;
 }
 
-#nameInput {
-    border-radius: 5px;
-    width: 300px;
-    text-align: center;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-
 #divTopPage {
     display: flex;
+    margin-left: 43%;
+    width: 30%;
     align-items: center;
-    justify-content: center; 
-    flex-direction: row; 
+    margin-bottom: 3%;
+}
+
+#divTopPage button{
+    margin-left: 10%;
 }
 
 
@@ -64,4 +61,79 @@
 .fade-exit-active {
     opacity: 0.01;
     transition: opacity 300ms ease-in;
+}
+
+.MenuWSTitle {
+    margin-top: 0%;
+    font-family: j2;
+    font-size: 50px;
+    text-decoration: underline;
+}
+
+.anneeScolaireWS {
+    margin-top: -2%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.AnneeScolaireChoiceWS {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.legendAnneeScolaireWS {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 180%;
+}
+
+#infoExoWS {
+    margin-top: 1%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: auto;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin-bottom: 1%;
+}
+
+.nameWSGlobal {
+    margin-top: 1%;
+    width: 92%;
+    height: 3vh;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.nameWSGlobal::placeholder {
+    color: white;
+}
+
+.descriptionWSGlobal {
+    margin-top: 1%;
+    text-align: center;
+    height: 7vh;
+    width: 90%;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.descriptionWSGlobal::placeholder {
+    color: white;
+    padding-top: 1%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }

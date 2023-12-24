@@ -5,6 +5,8 @@ import GetSounds from '../../../components/getSoundsFromUserID/getSoundsFromUser
 import { IoIosInformationCircle } from "react-icons/io";
 import Popup from 'reactjs-popup';
 
+import './SoundToText.css'
+
 const SoundToText = ({ onSttData }) => {
     const [selectedSounds, setSelectedSounds] = useState([]);
     const [soundName, setSoundName] = useState('');
@@ -109,47 +111,51 @@ const SoundToText = ({ onSttData }) => {
                     </div>
                 </div>
             </Popup>
-            <div>
-                <br></br>
-                <textarea id="descriptionExo" placeholder="Description de l'exercice" rows={7} cols={60}></textarea>
-            </div>
-            <input
-                    placeholder="Nom donné au son pour l'exercice"
-                    style={{ width: "250px" }}
-                    value={soundName}
-                    onChange={handleNameChange}
-                    id="inputSound"
-                />
-                <button onClick={confirmeNameToString}>Confirmer</button>
+
+            <div className='divsttWS'>
                 <div>
-                <div>
-                    <h3>Sons sélectionnés : {selectedSoundName}</h3>
+                    <textarea id="descriptionExo" placeholder="Description de l'exercice" rows={7} cols={60}></textarea>
                 </div>
-            </div>
-            <div>
-                <div className="table-container">
-                    <table id="table">
-                        <thead>
-                            <tr>
-                                <th>Nom du son</th>
-                                <th>Nom associé</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {soundTable.map((row, index) => (
-                                <tr key={index}>
-                                    <td>{row.sound}</td>
-                                    <td>{row.inputValue}</td>
+                <div className='infoSonSelected'>
+                    <div>
+                        <h3 className='h3sttWS'>Sons sélectionnés : {selectedSoundName}</h3>
+                    </div>
+                    <input
+                        placeholder="Nom donné au son pour l'exercice"
+                        style={{ width: "250px" }}
+                        value={soundName}
+                        onChange={handleNameChange}
+                        id="inputSound"
+                    />
+                    <button className='buttonSTTWS' onClick={confirmeNameToString}>Confirmer</button>
+                </div>
+
+                <div>
+                    <div className="table-container">
+                        <table id="table">
+                            <thead>
+                                <tr>
+                                    <th>Nom du son</th>
+                                    <th>Nom associé</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {soundTable.map((row, index) => (
+                                    <tr key={index}>
+                                        <td>{row.sound}</td>
+                                        <td>{row.inputValue}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+
             <GetSounds onSoundSelect={handleSoundSelect} />
-        
+
             <div>
-                <button onClick={validerExo}>Valider</button>
+                <button className='buttonSTTWS' onClick={validerExo}>Valider</button>
             </div>
         </div>
     );

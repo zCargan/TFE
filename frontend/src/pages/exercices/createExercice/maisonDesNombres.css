@@ -13,3 +13,89 @@
     padding: 3px;
     text-align: center;
 }
+
+.divMDNWS {
+    margin-top: 1%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: 19vh;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+
+.divButtonMDNWS {
+    margin-top: 2%;
+    display: flex;
+    justify-content: space-around; 
+    align-items: center;
+    width: auto;
+    border-radius: 10px;
+    height: 6vh;
+}
+
+
+.divButtonMDNWS button {
+    background-color: black;
+    color: white;
+    padding: 2%;
+    height: 5vh;
+    text-align: center;
+    width: 20vh;
+    border-radius: 10px;
+    border: 1px solid transparent;
+}
+
+
+#nombreInput {
+    margin-top: 1%;
+    width: 92%;
+    height: 3vh;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#nombreInput::placeholder {
+    color: white;
+}
+
+.resultMDNWS {
+    margin-top: 1%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: auto;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.resultMDNWS p {
+    font-family: j2;
+    color: white;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    font-weight: bold;
+    font-size: 180%;
+}
+
+.inputMDNWS {
+    width: 20vh;
+
+}
+
+.inputMDNWS {
+    background-color: black;
+    color: white;
+    text-align: center;
+    width: 15vh;
+    height: 3vh;
+    margin-right: 0.5%;
+    margin-left: 0.5%;
+    border-radius: 10px;
+}

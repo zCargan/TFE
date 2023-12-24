@@ -1,4 +1,51 @@
 #div_abaque {
-    background-color: white;
+    background:rgb(0,0,0,0.5);
+    border: 1px solid white;
+    border-radius: 10px;
+    padding-bottom: 3%;
 }
 
+#div_abaque h3 {
+    font-family: j2;
+    font-weight: bold;
+    color: white;
+    font-size: 4vh;
+}
+
+#div_abaque p {
+    font-family: j2;
+    color: white;
+    font-size: 3vh;
+    text-decoration: none;
+}
+
+#div_abaque button {
+    background-color: black;
+    color: white;
+    height: 4vh;
+    margin-top: 2%;
+    margin-left: 0%;
+    text-align: center;
+    width: 20vh;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+#div_abaque button:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+
+#div_abaque input {
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    color: white;
+    text-align: center;
+    height: 3vh;
+    width: 20vh;
+}

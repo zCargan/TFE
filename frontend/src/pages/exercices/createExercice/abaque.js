@@ -36,13 +36,14 @@ const Abaque = ({ onAbaqueData }) => {
     function showExercice() {
         let texte = String("<div id='abaque'><table><tbody>");
         texte += "<p>" + document.getElementById('descriptionExercice').value + "</p>"
-        for(let i =0; i <height; i ++) {
-            for(let j = 0; j <width; j++) {
+        for (let i = 0; i < height; i++) {
+            texte += "<div class='ligneAbaqueWS'>"
+            for (let j = 0; j < width; j++) {
                 console.log("largeur")
                 console.log("longueur")
-                texte += "<input placeholder='' class='inputAbaque' "+ "></input>"
+                texte += "<input placeholder='' class='inputAbaqueCreation' " + "></input>"
             }
-            texte += "<br></br>"
+            texte += "</div>"
         }
         texte += "</div>"
         console.log(texte)
@@ -52,12 +53,12 @@ const Abaque = ({ onAbaqueData }) => {
 
     function saveAbaque() {
         dictionnaire.description = document.getElementById("descriptionExercice").value;
-        dictionnaire.type = "abaque" ;
+        dictionnaire.type = "abaque";
         dictionnaire.hauteur = Number(height);
         dictionnaire.longueur = Number(width);
         let array1 = []
-        let a = document.getElementsByClassName("inputAbaque")
-        for(let i = 0; i < a.length; i ++) {
+        let a = document.getElementsByClassName("inputAbaqueCreation")
+        for (let i = 0; i < a.length; i++) {
             array1.push(a[i].value)
         }
         dictionnaire.reponseInitiale = array1;
@@ -67,8 +68,8 @@ const Abaque = ({ onAbaqueData }) => {
 
     function saveAnswer() {
         let array1 = []
-        let a = document.getElementsByClassName("inputAbaque")
-        for(let i = 0; i < a.length; i ++) {
+        let a = document.getElementsByClassName("inputAbaqueCreation")
+        for (let i = 0; i < a.length; i++) {
             array1.push(a[i].value)
         }
         dictionnaire.reponseFinale = array1;
@@ -93,12 +94,12 @@ const Abaque = ({ onAbaqueData }) => {
             let texte = String("<div id='abaqueFromDB'><table><tbody>");
             texte += '<h1>' + titre + '</h1>'
             let k = 0;
-            for(let i =0; i <hauteur; i ++) {
-                for(let j = 0; j <longueur; j++) {  
+            for (let i = 0; i < hauteur; i++) {
+                for (let j = 0; j < longueur; j++) {
                     console.log(k)
                     console.log(reponseInitiale)
                     console.log(reponseInitiale[k])
-                    texte += "<input placeholder='valeur icii' className='inputAbaque'" + " value='" + reponseInitiale[k] +"'></input>"
+                    texte += "<input placeholder='valeur icii' className='inputAbaqueCreation'" + " value='" + reponseInitiale[k] + "'></input>"
                     k += 1;
                 }
                 //texte += "<br></br>"
@@ -108,26 +109,26 @@ const Abaque = ({ onAbaqueData }) => {
             document.getElementById("abaqueFromDB").innerHTML = texte;
         })
     }
- 
+
 
     function correction() {
         axios.get("http://localhost:4000/exercice/getAbaque").then((res) => {
-            let resultatAttendu =  res.data[0].reponseFinale
+            let resultatAttendu = res.data[0].reponseFinale
             let resultatInitial = res.data[0].reponseInitiale;
             let resultatRecu = []
             let idExercice = res.data[0]._id;
             let a = document.getElementsByClassName("test")
-            for(let i = 0; i < a.length; i ++) {
+            for (let i = 0; i < a.length; i++) {
                 resultatRecu.push(a[i].value)
             }
             console.log(resultatAttendu, resultatRecu)
             let tailleArray = resultatInitial.length;
             let nbrAnswer = 0;
             let score = 0;
-            for(let i = 0; i < tailleArray; i ++) {
-                if(resultatInitial[i] === "") {
+            for (let i = 0; i < tailleArray; i++) {
+                if (resultatInitial[i] === "") {
                     nbrAnswer += 1;
-                    if(resultatAttendu[i] !== resultatRecu[i]) {
+                    if (resultatAttendu[i] !== resultatRecu[i]) {
                         console.log("une faute")
                     } else {
                         score += 1;
@@ -135,7 +136,7 @@ const Abaque = ({ onAbaqueData }) => {
                 }
             }
 
-            let scoreFinal = (Math.floor((score/nbrAnswer) *100))
+            let scoreFinal = (Math.floor((score / nbrAnswer) * 100))
             Swal.fire({
                 title: 'Résultat',
                 text: 'Vous avez obtenu la note de : ' + scoreFinal + "%",
@@ -156,63 +157,69 @@ const Abaque = ({ onAbaqueData }) => {
                 idExercice: idExercice
             }
 
-            axios.post("http://localhost:4000/exercice/registerAnswers", {data}, config)
-            
+            axios.post("http://localhost:4000/exercice/registerAnswers", { data }, config)
+
 
 
         })
     }
 
 
-        
+
 
 
     return (
         <div>
-            <br />
-            <textarea id="descriptionExercice" placeholder="Description DE l'exercice" rows={7} cols={60}></textarea>
-            <br />
-            <input className='caractAbaque' id="hauteur" onChange={(e) => {correctHeight(e.target.value)}} placeholder="Hauteur de l'abaque"></input><input className='caractAbaque' id="largeur" onChange={(e) => {correctWidth(e.target.value)}} placeholder="Largeur de l'abaque"></input><button onClick={showExercice}>Créer !</button>
-            <br />
-            <br />
-            <br />
-            <p id="abaque">Votre résultat apparaitra ici</p>
-            <Popup
-                trigger={
-                    <button onClick={saveAbaque}>Sauvez le squelette</button>}
-                position="left center"
-                open={popupOpen}
-                on="hover"
-                closeOnDocumentClick
-            >
-                <div>
-                    <div id="fonctionnement">
-                        <p>
-                            En cliquant sur ce bouton, vous valider le squelette de l'exercice
-                            <br />
-                            Le squelette est le corps de l'exercice avec toute les inconnues, mais sans les réponses
-                        </p>
-                    </div>
+            <div className='divAbaqueWS'>
+                <textarea id="descriptionExercice" placeholder="Description de l'exercice" rows={7} cols={60}></textarea>
+                <input className='caractAbaque' id="hauteur" onChange={(e) => { correctHeight(e.target.value) }} placeholder="Hauteur de l'abaque"></input>
+                <input className='caractAbaque' id="largeur" onChange={(e) => { correctWidth(e.target.value) }} placeholder="Largeur de l'abaque"></input>
+                <div className='divButtonAbaqueWS'>
+                    <button onClick={showExercice}>Créer !</button>
+                    <Popup
+                        trigger={
+                            <button onClick={saveAbaque}>Sauvez le squelette</button>}
+                        position="left center"
+                        open={popupOpen}
+                        on="hover"
+                        closeOnDocumentClick
+                    >
+                        <div>
+                            <div id="fonctionnement">
+                                <p>
+                                    En cliquant sur ce bouton, vous valider le squelette de l'exercice
+                                    <br />
+                                    Le squelette est le corps de l'exercice avec toute les inconnues, mais sans les réponses
+                                </p>
+                            </div>
+                        </div>
+                    </Popup>
+                    <Popup
+                        trigger={
+                            <button onClick={saveAnswer}>Sauvez les réponses</button>}
+                        position="right center"
+                        open={popupOpen}
+                        on="hover"
+                        closeOnDocumentClick
+                    >
+                        <div>
+                            <div id="fonctionnement">
+                                <p>
+                                    Permet d'enregistrer l'exercice, avec les réponses introduites après avoir sauvé le squelette
+                                    <br />
+                                </p>
+                            </div>
+                        </div>
+                    </Popup>
                 </div>
-            </Popup>
-            <Popup
-                trigger={
-                    <button onClick={saveAnswer}>Sauvez les réponses</button>}
-                position="right center"
-                open={popupOpen}
-                on="hover"
-                closeOnDocumentClick
-            >
-                <div>
-                    <div id="fonctionnement">
-                        <p>
-                            Permet d'enregistrer l'exercice, avec les réponses introduites après avoir sauvé le squelette
-                            <br />
-                        </p>
-                    </div>
-                </div>
-            </Popup>
-            
+
+            </div>
+            <h2 className='abaqueH2'>Votre abaque :</h2>
+            <div className='resultAbaqueWS'>
+                <p id="abaque">Votre résultat apparaitra ici</p>
+            </div>
+
+
         </div>
     );
 };

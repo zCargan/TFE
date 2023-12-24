@@ -1,0 +1,50 @@
+.partMBWS {
+    background: rgb(0, 0, 0, 0.5);
+    width: 36%;
+    margin-left: 32%;
+    margin-top: 1%;
+    border-radius: 10px;
+    border: 1px solid white;
+    margin-bottom: 1%;
+    padding-bottom: 1%;
+}
+
+.divmbWS {
+    margin-top: 1%;
+    width: 92vh;
+    height: 20px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.divmbWS::placeholder {
+    color: white;
+}
+
+.h3mbWS {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
+.buttonMBWS {
+    background-color: black;
+    color: white;
+    height: 3.5vh;
+    text-align: center;
+    width: 15vh;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+.buttonMBWS:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}

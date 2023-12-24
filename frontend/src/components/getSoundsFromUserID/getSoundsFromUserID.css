@@ -1,0 +1,77 @@
+#zone_sound {
+    background: rgb(0, 0, 0, 0.5);
+    max-width: 80%;
+    margin-left: 1%;
+    border-radius: 10px;
+    border: 1px solid white;
+    padding: 20px;
+}
+
+#buttonGetSound {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.5s ease, color 0.5s ease;
+    margin-bottom: 20px;
+}
+
+#buttonGetSound:hover {
+    background-color: white;
+    color: black;
+}
+
+#zoneExoSon {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Ajout de flex-wrap pour gérer plusieurs éléments sur une ligne sur les écrans plus petits */
+    gap: 10px;
+    justify-content: center;
+}
+
+.sonDivMap {
+    margin-right: 10px;
+    margin-bottom: 10px; /* Ajout de marge en bas pour l'espace entre les éléments sur les écrans plus petits */
+    text-align: center;
+    width: 200px; /* Ajout d'une largeur fixe pour mieux gérer l'espace sur les écrans plus petits */
+}
+
+.sonPMap {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: white;
+}
+
+.sonAudioMap {
+    width: 100%;
+}
+
+.sonButtonMap {
+    width: 100%;
+    background-color: black;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.sonButtonMap:hover {
+    background-color: white;
+    color: black;
+}
+
+@media only screen and (max-width: 768px) {
+    #zone_sound {
+        width: 90%;
+    }
+
+    .sonDivMap {
+        width: 100%; /* Utilisation de la largeur totale sur les écrans plus petits */
+    }
+}

@@ -89,52 +89,53 @@ const MotBazard = ({ onMbData }) => {
                                 2° Cliquez sur l'image désiré (Son nom apparaitra à coté de "Image séléctionnée")
                                 <br />
                                 3° Entrez le nom de l'image choisie et cliquez sur confirmer pour valider
-                                <br /> 
+                                <br />
                                 4° Si la relation image apparait avec le nom que vous lui avez donné, c'est bon
                             </p>
                         </div>
                     </div>
                 </div>
             </Popup>
-            <div>
-                <br></br>
-                <textarea id="descriptionExo" placeholder="Description de l'exercice" rows={7} cols={60}></textarea>
-            </div>
-            <div>
-                <input placeholder='Placez ici le nom se rapportant à cette image' id="name_photo" style={{ width: "300px" }}></input><button onClick={confirm}>Confirmer</button>
-            </div>
-            {selectedImageInfo.id && (
+            <div className="partMBWS">
                 <div>
-                    <h3>Nom de l'image sélectionnée : {selectedImageInfo.name}</h3>
+                    <textarea id="descriptionExo" placeholder="Description de l'exercice" rows={7} cols={60}></textarea>
                 </div>
-            )}
-            <br />
-            <div className="table-container">
-                <table id="table">
-                    <thead>
-                        <tr>
-                            <th style={{ display: "none" }}>ID de l'image</th>
-                            <th>Nom de l'image</th>
-                            <th>Mot(s) associé(s)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {tableData.map(row => (
-                            <tr key={row.photo}>
-                                <td style={{ display: "none" }}>{row.id}</td>
-                                <td>{row.photo}</td>
-                                <td>{row.name.join('')}</td>
+                <div>
+                    {selectedImageInfo.id && (
+                        <div>
+                            <h3 className='h3mbWS'>Nom de l'image sélectionnée : {selectedImageInfo.name}</h3>
+                        </div>
+                    )}
+                    <input className='divmbWS' placeholder='Placez ici le nom se rapportant à cette image' id="name_photo" style={{ width: "300px" }}></input><button className='buttonMBWS' onClick={confirm}>Confirmer</button>
+                </div>
+                <br />
+                <div className="table-container">
+                    <table id="table">
+                        <thead>
+                            <tr>
+                                <th style={{ display: "none" }}>ID de l'image</th>
+                                <th>Nom de l'image</th>
+                                <th>Mot(s) associé(s)</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-                <div>
-                    <GetPhotos onImageClick={handleImageClick} />
+                        </thead>
+                        <tbody>
+                            {tableData.map(row => (
+                                <tr key={row.photo}>
+                                    <td style={{ display: "none" }}>{row.id}</td>
+                                    <td>{row.photo}</td>
+                                    <td>{row.name.join('')}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
                 </div>
+
             </div>
-            <br />
-            <br />
-            <button onClick={(e) => saveExo()}>Valider l'exercice</button>
+            <div>
+                <GetPhotos onImageClick={handleImageClick} />
+            </div>
+            <button className='buttonMBWS' onClick={(e) => saveExo()}>Valider l'exercice</button>
         </div>
     );
 };

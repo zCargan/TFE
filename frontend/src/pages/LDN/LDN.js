@@ -125,8 +125,10 @@ const LDN = () => {
 
 
     function createLine() {
+        texte = ""
+        texte += "<div class='divLDNCreator'>"
         texte += String("<h4>" + document.getElementById("name").value + "</h4>")
-        texte += String("<p>" + document.getElementById("description").value + "</p>")
+        texte += String("<p>" + document.getElementById("descriptionLDN").value + "</p>")
         texte += String("<div id='ligneDuTemps'><table><tbody>")
         let length = document.getElementById('length').value;
         let option = document.getElementById("direction").value;
@@ -145,6 +147,8 @@ const LDN = () => {
             texte += '▶'
             texte += String("</tbody></table></div>");
         }
+
+        texte += "</div>"
         document.getElementById("showResult").innerHTML = texte
     }
 
@@ -155,9 +159,9 @@ const LDN = () => {
         <div>
             <Navbar />
             <h2 className='MenuLDNTitle'>Menu de création de la maison des nombres</h2>
-            <div className='anneeScolaire'>
-                <p className='legendAnneeScolaire'>Choisissez l'année scolaire ciblée:</p>
-                <div className="AnneeScolaireChoice">
+            <div className='anneeScolaireLDN'>
+                <p className='legendAnneeScolaireLDN'>Choisissez l'année scolaire ciblée:</p>
+                <div className="AnneeScolaireChoiceLDN">
                     <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="1" />1er
                     <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="2" />2ème
                     <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="3" />3ème
@@ -169,7 +173,7 @@ const LDN = () => {
             <br />
             <div id="LDNdivcreation">
                 <input className="inputAbaque" placeholder="Titre de l'abaque" id="name"></input>
-                <textarea placeholder="Description de l'exercice" id="description"></textarea>
+                <textarea placeholder="Description de l'exercice" id="descriptionLDN"></textarea>
                 <input id="length" placeholder='Taille de la LDN' className='inputLDNCreation'></input>
                 <div id="selectLDNcreation">
                     Direction de ma droite des nombres <select id="direction">
@@ -187,6 +191,9 @@ const LDN = () => {
             <div>
                 <h2 className='ldnResultatCreator'>Votre ligne des nombres</h2>
                 <p id="showResult"></p>
+            </div>
+            <div>
+                <img id='creatifImg' src='creatif2.png'></img>
             </div>
         </div>
     );

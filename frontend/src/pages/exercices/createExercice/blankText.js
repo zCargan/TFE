@@ -26,11 +26,11 @@ const TexteATrou = ({ onTatData }) => {
         let enonce = []
         let arrayOfWords = []
 
-        if (document.getElementById("result").value === "") {
+        if (document.getElementById("textArea").value === "") {
             alert("Veuillez entrez une phrase valide")
         } else {
 
-            var textarea = document.getElementById("result").value;
+            var textarea = document.getElementById("textArea").value;
             var motAAjouter = document.getElementById("motAAjouter").value;
             const motsTextArea = textarea.split(' '); // Diviser la chaîne en mots
 
@@ -84,7 +84,7 @@ const TexteATrou = ({ onTatData }) => {
         }
 
         const data = {
-            description: document.getElementById("descriptionExo").value,
+            description: document.getElementById("descriptionTAT").value,
             type: "TAT",
             reponseInitiale: arrayEnonce,
             reponseFinale: arrayFinal
@@ -99,21 +99,18 @@ const TexteATrou = ({ onTatData }) => {
 
     return (
         <div id="texteATrou">
-            <br />
-
-            <br />
-            <br />
-            <textarea id="descriptionExo" onChange={changeValueText} placeholder="Description DE l'exercice" rows={7} cols={60}></textarea>
-            <br />
-            <br />
-            <input placeholder="Votre phrase" className="inputTAT" id="result" rows={7} cols={60}></input>
-            <br></br>
-            <input id="motAAjouter" className="inputTAT" placeholder='Mot à ajouter'></input><button onClick={addWords}>Ajouter ce mot</button><button onClick={reset}>Remettre le texte à 0</button>
-            <br />
-            <br />
-            <div id="phrase">Votre résultat apparaitra ici</div>
-            <br></br>
-            <button onClick={validateSentence}>Valider cette phrase</button>
+            <div className='divInputsTAT'>
+                <textarea className="textareaTAT" id="descriptionTAT" rows={5} cols={52} placeholder="Description de l'exercice"></textarea>
+                <div>
+                    <input className='phraseTATBottom' id="textArea" onChange={changeValueText} placeholder='Ecrivez votre phrase ici'></input>
+                    <input className='wordTATBottom' id="motAAjouter" placeholder='Mot à ajouter'></input><button className="boutonbottomTAT" onClick={addWords}>Ajouter ce mot</button>
+                    <br />
+                    <p className='resultTATPhrase'>Résultat de la phrase :</p><p id="phrase"></p>
+                </div>
+                <div>
+                <button className="boutonbottomTAT" onClick={validateSentence}>Valider cette phrase</button>
+                </div>
+            </div>
 
         </div>
     );

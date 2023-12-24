@@ -25,3 +25,72 @@
     text-align: center;
 }
 
+.divAbaqueWS {
+    margin-top: 1%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: auto;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.divButtonAbaqueWS {
+    margin-top: 2%;
+    display: flex;
+    justify-content: space-around; 
+    align-items: center;
+    width: auto;
+    border-radius: 10px;
+    height: 6vh;
+}
+
+
+.divButtonAbaqueWS button {
+    background-color: black;
+    color: white;
+    padding: 2%;
+    height: 5vh;
+    text-align: center;
+    width: 20vh;
+    border-radius: 10px;
+    border: 1px solid transparent;
+}
+
+
+.caractAbaque {
+    text-align: center;
+    width: 92%;
+    height: 20px;
+    border-radius: 10px;
+    background-color: black;
+    color: white
+}
+
+#abaque {
+    font-family: j2;
+    font-size: 200%;
+}
+
+.inputAbaqueCreation {
+    margin-top: 0%;
+}
+
+.resultAbaqueWS {
+    margin-top: 1%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: auto;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.resultAbaqueWS p {
+    font-family: j2;
+    color: white;
+    margin-top: 0%;
+    margin-bottom: 0%;
+}

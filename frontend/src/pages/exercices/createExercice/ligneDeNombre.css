@@ -1,10 +1,170 @@
-#description {
+#descriptionLDN {
     border-radius: 10px;
     padding: 10px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    height: 5vh;
+    width: 90%;
+    background-color: black;
+    color: white
+}
+
+#descriptionLDN::placeholder {
+    color: white
 }
 
 
 #length {
     text-align: center;
+}
+
+.resultLDNWS {
+    margin-top: 1%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: auto;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.resultLDNWS p {
+    font-family: j2;
+    color: white;
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+
+.divLDNWS {
+    margin-top: 1%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: auto;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.creatorMenuLDNWS {
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.creatorMenuLDNWS  {
+    margin-top: 2%;
+    background-color: black;
+    width: 90.5%;
+    margin-left: 4%;
+    color: white;
+    padding: 0.8%;
+    border-radius: 10px;
+    border: 1px solid transparent;
+}
+.creatorMenuLDNWS  select{
+    margin-left: 4%;
+    background-color: black;
+    color: white;
+    border: 1px solid transparent;
+}
+
+.inputLDNWSCreation {
+    width: 92%;
+    height: 25px;
+    border-radius: 10px;
+    background-color: black;
+    border:1px solid transparent;
+    color: white
+}
+
+.longueurLDNWS {
+    width: 92%;
+    height: 25px;
+    border-radius: 10px;
+    background-color: black;
+    border:1px solid transparent;
+    color: white
+}
+
+.longueurLDNWS::placeholder {
+    color: white
+}
+
+#selectLDNWScreation {
+    margin-top: 2%;
+    background-color: black;
+    width: 90.5%;
+    margin-left: 4%;
+    color: white;
+    padding: 0.8%;
+    border-radius: 10px;
+    border: 1px solid transparent;
+}
+
+#selectLDNWScreation select{
+    margin-left: 2%;
+    background-color: black;
+    color: white;
+    border: 1px solid transparent;
+}
+
+.inputUserLDNWS {
+    background-color: black;
+    color: white;
+    text-align: center;
+    width: 6vh;
+    height: 3vh;
+    margin-right: 0.5%;
+    margin-left: 0.5%;
+    border-radius: 10px;
+}
+
+#ligneDuTemps {
+    color: black;
+}
+
+.buttonLDNWS {
+
+}
+
+.buttonLDNWS {
+    margin-top: 2%;
+    display: flex;
+    justify-content: space-around; 
+    align-items: center;
+    width: auto;
+    border-radius: 10px;
+    height: 6vh;
+}
+
+.buttonLDNWS button {
+    background-color: black;
+    color: white;
+    padding: 2%;
+    height: 5vh;
+    text-align: center;
+    width: 20vh;
+    border-radius: 10px;
+    border: 1px solid transparent;
+}
+
+.resultLDNWS {
+    margin-top: 1%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: auto;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.resultLDNWS p {
+    font-family: j2;
+    color: white;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    font-weight: bold;
+    font-size: 180%;
 }

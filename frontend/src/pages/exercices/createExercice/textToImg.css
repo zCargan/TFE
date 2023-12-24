@@ -30,10 +30,73 @@
 
 
 #descriptionExo {
-  padding: 10px;
+  margin-top: 1%;
+  text-align: center;
+  height: 7vh;
+  width: 90%;
+  background-color: black;
+  color: white;
+  border-radius: 10px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-#descriptionExo {
+#descriptionExo::placeholder {
+  color: white;
+  padding-top: 1%;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.divTTIWS {
+  background: rgb(0, 0, 0, 0.5);
+  width: 36%;
+  margin-left: 32%;
+  margin-top: 1%;
   border-radius: 10px;
+  border: 1px solid white;
+  margin-bottom: 1%;
+  padding-bottom: 1%;
+}
+
+
+.inputTTIWS {
+  margin-top: 1%;
+  width: 92%;
+  height: 20px;
+  /* margin-left: 1%; */
+  border-radius: 10px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.inputTTIWS::placeholder {
+  color: white;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+
+.buttonTTIWS {
+  background-color: black;
+  color: white;
+  height: 3vh;
+  text-align: center;
+  width: 14vh;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+.buttonTTIWS:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
+
+.h3TTIWS {
+  font-weight: bold;
+  font-size: 30px;
+  font-family: j2; 
+  color: white;
 }

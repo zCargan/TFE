@@ -1,0 +1,125 @@
+.MenuTATTitle {
+    margin-top: 0%;
+    font-family: j2;
+    font-size: 50px;
+    text-decoration: underline;
+}
+
+.anneeScolaireTAT {
+    margin-top: -2%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.AnneeScolaireChoiceTAT {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.legendAnneeScolaireTAT {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 180%;
+}
+
+
+.inputTATBottom {
+    margin-top: 1%;
+    width: 92%;
+    height: 20px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.inputTATBottom::placeholder {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+}
+
+.divInputsTAT {
+    margin-top: 1%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: auto;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.phraseTATBottom {
+    background-color: black;
+    width: 40%;
+    text-align: center;
+    border: 1px solid white;
+    height: 3vh;
+    color: white;
+    border-radius: 10px;
+}
+
+.wordTATBottom {
+    width: 150px;
+    background-color: black;
+    margin-left: 1%;
+    color: white;
+    text-align: center;
+    border: 1px solid white;
+    height: 3vh;
+    border-radius: 10px;
+}
+
+.textareaTAT {
+    text-align: center;
+    height: 5vh;
+    width: 92%;
+    margin-top: 1%;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.textareaTAT::placeholder {
+    padding-top: 1%;
+    color: white;
+}
+
+.resultTATPhrase {
+    font-family: j2;
+    font-weight: bold;
+    color: white;
+}
+
+#phrase {
+    color: white;
+    font-family: j2;
+    font-size: 30px;
+}
+
+.boutonbottomTAT {
+    background-color: black;
+    color: white;
+    height: 3vh;
+    text-align: center;
+    width: 20vh;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+.boutonbottomTAT:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}

@@ -159,7 +159,7 @@ const STT = () => {
   return (
     <div id="div_stt">
       <h3>{nom}</h3>
-      <p id="description">{description}</p>
+      <p id="descriptionSTT">{description}</p>
       <br />
       <div id="zoneExoSon" style={{ display: 'flex', flexDirection: 'row', gap: '10px', justifyContent: 'center' }}>
         {sons.map((son, index) => (

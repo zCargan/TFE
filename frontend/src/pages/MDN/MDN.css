@@ -1,0 +1,139 @@
+.anneeScolaireMDN {
+    margin-top: -2%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.AnneeScolaireChoiceMDN {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.legendAnneeScolaireMDN {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 180%;
+}
+
+
+
+.MenuMDNTitle {
+    margin-top: 0%;
+    font-family: j2;
+    font-size: 50px;
+    text-decoration: underline;
+}
+
+
+.divInputsMDN {
+    margin-top: 1%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: 16vh;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.inputMDNBottom {
+    margin-top: 1%;
+    width: 92%;
+    height: 20px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.inputMDNBottom::placeholder {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+}
+
+.textareaMDN {
+    text-align: center;
+    height: 7vh;
+    width: 92.5%;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.textareaMDN::placeholder {
+    color: white;
+    padding-top: 1%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.boutonbottomMDN {
+    background-color: black;
+    color: white;
+    height: 4vh;
+    text-align: center;
+    width: 20vh;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+.boutonbottomMDN:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+
+
+.divButtonMDN {
+    margin-top: 1%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: auto;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.inputMDN {
+    background-color: black;
+    color: white;
+    text-align: center;
+    width: 15vh;
+    height: 3vh;
+    margin-right: 0.5%;
+    margin-left: 0.5%;
+    border-radius: 10px;
+}
+
+
+.mdnZone {
+    margin-top: 1%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: auto;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+#mdn {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 180%;
+}
+
+#descriptionMDN {
+    margin-top: 1%;
+}

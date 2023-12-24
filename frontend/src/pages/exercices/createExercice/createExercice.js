@@ -165,14 +165,14 @@ const CreateExercice = () => {
                                     idExo: res.data.data._id,
                                     type: "WS"
                                 }
-                    
+
                                 axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
-                                .then((res) => {
-                                    console.log(res)
-                                })
-                                .catch((error) => {
-                                    console.log(error)
-                                })
+                                    .then((res) => {
+                                        console.log(res)
+                                    })
+                                    .catch((error) => {
+                                        console.log(error)
+                                    })
                             })
                     } else {
                         alert("Veuillez ajouter au moins un exercice à la feuille de cours")
@@ -198,59 +198,57 @@ const CreateExercice = () => {
             <div>
                 <Navbar />
             </div>
-            <div>
-                <h3>Bienvenuee dans la section de création d'une feuille d'exercice</h3>
-                <div id="divTopPage">
-                    <Popup
-                        trigger={
-                            <p>Preview</p>
-                        }
-                        position="bottom center"
-                        open={popupOpen}
-                        on="hover"
-                        closeOnDocumentClick
-                    >
-                        <div>
-                            {exerciseDataArray.length > 0 && (
-                                <div id="preview">
-                                    <h3>Noms des éléments dans le tableau :</h3>
-                                    <h4>Nombre d'exercice : {exerciseDataArray.length}</h4>
-                                    <h5>Titre de la feuille d'exercice : {document.getElementById('nameInput').value}</h5>
-                                    <h5>Description de la feuille d'exercice : {document.getElementById('textareaCE').value}</h5>
-                                    <h5>Année scolaire visée : {anneeScolaire}</h5>
-                                    {exerciseDataArray.map((item, index) => (
-                                        <p key={index}>Type : {item.type}</p>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    </Popup>
+            <h1 className='MenuWSTitle'>Menu de création d'une feuille d'exercice</h1>
+            <div id="divTopPage">
+                <Popup
+                    trigger={
+                        <p>Preview</p>
+                    }
+                    position="bottom center"
+                    open={popupOpen}
+                    on="hover"
+                    closeOnDocumentClick
+                >
                     <div>
-                        <button onClick={saveWorksheet}>Sauver la feuille d'exercice</button>
+                        {exerciseDataArray.length > 0 && (
+                            <div id="preview">
+                                <h3>Noms des éléments dans le tableau :</h3>
+                                <h4>Nombre d'exercice : {exerciseDataArray.length}</h4>
+                                <h5>Titre de la feuille d'exercice : {document.getElementById('nameInput').value}</h5>
+                                <h5>Description de la feuille d'exercice : {document.getElementById('textareaCE').value}</h5>
+                                <h5>Année scolaire visée : {anneeScolaire}</h5>
+                                {exerciseDataArray.map((item, index) => (
+                                    <p key={index}>Type : {item.type}</p>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </Popup>
+                <button onClick={saveWorksheet}>Sauver la feuille d'exercice</button>
+            </div>
+            <div>
+                <div>
+                    <div className='anneeScolaireWS'>
+                        <p className='legendAnneeScolaireWS'>Choisissez l'année scolaire ciblée:</p>
+                        <div className="AnneeScolaireChoiceWS">
+                            <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="1" />1er
+                            <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="2" />2ème
+                            <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="3" />3ème
+                            <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="4" />4ème
+                            <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="5" />5ème
+                            <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="6" />6ème
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div id="infoExoWS">
                 <div>
-                    <br />
-                    <fieldset>
-                        <legend>Choisissez l'année scolaire ciblée pour la feuille d'exercice:</legend>
-                        <input type="radio" name="anneeScolaire" value="1" onChange={handleRadioChange} required />1er
-                        <input type="radio" name="anneeScolaire" value="2" onChange={handleRadioChange} />2ème
-                        <input type="radio" name="anneeScolaire" value="3" onChange={handleRadioChange} />3ème
-                        <input type="radio" name="anneeScolaire" value="4" onChange={handleRadioChange} />4ème
-                        <input type="radio" name="anneeScolaire" value="5" onChange={handleRadioChange} />5ème
-                        <input type="radio" name="anneeScolaire" value="6" onChange={handleRadioChange} />6ème
-                    </fieldset>
+                    <input className='nameWSGlobal' id="nameInput" placeholder="Nom de votre feuille d'exercice"></input>
+                </div>
+                <div>
+                    <textarea className='descriptionWSGlobal' id="textareaCE" rows={7} cols={60} placeholder="Description de votre feuille d'exercice..." />
                 </div>
             </div>
-            <br />
-            <div>
-                <input id="nameInput" placeholder="Nom de votre feuille d'exercice"></input>
-            </div>
-            <br />
-            <div>
-                <textarea id="textareaCE" rows={7} cols={60} placeholder="Description de votre feuille d'exercice..." />
-            </div>
-            <br />
             <div>
                 <select id="selectFeuilleExercice" className="custom-select" value={selectedOption} onChange={handleSelectChange}>
                     <option selected>Ajouter un exercice</option>

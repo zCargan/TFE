@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import GetSounds from '../../components/getSoundsFromUserID/getSoundsFromUserID';
 import Navbar from '../../components/navbar/Navbar';
 
+import './STT.css'
 
 const STT = () => {
     const [selectedSounds, setSelectedSounds] = useState([]);
@@ -19,8 +20,8 @@ const STT = () => {
         setId(sound.id)
         setSelectedSoundName(sound.nom);
     };
-    
-    
+
+
 
     const handleNameChange = (event) => {
         setSoundName(event.target.value);
@@ -29,13 +30,13 @@ const STT = () => {
     const confirmeNameToString = () => {
         // Vérifier si le son est déjà présent dans le tableau
         const isSoundAlreadySelected = soundTable.some(item => item.sound === selectedSoundName);
-    
+
         // Si le son est déjà sélectionné, mettez à jour la valeur associée
         if (isSoundAlreadySelected) {
             const updatedTable = soundTable.map(item => {
                 if (item.sound === selectedSoundName) {
                     console.log(id); // Afficher l'ancienne valeur associée
-                    console.log("Nouveau nom associé:", soundName); 
+                    console.log("Nouveau nom associé:", soundName);
                     setDictionnaire(prevDictionnaire => ({
                         ...prevDictionnaire,
                         [id]: soundName,
@@ -55,13 +56,13 @@ const STT = () => {
             }));
             setSoundTable(prevTable => [...prevTable, { sound: selectedSoundName, inputValue: soundName }]);
         }
-    
+
         // Réinitialisez les états
         setSoundName('');
         setSelectedSounds([]);
     };
-    
-    
+
+
 
     function validerExo() {
 
@@ -72,7 +73,7 @@ const STT = () => {
                 valeur = radios[i].value;
             }
         }
-        
+
         const config = {
             headers: {
                 'Authorization': `Bearer ${Cookies.get('JWT')}`,
@@ -89,23 +90,23 @@ const STT = () => {
         }
 
         axios
-        .post(`http://localhost:4000/exercice/registerSTT`, data, config)
-        .then((res) => {
-
-            let data = {
-                idExo: res.data.data._id,
-                type: "STT"
-            }
-
-            axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+            .post(`http://localhost:4000/exercice/registerSTT`, data, config)
             .then((res) => {
-                console.log(res)
+
+                let data = {
+                    idExo: res.data.data._id,
+                    type: "STT"
+                }
+
+                axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                    .then((res) => {
+                        console.log(res)
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
             })
-            .catch((error) => {
-                console.log(error)
-            })
-        })
-        .catch((error) => {})
+            .catch((error) => { })
 
     }
 
@@ -113,64 +114,67 @@ const STT = () => {
         <div>
             <Navbar />
             <div>
+                <h2 className='MenuSTTTitle'>Menu de création du "Son à texte"</h2>
+                <div className='anneeScolaireSTT'>
+                    <p className='legendAnneeScolaireSTT'>Choisissez l'année scolaire ciblée:</p>
+                    <div className="AnneeScolaireChoiceSTT">
+                        <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="1" />1er
+                        <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="2" />2ème
+                        <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="3" />3ème
+                        <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="4" />4ème
+                        <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="5" />5ème
+                        <input className="inputAnneeScolaire" type="radio" name="anneeScolaire" value="6" />6ème
+                    </div>
+                </div>
+            </div>
+            <div className='divInputsSTT'>
+                <input className="inputSTTBottom" id="nameExo" placeholder="Nom de l'exercice"></input>
                 <br />
-                <fieldset>
-                    <legend>Choisissez l'année scolaire ciblée:</legend>
-                    <input type="radio" name="anneeScolaire" value="1" />1er
-                    <input type="radio" name="anneeScolaire" value="2" />2ème
-                    <input type="radio" name="anneeScolaire" value="3" />3ème
-                    <input type="radio" name="anneeScolaire" value="4" />4ème
-                    <input type="radio" name="anneeScolaire" value="5" />5ème
-                    <input type="radio" name="anneeScolaire" value="6" />6ème
-                </fieldset>
+                <textarea className="textareaSTT" id="descriptionExo" placeholder="Description de l'exercice" rows="5" cols="100"></textarea>
             </div>
-            <br />
-            <h3>Créez ici vos relations entre vos sons et un mot !</h3>
-            <br />
-            <div>
-                <input id="nameExo" placeholder="Nom de l'exercice"></input>
-                <br></br>
-                <br></br>
-                <textarea id="descriptionExo" placeholder="Description de l'exercice" rows="5" cols="100"></textarea>
+            <div id="soundPart">
+                <div>
+                    <h3 className='h3stt'>Sons sélectionnés : {selectedSoundName}</h3>
+                </div>
+                <div className='selectConfirmSTT'>
+                    <input
+                        placeholder="Nom donné au son pour l'exercice"
+                        style={{ width: "250px" }}
+                        value={soundName}
+                        onChange={handleNameChange}
+                        id="inputSound"
+                    />
+                    <button className="buttonConfirmSTT" onClick={confirmeNameToString}>Confirmer</button>
+                </div>
+                <div>
+                    <div className="table-container">
+                        <table id="table">
+                            <thead>
+                                <tr>
+                                    <th>Nom du son</th>
+                                    <th>Nom associé</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {soundTable.map((row, index) => (
+                                    <tr key={index}>
+                                        <td>{row.sound}</td>
+                                        <td>{row.inputValue}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <button className="buttonConfirmSTTValideExo" onClick={validerExo}>Valider</button>
+                </div>
             </div>
-                <p>Veuillez d'abord choisir un son</p>
             <GetSounds onSoundSelect={handleSoundSelect} />
             <div>
-                <div>
-                    <h3>Sons sélectionnés : {selectedSoundName}</h3>
-                </div>
-                <input
-                    placeholder="Nom donné au son pour l'exercice"
-                    style={{ width: "250px" }}
-                    value={soundName}
-                    onChange={handleNameChange}
-                    id="inputSound"
-                />
-                <button onClick={confirmeNameToString}>Confirmer</button>
+                <img id='creatifImg' src='creatif2.png'></img>
             </div>
-            <div>
-                <div className="table-container">
-                    <table id="table">
-                        <thead>
-                            <tr>
-                                <th>Nom du son</th>
-                                <th>Nom associé</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {soundTable.map((row, index) => (
-                                <tr key={index}>
-                                    <td>{row.sound}</td>
-                                    <td>{row.inputValue}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div>
-                <button onClick={validerExo}>Valider</button>
-            </div>
+            <br />
         </div>
     );
 };

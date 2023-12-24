@@ -1,0 +1,126 @@
+.MenuTTITitle {
+    margin-top: 0%;
+    font-family: j2;
+    font-size: 50px;
+    text-decoration: underline;
+}
+
+.anneeScolaireTTI {
+    margin-top: -2%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.AnneeScolaireChoiceTTI {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.legendAnneeScolaireTTI {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 180%;
+}
+
+.inputTTIBottom {
+    margin-top: 1%;
+    width: 92%;
+    height: 20px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.inputTTIBottom::placeholder {
+    color: white;
+}
+
+.textareaTTI {
+    margin-top: 1%;
+    text-align: center;
+    height: 7vh;
+    width: 90%;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.textareaTTI::placeholder {
+    color: white;
+    padding-top: 1%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
+.divInputsTTI {
+    margin-top: 1%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: auto;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+
+#bigdiv {
+    background: rgb(0, 0, 0, 0.5);
+    width: 36%;
+    margin-left: 32%;
+    margin-top: 1%;
+    border-radius: 10px;
+    border: 1px solid white;
+    margin-bottom: 1%;
+}
+
+.sonImageTTI {
+    margin-top: 1%;
+    width: 92%;
+    height: 20px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.sonImageTTI::placeholder {
+    color: white;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.buttonTTI {
+    background-color: black;
+    color: white;
+    height: 3vh;
+    text-align: center;
+    width: 14vh;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+.buttonTTI:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+
+
+.imgSelected {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 20px;
+}

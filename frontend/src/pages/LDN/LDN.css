@@ -5,13 +5,6 @@
     text-decoration: underline;
 }
 
-#description {
-    text-align: center;
-    height: 5vh;
-    width: 90%;
-    background-color: black;
-    color: white
-}
 
 #description::placeholder {
     color: white
@@ -98,9 +91,43 @@
     background-color: black;
     color: white;
     text-align: center;
-    width: 8%;
+    width: 5%;
     height: 3vh;
     margin-right: 0.5%;
     margin-left: 0.5%;
+    border-radius: 10px;
+}
+
+.anneeScolaireLDN {
+    margin-top: -2%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.AnneeScolaireChoiceLDN {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.legendAnneeScolaireLDN {
+    color: white;
+    font-family: j2;
+    font-weight: bold;
+    font-size: 180%;
+}
+
+.divLDNCreator {
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: auto;
+    margin-left: 32%;
+    border: 1px solid white;
     border-radius: 10px;
 }
