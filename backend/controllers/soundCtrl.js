@@ -28,7 +28,7 @@ exports.postSound = (req, res, next) => {
                     host: 'dbContainer',
                     port: 5432,
                     database: 'test',
-                    user: 'postgres',
+                    user: 'loganAdmin',
                     password: 'LoganTFE2023',
                 });
 
@@ -64,7 +64,7 @@ exports.getSound = (req, res, next) => {
         host: 'dbContainer',
         port: 5432,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
 
@@ -101,7 +101,7 @@ exports.getSoundById = (req, res, next) => {
         host: 'dbContainer',
         port: 5432,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
 
@@ -149,7 +149,7 @@ exports.updateSonName = (req, res, next) => {
                     host: 'dbContainer',
                     port: 5432,
                     database: 'test',
-                    user: 'postgres',
+                    user: 'loganAdmin',
                     password: 'LoganTFE2023',
                 });
 
@@ -179,7 +179,7 @@ exports.deleteSound = (req, res, next) => {
         host: 'dbContainer',
         port: 5432,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
 

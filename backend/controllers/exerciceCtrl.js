@@ -476,7 +476,7 @@ exports.getSTTById = (req, res) => {
                     host: 'dbContainer',
                     port: 5432,
                     database: 'test',
-                    user: 'postgres',
+                    user: 'loganAdmin',
                     password: 'LoganTFE2023',
                 });
 
@@ -543,7 +543,7 @@ exports.registerAnswer = (req, res) => {
                     host: 'dbContainer',
                     port: 5432,
                     database: 'test',
-                    user: 'postgres',
+                    user: 'loganAdmin',
                     password: 'LoganTFE2023',
                 });
 
@@ -578,7 +578,7 @@ exports.getExosFromExercice = (req, res) => {
         host: 'dbContainer',
         port: 5432,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
 
@@ -1446,7 +1446,7 @@ exports.addExoToUser = (req, res, next) => {
                     host: 'dbContainer',
                     port: 5432,
                     database: 'test',
-                    user: 'postgres',
+                    user: 'loganAdmin',
                     password: 'LoganTFE2023',
                 });
 

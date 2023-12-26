@@ -36,7 +36,7 @@ exports.getAllInformationsUsers = (req, res, next) => {
         host: 'dbContainer',
         port: 5432,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
 
@@ -85,7 +85,7 @@ exports.updateUserInformations = (req, res, next) => {
         host: 'dbContainer',
         port: 5432,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
 
@@ -157,7 +157,7 @@ exports.getAllExercicesFromProfesseur = async (req, res, next) => {
                 host: 'dbContainer',
                 port: 5432,
                 database: 'test',
-                user: 'postgres',
+                user: 'loganAdmin',
                 password: 'LoganTFE2023',
             });
 

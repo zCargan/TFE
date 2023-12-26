@@ -12,7 +12,7 @@ router.post('/', upload.array('photo', 3), async (req, res) => {
         host: 'dbContainer',
         port: 5432,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
     
@@ -73,7 +73,7 @@ router.get('/testNewRoute', (req, res) => {
                 host: 'dbContainer',
                 port: 5432,
                 database: 'test',
-                user: 'postgres',
+                user: 'loganAdmin',
                 password: 'LoganTFE2023',
             });
 

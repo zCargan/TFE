@@ -42,7 +42,7 @@ exports.testRoute (req, res, next) => {
         host: 'dbContainer',
         port: 5432,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
     
@@ -61,7 +61,7 @@ exports.getPhotoDetail = (req, res) => {
         host: 'dbContainer',
         port: 5432,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
 
@@ -92,7 +92,7 @@ exports.getPhotos = (req, res, next) => {
         host: 'dbContainer',
         port: 5432,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
     
@@ -153,7 +153,7 @@ exports.register = (req, res, next) => {
                     host: 'dbContainer',
                     port: 5432,
                     database: 'test',
-                    user: 'postgres',
+                    user: 'loganAdmin',
                     password: 'LoganTFE2023',
                 });
                 //console.log(decoded.id)
@@ -205,7 +205,7 @@ exports.updateImageName = (req, res, next) => {
                     host: 'dbContainer',
                     port: 5432,
                     database: 'test',
-                    user: 'postgres',
+                    user: 'loganAdmin',
                     password: 'LoganTFE2023',
                 });
 
@@ -239,7 +239,7 @@ exports.deleteImage = (req, res, next) => {
         host: 'dbContainer',
         port: 5432,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
 
@@ -276,7 +276,7 @@ exports.getImage = (req, res) => {
                     host: 'dbContainer',
                     port: 5432,
                     database: 'test',
-                    user: 'postgres',
+                    user: 'loganAdmin',
                     password: 'LoganTFE2023',
                 });
             
