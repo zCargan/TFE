@@ -3,6 +3,8 @@ const { Client } = require('pg');
 
 exports.registerData = (req, res, next) => {
 
+    console.log('on est appelé register')
+
     const client = new Client({
         host: 'dbContainer',
         port: 5432,
