@@ -3,6 +3,9 @@
 -- Utilisation de la base de données "test"
 \c test;
 
+-- Crée la base de données
+CREATE DATABASE test;
+
 
 -- Création de la table utilisateurs
 CREATE TABLE utilisateurs (
