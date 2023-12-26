@@ -29,7 +29,7 @@ const Connection = (props) => {
       password: password,
     };
     axios
-      .post('http://backendContainer:4000/connection', data_to_send)
+      .post('http://51.77.150.97:4000/connection', data_to_send)
       .then((response) => {
         console.log(response.data)
         let nom = response.data.nom;

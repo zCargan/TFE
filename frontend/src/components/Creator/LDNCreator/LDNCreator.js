@@ -28,7 +28,7 @@ const LDNCreator = ({ exo }) => {
 
     function getExoLDN() {
         axios
-            .get(`http://backendContainer:4000/exercice/getLDN/${exo}`, config)
+            .get(`http://51.77.150.97:4000/exercice/getLDN/${exo}`, config)
             .then((res) => {
                 console.log(res.data)
                 let resultatAttendu =  res.data.reponseFinale
@@ -72,7 +72,7 @@ const LDNCreator = ({ exo }) => {
         }
 
         axios
-            .get(`http://backendContainer:4000/exercice/getLDN/${exo}`, config)
+            .get(`http://51.77.150.97:4000/exercice/getLDN/${exo}`, config)
             .then((res) => {
                 console.log(res.data)
                 let reponseAttendue = res.data.reponseFinale;
@@ -119,7 +119,7 @@ const LDNCreator = ({ exo }) => {
                 });
 
                 axios
-                .post("http://backendContainer:4000/exercice/registerAnswers", {data}, config)
+                .post("http://51.77.150.97:4000/exercice/registerAnswers", {data}, config)
                 .then((res) => {
                     setTimeout(() => {
                         navigate('/home');

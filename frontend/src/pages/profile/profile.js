@@ -44,7 +44,7 @@ const Profile = () => {
     useEffect(() => {
 
         axios
-            .post("http://backendContainer:4000/connection/infoUser", {}, config)
+            .post("http://51.77.150.97:4000/connection/infoUser", {}, config)
             .then(response => {
                 console.log(response.data)
                 setNom(response.data.nom)
@@ -70,7 +70,7 @@ const Profile = () => {
             };
 
             axios
-                .get('http://backendContainer:4000/user/getAllExercicesFromProfesseur', config)
+                .get('http://51.77.150.97:4000/user/getAllExercicesFromProfesseur', config)
                 .then((res) => {
                     console.log(res.data);
                     setExercices(res.data);
@@ -116,7 +116,7 @@ const Profile = () => {
         };
 
         axios
-            .get("http://backendContainer:4000/user/getAllInformationsUsers", {}, config)
+            .get("http://51.77.150.97:4000/user/getAllInformationsUsers", {}, config)
             .then((res) => {
                 setRolesData(res.data);
                 const initialSelectedRoles = {};
@@ -151,7 +151,7 @@ const Profile = () => {
                 dictionnaireUser[nom] = document.getElementById(nom).value;
 
                 axios
-                    .put('http://backendContainer:4000/user/updateUserInformations', dictionnaireUser)
+                    .put('http://51.77.150.97:4000/user/updateUserInformations', dictionnaireUser)
                     .then((res) => {
                         Swal.fire('Mise à jour réussie!', '', 'success');
                     })
@@ -169,7 +169,7 @@ const Profile = () => {
 
     function deleteExos(idExo, typeExo) {
         console.log(idExo, typeExo)
-        axios.delete(`http://backendContainer:4000/exercice/deleteExo?type=${typeExo}&id=${idExo}`)
+        axios.delete(`http://51.77.150.97:4000/exercice/deleteExo?type=${typeExo}&id=${idExo}`)
     }
 
     const reversedExercices = [...exercices].reverse();

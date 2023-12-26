@@ -35,7 +35,7 @@ const TTI = () => {
 
     function getExoTTI() {
         axios
-            .get('http://backendContainer:4000/exercice/getTTI', config)
+            .get('http://51.77.150.97:4000/exercice/getTTI', config)
             .then((reponse) => {
                 const img = reponse.data[0].reponses;
                 setId(reponse.data[0]._id);
@@ -53,7 +53,7 @@ const TTI = () => {
     
                 for (let i = 0; i < cles.length; i++) {
                     axios
-                        .get(`http://backendContainer:4000/photos/getImage/${cles[i]}`, config)
+                        .get(`http://51.77.150.97:4000/photos/getImage/${cles[i]}`, config)
                         .then((res) => {
                             reponsesAttendues.push(reponse.data[0].reponses[cles[i]])
                             for (let j = 0; j < res.data.length; j++) {
@@ -101,7 +101,7 @@ const TTI = () => {
 
     function Correction() {
         axios
-            .get('http://backendContainer:4000/exercice/getTTI', config)
+            .get('http://51.77.150.97:4000/exercice/getTTI', config)
             .then((res) => {
                 let inputs = document.getElementsByClassName('answerExo');
                 let length = inputs.length
@@ -136,7 +136,7 @@ const TTI = () => {
                 });
         
                 axios
-                .post("http://backendContainer:4000/exercice/registerAnswers", {data}, config)
+                .post("http://51.77.150.97:4000/exercice/registerAnswers", {data}, config)
                 .then((res) => {
                     setTimeout(() => {
                         navigate('/');

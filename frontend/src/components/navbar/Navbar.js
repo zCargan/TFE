@@ -37,7 +37,7 @@ const Navbar = () => {
                     'Authorization': `Bearer ${Cookies.get('JWT')}`
                 }
             };
-            axios.post("http://backendContainer:4000/connection/checkToken", {}, config)
+            axios.post("http://51.77.150.97:4000/connection/checkToken", {}, config)
                 .then(response => {
                     setUsername(response.data.username)
                     if (response.data.role === "eleve") {
@@ -71,7 +71,7 @@ const Navbar = () => {
                     'Authorization': `Bearer ${Cookies.get('JWT')}`
                 }
             };
-            axios.post("http://backendContainer:4000/connection/checkToken", {}, config)
+            axios.post("http://51.77.150.97:4000/connection/checkToken", {}, config)
                 .then(response => {
                     console.log(response)
                     // console.log('Réponse du serveur :', response.data); ==> Réponse du serveur : {role: 'professeur'}
@@ -125,7 +125,7 @@ const Navbar = () => {
         };
         console.log(data_to_send)
         axios
-            .post('http://backendContainer:4000/connection', data_to_send)
+            .post('http://51.77.150.97:4000/connection', data_to_send)
             .then((response) => {
                 console.log(response.data)
                 setRole(response.data.role);

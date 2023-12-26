@@ -20,7 +20,7 @@ const Test = () => {
 
     function plusieursExo() {
         axios
-        .get("http://backendContainer:4000/exercice/getExosFromAllTablesId1")
+        .get("http://51.77.150.97:4000/exercice/getExosFromAllTablesId1")
         .then((res) => {
             console.log(res.data)
             for(let i = 0; i < res.data.length; i ++) {
