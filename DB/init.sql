@@ -1,5 +1,9 @@
 -- init.sql
 
+-- Création de l'utilisateur loganAdmin
+CREATE USER loganAdmin WITH PASSWORD 'LoganTFE2023';
+
+
 -- Utilisation de la base de données "test"
 \c test;
 
