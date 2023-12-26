@@ -24,7 +24,7 @@ const ResetPasswordPage = () => {
             });
             return;
         }
-        axios.post('http://localhost:4000/connection/reset-password', { email })
+        axios.post('http://backendContainer:4000/connection/reset-password', { email })
             .then((res) => {
                 console.log(res.data)
                 setResetRequested(true);

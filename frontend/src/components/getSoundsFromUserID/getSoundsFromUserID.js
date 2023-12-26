@@ -14,10 +14,10 @@ const GetSounds = ({ onSoundSelect }) => {
       }
     };
 
-    axios.post("http://localhost:4000/connection/infoUser", {}, config)
+    axios.post("http://backendContainer:4000/connection/infoUser", {}, config)
       .then(response => {
         let id = response.data.id
-        axios.get(`http://localhost:4000/sound/getSound/${id}`, {}, config)
+        axios.get(`http://backendContainer:4000/sound/getSound/${id}`, {}, config)
           .then((res) => {
             // Ajouter une étiquette à chaque son
             const sonsAvecLabels = res.data.resultat.map((son, index) => ({

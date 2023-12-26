@@ -73,14 +73,14 @@ const MB = () => {
 
 
 
-        axios.post(`http://localhost:4000/exercice/registerMB`, { data }, config).then((res) => {
+        axios.post(`http://backendContainer:4000/exercice/registerMB`, { data }, config).then((res) => {
 
             let data = {
                 idExo: res.data.data._id,
                 type: "MB"
             }
 
-            axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+            axios.post(`http://backendContainer:4000/exercice/addExoToUser`, data, config)
                 .then((res) => {
                     console.log(res)
                 })

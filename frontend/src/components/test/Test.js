@@ -41,7 +41,7 @@ const Test = () => {
 
     function testPQ2() {
         console.log("on passe dans testPQ2")
-        axios.get("http://localhost:4000/exercice/getWorksheet", config)
+        axios.get("http://backendContainer:4000/exercice/getWorksheet", config)
             .then(res => {
                 console.log(res)
                 if (res.data.length > 0 && res.data[0].data.length > 0) {

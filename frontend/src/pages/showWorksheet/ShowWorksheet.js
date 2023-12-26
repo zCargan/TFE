@@ -20,7 +20,7 @@ const ShowWorksheet = () => {
 
     const getTotalCounts = () => {
         axios
-            .get("http://localhost:4000/exercice/getTotalCountsWS")
+            .get("http://backendContainer:4000/exercice/getTotalCountsWS")
             .then((res) => {
                 const max = res.data.count;
                 console.log(max)
@@ -48,7 +48,7 @@ const ShowWorksheet = () => {
             }
 
             axios
-                .get('http://localhost:4000/exercice/getARandomWorksheets', {
+                .get('http://backendContainer:4000/exercice/getARandomWorksheets', {
                     params: { selectedWorksheets },
                 })
                 .then((res) => {
@@ -68,7 +68,7 @@ const ShowWorksheet = () => {
             }
 
             axios
-                .get('http://localhost:4000/exercice/getARandomWorksheets', {
+                .get('http://backendContainer:4000/exercice/getARandomWorksheets', {
                     params: { selectedWorksheets },
                 })
                 .then((res) => {

@@ -21,7 +21,7 @@ const PhotoDetail = () => {
     const [imageSrc, setImageSrc] = useState(null);
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/photos/getDetail/${idPhoto}`)
+        axios.get(`http://backendContainer:4000/photos/getDetail/${idPhoto}`)
             .then((res) => {
                 setId(res.data[0].id);
                 setType(res.data[0].type_mime);
@@ -61,7 +61,7 @@ const PhotoDetail = () => {
             newNameSValue: newNameS
         };
 
-        axios.post(`http://localhost:4000/photos/changeName/${id}`, data, config).then((res) => {
+        axios.post(`http://backendContainer:4000/photos/changeName/${id}`, data, config).then((res) => {
             console.log(res)
         })
             .catch((error) => {
@@ -89,7 +89,7 @@ const PhotoDetail = () => {
             }
         };
 
-        axios.delete(`http://localhost:4000/photos/deleteImage/${id}`, {}, config).then((res) => {
+        axios.delete(`http://backendContainer:4000/photos/deleteImage/${id}`, {}, config).then((res) => {
             Swal.fire({
                 icon: "success",
                 title: "Image supprimée avec succès",

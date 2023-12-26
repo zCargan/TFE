@@ -33,7 +33,7 @@ const TAT = () => {
     function getExoTAT() {
 
         axios
-            .get('http://localhost:4000/exercice/getTAT', config)
+            .get('http://backendContainer:4000/exercice/getTAT', config)
             .then((res) => {
                 let reponsesFromDB = []
                 let string = "";
@@ -68,7 +68,7 @@ const TAT = () => {
 
     function correction() {
         axios
-        .get('http://localhost:4000/exercice/getTAT', config)
+        .get('http://backendContainer:4000/exercice/getTAT', config)
         .then((res) => {
             let arrayUserResponse = [];
             let inputUser = document.getElementsByClassName('inputTATuser')
@@ -107,7 +107,7 @@ const TAT = () => {
             });
     
             axios
-            .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
+            .post("http://backendContainer:4000/exercice/registerAnswers", {data}, config)
             .then((res) => {
                 setTimeout(() => {
                     navigate('/');

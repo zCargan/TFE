@@ -39,7 +39,7 @@ const Photo = () => {
     }
 
     function getPhotos() {
-        axios.get('http://localhost:4000/photos/testNewRoute')
+        axios.get('http://backendContainer:4000/photos/testNewRoute')
             .then((res) => {
                 const buffer = res.data[3].image_data.data;
                 console.log('on passeici')
@@ -92,7 +92,7 @@ const Photo = () => {
                 
                 console.log(formData)
     
-                axios.post('http://localhost:4000/photos/register/img', formData, config)
+                axios.post('http://backendContainer:4000/photos/register/img', formData, config)
                     .then(response => {
                         console.log("hihi")
                         console.log(response)
@@ -135,7 +135,7 @@ const Photo = () => {
     
         console.log(config);
     
-        axios.get('http://localhost:4000/photos/testNewRoute', config)
+        axios.get('http://backendContainer:4000/photos/testNewRoute', config)
             .then((res) => {
                 const imageContainer = document.getElementById('photoUser');
     

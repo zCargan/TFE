@@ -90,7 +90,7 @@ const STT = () => {
         }
 
         axios
-            .post(`http://localhost:4000/exercice/registerSTT`, data, config)
+            .post(`http://backendContainer:4000/exercice/registerSTT`, data, config)
             .then((res) => {
 
                 let data = {
@@ -98,7 +98,7 @@ const STT = () => {
                     type: "STT"
                 }
 
-                axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                axios.post(`http://backendContainer:4000/exercice/addExoToUser`, data, config)
                     .then((res) => {
                         console.log(res)
                     })

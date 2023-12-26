@@ -71,7 +71,7 @@ const MBWSCreator = ({ exo, onMBDataChange }) => {
 
             for (let i = 0; i < cles.length; i++) {
                 axios
-                    .get(`http://localhost:4000/photos/getImage/${cles[i]}`, config)
+                    .get(`http://backendContainer:4000/photos/getImage/${cles[i]}`, config)
                     .then((resPhoto) => {
                         console.log(img[cles[i]]);
                         reponsesAttendues.push(img[cles[i]].join(''));

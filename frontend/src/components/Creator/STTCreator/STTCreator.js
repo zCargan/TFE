@@ -30,7 +30,7 @@ const STTCreator = ({ exo }) => {
     };
 
     axios
-      .get(`http://localhost:4000/exercice/getSTTexo/${exo}`, config)
+      .get(`http://backendContainer:4000/exercice/getSTTexo/${exo}`, config)
       .then((res) => {
         setId(res.data._id);
         setNom(res.data.nom);
@@ -52,7 +52,7 @@ const STTCreator = ({ exo }) => {
 
           setAllResponses([...nouvellesReponses]);
 
-          const promesseReponse = axios.get(`http://localhost:4000/exercice/getSTT/${cles[i]}`, config)
+          const promesseReponse = axios.get(`http://backendContainer:4000/exercice/getSTT/${cles[i]}`, config)
             .then((nestedRes) => {
               return nestedRes.data[0];
             })
@@ -122,7 +122,7 @@ const STTCreator = ({ exo }) => {
     });
 
     axios
-      .post("http://localhost:4000/exercice/registerAnswers", { data }, config)
+      .post("http://backendContainer:4000/exercice/registerAnswers", { data }, config)
       .then((res) => {
         setTimeout(() => {
           navigate('/home');

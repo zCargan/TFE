@@ -40,7 +40,7 @@ const GetExercicesBySearchBar = () => {
 
 
         axios
-            .post('http://localhost:4000/exercice/getExosFromRequest', data)
+            .post('http://backendContainer:4000/exercice/getExosFromRequest', data)
             .then((res) => {
                 console.log(res.data)
                 const cles = Object.keys(res.data.data);
@@ -67,7 +67,7 @@ const GetExercicesBySearchBar = () => {
                         switch (valeurActuelle) {
                             case 'MB':
                                 axios
-                                    .get(`http://localhost:4000/exercice/getMB/${cleActuelle}`)
+                                    .get(`http://backendContainer:4000/exercice/getMB/${cleActuelle}`)
                                     .then((res) => {
                                         if (!MB.some((item) => item.id === res.data.id)) {
                                             setMB((prevMB) => [...prevMB, res.data]);
@@ -76,7 +76,7 @@ const GetExercicesBySearchBar = () => {
                                 break;
                             case 'LDN':
                                 axios
-                                    .get(`http://localhost:4000/exercice/getLDN/${cleActuelle}`)
+                                    .get(`http://backendContainer:4000/exercice/getLDN/${cleActuelle}`)
                                     .then((res) => {
                                         if (!LDN.some((item) => item.id === res.data.id)) {
                                             setLDN((prevLDN) => [...prevLDN, res.data]);
@@ -85,7 +85,7 @@ const GetExercicesBySearchBar = () => {
                                 break;
                             case 'MDN':
                                 axios
-                                    .get(`http://localhost:4000/exercice/getMDN/${cleActuelle}`)
+                                    .get(`http://backendContainer:4000/exercice/getMDN/${cleActuelle}`)
                                     .then((res) => {
                                         if (!MDN.some((item) => item.id === res.data.id)) {
                                             setMDN((prevMDN) => [...prevMDN, res.data]);
@@ -94,7 +94,7 @@ const GetExercicesBySearchBar = () => {
                                 break;
                             case 'abaque':
                                 axios
-                                    .get(`http://localhost:4000/exercice/getAbaque/${cleActuelle}`)
+                                    .get(`http://backendContainer:4000/exercice/getAbaque/${cleActuelle}`)
                                     .then((res) => {
                                         if (!abaque.some((item) => item.id === res.data.id)) {
                                             setAbaque((prevAbaque) => [...prevAbaque, res.data]);
@@ -103,7 +103,7 @@ const GetExercicesBySearchBar = () => {
                                 break;
                             case 'TAT':
                                 axios
-                                    .get(`http://localhost:4000/exercice/getTAT/${cleActuelle}`)
+                                    .get(`http://backendContainer:4000/exercice/getTAT/${cleActuelle}`)
                                     .then((res) => {
                                         if (!TAT.some((item) => item.id === res.data.id)) {
                                             setTAT((prevTAT) => [...prevTAT, res.data]);
@@ -113,7 +113,7 @@ const GetExercicesBySearchBar = () => {
                             case 'STT':
                                 console.log("on est la")
                                 axios
-                                    .get(`http://localhost:4000/exercice/getSTTexo/${cleActuelle}`)
+                                    .get(`http://backendContainer:4000/exercice/getSTTexo/${cleActuelle}`)
                                     .then((res) => {
                                         if (!STT.some((item) => item.id === res.data.id)) {
                                             setSTT((prevSTT) => [...prevSTT, res.data]);
@@ -122,7 +122,7 @@ const GetExercicesBySearchBar = () => {
                                 break;
                             case 'TTI':
                                 axios
-                                    .get(`http://localhost:4000/exercice/getTTI/${cleActuelle}`)
+                                    .get(`http://backendContainer:4000/exercice/getTTI/${cleActuelle}`)
                                     .then((res) => {
                                         if (!TTI.some((item) => item.id === res.data.id)) {
                                             setTTI((prevTTI) => [...prevTTI, res.data]);

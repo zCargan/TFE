@@ -123,7 +123,7 @@ const InfoExercice = () => {
 
     function TTIdetails(config, data) {
         axios
-            .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
+            .get(`http://backendContainer:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
             .then((res) => {
                 setName(res.data.exerciceInfos.nom)
                 setAnnee(res.data.exerciceInfos.anneeScolaire)
@@ -135,7 +135,7 @@ const InfoExercice = () => {
                 console.log(cles)
                 for (let i = 0; i < cles.length; i++) {
                     axios
-                        .get(`http://localhost:4000/photos/getImage/${cles[i]}`, config)
+                        .get(`http://backendContainer:4000/photos/getImage/${cles[i]}`, config)
                         .then((res) => {
                             const imageContainer = document.getElementById('infoAvecCorrection');
                             imageContainer.style.display = 'flex';
@@ -208,7 +208,7 @@ const InfoExercice = () => {
 
     function MBdetails(config, data) {
         axios
-            .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
+            .get(`http://backendContainer:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
             .then((res) => {
                 setName(res.data.exerciceInfos.nom)
                 setAnnee(res.data.exerciceInfos.anneeScolaire)
@@ -220,7 +220,7 @@ const InfoExercice = () => {
 
                 for (let i = 0; i < cles.length; i++) {
                     axios
-                        .get(`http://localhost:4000/photos/getImage/${cles[i]}`, config)
+                        .get(`http://backendContainer:4000/photos/getImage/${cles[i]}`, config)
                         .then((res) => {
                             console.log(valeurDesCles[i])
                             const imageContainer = document.getElementById('infoAvecCorrection');
@@ -269,7 +269,7 @@ const InfoExercice = () => {
 
     function LDNdetails(config, data) {
         axios
-            .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
+            .get(`http://backendContainer:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
             .then((res) => {
                 let resultatAttendu = res.data.exerciceInfos.reponseFinale
                 setName(res.data.exerciceInfos.nom)
@@ -329,7 +329,7 @@ const InfoExercice = () => {
 
     function STTdetails(config, data) {
         axios
-            .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
+            .get(`http://backendContainer:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
             .then((res) => {
                 console.log(res.data.exerciceInfos)
                 setName(res.data.exerciceInfos.nom)
@@ -350,7 +350,7 @@ const InfoExercice = () => {
 
                     setAllResponses([...nouvellesReponses]);
 
-                    const promesseReponse = axios.get(`http://localhost:4000/exercice/getSTT/${cles[i]}`, config)
+                    const promesseReponse = axios.get(`http://backendContainer:4000/exercice/getSTT/${cles[i]}`, config)
                         .then((nestedRes) => {
                             return nestedRes.data[0];
                         })
@@ -383,7 +383,7 @@ const InfoExercice = () => {
 
     function Abaquedetails(config, data) {
         axios
-            .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
+            .get(`http://backendContainer:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
             .then((res) => {
 
                 let reponseInitiale = res.data.exerciceInfos.reponseInitiale;
@@ -424,7 +424,7 @@ const InfoExercice = () => {
 
     function TATdetails(config, data) {
         axios
-            .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
+            .get(`http://backendContainer:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
             .then((res) => {
                 let reponsesFromDB = []
 
@@ -464,7 +464,7 @@ const InfoExercice = () => {
 
     function MDNdetails(config, data) {
         axios
-            .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
+            .get(`http://backendContainer:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
             .then((res) => {
 
                 let length = res.data.exerciceInfos.cols
@@ -506,7 +506,7 @@ const InfoExercice = () => {
 
     function WSdetails(config, data) {
         axios
-            .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
+            .get(`http://backendContainer:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
             .then((res) => {
                 console.log(res.data.exerciceInfos.data)
                 setName(res.data.exerciceInfos.nom)

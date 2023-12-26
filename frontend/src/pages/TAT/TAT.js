@@ -85,7 +85,7 @@ const TAT = () => {
             reponseFinale: arrayFinal
         }
 
-        axios.post("http://localhost:4000/exercice/registerTAT", { data }, config)
+        axios.post("http://backendContainer:4000/exercice/registerTAT", { data }, config)
             .then((res) => {
 
                 let data = {
@@ -93,7 +93,7 @@ const TAT = () => {
                     type: "TAT"
                 }
 
-                axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                axios.post(`http://backendContainer:4000/exercice/addExoToUser`, data, config)
                     .then((res) => {
                         console.log(res)
                     })

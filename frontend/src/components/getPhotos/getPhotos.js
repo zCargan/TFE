@@ -25,7 +25,7 @@ const GetPhotos = ({ onImageClick }) => {
             }
         };
 
-        axios.get('http://localhost:4000/photos/testNewRoute', config)
+        axios.get('http://backendContainer:4000/photos/testNewRoute', config)
             .then((res) => {
                 setPhotos(res.data);
             })

@@ -74,7 +74,7 @@ const MDN = () => {
             }
         }
 
-        axios.post("http://localhost:4000/exercice/registerMDN", {exo}, config)
+        axios.post("http://backendContainer:4000/exercice/registerMDN", {exo}, config)
     }
 
 

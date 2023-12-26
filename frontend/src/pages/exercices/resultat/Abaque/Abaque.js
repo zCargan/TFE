@@ -26,7 +26,7 @@ const Abaque = () => {
     let dictionnaire = {};
 
     function recupereExo() {
-        axios.get("http://localhost:4000/exercice/getAbaque").then((res) => {
+        axios.get("http://backendContainer:4000/exercice/getAbaque").then((res) => {
             let resultatAttendu =  res.data[0].reponseFinale
             setReponses(resultatAttendu)
             let reponseInitiale = res.data[0].reponseInitiale;
@@ -59,7 +59,7 @@ const Abaque = () => {
  
 
     function correction() {
-        axios.get("http://localhost:4000/exercice/getAbaque").then((res) => {
+        axios.get("http://backendContainer:4000/exercice/getAbaque").then((res) => {
             let resultatAttendu =  res.data[0].reponseFinale
             let resultatInitial = res.data[0].reponseInitiale;
             let resultatRecu = []
@@ -105,7 +105,7 @@ const Abaque = () => {
             }
 
             axios
-            .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
+            .post("http://backendContainer:4000/exercice/registerAnswers", {data}, config)
             .then((res) => {
                 setTimeout(() => {
                     navigate('/');
