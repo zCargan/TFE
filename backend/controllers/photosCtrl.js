@@ -39,7 +39,7 @@ exports.testRoute (req, res, next) => {
         return res.status(500).json({ error: 'An error occurred while uploading the images' });
     }
     const client = new Client({
-        host: 'localhost',
+        host: 'dbContainer',
         port: 5432,
         database: 'test',
         user: 'postgres',
@@ -58,7 +58,7 @@ exports.getPhotoDetail = (req, res) => {
     const photoId = req.params.id;
 
     const client = new Client({
-        host: 'localhost',
+        host: 'dbContainer',
         port: 5432,
         database: 'test',
         user: 'postgres',
@@ -89,7 +89,7 @@ exports.getPhotoDetail = (req, res) => {
 
 exports.getPhotos = (req, res, next) => {
     const client = new Client({
-        host: 'localhost',
+        host: 'dbContainer',
         port: 5432,
         database: 'test',
         user: 'postgres',
@@ -150,7 +150,7 @@ exports.register = (req, res, next) => {
             } else {
 
                 const client = new Client({
-                    host: 'localhost',
+                    host: 'dbContainer',
                     port: 5432,
                     database: 'test',
                     user: 'postgres',
@@ -202,7 +202,7 @@ exports.updateImageName = (req, res, next) => {
             } else {
                 
                 const client = new Client({
-                    host: 'localhost',
+                    host: 'dbContainer',
                     port: 5432,
                     database: 'test',
                     user: 'postgres',
@@ -236,7 +236,7 @@ exports.deleteImage = (req, res, next) => {
     const photoId = req.params.id
 
     const client = new Client({
-        host: 'localhost',
+        host: 'dbContainer',
         port: 5432,
         database: 'test',
         user: 'postgres',
@@ -273,7 +273,7 @@ exports.getImage = (req, res) => {
                 console.error('Erreur lors de la vérification du JWT :', err);
             } else {
                 const client = new Client({
-                    host: 'localhost',
+                    host: 'dbContainer',
                     port: 5432,
                     database: 'test',
                     user: 'postgres',

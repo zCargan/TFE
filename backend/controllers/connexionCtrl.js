@@ -18,7 +18,7 @@ exports.connection = (req, res, next) => {
     console.log(query)
 
     const client = new Client({
-        host: 'localhost',
+        host: 'dbContainer',
         port: 5432,
         database: 'test',
         user: 'postgres',
@@ -151,7 +151,7 @@ exports.newPassword2 = async (req, res, next) => {
         const decodedToken = jwt.verify(token, 'testemail');
 
         const client = new Client({
-            host: 'localhost',
+            host: 'dbContainer',
             port: 5432,
             database: 'test',
             user: 'postgres',

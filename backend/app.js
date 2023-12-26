@@ -18,7 +18,7 @@ app.use(express.json())
 app.use(cors());
 
 const client = new Client({
-    host: 'localhost',
+    host: 'dbContainer',
     port: 5432,
     database: 'test',
     user: 'postgres',
