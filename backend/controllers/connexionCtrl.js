@@ -121,7 +121,7 @@ exports.resetPassword = (req, res, next) => {
         },
     });
 
-    const resetLink = `http://localhost:3000/reset-password2?token=${token}`;
+    const resetLink = `http://51.77.150.97:80/reset-password2?token=${token}`;
     const mailOptions = {
         from: 'lgc.carlier@gmail.com',
         to: email,
