@@ -19,5 +19,8 @@ FROM httpd:2.4
 # Copiez le build de l'application dans le répertoire web d'Apache
 COPY --from=builder /app/build/ /usr/local/apache2/htdocs/
 
+# Copiez le fichier .htaccess
+COPY .htaccess /usr/local/apache2/htdocs/
+
 # Exposez le port sur lequel Apache écoute (par défaut, le port 80)
 EXPOSE 80
