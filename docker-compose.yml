@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  db:
+    build:
+      context: ./DB/
+      dockerfile: db  
+    container_name: dbContainer
+    networks:
+      - reseau
+    environment:
+      POSTGRES_PASSWORD: LoganTFE2023
+      POSTGRES_USER: loganAdmin
+      POSTGRES_DB: test
+    ports:
+      - "5433:5432"
+
+  backend:
+    build:
+      context: ./backend
+    container_name: backendContainer
+    networks:
+      - reseau
+    ports:
+      - "4000:4000"
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontendContainer
+    networks:
+      - reseau
+    ports:
+      - "80:80"
+
+networks:
+  reseau:
+    driver: bridge
