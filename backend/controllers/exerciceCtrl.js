@@ -473,10 +473,10 @@ exports.getSTTById = (req, res) => {
                 console.error('Erreur lors de la vérification du JWT :', err);
             } else {
                 const client = new Client({
-                    host: 'dbContainer',
+                    host: 'localhost',
                     port: 5432,
                     database: 'test',
-                    user: 'loganAdmin',
+                    user: 'postgres',
                     password: 'LoganTFE2023',
                 });
 
@@ -540,10 +540,10 @@ exports.registerAnswer = (req, res) => {
                 const values = [utilisateurId, idExo, pourcentage, type];
 
                 const client = new Client({
-                    host: 'dbContainer',
+                    host: 'localhost',
                     port: 5432,
                     database: 'test',
-                    user: 'loganAdmin',
+                    user: 'postgres',
                     password: 'LoganTFE2023',
                 });
 
@@ -575,10 +575,10 @@ exports.getExosFromExercice = (req, res) => {
     console.log(req.body.data.id)
 
     const client = new Client({
-        host: 'dbContainer',
+        host: 'localhost',
         port: 5432,
         database: 'test',
-        user: 'loganAdmin',
+        user: 'postgres',
         password: 'LoganTFE2023',
     });
 
@@ -1443,10 +1443,10 @@ exports.addExoToUser = (req, res, next) => {
                 const values = [utilisateurId, idExo, type];
 
                 const client = new Client({
-                    host: 'dbContainer',
+                    host: 'localhost',
                     port: 5432,
                     database: 'test',
-                    user: 'loganAdmin',
+                    user: 'postgres',
                     password: 'LoganTFE2023',
                 });
 

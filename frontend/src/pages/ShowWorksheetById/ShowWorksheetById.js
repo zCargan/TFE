@@ -59,7 +59,7 @@ const ShowWorksheetById = () => {
 
     function testPQ2() {
         console.log("on passe dans testPQ2")
-        axios.get("http://51.77.150.97:4000/exercice/getWorksheet", config)
+        axios.get("http://localhost:4000/exercice/getWorksheet", config)
             .then(res => {
                 console.log(res.data[0])
                 if (res.data.length > 0 && res.data[0].data.length > 0) {
@@ -106,7 +106,7 @@ const ShowWorksheetById = () => {
 
     function testPQ3() {
         console.log("on passe dans testPQ2")
-        axios.get(`http://51.77.150.97:4000/exercice/getWS/${exo}`, config)
+        axios.get(`http://localhost:4000/exercice/getWS/${exo}`, config)
             .then(res => {
                 console.log(res.data)
                 setName(res.data.nom)
@@ -206,7 +206,7 @@ const ShowWorksheetById = () => {
         }
 
         axios
-            .post("http://51.77.150.97:4000/exercice/registerAnswers", { data }, config)
+            .post("http://localhost:4000/exercice/registerAnswers", { data }, config)
             .then((res) => {
                 setTimeout(() => {
                     navigate('/home');
@@ -260,7 +260,7 @@ const ShowWorksheetById = () => {
     function getWSById() {
         console.log("cliqué ici")
         axios
-            .get(`http://51.77.150.97:4000/exercice/getWS/${exo}`)
+            .get(`http://localhost:4000/exercice/getWS/${exo}`)
             .then((res) =>
                 console.log(res.data)
             )

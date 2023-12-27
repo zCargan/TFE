@@ -6,10 +6,10 @@ exports.registerData = (req, res, next) => {
     console.log('on est appelé register')
 
     const client = new Client({
-        host: 'dbContainer',
+        host: 'localhost',
         port: 5432,
         database: 'test',
-        user: 'loganAdmin',
+        user: 'postgres',
         password: 'LoganTFE2023',
     });
 

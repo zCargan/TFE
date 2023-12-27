@@ -37,7 +37,7 @@ const Navbar = () => {
                     'Authorization': `Bearer ${Cookies.get('JWT')}`
                 }
             };
-            axios.post("http://51.77.150.97:4000/connection/checkToken", {}, config)
+            axios.post("http://localhost:4000/connection/checkToken", {}, config)
                 .then(response => {
                     setUsername(response.data.username)
                     if (response.data.role === "eleve") {
@@ -71,7 +71,7 @@ const Navbar = () => {
                     'Authorization': `Bearer ${Cookies.get('JWT')}`
                 }
             };
-            axios.post("http://51.77.150.97:4000/connection/checkToken", {}, config)
+            axios.post("http://localhost:4000/connection/checkToken", {}, config)
                 .then(response => {
                     console.log(response)
                     // console.log('Réponse du serveur :', response.data); ==> Réponse du serveur : {role: 'professeur'}
@@ -125,7 +125,7 @@ const Navbar = () => {
         };
         console.log(data_to_send)
         axios
-            .post('http://51.77.150.97:4000/connection', data_to_send)
+            .post('http://localhost:4000/connection', data_to_send)
             .then((response) => {
                 console.log(response.data)
                 setRole(response.data.role);
@@ -173,7 +173,7 @@ const Navbar = () => {
                 >
                     <div id="popupConnection">
                         {username !== "" ? (
-                            <div>
+                            <div className='popupProfil'>
                                 <br />
                                 <h3>Bienvenue sur votre profil</h3>
                                 <p>Bonjour {username} !</p>
@@ -182,14 +182,13 @@ const Navbar = () => {
                                 <br />
                                 <button className="buttonProfile2" onClick={(e) => navigate('/profile')}>Accéder à mon profil</button>
                                 <br />
-                                <LogoutIcon onClick={(e) => deconnect()}></LogoutIcon>
+                                <LogoutIcon className="logout" onClick={(e) => deconnect()}></LogoutIcon>
                             </div>
                         ) : (
-                            <div>
-                                <h3>Vous êtes non connecté</h3>
-                                <button onClick={(e) => navigate('/register')}>Se créer un compte</button>
-                                <h2>Ou se connecter :</h2>
-                                <button onClick={(e) => navigate('/')}>Se connecter</button>
+                            <div id="divNonConnecté">
+                                <br />
+                                <h2>Vous êtes non connecté</h2>
+                                <button className="buttonGlobalCSS" onClick={(e) => navigate('/')}>Se connecter</button>
                             </div>
                         )}
                     </div>

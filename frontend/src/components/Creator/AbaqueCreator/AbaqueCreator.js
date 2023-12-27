@@ -35,7 +35,7 @@ const AbaqueCreator = ({ exo }) => {
 
     function recupereExo() {
         axios
-        .get(`http://51.77.150.97:4000/exercice/getAbaque/${exo}`, config)
+        .get(`http://localhost:4000/exercice/getAbaque/${exo}`, config)
         .then((res) => {
             console.log(res.data)
             let resultatAttendu =  res.data.reponseFinale
@@ -68,7 +68,7 @@ const AbaqueCreator = ({ exo }) => {
  
 
     function correction() {
-        axios.get(`http://51.77.150.97:4000/exercice/getAbaque/${exo}`).then((res) => {
+        axios.get(`http://localhost:4000/exercice/getAbaque/${exo}`).then((res) => {
             let resultatAttendu =  res.data.reponseFinale
             let resultatInitial = res.data.reponseInitiale;
             let resultatRecu = []
@@ -116,7 +116,7 @@ const AbaqueCreator = ({ exo }) => {
             }
 
             axios
-            .post("http://51.77.150.97:4000/exercice/registerAnswers", {data}, config)
+            .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
             .then((res) => {
                 setTimeout(() => {
                     navigate('/home');

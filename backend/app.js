@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const exerciceRoute  = require('./routes/exerciceRoute')
+const exerciceRoute = require('./routes/exerciceRoute')
 const connectionRoute = require('./routes/connectionRoute')
 const registerRoute = require('./routes/registerRoute')
 const testRoute = require('./routes/testRoute')
@@ -18,18 +18,18 @@ app.use(express.json())
 app.use(cors());
 
 const client = new Client({
-    host: 'dbContainer',
+    host: 'localhost',
     port: 5432,
     database: 'test',
-    user: 'loganAdmin',
+    user: 'postgres',
     password: 'LoganTFE2023',
 });
 
 client.connect()
-    .then(()=> console.log('Connexion à PostgresSQL réussie !'))
+    .then(() => console.log('Connexion à PostgresSQL réussie !'))
     .catch(() => console.log('Connexion à PostgresSQL échouée !'))
-    // Libère la pool de connexions
-                                              
+// Libère la pool de connexions
+
 
 
 

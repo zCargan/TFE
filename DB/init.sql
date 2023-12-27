@@ -8,7 +8,7 @@ CREATE USER loganAdmin WITH PASSWORD 'LoganTFE2023';
 \c test;
 
 -- Crée la base de données
-CREATE DATABASE test;
+CREATE DATABASE test;   
 
 
 -- Création de la table utilisateurs

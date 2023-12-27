@@ -11,4 +11,4 @@ ALTER USER loganAdmin WITH SUPERUSER;
 DROP DATABASE IF EXISTS test;
 
 -- Création de la base de données "test"
-CREATE DATABASE test;
+CREATE DATABASE test;   

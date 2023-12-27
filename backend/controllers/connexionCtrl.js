@@ -18,10 +18,10 @@ exports.connection = (req, res, next) => {
     console.log(query)
 
     const client = new Client({
-        host: 'dbContainer',
+        host: 'localhost',
         port: 5432,
         database: 'test',
-        user: 'loganAdmin',
+        user: 'postgres',
         password: 'LoganTFE2023',
     });
 
@@ -121,7 +121,7 @@ exports.resetPassword = (req, res, next) => {
         },
     });
 
-    const resetLink = `http://51.77.150.97:80/reset-password2?token=${token}`;
+    const resetLink = `http://localhost:3000/reset-password2?token=${token}`;
     const mailOptions = {
         from: 'lgc.carlier@gmail.com',
         to: email,
@@ -151,10 +151,10 @@ exports.newPassword2 = async (req, res, next) => {
         const decodedToken = jwt.verify(token, 'testemail');
 
         const client = new Client({
-            host: 'dbContainer',
+            host: 'localhost',
             port: 5432,
             database: 'test',
-            user: 'loganAdmin',
+            user: 'postgres',
             password: 'LoganTFE2023',
         });
 

@@ -58,10 +58,10 @@
     font-size: 30px;
 }
 
-#input_connection_div button {
+.buttonDivConneciton {
     font-size: 30px;
     font-family: 'homeKitchen';
-    background-color: black;
+    background-color: rgb(144,68,60);
     color: white;
     padding: 10px 20px;
     border: 1px solid transparent;
@@ -70,7 +70,7 @@
 
 #input_connection_div button:hover {
     background-color: white;
-    color: black;
+    color: rgb(144,68,60);
     border-color: black; 
 }
 
@@ -90,6 +90,138 @@
 }
 
 
-.h1Connection {
-    margin-top: 3.4%
+
+
+.divHConnection h2{
+    margin-top: -1%;
+}
+
+
+.divGlobalConnection {
+    margin-top: 1%;
+    border-radius: 10px;
+    border: 2px solid rgb(144,68,60);
+    padding: 1%;
+    background: rgba(0, 0, 0, 0.7);
+    width: 50%;
+    margin-left: 25%;
+}
+
+
+
+.inputForm {
+    font-size: 110%;
+    font-weight: bold;
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid rgb(144,68,60);
+	background: none;
+	outline: none;
+	padding: 10px 5px;
+	margin-bottom: 20px;
+	color: #fff;
+    text-align: center;
+}
+
+
+.inputForm::placeholder {
+	color: rgba(255, 255, 255, 0.65);
+}
+
+.card-header {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	margin: 30px 20px 0;
+	font-size: 1.1rem;
+	color: #94f7e6;
+	box-shadow: 2px 3px 8px #d3f7ff71;
+	border-radius: 50px;
+}
+
+.card-header .buttonForm {
+    color: white;
+	flex: 50%;
+	text-align: center;
+	padding: 10px 0;
+	border: 1px solid transparent;
+	border-radius: 50px;
+	user-select: none;
+}
+
+.card-header .buttonForm:hover {
+	cursor: pointer;
+}
+
+.card-header .buttonForm.active {
+	border-color: rgb(144,68,60);
+	box-shadow: inset 10px 10px 2px rgb(144,68,60 / 55%), inset -1px 10px 2px rgb(144,68,60 / 55%), inset -1px -1px 2px rgb(144,68,60 / 55%),
+		inset 1px -1px 2px rgb(144,68,60 / 55%);
+	transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+
+.newPassword {
+    position: relative;
+    margin-top: 3%;
+    font-size: 30px;
+    font-family: 'homeKitchen';
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease; 
+}
+
+.buttonDivConneciton {
+    font-size: 30px;
+    font-family: 'homeKitchen';
+    background-color: rgb(144,68,60);
+    color: white;
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease; 
+}
+
+#input_connection_div button:hover {
+    background-color: white;
+    color: black;
+    border-color: black; 
+}
+
+.important {
+    color:red;
+}
+
+.important2 {
+    color:yellow;
+}
+
+#text_zone4 {
+    padding: 4%;
+    border-radius: 10px;
+    border: 1px solid white;
+    text-align: center;
+    background-color: black;
+    width: 150%;
+}
+
+#text_zone5 {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    border: 1px solid rgb(144,68,60);
+    text-align: center;
+    padding: 5%;
+    
+}
+
+#text_zone5 p {
+    font-family: j2;
+    font-weight: bold;
+    font-size: 20px;
+    color: rgb(144,68,60);
+}
+
+.logoEye {
+    color: white;
 }
