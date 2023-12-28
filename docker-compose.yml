@@ -1,20 +1,6 @@
 version: '3'
 
 services:
-  db:
-    build:
-      context: ./DB/
-      dockerfile: Dockerfile  
-    container_name: dbContainer
-    networks:
-      - reseau
-    environment:
-      POSTGRES_PASSWORD: LoganTFE2023
-      POSTGRES_USER: loganAdmin
-      POSTGRES_DB: test
-    ports:
-      - "5433:5432"
-
   backend:
     build:
       context: ./backend
