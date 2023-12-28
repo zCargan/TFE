@@ -32,13 +32,13 @@ exports.getAllInformationsUsers = (req, res, next) => {
 
     const query = 'SELECT * FROM utilisateurs;';
     const dictionnaireUser = {};
-    const client = new Client({
-        host: 'localhost',
-        port: 5432,
-        database: 'test',
-        user: 'postgres',
-        password: 'LoganTFE2023',
-    });
+const client = new Client({
+    host: 'dbContainer',
+    port: 5432,
+    database: 'test',
+    user: 'loganAdmin',
+    password: 'LoganTFE2023',
+});
 
     client.connect();
 
@@ -81,13 +81,13 @@ exports.updateUserInformations = (req, res, next) => {
     }
 
 
-    const client = new Client({
-        host: 'localhost',
-        port: 5432,
-        database: 'test',
-        user: 'postgres',
-        password: 'LoganTFE2023',
-    });
+const client = new Client({
+    host: 'dbContainer',
+    port: 5432,
+    database: 'test',
+    user: 'loganAdmin',
+    password: 'LoganTFE2023',
+});
 
     client.connect()
     const query = 'UPDATE utilisateurs SET role = $1 WHERE nom = $2';
@@ -113,8 +113,8 @@ exports.sendRequest = (req, res, next) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail', 
         auth: {
-            user: 'lgc.carlier@gmail.com', 
-            pass: 'qfcb hcah xpgg oxpt',  
+            user: 'laclassedemmeseverine@gmail.com', 
+            pass: 'fwki zjik rnqk jrdt',  
         },
     });
     
@@ -126,7 +126,7 @@ exports.sendRequest = (req, res, next) => {
 
     const mailOptions = {
         from: emailUser,
-        to: "lgc.carlier@gmail.com",
+        to: "laclassedemmeseverine@gmail.com",
         subject: motifUser,
         text: texte
     };
@@ -150,7 +150,7 @@ exports.getAllExercicesFromProfesseur = async (req, res, next) => {
     if (token) {
         try {
             const jwtToken = token.replace('Bearer ', '');
-            const secretKey = "test";
+            const secretKey = "secretKey";
             const decoded = jwt.verify(jwtToken, secretKey);
 
             const client = new Client({

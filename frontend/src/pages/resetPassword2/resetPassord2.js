@@ -38,7 +38,7 @@ const ResetPassword2 = () => {
 
             const token = new URLSearchParams(location.search).get('token');
 
-            const response = await axios.post('http://localhost:4000/connection/newPassword', { token, password });
+            const response = await axios.post('http://51.77.150.97:4000/connection/newPassword', { token, password });
 
             Swal.fire({
                 title: 'Succès',
@@ -97,29 +97,6 @@ const ResetPassword2 = () => {
     }
 
     
-    // function passwordOk(string1, string2) {
-    //     if (passwordHasValidLength && passwordHasLowercaseLetter && passwordHasUppercaseLetter && passwordHasNumber && passwordHasSpecialCharacter) {
-    //         if (sameString(string1, string2)) {
-    //             Swal.fire({
-    //                 title: 'Succès',
-    //                 text: 'Les mots de passe sont corrects',
-    //                 icon: 'success',
-    //             });
-    //         } else {
-    //             Swal.fire({
-    //                 title: 'Erreur',
-    //                 text: 'Les mots de passe ne correspondent pas',
-    //                 icon: 'error',
-    //             });
-    //         }
-    //     } else {
-    //         Swal.fire({
-    //             title: 'Erreur',
-    //             text: 'Les critères du mot de passe ne sont pas remplis',
-    //             icon: 'error',
-    //         });
-    //     }
-    // }
 
     function passwordOk(string1, string2) {
         if (passwordHasValidLength && passwordHasLowercaseLetter && passwordHasUppercaseLetter && passwordHasNumber && passwordHasSpecialCharacter) {

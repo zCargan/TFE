@@ -3,67 +3,178 @@ const jwt = require("jsonwebtoken");
 const { json } = require('express');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+const argon2 = require('argon2');
+const secretKeyCrypto = 'SecretKeyCrypto';
+
+async function hashPassword(password) {
+    try {
+        const hash = await argon2.hash(password);
+        return hash;
+    } catch (error) {
+        console.error('Erreur lors du hachage du mot de passe avec Argon2:', error);
+        throw error;
+    }
+}
+
+async function verifyPassword(hashedPassword, enteredPassword) {
+    try {
+        const isValid = await argon2.verify(hashedPassword, enteredPassword);
+        return isValid;
+    } catch (error) {
+        console.error('Erreur lors de la vérification du mot de passe avec Argon2:', error);
+        throw error;
+    }
+}
+
+function encryptEmail(email) {
+    const cipher = crypto.createCipher('aes-256-cbc', secretKeyCrypto);
+    let encrypted = cipher.update(email, 'utf-8', 'hex');
+    encrypted += cipher.final('hex');
+    return encrypted;
+}
+
+function decryptEmail(encryptedEmail) {
+    const decipher = crypto.createDecipher('aes-256-cbc', secretKeyCrypto);
+    let decrypted = decipher.update(encryptedEmail, 'hex', 'utf-8');
+    decrypted += decipher.final('utf-8');
+    return decrypted;
+}
+
+exports.registerData = (req, res, next) => {
+
+    const surname = req.body.surname
+    const password = req.body.password
+    const email = req.body.email
+    const encryptedEmail = encryptEmail(email);
+
+    console.log("Mot de passe venant du frontend : " + password)
+
+const client = new Client({
+    host: 'dbContainer',
+    port: 5432,
+    database: 'test',
+    user: 'loganAdmin',
+    password: 'LoganTFE2023',
+});
+
+    client.connect()
+
+    const query1 = 'SELECT * FROM public.utilisateurs WHERE email = $1';
+    const values = [encryptedEmail];
+
+    client.query(query1, values, (error, result) => {
+        if (error) {
+            console.error('Erreur lors de la requête SQL:', error.message);
+            return res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs' });
+        } else {
+            if (result.rows.length !== 0) {
+                console.log(console.log(result.rows));
+                return res.status(200).json({ exist: true });
+            } else {
+
+                const query3 = 'SELECT * FROM public.utilisateurs WHERE nom = $1';
+                const values = [surname];
+
+                client.query(query3, values, (error, result) => {
+                    if (error) {
+                        console.log(error)
+                    } else {
+                        if (result.rows.length !== 0) {
+                            return res.status(200).json({ user: true })
+                        } else {
+                            hashPassword(password)
+                                .then((hashedPassword) => {
+                                    console.log('Mot de passe haché avec succès:', hashedPassword);
+                                    const encryptedEmail = encryptEmail(email);
+                                    console.log('Email chiffré:', encryptedEmail);
+                                    const query2 = `INSERT INTO utilisateurs (nom, password, email, role) VALUES ('${surname}', '${hashedPassword}', '${encryptedEmail}', 'eleve')`;
+
+                                    client.query(query2, (error, result) => {
+                                        if (error) {
+                                            console.error('Erreur lors de l\'ajout des données:', error);
+                                        } else {
+                                            console.log('Données ajoutées avec succès à la table utilisateurs');
+                                            res.status(201).json({ message: 'utilisateur ajouté' })
+                                        }
+                                        client.end();
+                                    });
+                                })
+                                .catch((error) => {
+                                    console.error('Erreur lors de la génération du hachage:', error);
+                                });
+                        }
+                    }
+                });
+
+            }
+        }
+    });
+};
+
 
 
 exports.connection = (req, res, next) => {
-
     const token = req.headers;
+    const pseudo = req.body.pseudo;
+    const password = req.body.password;
 
-    const pseudo = req.body.pseudo
-    const password = req.body.password
-    const test = "Mallo"
+    console.log("Mot de passe venant du frontend : " + password)
 
-    const query = `SELECT * FROM public.utilisateurs WHERE nom='${pseudo}'`
+    const query = `SELECT * FROM public.utilisateurs WHERE nom='${pseudo}'`;
 
-    console.log(query)
+const client = new Client({
+    host: 'dbContainer',
+    port: 5432,
+    database: 'test',
+    user: 'loganAdmin',
+    password: 'LoganTFE2023',
+});
 
-    const client = new Client({
-        host: 'localhost',
-        port: 5432,
-        database: 'test',
-        user: 'postgres',
-        password: 'LoganTFE2023',
-    });
+    console.log(password)
 
-    client.connect()
-    client.query(query, (error, result) => {
+    client.connect();
+
+    client.query(query, async (error, result) => {
         if (error) {
             res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs' });
         } else {
-            if (result.rows.length == 0) {
+            if (result.rows.length === 0) {
                 res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs' });
             } else {
-                let passwordDb = result.rows[0].password
-                if (password == passwordDb) {
-                    console.log(result.rows[0])
-                    //result.rows[0] ==> { id: 1, nom: 'a', password: 'a', role: 'professeur' }
-                    let id = result.rows[0].id;
-                    let nom = result.rows[0].nom;
-                    let password = result.rows[0].password;
-                    let role = result.rows[0].role;
+                const hashedPasswordFromDB = result.rows[0].password;
 
-                    const createTokenFromJson = (jsonData, options = {}) => {
-                        try {
-                            const secretKey = "test"
-                            const token = jwt.sign(jsonData, secretKey, options)
-                            return token
-                        } catch (error) {
-                            console.log('Error : ', error.message)
-                        }
+                try {
+                    const isValid = await verifyPassword(hashedPasswordFromDB, password);
+
+                    if (isValid) {
+                        console.log(hashedPasswordFromDB)
+                        const { id, nom, role } = result.rows[0];
+
+                        const createTokenFromJson = (jsonData, options = {}) => {
+                            try {
+                                const secretKey = 'test';
+                                const token = jwt.sign(jsonData, secretKey, options);
+                                return token;
+                            } catch (error) {
+                                console.log('Error: ', error.message);
+                            }
+                        };
+
+                        const jsonData = { id, nom, role };
+                        const token = createTokenFromJson(jsonData);
+                        res.json({ status: true, id, nom, role, token });
+                    } else {
+                        console.log('Password incorrect')
+                        res.status(400).json({ msg: "Pas connecté" })
                     }
-
-                    const jsonData = { id: id, nom: nom, password: password, role: role }
-                    const token = createTokenFromJson(jsonData);
-                    res.json({ status: true, id: id, nom: nom, role: role, token: token })
-                } else {
-                    console.log('Password incorrect')
-                    res.status(400).json({ msg: "Pas connecté" })
+                } catch (error) {
+                    console.error('Erreur lors de la vérification du mot de passe:', error);
+                    res.status(500).json({ error: 'Erreur lors de la vérification du mot de passe' });
                 }
             }
         }
-    }
-    )
-}
+    });
+};
 
 exports.checkToken = (req, res) => {
     const token = req.header('Authorization');
@@ -89,7 +200,6 @@ exports.checkToken = (req, res) => {
     }
 }
 
-
 exports.connectionInformations = (req, res) => {
     const token = req.header('Authorization');
     if (token) {
@@ -110,38 +220,66 @@ exports.resetPassword = (req, res, next) => {
 
     const { email } = req.body;
 
-    const token = jwt.sign({ email }, 'testemail', { expiresIn: '1h' });
+    const encryptedEmail = encryptEmail(email);
 
+const client = new Client({
+    host: 'dbContainer',
+    port: 5432,
+    database: 'test',
+    user: 'loganAdmin',
+    password: 'LoganTFE2023',
+});
 
-    const transporter = nodemailer.createTransport({
-        service: 'gmail', // Le service à utiliser (ici, Gmail)
-        auth: {
-            user: 'lgc.carlier@gmail.com', // Votre adresse e-mail Gmail
-            pass: 'qfcb hcah xpgg oxpt',   // Votre mot de passe Gmail
-        },
-    });
+    client.connect()
 
-    const resetLink = `http://localhost:3000/reset-password2?token=${token}`;
-    const mailOptions = {
-        from: 'lgc.carlier@gmail.com',
-        to: email,
-        subject: 'Réinitialisation de mot de passe',
-        text: `Cliquez sur le lien pour réinitialiser votre mot de passe: ${resetLink}`,
-    };
+    const query1 = 'SELECT * FROM public.utilisateurs WHERE email = $1';
+    const values = [encryptedEmail];
 
-
-    transporter.sendMail(mailOptions, (error, info) => {
+    client.query(query1, values, (error, result) => {
         if (error) {
-            console.error('Erreur lors de l\'envoi de l\'e-mail', error);
-            return res.status(500).json({ message: 'Erreur lors de l\'envoi de l\'e-mail de réinitialisation.' });
+            console.error('Erreur lors de la requête SQL:', error.message);
+            return res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs' });
+        } else {
+            if (result.rows.length !== 0) {
+                const token = jwt.sign({ email }, 'testemail', { expiresIn: '1h' });
+
+
+                const transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                        user: 'laclassedemmeseverine@gmail.com',
+                        pass: 'fwki zjik rnqk jrdt',
+                    },
+                });
+
+                const resetLink = `http://localhost:3000/reset-password2?token=${token}`;
+                const mailOptions = {
+                    from: 'laclassedemmeseverine@gmail.com',
+                    to: email,
+                    subject: 'Réinitialisation de mot de passe',
+                    html: `
+                      <p>Si vous n'êtes pas à l'origine de la demande, veuillez nous contacter : 
+                      laclassedemmeseverine@gmail.com
+                    </p>                      
+                      <a href="${resetLink}" style="display:inline-block;padding:10px 20px;background-color:#4CAF50;color:#fff;text-decoration:none;border-radius:5px;">Réinitialiser mon mot de passe</a>
+                    `,
+                };
+
+
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.error('Erreur lors de l\'envoi de l\'e-mail', error);
+                        return res.status(500).json({ message: 'Erreur lors de l\'envoi de l\'e-mail de réinitialisation.' });
+                    }
+                    console.log('E-mail envoyé: ' + info.response);
+                    res.status(200).json({ message: 'E-mail de réinitialisation envoyé avec succès.' });
+                });
+            } else {
+                res.status(500).json({ message: "L'adresse email n'existe pas dans la base de données" });
+            }
         }
-        console.log('E-mail envoyé: ' + info.response);
-        // Réponse réussie ici
-        res.status(200).json({ message: 'E-mail de réinitialisation envoyé avec succès.' });
-    });
-
+    })
 }
-
 
 exports.newPassword2 = async (req, res, next) => {
     const { token } = req.body;
@@ -181,5 +319,37 @@ exports.newPassword2 = async (req, res, next) => {
     } catch (error) {
         console.error('Erreur lors de la réinitialisation du mot de passe', error);
         res.status(500).json({ message: 'Une erreur s\'est produite lors de la réinitialisation du mot de passe.' });
-    } 
+    }
+};
+
+exports.existEmail = (req, res, next) => {
+
+    let email = req.params.id;
+
+    console.log(email)
+
+const client = new Client({
+    host: 'dbContainer',
+    port: 5432,
+    database: 'test',
+    user: 'loganAdmin',
+    password: 'LoganTFE2023',
+});
+
+    client.connect();
+
+    const query = 'SELECT * FROM public.utilisateurs WHERE email = $1';
+    const values = [email];
+
+    client.query(query, values, (error, result) => {
+        if (error) {
+            console.error('Erreur lors de la requête SQL:', error.message);
+            return res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs' });
+        } else {
+            if (result.rows.length !== 0) {
+                console.log("l'utilisateur existe bien");
+                return res.status(200).json({ exist: true });
+            }
+        }
+    });
 };

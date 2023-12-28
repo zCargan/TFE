@@ -160,7 +160,7 @@ exports.postTTI = (req, res) => {
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', '');
-        const secretKey = "test";
+        const secretKey = "secretKey";
 
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
@@ -191,7 +191,7 @@ exports.getTTI = (req, res) => {
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
-        const secretKey = "test";
+        const secretKey = "secretKey";
 
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
@@ -224,7 +224,7 @@ exports.postLDN = (req, res) => {
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
-        const secretKey = "test";
+        const secretKey = "secretKey";
 
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
@@ -252,7 +252,7 @@ exports.getLDN = (req, res) => {
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
-        const secretKey = "test";
+        const secretKey = "secretKey";
 
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
@@ -286,7 +286,7 @@ exports.postTAT = (req, res) => {
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
-        const secretKey = "test";
+        const secretKey = "secretKey";
 
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
@@ -315,7 +315,7 @@ exports.getTAT = (req, res) => {
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
-        const secretKey = "test";
+        const secretKey = "secretKey";
 
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
@@ -348,7 +348,7 @@ exports.postMB = (req, res, next) => {
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
-        const secretKey = "test";
+        const secretKey = "secretKey";
 
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
@@ -376,7 +376,7 @@ exports.getMB = (req, res) => {
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
-        const secretKey = "test";
+        const secretKey = "secretKey";
 
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
@@ -411,7 +411,7 @@ exports.postSTT = (req, res) => {
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
-        const secretKey = "test";
+        const secretKey = "secretKey";
 
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
@@ -439,7 +439,7 @@ exports.getSTT = (req, res) => {
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
-        const secretKey = "test";
+        const secretKey = "secretKey";
 
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
@@ -525,7 +525,7 @@ exports.registerAnswer = (req, res) => {
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
-        const secretKey = "test";
+        const secretKey = "secretKey";
 
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
@@ -574,13 +574,13 @@ exports.getExosFromExercice = (req, res) => {
 
     console.log(req.body.data.id)
 
-    const client = new Client({
-        host: 'localhost',
-        port: 5432,
-        database: 'test',
-        user: 'postgres',
-        password: 'LoganTFE2023',
-    });
+const client = new Client({
+    host: 'dbContainer',
+    port: 5432,
+    database: 'test',
+    user: 'loganAdmin',
+    password: 'LoganTFE2023',
+});
 
     client.connect();
 
@@ -1426,7 +1426,7 @@ exports.addExoToUser = (req, res, next) => {
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', '');
-        const secretKey = "test";
+        const secretKey = "secretKey";
 
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {

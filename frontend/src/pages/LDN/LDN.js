@@ -92,14 +92,14 @@ const LDN = () => {
         }
 
 
-        axios.post("http://localhost:4000/exercice/registerLDN", { exo }, config).then((res) => {
+        axios.post("http://51.77.150.97:4000/exercice/registerLDN", { exo }, config).then((res) => {
 
             let data = {
                 idExo: res.data.data._id,
                 type: "LDN"
             }
 
-            axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+            axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
                 .then((res) => {
                     console.log(res)
                 })

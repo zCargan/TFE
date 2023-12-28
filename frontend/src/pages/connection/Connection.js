@@ -11,13 +11,13 @@ import Popup from 'reactjs-popup';
 import InfoIcon from '@mui/icons-material/Info';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import bcrypt from 'bcryptjs'
 
 
 const Connection = (props) => {
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const textButtonPasswordForget = "Mot de passe oublié?";
 
   const [showLoginForm, setShowLoginForm] = useState(true);
   const [surname, setSurname] = useState("");
@@ -36,6 +36,14 @@ const Connection = (props) => {
   const [passwordVisible2, setPasswordVisible2] = useState(false);
   const [passwordVisible3, setPasswordVisible3] = useState(false);
 
+  const textButtonPasswordForget = "Mot de passe oublié?";
+
+  useEffect(() => {
+    if (Cookies.get('JWT')) {
+      navigate('/home')
+    }
+  }, []);
+
   const togglePasswordVisibility = () => {
     setPasswordVisible(!showPassword);
   };
@@ -48,7 +56,6 @@ const Connection = (props) => {
     setPasswordVisible3(!passwordVisible3);
   };
 
-
   function handleUserIconHover() {
     setPopupOpen(true);
   }
@@ -60,12 +67,6 @@ const Connection = (props) => {
   const handleToggleForm = () => {
     setShowLoginForm(!showLoginForm);
   };
-
-  useEffect(() => {
-    if (Cookies.get('JWT')) {
-      navigate('/home')
-    }
-  }, []);
 
   function sameString(string1, string2) {
     return (string1 === string2)
@@ -108,12 +109,18 @@ const Connection = (props) => {
   function connection() {
     const pseudo = document.getElementById('pseudo').value;
     const password = document.getElementById('password').value;
+
+    const hashedPassword = bcrypt.hashSync(password, "$2a$10$sZk/IsTrgMV.iO0dRgU/xu");
+
     const data_to_send = {
       pseudo: pseudo,
-      password: password,
+      password: hashedPassword,
     };
+
+    console.log(data_to_send)
+
     axios
-      .post('http://localhost:4000/connection', data_to_send)
+      .post('http://51.77.150.97:4000/connection', data_to_send)
       .then((response) => {
         console.log(response.data)
         let nom = response.data.nom;
@@ -155,7 +162,11 @@ const Connection = (props) => {
       })
       .catch((response) => {
         console.log(response);
-        alert('Email ou mot de passe incorrect');
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Email ou mot de passe incorrect',
+        });
       });
   }
 
@@ -176,16 +187,38 @@ const Connection = (props) => {
     } else {
       if (checkEmail(email)) {
         if (sameString(password, samePassword)) {
+          const hashedPassword = bcrypt.hashSync(password, "$2a$10$sZk/IsTrgMV.iO0dRgU/xu");
           const data_to_send = {
             "surname": surname,
             "name": name,
             "pseudo": pseudo,
             "email": email,
-            "password": password
+            "password": hashedPassword
           }
-          axios.post("http://localhost:4000/register", data_to_send)
+          axios.post("http://51.77.150.97:4000/connection/register", data_to_send)
             .then(response => {
-              if (response.status === 201) {
+              if (response.data.exist) {
+                Swal.fire({
+                  icon: 'warning',
+                  title: 'Adresse email déjà utilisée',
+                  text: 'Cette adresse email est déjà associée à un utilisateur.',
+                  showCancelButton: false,
+                  confirmButtonText: 'OK'
+                })
+              } else if (response.data.user) {
+                Swal.fire({
+                  icon: 'warning', 
+                  title: "Ce nom d'utilisateur est déja pris",
+                  confirmButtonText: 'OK', 
+                  showCancelButton: false,
+                  showCloseButton: false,
+                  showConfirmButton: true,
+                  showLoaderOnConfirm: false,
+                  allowOutsideClick: false,
+                  allowEscapeKey: false,
+                  allowEnterKey: false,
+                });
+              } else if (response.status === 201) {
                 Swal.fire({
                   title: 'Compte créé',
                   text: 'Votre compte a été créé avec succès!',
@@ -216,6 +249,7 @@ const Connection = (props) => {
             icon: 'error',
           });
         }
+
       } else {
         Swal.fire({
           title: 'Erreur',
@@ -305,7 +339,7 @@ const Connection = (props) => {
                 </div>
                 <Popup
                   trigger={
-                   <span className='important2'><InfoIcon className='infoLogo' /></span>
+                    <span className='important2'><InfoIcon className='infoLogo' /></span>
                   }
                   open={popupOpen}
                   position="top center"

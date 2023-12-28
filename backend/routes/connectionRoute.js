@@ -7,5 +7,7 @@ router.post('/checkToken', connectionCrtl.checkToken)
 router.post('/infoUser', connectionCrtl.connectionInformations)
 router.post('/reset-password', connectionCrtl.resetPassword)
 router.post('/newPassword', connectionCrtl.newPassword2);
+router.post('/register', connectionCrtl.registerData);
+router.get('/existEmail/:id', connectionCrtl.existEmail);
 
 module.exports = router;

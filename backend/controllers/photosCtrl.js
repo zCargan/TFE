@@ -57,13 +57,13 @@ exports.testRoute (req, res, next) => {
 exports.getPhotoDetail = (req, res) => {
     const photoId = req.params.id;
 
-    const client = new Client({
-        host: 'localhost',
-        port: 5432,
-        database: 'test',
-        user: 'postgres',
-        password: 'LoganTFE2023',
-    });
+const client = new Client({
+    host: 'dbContainer',
+    port: 5432,
+    database: 'test',
+    user: 'loganAdmin',
+    password: 'LoganTFE2023',
+});
 
     client.connect()
         .then(() => {
@@ -88,13 +88,13 @@ exports.getPhotoDetail = (req, res) => {
 };
 
 exports.getPhotos = (req, res, next) => {
-    const client = new Client({
-        host: 'localhost',
-        port: 5432,
-        database: 'test',
-        user: 'postgres',
-        password: 'LoganTFE2023',
-    });
+const client = new Client({
+    host: 'dbContainer',
+    port: 5432,
+    database: 'test',
+    user: 'loganAdmin',
+    password: 'LoganTFE2023',
+});
     
     // Initialisation des variables pour stocker les données des images
     let fileNames = [];
@@ -235,13 +235,13 @@ exports.updateImageName = (req, res, next) => {
 exports.deleteImage = (req, res, next) => {
     const photoId = req.params.id
 
-    const client = new Client({
-        host: 'localhost',
-        port: 5432,
-        database: 'test',
-        user: 'postgres',
-        password: 'LoganTFE2023',
-    });
+const client = new Client({
+    host: 'dbContainer',
+    port: 5432,
+    database: 'test',
+    user: 'loganAdmin',
+    password: 'LoganTFE2023',
+});
 
     client.connect((err) => {
         if (err) {
