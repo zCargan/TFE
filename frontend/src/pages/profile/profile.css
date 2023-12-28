@@ -86,7 +86,7 @@
 }
 
 .pConnectionAdmin {
-    margin-top: -20px;
+    margin-top: 2%;
     font-weight: bold;
     font-size: 220%;
     font-family: j2;
@@ -233,7 +233,7 @@
 
 #SearchBarAdmin {
     display: flex;
-    margin-top: -238px;
+    margin-top: -2%;
     /* margin-left: 1100px; */
     margin-left: 55%;
     width: 700px;

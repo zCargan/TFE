@@ -44,10 +44,10 @@ const Home = () => {
         axios
             .get("http://51.77.150.97:4000/exercice/getTotalCounts")
             .then((res) => {
-                data = res.data.moreInformations;
                 const max = res.data.nbrExercices;
-                console.log(data, max)
-                getARandomExos(max, 5); // Générer 5 exercices aléatoires
+                if (max > 0) {
+                    getARandomExos(max, 5);
+                }
             })
             .catch((error) => {
                 console.error("Error fetching total counts:", error);
