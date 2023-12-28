@@ -4,7 +4,7 @@ const { Client } = require('pg');
 exports.getInfoPQ = (req, res, next) => {
     console.log("on passe par icicicddddi")
 const client = new Client({
-    host: 'dbContainer',
+    host: 'db',
     port: 5432,
     database: 'test',
     user: 'loganAdmin',
@@ -27,7 +27,7 @@ const client = new Client({
 
 exports.sendData = (req, res, next) => {
 const client = new Client({
-    host: 'dbContainer',
+    host: 'db',
     port: 5432,
     database: 'test',
     user: 'loganAdmin',

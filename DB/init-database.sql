@@ -11,4 +11,9 @@ ALTER USER loganAdmin WITH SUPERUSER;
 DROP DATABASE IF EXISTS test;
 
 -- Création de la base de données "test"
-CREATE DATABASE test;   
+CREATE DATABASE test;
+
+-- Changer vers la base de données "test"
+\c test;
+
+-- Vous pouvez également créer des tables ou effectuer d'autres opérations ici si nécessaire

@@ -5,7 +5,7 @@
 CREATE TABLE utilisateurs (
     id SERIAL PRIMARY KEY,
     nom VARCHAR(50),
-    password VARCHAR(50),
+    password TEXT,
     email VARCHAR(255),
     role VARCHAR(50)
 );

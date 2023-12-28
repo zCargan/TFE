@@ -15,7 +15,7 @@ async function hashPassword(password) {
 exports.registerData = (req, res, next) => {
 
 const client = new Client({
-    host: 'dbContainer',
+    host: 'db',
     port: 5432,
     database: 'test',
     user: 'loganAdmin',
