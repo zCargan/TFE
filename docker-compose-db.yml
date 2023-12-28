@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  db:
+    build:
+      context: ./DB  # Le chemin vers le répertoire contenant le Dockerfile de la base de données
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: LoganTFE2023
+      POSTGRES_USER: loganAdmin
+      POSTGRES_DB: test
+    volumes:
+      - ./DB/init-schema.sql:/docker-entrypoint-initdb.d/init-schema.sql
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:

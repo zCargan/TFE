@@ -1,17 +1,6 @@
 version: '3'
 
 services:
-  db:
-    image: postgres
-    environment:
-      POSTGRES_PASSWORD: LoganTFE2023
-      POSTGRES_USER: loganAdmin
-      POSTGRES_DB: test
-    ports:
-      - "5433:5432"
-    volumes:
-      - ./DB/init-schema.sql:/docker-entrypoint-initdb.d/init-schema.sql
-
   backend:
     build:
       context: ./backend
@@ -21,6 +10,8 @@ services:
     restart: always
     depends_on:
       - db
+    networks:
+      - mynetwork
 
   frontend:
     build:
@@ -31,3 +22,8 @@ services:
     depends_on:
       - backend
     restart: always
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
