@@ -2,12 +2,7 @@ version: '3'
 
 services:
   db:
-    build:
-      context: ./DB/
-      dockerfile: Dockerfile
-    container_name: db
-    networks:
-      - reseau
+    image: postgres
     environment:
       POSTGRES_PASSWORD: LoganTFE2023
       POSTGRES_USER: loganAdmin
@@ -19,20 +14,18 @@ services:
     build:
       context: ./backend
     container_name: backendContainer
-    networks:
-      - reseau
     ports:
       - "4000:4000"
+    restart: always
+    depends_on:
+      - db
 
   frontend:
     build:
       context: ./frontend
     container_name: frontendContainer
-    networks:
-      - reseau
     ports:
-      - "3000:3000"
-
-networks:
-  reseau:
-    driver: bridge
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always
