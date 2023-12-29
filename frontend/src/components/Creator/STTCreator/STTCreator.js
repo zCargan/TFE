@@ -94,13 +94,15 @@ const STTCreator = ({ exo }) => {
       reponseUser.push(inputUser[i].value)
     }
 
+    const reponseUserOK = reponseUser.map(str => str.trim());
+
     let score = 0;
     let nbrExos = 0;
 
     console.log(allResponses)
 
     for (let j = 0; j < reponseUser.length; j++) {
-      if (allResponses[j] === reponseUser[j]) {
+      if (allResponses[j] === reponseUserOK[j]) {
         score += 1;
       }
       nbrExos += 1;

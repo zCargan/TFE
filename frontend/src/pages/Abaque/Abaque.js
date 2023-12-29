@@ -2,14 +2,19 @@ import React, { useState } from 'react';
 import './Abaque.css'
 import axios from 'axios'
 import Cookies from 'js-cookie';
-import Swal from 'sweetalert2';
 import Navbar from '../../components/navbar/Navbar';
+
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+
 
 const Abaque = () => {
 
     const [height, setHeight] = useState(0);
     const [width, setWidth] = useState(0);
     const [word, setWord] = useState("")
+
+    const navigate = useNavigate();
 
     let dictionnaire = {};
 
@@ -41,7 +46,7 @@ const Abaque = () => {
         texte += '<h1>Titre : ' + titre + '</h1>'
         texte += '<h2>Description : ' + description + '</h2>'
         texte += '<br />'
-        for (let i = 0; i <height; i++) {
+        for (let i = 0; i < height; i++) {
             for (let j = 0; j < width; j++) {
                 console.log("largeur")
                 console.log("longueur")
@@ -73,7 +78,7 @@ const Abaque = () => {
         dictionnaire.hauteur = Number(height);
         dictionnaire.longueur = Number(width);
         let array1 = []
-        let a = document.getElementsByClassName("test")
+        let a = document.getElementsByClassName("inputAbaqueCreation")
         for (let i = 0; i < a.length; i++) {
             array1.push(a[i].value)
         }
@@ -84,7 +89,7 @@ const Abaque = () => {
 
     function saveAnswer() {
         let array1 = []
-        let a = document.getElementsByClassName("test")
+        let a = document.getElementsByClassName("inputAbaqueCreation")
         for (let i = 0; i < a.length; i++) {
             array1.push(a[i].value)
         }
@@ -105,6 +110,26 @@ const Abaque = () => {
         axios.post("http://localhost:4000/exercice/registerAbaque", { data }, config)
             .then((res) => {
 
+                if (res.status == 201) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Abaque créé!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then((result) => {
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                            navigate('/');
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Une erreur s\'est produite durant la création de l\'abaque',
+                        text: 'Veuillez réessayer plus tard.',
+                    });
+                }
+
+
                 let data = {
                     idExo: res.data.data._id,
                     type: "abaque"
@@ -119,7 +144,11 @@ const Abaque = () => {
                     })
             })
             .catch((error) => {
-                console.log(error)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur!',
+                    text: 'Une erreur s\'est produite.',
+                });
             })
     }
 

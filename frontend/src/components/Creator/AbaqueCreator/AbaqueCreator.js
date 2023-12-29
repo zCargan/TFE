@@ -77,6 +77,9 @@ const AbaqueCreator = ({ exo }) => {
             for(let i = 0; i < a.length; i ++) {
                 resultatRecu.push(a[i].value)
             }
+
+            const resultatRecuOK = resultatRecu.map(str => str.trim());
+
             let tailleArray = resultatInitial.length;
             let nbrAnswer = 0;
             let score = 0;
@@ -84,8 +87,8 @@ const AbaqueCreator = ({ exo }) => {
                 if(resultatInitial[i] === "") {
                     nbrAnswer += 1;
                     console.log(resultatAttendu[i])
-                    console.log(resultatRecu[i])
-                    if(resultatAttendu[i] !== resultatRecu[i]) {
+                    console.log(resultatRecuOK[i])
+                    if(resultatAttendu[i] !== resultatRecuOK[i]) {
                         console.log("Mauvaise réponse")
                     } else {
                         console.log("Bonne réponse")

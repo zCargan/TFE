@@ -2,16 +2,19 @@ import React from 'react';
 import axios from 'axios'
 import Cookies from 'js-cookie';
 import Navbar from '../../components/navbar/Navbar';
-
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import './LDN.css'
 
 const LDN = () => {
 
+    
 
     let exercice = {}
     var texte = ""
     let exo = {};
-
+    const navigate = useNavigate();
+    
     function submit_squelette() {
         let allInput = document.querySelectorAll('.inputUser')
         allInput.forEach(element => {
@@ -94,6 +97,25 @@ const LDN = () => {
 
         axios.post("http://localhost:4000/exercice/registerLDN", { exo }, config).then((res) => {
 
+            if (res.status == 201) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Ligne des nomnbres créé!',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then((result) => {
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        navigate('/');
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Une erreur s\'est produite durant la création de la ligne des nomnbres',
+                    text: 'Veuillez réessayer plus tard.',
+                });
+            }
+
             let data = {
                 idExo: res.data.data._id,
                 type: "LDN"
@@ -108,7 +130,11 @@ const LDN = () => {
                 })
         })
             .catch((error) => {
-                console.log(error)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur!',
+                    text: 'Une erreur s\'est produite.',
+                });
             })
 
 
@@ -117,7 +143,7 @@ const LDN = () => {
     function hidden() {
         var div = document.getElementById("administratif");
         if (div.style.display === "none") {
-            div.style.display = "block"; // Vous pouvez également utiliser "inline", "inline-block", etc.
+            div.style.display = "block";
         } else {
             div.style.display = "none";
         }

@@ -6,12 +6,16 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Navbar from '../../components/navbar/Navbar';
 
+import { useNavigate } from 'react-router-dom';
+
 import './MB.css'
 
 const MB = () => {
     const [tableData, setTableData] = useState([]);
     const [selectedImageInfo, setSelectedImageInfo] = useState({ id: null, name: null });
     const [dictionary, setDictionary] = useState({});
+
+    const navigate = useNavigate();
 
     const handleImageClick = (id, name) => {
         setSelectedImageInfo({ id, name });
@@ -75,6 +79,25 @@ const MB = () => {
 
         axios.post(`http://localhost:4000/exercice/registerMB`, { data }, config).then((res) => {
 
+            if (res.status == 201) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Mot bazard créé!',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then((result) => {
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        navigate('/');
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Une erreur s\'est produite durant la création du mot bazard',
+                    text: 'Veuillez réessayer plus tard.',
+                });
+            }
+
             let data = {
                 idExo: res.data.data._id,
                 type: "MB"
@@ -89,7 +112,11 @@ const MB = () => {
                 })
         })
             .catch((error) => {
-                console.log(error)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur!',
+                    text: 'Une erreur s\'est produite.',
+                });
             })
 
     }
@@ -111,7 +138,7 @@ const MB = () => {
             </div>
             <br />
             <div className="MBdivcreation">
-                <input className="inputMB" placeholder="Titre de la maison des nombres" id="name"></input>
+                <input className="inputMB" placeholder="Titre du nom bazard" id="name"></input>
                 <textarea placeholder="Description de l'exercice" className="descriptionMB" id="descriptionExoMB"></textarea>
             </div>
             <div id="divSuiteExo">

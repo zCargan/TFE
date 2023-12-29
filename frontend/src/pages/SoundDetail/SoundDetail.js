@@ -101,8 +101,8 @@ const SoundDetail = () => {
                     Votre navigateur ne supporte pas l'élément audio.
                 </audio>
                 <br />
-                <input placeholder='Nouveau nom de votre son' className='newNameSound' id="newName"></input><button class="buttonGlobalCSS" onClick={renameSound}>Renommer</button>
-                <button  onClick={downloadSound}>Download</button>
+                <input placeholder='Nouveau nom' className='newNameSound' id="newName"></input><button class="buttonGlobalCSS" onClick={renameSound}>Renommer</button>
+                <button class="buttonGlobalCSS" onClick={downloadSound}>Download</button>
                 <button class="buttonGlobalCSS" onClick={deleteSound}>Supprimer</button>
             </div>
         </div>

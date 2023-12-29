@@ -574,16 +574,18 @@ const InfoExerciceWS = () => {
             <div id="divPopup" className="popup">
 
                 <Popup
-                    trigger={
-                        <p className="popup-trigger">Exercice Vierge</p>
-                    }
+                    trigger={<p className="popup-trigger">Exercice Vierge</p>}
                     position="bottom center"
+                    arrow={true}
+                    offset={[0, 200]}
+                    arrowClassName="custom-popup-arrow popup-arrow"
                     open={popupOpen}
                     on="hover"
                     closeOnDocumentClick
+                    className="popup-center"
                 >
                     <div id="allViergeInfo">
-                        <h3 id="infosSansCorrection"  className='h3popup'>Exercice vierge</h3>
+                        <h3 id="infosSansCorrection" className='h3popup'>Exercice vierge</h3>
                         <br />
                         <div>
                             {loaded && (
@@ -604,13 +606,14 @@ const InfoExerciceWS = () => {
                 </Popup>
 
                 <Popup
-                    trigger={
-                        <p className="popup-trigger">Exercice complété</p>
-                    }
+                    trigger={<p className="popup-trigger">Exercice complété</p>}
                     position="bottom center"
+                    arrow={true}
                     open={popupOpen}
                     on="hover"
+                    offset={[233, 0]}
                     closeOnDocumentClick
+                    className="popup-center"
                 >
                     <div id="allCompletedInfo">
                         <h3 className='h3popup'>Exercice corrigé</h3>

@@ -3,14 +3,15 @@ import axios from 'axios'
 import Cookies from 'js-cookie';
 import Popup from 'reactjs-popup';
 import Navbar from '../../components/navbar/Navbar';
-
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import './MDN.css'
 
 const MDN = () => {
     let exo = {}
     let dictionnaire = {}
     const [nbrItem, setNbrItem] = useState("");
-
+    const navigate = useNavigate();
 
     function verifyAvancement() {
         let dictionnaireFinal = {};
@@ -92,23 +93,49 @@ const MDN = () => {
             }
         }
 
-        axios.post("http://localhost:4000/exercice/registerMDN", { exo }, config).then((res) => {
+        axios
+            .post("http://localhost:4000/exercice/registerMDN", { exo }, config)
 
-            let data = {
-                idExo: res.data.data._id,
-                type: "MDN"
-            }
+            .then((res) => {
 
-            axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
-                .then((res) => {
-                    console.log(res)
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-        })
+                if (res.status == 201) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Maison des nombres créé!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then((result) => {
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                            navigate('/');
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Une erreur s\'est produite durant la création de la maison des nombres',
+                        text: 'Veuillez réessayer plus tard.',
+                    });
+                }
+
+                let data = {
+                    idExo: res.data.data._id,
+                    type: "MDN"
+                }
+
+                axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                    .then((res) => {
+                        console.log(res)
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+            })
             .catch((error) => {
-                console.log(error)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur!',
+                    text: 'Une erreur s\'est produite.',
+                });
             })
     }
 

@@ -129,8 +129,10 @@ const MBWSCreator = ({ exo, onMBDataChange }) => {
             let nbrExos = 0;
             for (let i = 0; i < reponsesAttendues.length; i++) {
                 console.log(inputUser[i].value.toLowerCase())
+                const reponsesRecuesOK = inputUser[i].value.toLowerCase().map(str => str.trim());
+                console.log(reponsesRecuesOK)
                 console.log(reponsesAttendues[i])
-                if (inputUser[i].value.toLowerCase() == reponsesAttendues[i]) {
+                if (reponsesRecuesOK[i] == reponsesAttendues[i]) {
                     score += 1;
                 }
                 nbrExos += 1;

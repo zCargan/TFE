@@ -42,7 +42,7 @@ const MDN = () => {
             let score = 0;
             for(let i = 0; i <length; i ++) {
                 console.log(reponseInitiale[score], reponseInitiale[score+1])
-                texte += '<input class="answerUser" value=' + reponseInitiale[score] + '>' + '</input><input class="answerUser" value="' + reponseInitiale[score+1] + '"></input>'
+                texte += '<input class="answerUserMDN" value=' + reponseInitiale[score] + '>' + '</input><input class="answerUserMDN" value="' + reponseInitiale[score+1] + '"></input>'
                 texte += "<br></br>"
                 score += 2;
             }
@@ -61,7 +61,7 @@ const MDN = () => {
         let index = [];
 
         for(let j = 0; j < (nbrItem+1); j++) {
-            let ligne1 = document.getElementsByClassName("answerUser");
+            let ligne1 = document.getElementsByClassName("answerUserMDN");
             for(let i = 0; i < ligne1.length; i ++) {
                 reponseUser.push(ligne1[i].value)
             }
@@ -132,7 +132,7 @@ const MDN = () => {
             let dicInitiale = res.data[0].reponseInitiale;
             let idExercice = res.data[0]._id;
 
-            let inputUser = document.getElementsByClassName("answerUser");
+            let inputUser = document.getElementsByClassName("answerUserMDN");
             
             for(let i = 0; i < inputUser.length; i ++) {
                 console.log(inputUser[i].value = dicFinal[i])

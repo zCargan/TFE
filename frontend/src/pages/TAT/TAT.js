@@ -3,7 +3,8 @@ import Navbar from '../../components/navbar/Navbar';
 import './TAT.css'
 import axios from 'axios'
 import Cookies from 'js-cookie';
-
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const TAT = () => {
 
@@ -11,11 +12,13 @@ const TAT = () => {
     const [arrayEnonce, setArrayEnonce] = useState([])
     const [arrayFinal, setArrayFinal] = useState([])
 
+    const navigate = useNavigate();
 
     function addWords() {
 
         let enonce = []
         let arrayOfWords = []
+
 
         if (document.getElementById("textArea").value === "") {
             alert("Veuillez entrez une phrase valide")
@@ -34,9 +37,9 @@ const TAT = () => {
 
             let motsInputClean = motsInput.filter(mot => mot.trim() !== "");
 
-            motsInputClean.forEach(mot => { 
+            motsInputClean.forEach(mot => {
                 enonce.push(mot);
-                arrayOfWords.push("inputUserExercice") 
+                arrayOfWords.push("inputUserExercice")
             });
 
             let newSentence = html + textarea + "<span class='spanBT'>" + motAAjouter + "</span> "
@@ -90,6 +93,25 @@ const TAT = () => {
         axios.post("http://localhost:4000/exercice/registerTAT", { data }, config)
             .then((res) => {
 
+                if (res.status == 201) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Texte à trous créé!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then((result) => {
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                            navigate('/');
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Une erreur s\'est produite durant la création du texte à trou',
+                        text: 'Veuillez réessayer plus tard.',
+                    });
+                }
+
                 let data = {
                     idExo: res.data.data._id,
                     type: "TAT"
@@ -103,7 +125,13 @@ const TAT = () => {
                         console.log(error)
                     })
             })
-            .catch((error) => { })
+            .catch((error) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur!',
+                    text: 'Une erreur s\'est produite.',
+                });
+            })
     }
 
     function changeValueText(event) {

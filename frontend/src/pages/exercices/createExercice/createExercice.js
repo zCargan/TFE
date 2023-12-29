@@ -161,6 +161,25 @@ const CreateExercice = () => {
                             .post('http://localhost:4000/exercice/saveWorksheet', { data }, config)
                             .then((res) => {
 
+                                if (res.status == 201) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Feuille d\'exercice créée!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    }).then((result) => {
+                                        if (result.dismiss === Swal.DismissReason.timer) {
+                                            navigate('/');
+                                        }
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Une erreur s\'est produite durant la création de la feuille d\'exercice',
+                                        text: 'Veuillez réessayer plus tard.',
+                                    });
+                                }
+
                                 let data = {
                                     idExo: res.data.data._id,
                                     type: "WS"
@@ -173,20 +192,44 @@ const CreateExercice = () => {
                                     .catch((error) => {
                                         console.log(error)
                                     })
+
+                            })
+                            .catch((error) => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Erreur!',
+                                    text: 'Une erreur s\'est produite.',
+                                });
                             })
                     } else {
-                        alert("Veuillez ajouter au moins un exercice à la feuille de cours")
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Erreur de saisie',
+                            text: 'Veuillez ajouter au moins un exercice à la feuille de cours.'
+                        });
                     }
                 } else {
-                    alert("Veuillez choisir une description pour l'exercice")
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Erreur de saisie',
+                        text: 'Veuillez choisir une description pour l\'exercice.'
+                    });
                 }
 
             } else {
-                alert('Veuillez choisir un nom')
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Erreur de saisie',
+                    text: 'Veuillez choisir un nom.'
+                });
             }
 
         } else {
-            alert('Veuillez choisir une année scolaire')
+            Swal.fire({
+                icon: 'warning',
+                title: 'Erreur de saisie',
+                text: 'Veuillez choisir une année scolaire.'
+            });
         }
 
 

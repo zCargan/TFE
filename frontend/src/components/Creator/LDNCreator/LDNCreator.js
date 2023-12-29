@@ -83,6 +83,8 @@ const LDNCreator = ({ exo }) => {
                     reponsesRecues.push(inputClassAnswer[i].value)     
                 }
 
+                const reponsesRecuesOK = reponsesRecues.map(str => str.trim());
+
                 console.log(reponseAttendue)
 
                 let nbrExos = 0;
@@ -90,7 +92,7 @@ const LDNCreator = ({ exo }) => {
 
                 for(let i = 0; i < reponseAttendue.length; i ++) {
                     if(enonceIndex[i] === '') {
-                        if(reponseAttendue[i] === reponsesRecues[i]) {
+                        if(reponseAttendue[i] === reponsesRecuesOK[i]) {
                             console.log("bonne réponse")
                             score += 1;
                         }

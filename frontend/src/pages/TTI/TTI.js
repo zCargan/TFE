@@ -6,12 +6,16 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Navbar from '../../components/navbar/Navbar';
 
+import { useNavigate } from 'react-router-dom';
+
 import './TTI.css'
 
 const TTI = () => {
     const [tableData, setTableData] = useState([]);
     const [selectedImageInfo, setSelectedImageInfo] = useState({ id: null, name: null });
     const [dictionary, setDictionary] = useState({});
+
+    const navigate = useNavigate();
 
     const handleImageClick = (id, name) => {
         setSelectedImageInfo({ id, name });
@@ -70,6 +74,26 @@ const TTI = () => {
 
         axios.post(`http://localhost:4000/exercice/registerTTI`, data, config).then((res) => {
 
+
+            if (res.status == 201) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Texte à image créé!',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then((result) => {
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        navigate('/');
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Une erreur s\'est produite durant la création du texte à image',
+                    text: 'Veuillez réessayer plus tard.',
+                });
+            }
+
             let data = {
                 idExo: res.data.data._id,
                 type: "TTI"
@@ -84,7 +108,11 @@ const TTI = () => {
                 })
         })
             .catch((error) => {
-                console.log(error)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur!',
+                    text: 'Une erreur s\'est produite.',
+                });
             })
     }
 

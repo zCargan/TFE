@@ -72,12 +72,13 @@ const TATCreator = ({ exo }) => {
             for(let i = 0; i < document.getElementsByClassName('inputTATuser').length; i ++) {
                 arrayUserResponse.push(document.getElementsByClassName('inputTATuser')[i].value)
             }
+            const arrayWithoutSpaces = arrayUserResponse.map(str => str.trim());
 
             let score = 0;
             let nbrExos = 0;
 
             for(let i = 0; i < reponses.length; i ++) {
-                if(arrayUserResponse[i] === reponses[i]) {
+                if(arrayWithoutSpaces[i] === reponses[i]) {
                     score += 1;
                 }
                 nbrExos += 1;

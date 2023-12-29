@@ -190,7 +190,7 @@ exports.register = (req, res, next) => {
 exports.updateImageName = (req, res, next) => {
 
     const photoId = req.params.id
-    const newName = req.body.newNameValue;
+    const newName = req.body.newNameSValue;
 
     const token = req.header('Authorization');
     if (token) {

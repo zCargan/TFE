@@ -61,6 +61,8 @@ const PhotoDetail = () => {
             newNameSValue: newNameS
         };
 
+        console.log(data)
+
         axios.post(`http://localhost:4000/photos/changeName/${id}`, data, config).then((res) => {
             console.log(res)
         })

@@ -34,6 +34,9 @@ mongoose.connect('mongodb+srv://Cargan:LoganTFE2023@tfe.omhpimu.mongodb.net/test
 
 // POST
 exports.registerMDN = (req, res) => {
+
+    console.log(req.body.exo)
+
     const MaisonDesNombres = new MDN({
         ...req.body.exo
     })
@@ -76,7 +79,7 @@ exports.postAbaque = (req, res) => {
 
     newAbaque.save()
         .then((AbaqueData) => {
-            res.status(201).json({ message: "TTI enregistré avec succès", data: AbaqueData });
+            res.status(201).json({ message: "Abaque enregistré avec succès", data: AbaqueData });
         })
         .catch((saveError) => {
             res.status(500).json({ error: "Erreur lors de l'enregistrement du TTI", saveError });
@@ -361,7 +364,7 @@ exports.postMB = (req, res, next) => {
                 })
                 mb.save()
                     .then((mbData) => {
-                        res.status(201).json({ message: "TTI enregistré avec succès", data: mbData });
+                        res.status(201).json({ message: "MBregisterMDN enregistré avec succès", data: mbData });
                     })
                     .catch((saveError) => {
                         res.status(500).json({ error: "Erreur lors de l'enregistrement du TTI", saveError });

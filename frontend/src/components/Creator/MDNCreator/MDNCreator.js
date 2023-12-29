@@ -66,6 +66,8 @@ const MDNCreator = ({ exo }) => {
             }
         }
         
+        const reponseUserOK = reponseUser.map(str => str.trim());
+
         axios.get(`http://localhost:4000/exercice/getMDN/${exo}`).then((res)=> {
             let dicFinal = res.data.reponseFinal;
             let dicInitiale = res.data.reponseInitiale;
@@ -83,7 +85,7 @@ const MDNCreator = ({ exo }) => {
 
             for(let j = 0; j < index.length; j ++) {
 
-                if(dicFinal[index[j]] === reponseUser[index[j]]) {
+                if(dicFinal[index[j]] === reponseUserOK[index[j]]) {
                     score += 1;
                 }
                 nbrExos += 1;

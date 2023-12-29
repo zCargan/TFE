@@ -14,3 +14,9 @@
     border: 1px solid white;
     margin-left: 6%;
 }
+
+.answerUser {
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid black;
+}

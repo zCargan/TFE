@@ -170,6 +170,23 @@ const Profile = () => {
     function deleteExos(idExo, typeExo) {
         console.log(idExo, typeExo)
         axios.delete(`http://localhost:4000/exercice/deleteExo?type=${typeExo}&id=${idExo}`)
+            .then((res) => {
+                if (res.status === 200) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Exercice supprimé avec succès',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Une erreur est survenue lors de la suppression de l\'exercice',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
     }
 
     const reversedExercices = [...exercices].reverse();
@@ -266,9 +283,9 @@ const Profile = () => {
                                     <p className='pConnectionAdmin'>Vous êtes connecté à un compte <span className='roleUser'>{role}</span></p>
                                 </div>
                                 <br />
-                                <br/>
-                                <br/>
-                                <br/>
+                                <br />
+                                <br />
+                                <br />
                                 <p className='pProfileAdmin'></p>
                                 <div id='managementUsers' />
                                 <br />

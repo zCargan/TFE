@@ -41,7 +41,7 @@ exports.postSound = (req, res, next) => {
                         };
 
                         const result = client.query(insertQuery);
-                        console.log('Image insérée avec succès:', result);
+                        res.status(200).json({ result: result});
                     })
                     .catch(err => {
                         console.error('Erreur lors de la connexion à la base de données :', err);

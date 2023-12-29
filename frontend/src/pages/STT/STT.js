@@ -3,6 +3,9 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import GetSounds from '../../components/getSoundsFromUserID/getSoundsFromUserID';
 import Navbar from '../../components/navbar/Navbar';
+import Swal from 'sweetalert2';
+
+import { useNavigate } from 'react-router-dom';
 
 import './STT.css'
 
@@ -15,6 +18,8 @@ const STT = () => {
     const [id, setId] = useState('');
     const [dictionnaire, setDictionnaire] = useState({});
     const [selectedSoundNames, setSelectedSoundNames] = useState([]);
+
+    const navigate = useNavigate();
 
     const handleSoundSelect = (sound) => {
         setId(sound.id)
@@ -92,6 +97,25 @@ const STT = () => {
         axios
             .post(`http://localhost:4000/exercice/registerSTT`, data, config)
             .then((res) => {
+
+                if (res.status == 201) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Son avec texte créé!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then((result) => {
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                            navigate('/');
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Une erreur s\'est produite durant la création du son avec texte',
+                        text: 'Veuillez réessayer plus tard.',
+                    });
+                }
 
                 let data = {
                     idExo: res.data.data._id,

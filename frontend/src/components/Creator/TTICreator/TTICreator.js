@@ -114,12 +114,13 @@ const TTICreator = ({ exo }) => {
                 let score = 0;
                 for(let i = 0; i < length; i ++) {
                     console.log(reponses[i])
-                    if(inputs[i].value === reponses[i]) {
+                    if(inputs[i].value.trim() === reponses[i]) {
                         score += 1;
                     }
                     nbrExos += 1;
                 }
         
+
                 const config = {
                     headers: {
                         'Authorization': `Bearer ${Cookies.get('JWT')}`
