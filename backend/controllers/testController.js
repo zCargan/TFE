@@ -3,13 +3,13 @@ const { Client } = require('pg');
 
 exports.getInfoPQ = (req, res, next) => {
     console.log("on passe par icicicddddi")
-const client = new Client({
-    host: 'db',
-    port: 5432,
-    database: 'test',
-    user: 'loganAdmin',
-    password: 'LoganTFE2023',
-});
+    const client = new Client({
+        host: 'localhost',
+        port: 5432,
+        database: 'test',
+        user: 'postgres',
+        password: 'LoganTFE2023',
+    });
 
     client.connect()
 
@@ -26,13 +26,13 @@ const client = new Client({
   
 
 exports.sendData = (req, res, next) => {
-const client = new Client({
-    host: 'db',
-    port: 5432,
-    database: 'test',
-    user: 'loganAdmin',
-    password: 'LoganTFE2023',
-});
+    const client = new Client({
+        host: 'localhost',
+        port: 5432,
+        database: 'test',
+        user: 'postgres',
+        password: 'LoganTFE2023',
+    });
 
     client.connect()
     const username = req.body.username

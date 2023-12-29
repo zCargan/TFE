@@ -32,7 +32,7 @@ const SoundDetail = () => {
             newNameValue: newName
         };
 
-        axios.post(`http://51.77.150.97:4000/sound/changeName/${son.id}`, data, config).then((res) => {
+        axios.post(`http://localhost:4000/sound/changeName/${son.id}`, data, config).then((res) => {
             Swal.fire({
                 icon: 'success',
                 title: 'Mise à jour réussie',
@@ -58,7 +58,7 @@ const SoundDetail = () => {
             }
         };
 
-        axios.delete(`http://51.77.150.97:4000/sound/deleteSound/${son.id}`, {}, config).then((res) => {
+        axios.delete(`http://localhost:4000/sound/deleteSound/${son.id}`, {}, config).then((res) => {
             Swal.fire({
                 icon: "success",
                 title: "Son supprimée avec succès",

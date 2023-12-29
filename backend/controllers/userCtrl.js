@@ -18,7 +18,7 @@ exports.getAllInformationsUsers = (req, res, next) => {
 
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
-        const secretKey = "test"
+        const secretKey = "test";
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
                 console.error('Erreur lors de la vérification du JWT :', err);
@@ -32,13 +32,13 @@ exports.getAllInformationsUsers = (req, res, next) => {
 
     const query = 'SELECT * FROM utilisateurs;';
     const dictionnaireUser = {};
-const client = new Client({
-    host: 'db',
-    port: 5432,
-    database: 'test',
-    user: 'loganAdmin',
-    password: 'LoganTFE2023',
-});
+    const client = new Client({
+        host: 'localhost',
+        port: 5432,
+        database: 'test',
+        user: 'postgres',
+        password: 'LoganTFE2023',
+    });
 
     client.connect();
 
@@ -68,7 +68,7 @@ exports.updateUserInformations = (req, res, next) => {
 
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
-        const secretKey = "test"
+        const secretKey = "test";
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
                 console.log('Erreur lors de la vérification du JWT :', err);
@@ -81,13 +81,13 @@ exports.updateUserInformations = (req, res, next) => {
     }
 
 
-const client = new Client({
-    host: 'db',
-    port: 5432,
-    database: 'test',
-    user: 'loganAdmin',
-    password: 'LoganTFE2023',
-});
+    const client = new Client({
+        host: 'localhost',
+        port: 5432,
+        database: 'test',
+        user: 'postgres',
+        password: 'LoganTFE2023',
+    });
 
     client.connect()
     const query = 'UPDATE utilisateurs SET role = $1 WHERE nom = $2';
@@ -150,14 +150,14 @@ exports.getAllExercicesFromProfesseur = async (req, res, next) => {
     if (token) {
         try {
             const jwtToken = token.replace('Bearer ', '');
-            const secretKey = "secretKey";
+            const secretKey = "test";
             const decoded = jwt.verify(jwtToken, secretKey);
 
             const client = new Client({
-                host: 'db',
+                host: 'localhost',
                 port: 5432,
                 database: 'test',
-                user: 'loganAdmin',
+                user: 'postgres',
                 password: 'LoganTFE2023',
             });
 

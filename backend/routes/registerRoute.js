@@ -3,6 +3,6 @@ const router = express.Router();
 const registerCrtl = require('../controllers/registerCtrl')
 
 
-router.post('/', registerCrtl.registerData)
+router.post('/register', registerCrtl.registerData)
 
 module.exports = router;

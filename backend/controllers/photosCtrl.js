@@ -39,7 +39,7 @@ exports.testRoute (req, res, next) => {
         return res.status(500).json({ error: 'An error occurred while uploading the images' });
     }
     const client = new Client({
-        host: 'db',
+        host: 'dbContainer',
         port: 5432,
         database: 'test',
         user: 'loganAdmin',
@@ -57,13 +57,13 @@ exports.testRoute (req, res, next) => {
 exports.getPhotoDetail = (req, res) => {
     const photoId = req.params.id;
 
-const client = new Client({
-    host: 'db',
-    port: 5432,
-    database: 'test',
-    user: 'loganAdmin',
-    password: 'LoganTFE2023',
-});
+    const client = new Client({
+        host: 'localhost',
+        port: 5432,
+        database: 'test',
+        user: 'postgres',
+        password: 'LoganTFE2023',
+    });
 
     client.connect()
         .then(() => {
@@ -88,13 +88,13 @@ const client = new Client({
 };
 
 exports.getPhotos = (req, res, next) => {
-const client = new Client({
-    host: 'db',
-    port: 5432,
-    database: 'test',
-    user: 'loganAdmin',
-    password: 'LoganTFE2023',
-});
+    const client = new Client({
+        host: 'localhost',
+        port: 5432,
+        database: 'test',
+        user: 'postgres',
+        password: 'LoganTFE2023',
+    });
     
     // Initialisation des variables pour stocker les données des images
     let fileNames = [];
@@ -143,17 +143,17 @@ exports.register = (req, res, next) => {
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
-        const secretKey = "test"
+        const secretKey = "test";
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
                 console.error('Erreur lors de la vérification du JWT :', err);
             } else {
 
                 const client = new Client({
-                    host: 'db',
+                    host: 'localhost',
                     port: 5432,
                     database: 'test',
-                    user: 'loganAdmin',
+                    user: 'postgres',
                     password: 'LoganTFE2023',
                 });
                 //console.log(decoded.id)
@@ -195,17 +195,17 @@ exports.updateImageName = (req, res, next) => {
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
-        const secretKey = "test"
+        const secretKey = "test";
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
                 console.error('Erreur lors de la vérification du JWT :', err);
             } else {
                 
                 const client = new Client({
-                    host: 'db',
+                    host: 'localhost',
                     port: 5432,
                     database: 'test',
-                    user: 'loganAdmin',
+                    user: 'postgres',
                     password: 'LoganTFE2023',
                 });
 
@@ -235,13 +235,13 @@ exports.updateImageName = (req, res, next) => {
 exports.deleteImage = (req, res, next) => {
     const photoId = req.params.id
 
-const client = new Client({
-    host: 'db',
-    port: 5432,
-    database: 'test',
-    user: 'loganAdmin',
-    password: 'LoganTFE2023',
-});
+    const client = new Client({
+        host: 'localhost',
+        port: 5432,
+        database: 'test',
+        user: 'postgres',
+        password: 'LoganTFE2023',
+    });
 
     client.connect((err) => {
         if (err) {
@@ -267,16 +267,16 @@ exports.getImage = (req, res) => {
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); 
-        const secretKey = "test"
+        const secretKey = "test";
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
                 console.error('Erreur lors de la vérification du JWT :', err);
             } else {
                 const client = new Client({
-                    host: 'db',
+                    host: 'localhost',
                     port: 5432,
                     database: 'test',
-                    user: 'loganAdmin',
+                    user: 'postgres',
                     password: 'LoganTFE2023',
                 });
             

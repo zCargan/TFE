@@ -64,23 +64,23 @@ const MB = () => {
         };
 
         const data = {
-            nom: document.getElementById('nameExo').value,
+            nom: document.getElementById('name').value,
             anneeScolaire: valeur,
-            description: document.getElementById('descriptionExo').value,
+            description: document.getElementById('descriptionExoMB').value,
             type: "MB",
             reponses: dictionary
         }
 
 
 
-        axios.post(`http://51.77.150.97:4000/exercice/registerMB`, { data }, config).then((res) => {
+        axios.post(`http://localhost:4000/exercice/registerMB`, { data }, config).then((res) => {
 
             let data = {
                 idExo: res.data.data._id,
                 type: "MB"
             }
 
-            axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
+            axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
                 .then((res) => {
                     console.log(res)
                 })
@@ -112,7 +112,7 @@ const MB = () => {
             <br />
             <div className="MBdivcreation">
                 <input className="inputMB" placeholder="Titre de la maison des nombres" id="name"></input>
-                <textarea placeholder="Description de l'exercice" className="descriptionMB"></textarea>
+                <textarea placeholder="Description de l'exercice" className="descriptionMB" id="descriptionExoMB"></textarea>
             </div>
             <div id="divSuiteExo">
                 <div>

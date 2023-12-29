@@ -32,9 +32,11 @@ const TAT = () => {
 
             const motsInput = motAAjouter.split(' '); // Diviser la chaîne en mots
 
-            motsInput.forEach(mot => {
-                enonce.push(mot)
-                arrayOfWords.push("inputUserExercice")
+            let motsInputClean = motsInput.filter(mot => mot.trim() !== "");
+
+            motsInputClean.forEach(mot => { 
+                enonce.push(mot);
+                arrayOfWords.push("inputUserExercice") 
             });
 
             let newSentence = html + textarea + "<span class='spanBT'>" + motAAjouter + "</span> "
@@ -85,7 +87,7 @@ const TAT = () => {
             reponseFinale: arrayFinal
         }
 
-        axios.post("http://51.77.150.97:4000/exercice/registerTAT", { data }, config)
+        axios.post("http://localhost:4000/exercice/registerTAT", { data }, config)
             .then((res) => {
 
                 let data = {
@@ -93,7 +95,7 @@ const TAT = () => {
                     type: "TAT"
                 }
 
-                axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
+                axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
                     .then((res) => {
                         console.log(res)
                     })
@@ -135,7 +137,7 @@ const TAT = () => {
                     <p className='resultTATPhrase'>Résultat de la phrase :</p><p id="phrase"></p>
                 </div>
                 <div>
-                <button className="boutonbottomTAT" onClick={validateSentence}>Valider cette phrase</button>
+                    <button className="boutonbottomTAT" onClick={validateSentence}>Valider cette phrase</button>
                 </div>
             </div>
             <div>

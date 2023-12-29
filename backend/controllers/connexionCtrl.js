@@ -49,13 +49,13 @@ exports.registerData = (req, res, next) => {
 
     console.log("Mot de passe venant du frontend : " + password)
 
-const client = new Client({
-    host: 'db',
-    port: 5432,
-    database: 'test',
-    user: 'loganAdmin',
-    password: 'LoganTFE2023',
-});
+    const client = new Client({
+        host: 'localhost',
+        port: 5432,
+        database: 'test',
+        user: 'postgres',
+        password: 'LoganTFE2023',
+    });
 
     client.connect()
 
@@ -122,13 +122,13 @@ exports.connection = (req, res, next) => {
 
     const query = `SELECT * FROM public.utilisateurs WHERE nom='${pseudo}'`;
 
-const client = new Client({
-    host: 'db',
-    port: 5432,
-    database: 'test',
-    user: 'loganAdmin',
-    password: 'LoganTFE2023',
-});
+    const client = new Client({
+        host: 'localhost',
+        port: 5432,
+        database: 'test',
+        user: 'postgres',
+        password: 'LoganTFE2023',
+    });
 
     console.log(password)
 
@@ -180,7 +180,7 @@ exports.checkToken = (req, res) => {
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
-        const secretKey = "test"
+        const secretKey = "test";
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
                 console.error('Erreur lors de la vérification du JWT :', err);
@@ -204,7 +204,7 @@ exports.connectionInformations = (req, res) => {
     const token = req.header('Authorization');
     if (token) {
         const jwtToken = token.replace('Bearer ', ''); // Pour extraire le JWT sans le préfixe 'Bearer '
-        const secretKey = "test"
+        const secretKey = "test";
         jwt.verify(jwtToken, secretKey, (err, decoded) => {
             if (err) {
                 console.error('Erreur lors de la vérification du JWT :', err);
@@ -222,13 +222,13 @@ exports.resetPassword = (req, res, next) => {
 
     const encryptedEmail = encryptEmail(email);
 
-const client = new Client({
-    host: 'db',
-    port: 5432,
-    database: 'test',
-    user: 'loganAdmin',
-    password: 'LoganTFE2023',
-});
+    const client = new Client({
+        host: 'localhost',
+        port: 5432,
+        database: 'test',
+        user: 'postgres',
+        password: 'LoganTFE2023',
+    });
 
     client.connect()
 
@@ -288,13 +288,13 @@ exports.newPassword2 = async (req, res, next) => {
     try {
         const decodedToken = jwt.verify(token, 'testemail');
 
-        const client = new Client({
-            host: 'db',
-            port: 5432,
-            database: 'test',
-            user: 'loganAdmin',
-            password: 'LoganTFE2023',
-        });
+    const client = new Client({
+        host: 'localhost',
+        port: 5432,
+        database: 'test',
+        user: 'postgres',
+        password: 'LoganTFE2023',
+    });
 
         await client.connect();
 
@@ -328,13 +328,13 @@ exports.existEmail = (req, res, next) => {
 
     console.log(email)
 
-const client = new Client({
-    host: 'db',
-    port: 5432,
-    database: 'test',
-    user: 'loganAdmin',
-    password: 'LoganTFE2023',
-});
+    const client = new Client({
+        host: 'localhost',
+        port: 5432,
+        database: 'test',
+        user: 'postgres',
+        password: 'LoganTFE2023',
+    });
 
     client.connect();
 

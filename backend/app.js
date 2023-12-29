@@ -17,13 +17,13 @@ app.use(express.json())
 
 app.use(cors());
 
-const client = new Client({
-    host: 'db',
-    port: 5432,
-    database: 'test',
-    user: 'loganAdmin',
-    password: 'LoganTFE2023',
-});
+    const client = new Client({
+        host: 'localhost',
+        port: 5432,
+        database: 'test',
+        user: 'postgres',
+        password: 'LoganTFE2023',
+    });
 
 client.connect()
     .then(() => console.log('Connexion à PostgresSQL réussie !'))

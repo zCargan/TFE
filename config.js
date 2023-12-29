@@ -8,7 +8,7 @@ const clientLocal = new Client({
 });
   
 const clientVPS = new Client({
-    host: 'db',
+    host: 'dbContainer',
     port: 5432,
     database: 'test',
     user: 'loganAdmin',
