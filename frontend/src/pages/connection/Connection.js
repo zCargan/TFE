@@ -12,9 +12,12 @@ import InfoIcon from '@mui/icons-material/Info';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import bcrypt from 'bcryptjs'
+import { sameString } from '../FonctionsUtilitaires';
 
 
 const Connection = (props) => {
+
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,6 +40,8 @@ const Connection = (props) => {
   const [passwordVisible3, setPasswordVisible3] = useState(false);
 
   const textButtonPasswordForget = "Mot de passe oublié?";
+
+
 
   useEffect(() => {
     if (Cookies.get('JWT')) {
@@ -68,9 +73,6 @@ const Connection = (props) => {
     setShowLoginForm(!showLoginForm);
   };
 
-  function sameString(string1, string2) {
-    return (string1 === string2)
-  }
 
   function HasValidLength(string) {
     return (string.length >= 12)
@@ -207,9 +209,9 @@ const Connection = (props) => {
                 })
               } else if (response.data.user) {
                 Swal.fire({
-                  icon: 'warning', 
+                  icon: 'warning',
                   title: "Ce nom d'utilisateur est déja pris",
-                  confirmButtonText: 'OK', 
+                  confirmButtonText: 'OK',
                   showCancelButton: false,
                   showCloseButton: false,
                   showConfirmButton: true,
