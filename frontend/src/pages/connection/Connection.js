@@ -12,13 +12,17 @@ import InfoIcon from '@mui/icons-material/Info';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import bcrypt from 'bcryptjs'
-import { sameString } from '../FonctionsUtilitaires';
 
+
+// FONCTIONS
+import { sameString } from '../FonctionsUtilitaires';
+import { HasLowerCaseLetter } from '../FonctionsUtilitaires';
+import { useConnection } from '../FonctionsUtilitaires';
 
 const Connection = (props) => {
 
 
-
+  const { connection } = useConnection();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -78,9 +82,6 @@ const Connection = (props) => {
     return (string.length >= 12)
   }
 
-  function HasLowerCaseLetter(string) {
-    return (/[a-z]/.test(string))
-  }
 
   function HasUpperCaseLetter(string) {
     return (/[A-Z]/.test(string))
@@ -105,71 +106,6 @@ const Connection = (props) => {
     } else {
       return false;
     }
-  }
-
-
-  function connection() {
-    const pseudo = document.getElementById('pseudo').value;
-    const password = document.getElementById('password').value;
-
-    const hashedPassword = bcrypt.hashSync(password, "$2a$10$sZk/IsTrgMV.iO0dRgU/xu");
-
-    const data_to_send = {
-      pseudo: pseudo,
-      password: hashedPassword,
-    };
-
-    console.log(data_to_send)
-
-    axios
-      .post('http://localhost:4000/connection', data_to_send)
-      .then((response) => {
-        console.log(response.data)
-        let nom = response.data.nom;
-        Cookies.set('JWT', response.data.token, { expires: 1 }); // 'expires' dénote la durée de validité en jours
-        if (response.data.role === "eleve") {
-          Swal.fire({
-            title: 'Bonjour ' + nom + ' !',
-            text: 'Vous êtes connecté !',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 2000
-          });
-          setTimeout(() => {
-            navigate('/home');
-          }, 2000);
-        } else if (response.data.role === "professeur") {
-          Swal.fire({
-            title: 'Bonjour ' + nom + ' !',
-            text: 'Vous êtes connecté à un compte professeur',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 2000
-          });
-          setTimeout(() => {
-            navigate('/home');
-          }, 2000);
-        } else if (response.data.role === "admin") {
-          Swal.fire({
-            title: 'Bonjour ' + nom + ' !',
-            text: 'Vous êtes connecté à un compte admin',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 2000
-          });
-          setTimeout(() => {
-            navigate('/home');
-          }, 2000);
-        }
-      })
-      .catch((response) => {
-        console.log(response);
-        Swal.fire({
-          icon: 'error',
-          title: 'Erreur',
-          text: 'Email ou mot de passe incorrect',
-        });
-      });
   }
 
   function changePassword() {
@@ -312,7 +248,7 @@ const Connection = (props) => {
                     <VisibilityIcon className='logoEye' onClick={togglePasswordVisibility} style={{ cursor: 'pointer', marginLeft: '-50px' }} />
                   )}
                 </div>
-                <button className="formButton buttonDivConneciton" onClick={(e) => connection()}>Connexion</button>
+                <button className="formButton buttonDivConneciton" onClick={(e) => connection(document.getElementById('pseudo').value, document.getElementById('password').value)}>Connexion</button>
 
               </div>
             ) : (
