@@ -1,7 +1,10 @@
 .divUserInformation {
     display: flex;
     align-items: center;  
+    justify-content: center;
     margin-bottom: 10px;  
+    width: 90%;
+    text-align: center;
 }
 
 
@@ -11,10 +14,10 @@
     align-items: center;
     justify-content: center;
     height: 50%; 
-    width: 35%;
+    width: 25%;
     background: rgba(255, 255, 255, 0.45);
     border: 1px solid white;
-    margin-left: 100px;
+    margin-left: 9%;
     margin-top: -9%;
 }
 
@@ -41,15 +44,13 @@
 }
 
 #divExos {
-    margin-top: 2%;
-    position: fixed;
     border: 1px solid white;
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.25);
-    top: 8%;
-    right: 1%;
+    margin-left: 65%;
+    margin-top: -5%;
     padding: 2%;
-    width: 500px;
+    width: 30%;
 }
 
 
@@ -66,14 +67,10 @@
 }
 
 #compteConnecte {
-    top: -60px;
-    left: -28%;
-    position: relative;
-
+    margin-right: 50%;
 }
 
 #compteConnecteAdmin {
-    top: -60px;
     right: -32%;
     position: relative;
 
@@ -88,7 +85,9 @@
 .pConnectionAdmin {
     margin-top: 2%;
     font-weight: bold;
+    margin-left: -13%;
     font-size: 220%;
+    width: auto;
     font-family: j2;
 }
 
@@ -113,9 +112,8 @@
 }
 
 .welcomeUsername {
-    margin-top: 2%;
-    position: relative;
-    top: -50px;
+    margin-top: -2%;
+    width: auto;
     font-family: homeKitchen;
     font-size: 370%;
 }
@@ -123,6 +121,7 @@
 .h3exoslist {
     margin-top: -5%;
     font-size: 220%;
+    width: auto;
     font-family: j2;
 }
 
@@ -133,9 +132,9 @@
 }
 
 .buttonProfile {
-    font-size: 33px;
+    font-size: 200%;
     font-weight: bold;
-    height: 60px;
+    height: 6%;
     font-family: homeKitchen;
     background-color: rgb(170, 18, 137);
     color: white;
@@ -148,7 +147,7 @@
 .buttonDeleteExo {
     background-color: white;
     color: red;
-    width: 200px;
+    width: 40%;
     padding-top: -1%;
     text-align: center;
     border-radius: 20px;
@@ -167,7 +166,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 400px;
+    margin-top: 15%;
 }
 
 .divButton2 {
@@ -177,21 +176,7 @@
     margin-top: 15%;
 }
 
-.divButton > div {
-    margin: 0;
-}
 
-.divButton > div:nth-child(1) {
-    margin-right: 150px; 
-}
-
-.divButton > div:nth-child(2) {
-    margin: 0 20px; 
-}
-
-.divButton > div:nth-child(3) {
-    margin-left: 150px; 
-}
 
 
 .textProfile {
@@ -212,7 +197,7 @@
     background-color: black;
     color: white;
     height: 30px;
-    width: 130px;
+    width: 20%;
     border-radius: 10px;
     border: 1px solid transparent;
     transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
@@ -232,11 +217,9 @@
 }
 
 #SearchBarAdmin {
-    display: flex;
-    margin-top: -2%;
-    /* margin-left: 1100px; */
-    margin-left: 55%;
-    width: 700px;
+    width: 70%;
+    margin-left: 50%;
+    margin-top: -14%;
 }
 
 .pConnectionE {
@@ -276,9 +259,9 @@
 
 .selectUserRole {
     margin-left: 10px;
-    width: 100px;
+    width: 20%;
     text-align: center;
-    height: 25px;
+    height: auto;
     background-color: black;
     color: white;
     border-radius: 10px;

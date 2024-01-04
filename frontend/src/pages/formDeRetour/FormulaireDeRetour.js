@@ -69,9 +69,9 @@ function FormulaireDeRetour() {
                 <div>
                     <div id="introductionFDR">
                         <h1 className='h1fdr'>Nous contacter</h1>
-                        <h3 className='h3fdr'>Besoin d'assist ou simplement envie de discuter ? Tu es au bon endroit !</h3>      
+                        <h3 className='h3fdr'>Besoin d'assist ou simplement envie de discuter ? Tu es au bon endroit !</h3>
                     </div>
-                    <br/>
+                    <br />
                     <div>
                         <h3 className='h3fdr'>Envoie nous un email</h3>
 
@@ -98,6 +98,7 @@ function FormulaireDeRetour() {
                 </div>
             )}
         </div>
+
     );
 };
 
