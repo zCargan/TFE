@@ -38,7 +38,7 @@ const ResetPassword2 = () => {
 
             const token = new URLSearchParams(location.search).get('token');
 
-            const response = await axios.post('http://localhost:4000/connection/newPassword', { token, password });
+            const response = await axios.post('http://51.77.150.97:4000/connection/newPassword', { token, password });
 
             Swal.fire({
                 title: 'Succès',

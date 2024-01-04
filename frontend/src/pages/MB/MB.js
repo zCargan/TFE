@@ -77,7 +77,7 @@ const MB = () => {
 
 
 
-        axios.post(`http://localhost:4000/exercice/registerMB`, { data }, config).then((res) => {
+        axios.post(`http://51.77.150.97:4000/exercice/registerMB`, { data }, config).then((res) => {
 
             if (res.status == 201) {
                 Swal.fire({
@@ -103,7 +103,7 @@ const MB = () => {
                 type: "MB"
             }
 
-            axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+            axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
                 .then((res) => {
                     console.log(res)
                 })

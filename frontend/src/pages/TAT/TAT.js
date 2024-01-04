@@ -90,7 +90,7 @@ const TAT = () => {
             reponseFinale: arrayFinal
         }
 
-        axios.post("http://localhost:4000/exercice/registerTAT", { data }, config)
+        axios.post("http://51.77.150.97:4000/exercice/registerTAT", { data }, config)
             .then((res) => {
 
                 if (res.status == 201) {
@@ -117,7 +117,7 @@ const TAT = () => {
                     type: "TAT"
                 }
 
-                axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
                     .then((res) => {
                         console.log(res)
                     })

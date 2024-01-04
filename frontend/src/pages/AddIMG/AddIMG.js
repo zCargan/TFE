@@ -40,7 +40,7 @@ const AddIMG = () => {
         // Utilisation d'une fonction asynchrone pour gérer la requête
         const sendImage = async () => {
           try {
-            const response = await axios.post('http://localhost:4000/photos', formData, {
+            const response = await axios.post('http://51.77.150.97:4000/photos', formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },
@@ -64,7 +64,7 @@ const AddIMG = () => {
             console.log(jsonString)
             console.log(`Clé: ${key}, Valeur: ${jsonString}`);
           }
-        axios.post('http://localhost:4000/photos', formData)
+        axios.post('http://51.77.150.97:4000/photos', formData)
     }
 
 
@@ -77,7 +77,7 @@ const AddIMG = () => {
     }
 
     function getImg() {
-      axios.get('http://localhost:4000/photos/getImg')
+      axios.get('http://51.77.150.97:4000/photos/getImg')
           .then(res => {
               const images = res.data.fileData[0].data; 
               console.log(images); 

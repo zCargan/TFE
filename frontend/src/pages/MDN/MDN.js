@@ -94,7 +94,7 @@ const MDN = () => {
         }
 
         axios
-            .post("http://localhost:4000/exercice/registerMDN", { exo }, config)
+            .post("http://51.77.150.97:4000/exercice/registerMDN", { exo }, config)
 
             .then((res) => {
 
@@ -122,7 +122,7 @@ const MDN = () => {
                     type: "MDN"
                 }
 
-                axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
                     .then((res) => {
                         console.log(res)
                     })
@@ -141,7 +141,7 @@ const MDN = () => {
 
 
     function get_exos_mdn() {
-        axios.get('http://localhost:4000/exercice/get_mdn_exercice').then((res) => {
+        axios.get('http://51.77.150.97:4000/exercice/get_mdn_exercice').then((res) => {
             let exo = res.data[0];
             let nom = exo.nom;
             let reponseInitiale = exo.reponseInitiale;
@@ -181,7 +181,7 @@ const MDN = () => {
                 reponseUser.push(ligne1[i].value)
             }
         }
-        axios.get('http://localhost:4000/exercice/get_mdn_exercice').then((res) => {
+        axios.get('http://51.77.150.97:4000/exercice/get_mdn_exercice').then((res) => {
             let dicFinale = res.data[0].reponseFinale;
             let dicInitiale = res.data[0].reponseInitiale;
             let idExercice = res.data[0]._id;
@@ -239,7 +239,7 @@ const MDN = () => {
                 idExercice: idExercice
             }
 
-            axios.post("http://localhost:4000/exercice/registerAnswers", { data }, config)
+            axios.post("http://51.77.150.97:4000/exercice/registerAnswers", { data }, config)
         })
 
     }

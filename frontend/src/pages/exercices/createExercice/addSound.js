@@ -39,7 +39,7 @@ const AddSound = () => {
         formData.append('name', newNameValue);
 
         try {
-            const response = await axios.post('http://localhost:4000/sound/postSound', formData, config);
+            const response = await axios.post('http://51.77.150.97:4000/sound/postSound', formData, config);
 
             console.log('Réponse du serveur :', response.data);
 

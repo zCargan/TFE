@@ -23,7 +23,7 @@ export function useConnection() {
         };
 
         axios
-            .post('http://localhost:4000/connection', data_to_send)
+            .post('http://51.77.150.97:4000/connection', data_to_send)
             .then((response) => {
 
                 console.log(response)

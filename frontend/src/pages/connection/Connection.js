@@ -133,7 +133,7 @@ const Connection = (props) => {
             "email": email,
             "password": hashedPassword
           }
-          axios.post("http://localhost:4000/connection/register", data_to_send)
+          axios.post("http://51.77.150.97:4000/connection/register", data_to_send)
             .then(response => {
               if (response.data.exist) {
                 Swal.fire({

@@ -8,13 +8,13 @@ const photoCtrl = require('../controllers/photosCtrl')
 const jwt = require("jsonwebtoken");
 
 router.post('/', upload.array('photo', 3), async (req, res) => {
-      const client = new Client({
-        host: 'localhost',
-        port: 5432,
-        database: 'test',
-        user: 'postgres',
-        password: 'LoganTFE2023',
-    });
+  const client = new Client({
+    host: 'dbContainer',
+    port: 5432,
+    database: 'test',
+    user: 'loganAdmin',
+    password: 'LoganTFE2023',
+});
 
   client.connect()
     .then(() => console.log('Connexion à PostgresSQL réussie dans photosRoute.js!'))
@@ -70,10 +70,10 @@ router.get('/testNewRoute', (req, res) => {
         console.error('Erreur lors de la vérification du JWT :', err);
       } else {
         const client = new Client({
-          host: 'localhost',
+          host: 'dbContainer',
           port: 5432,
           database: 'test',
-          user: 'postgres',
+          user: 'loganAdmin',
           password: 'LoganTFE2023',
       });
 

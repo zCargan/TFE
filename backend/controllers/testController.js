@@ -4,10 +4,10 @@ const { Client } = require('pg');
 exports.getInfoPQ = (req, res, next) => {
     console.log("on passe par icicicddddi")
     const client = new Client({
-        host: 'localhost',
+        host: 'dbContainer',
         port: 5432,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
 
@@ -15,22 +15,23 @@ exports.getInfoPQ = (req, res, next) => {
 
     client.query("SELECT * FROM public.utilisateurs", (error, result) => {
         if (error) {
-        console.error('Erreur lors de la récupération des utilisateurs:', error);
-        res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs' });
+            console.error('Erreur lors de la récupération des utilisateurs:', error);
+            res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs' });
         } else {
-        console.log(result.rows);
-        res.json(result.rows)
-        }}
+            console.log(result.rows);
+            res.json(result.rows)
+        }
+    }
     )
 };
-  
+
 
 exports.sendData = (req, res, next) => {
     const client = new Client({
-        host: 'localhost',
+        host: 'dbContainer',
         port: 5432,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
 
