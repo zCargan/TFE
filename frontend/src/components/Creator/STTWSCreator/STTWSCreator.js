@@ -58,7 +58,7 @@ const STTWSCreator = ({ exo, onSTTDataChange }) => {
 
         console.log(exo.reponses[cles[i]])
 
-        nouvellesReponses.push(exo.reponses[cles[i]])
+        nouvellesReponses.push(exo.reponses[cles[i]].toLowerCase())
 
         const promesseReponse = axios.get(`http://localhost:4000/exercice/getSTT/${cles[i]}`, config)
           .then((nestedRes) => {
@@ -81,7 +81,7 @@ const STTWSCreator = ({ exo, onSTTDataChange }) => {
         .catch((error) => {
           console.log(error);
         });
-
+      console.log(nouvellesReponses)
       setReponses(nouvellesReponses)
     }
   }
@@ -99,17 +99,27 @@ const STTWSCreator = ({ exo, onSTTDataChange }) => {
       let score = 0;
       let nbrExos = 0;
 
-
-      for (let j = 0; j < reponseUser.length; j++) {
-        console.log(nouvellesReponses[j])
-        console.log(reponseUser[j])
-        if (nouvellesReponses[j] === reponseUser[j]) {
+      for(let i = 0; i < inputUser.length; i ++) {
+        console.log(String(nouvellesReponses[i].trim().toLowerCase()))
+        // console.log(String(nouvellesReponses[i].value).trim().toLowerCase())
+        console.log(String(inputUser[i].value).trim().toLowerCase())
+        if(String(nouvellesReponses[i].trim().toLowerCase()) === String(inputUser[i].value).trim().toLowerCase()) {
           score += 1;
         }
         nbrExos += 1;
       }
-      console.log(score)
-      console.log(nbrExos)
+
+      // for (let j = 0; j < reponseUser.length; j++) {
+      //   console.log(nouvellesReponses[j])
+      //   console.log(reponseUser[j])
+      //   if (nouvellesReponses[j] === reponseUser[j]) {
+      //     score += 1;
+      //   }
+      //   nbrExos += 1;
+      // }
+      // console.log(score)
+      // console.log(nbrExos)
+      // console.log(((score / nbrExos) * 100))
       onSTTDataChange((score / nbrExos) * 100);
     }
   }

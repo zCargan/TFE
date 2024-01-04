@@ -1,32 +1,14 @@
-// import { useEffect } from 'react';
-// import axios from 'axios';
-// import Swal from 'sweetalert2';
-// import Cookies from 'js-cookie';
-// import bcrypt from 'bcryptjs';
-// import { useNavigate } from 'react-router-dom';
-
-
-//==================================================================================================== FONCTIONS UNITAIRES ====================================================================================================
-
-// Renvoie TRUE si les strings sont les mêmes
-export function sameString(string1, string2) {
-    return string1 === string2;
-}
-
-// Renvoie TRUE si la string possède un caractère minuscule
-export function HasLowerCaseLetter(string) {
-    return /[a-z]/.test(string);
-}
-
-
-
-
-
+import { useEffect } from 'react';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import Cookies from 'js-cookie';
+import bcrypt from 'bcryptjs';
+import { useNavigate } from 'react-router-dom';
 
 //================================================================================================== FONCTIONS INTEGRATIONS ===================================================================================================
 
 // Permet de se connecter à la base de données
-export function useConnection() {  
+export function useConnection() {
 
     const navigate = useNavigate();
 
@@ -43,6 +25,9 @@ export function useConnection() {
         axios
             .post('http://localhost:4000/connection', data_to_send)
             .then((response) => {
+
+                console.log(response)
+
                 let nom = response.data.nom;
                 Cookies.set('JWT', response.data.token, { expires: 1 });
 

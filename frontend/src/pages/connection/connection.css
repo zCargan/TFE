@@ -225,3 +225,14 @@
 .logoEye {
     color: white;
 }
+
+
+
+@media screen and (max-width: 1453px) {
+    #input_connection_div {
+      background-image: none;
+      background: linear-gradient(45deg, #FF8C42, #FF6384);
+      height: 100%;
+      color: white;
+    }
+}

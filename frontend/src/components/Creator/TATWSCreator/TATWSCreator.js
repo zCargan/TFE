@@ -61,6 +61,8 @@ const TATWSCreator = ({ exo, onTATDataChange }) => {
 
 
     const buttonClicked = () => {
+
+
         if (exo.length !== 0) {
 
             console.log(exo.reponseInitiale)
@@ -93,7 +95,7 @@ const TATWSCreator = ({ exo, onTATDataChange }) => {
     return (
         <div>
             {exo.length !== 0 ? (
-                <div  className='divShowWorksheet' id="TATWSCreator">
+                <div className='divShowWorksheet' id="TATWSCreator">
                     <p id="description">{exo.description}</p>
                     <br />
                     <div id="zone_tat">

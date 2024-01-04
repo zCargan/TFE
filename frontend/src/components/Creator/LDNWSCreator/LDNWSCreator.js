@@ -39,7 +39,7 @@ const LDNWSCreator = ({ exo, onTATDataChange }) => {
     function getExoLDN() {
         if (exo.length !== 0) {
             let resultatAttendu = exo.reponseFinale
-            console.log(exo.reponseFinal)
+            console.log(exo.reponseFinale)
             let length = exo.reponseFinale.length;
             let enonceIndex = exo.reponseInitiale;
             let direction = exo.direction
@@ -70,17 +70,31 @@ const LDNWSCreator = ({ exo, onTATDataChange }) => {
             let inputUser = document.getElementsByClassName('inputUserAnswerLDN');
             let score = 0;
             let nbrExos = 0;
-            for (let i = 0; i < exo.reponseInitiale.length; i++) {
-                if (exo.reponseInitiale[i] === '') {
-                    if ((inputUser[i].value) === exo.reponseFinale[i]) {
-                        score += 1;
-                    }
-                    nbrExos += 1;
-                }
 
+            let reponseFinale = exo.reponseFinale;
+            let reponseInitiale = exo.reponseInitiale;
+
+            let index = [];
+
+
+            for (let l = 0; l < reponseFinale.length; l++) {
+                if (reponseFinale[l] !== reponseInitiale[l]) {
+                    index.push(l)
+                }
             }
-            console.log(score)
-            console.log(nbrExos)
+
+
+            for (let i = 0; i < index.length; i++) {
+
+                if ((inputUser[index[i]].value) === exo.reponseFinale[index[i]]) {
+                    console.log((inputUser[index[i]].value))
+                    score += 1;
+                }
+                nbrExos += 1;
+            }
+            // console.log((score / nbrExos) * 100)
+            // console.log(score)
+            // console.log(nbrExos)
             onTATDataChange((score / nbrExos) * 100);
         }
     }

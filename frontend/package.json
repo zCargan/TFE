@@ -10,7 +10,6 @@
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/user-event": "^13.5.0",
     "audio-recorder-polyfill": "^0.4.1",
-    "axios": "^1.4.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -25,7 +24,6 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-redux": "^8.0.7",
-    "react-router-dom": "^6.18.0",
     "react-scripts": "5.0.1",
     "react-transition-group": "^4.4.5",
     "reactjs-popup": "^2.0.6",
@@ -40,7 +38,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "jest",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test:watch": "jest --watchAll"
   },
   "eslintConfig": {
     "extends": [
@@ -65,11 +64,15 @@
     "@babel/preset-env": "^7.23.7",
     "@babel/preset-react": "^7.23.3",
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
+    "@testing-library/react-hooks": "^8.0.1",
+    "axios": "^1.6.3",
+    "axios-mock-adapter": "^1.22.0",
+    "axios-mock-server": "^0.19.1",
     "babel-jest": "^27.5.1",
     "css-loader": "^6.8.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
+    "react-router-dom": "^6.21.1",
     "style-loader": "^3.3.3"
   }
 }

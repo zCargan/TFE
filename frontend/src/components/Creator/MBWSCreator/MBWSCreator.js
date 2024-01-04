@@ -73,9 +73,8 @@ const MBWSCreator = ({ exo, onMBDataChange }) => {
                 axios
                     .get(`http://localhost:4000/photos/getImage/${cles[i]}`, config)
                     .then((resPhoto) => {
-                        console.log(img[cles[i]]);
-                        reponsesAttendues.push(img[cles[i]].join(''));
-
+                        reponsesAttendues.push(img[cles[i]].join('').toLowerCase());
+                        console.log(reponsesAttendues)
                         for (let j = 0; j < resPhoto.data.length; j++) {
                             console.log(resPhoto.data[j].image_data)
 
@@ -123,22 +122,19 @@ const MBWSCreator = ({ exo, onMBDataChange }) => {
     const buttonClicked = () => {
         if (exo.length !== 0) {
             console.log(reponsesAttendues)
-
             let inputUser = document.getElementsByClassName('answerExoMB');
             let score = 0;
             let nbrExos = 0;
-            for (let i = 0; i < reponsesAttendues.length; i++) {
-                console.log(inputUser[i].value.toLowerCase())
-                const reponsesRecuesOK = inputUser[i].value.toLowerCase().map(str => str.trim());
-                console.log(reponsesRecuesOK)
-                console.log(reponsesAttendues[i])
-                if (reponsesRecuesOK[i] == reponsesAttendues[i]) {
+            for (let i = 0; i < reponsesAttendues.length; i++) {          
+                console.log(String(inputUser[i].value).trim().toLowerCase() === String(reponsesAttendues[i]).trim().toLowerCase());
+                if (String(inputUser[i].value).trim().toLowerCase() === String(reponsesAttendues[i]).trim().toLowerCase()) {
                     score += 1;
                 }
                 nbrExos += 1;
             }
             console.log(score)
             console.log(nbrExos)
+            // console.log(((score / nbrExos) * 100))
             onMBDataChange((score / nbrExos) * 100);
         }
     }

@@ -43,6 +43,7 @@ const TTI = () => {
                 const newDictionary = { ...dictionary };
                 newDictionary[selectedImageInfo.id] = newName;
                 setDictionary(newDictionary);
+                document.getElementById("suite").value = ""
             }
         }
     }

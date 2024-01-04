@@ -14,6 +14,8 @@ async function hashPassword(password) {
 
 exports.registerData = (req, res, next) => {
 
+    console.log(req.body.email)
+
     const client = new Client({
         host: 'localhost',
         port: 5432,
@@ -40,6 +42,7 @@ exports.registerData = (req, res, next) => {
                     console.error('Erreur lors de l\'ajout des données:', error);
                 } else {
                     console.log('Données ajoutées avec succès à la table utilisateurs');
+
                     res.status(201).json({ message: 'utilisateur ajouté' })
                 }
                 client.end();

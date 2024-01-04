@@ -2,11 +2,13 @@ module.exports = {
   verbose: true,
   testMatch: ["**/tests/**/*.test.js"],
   transform: {
-    '^.+\\.jsx?$': 'babel-jest',
+    '^.+\\.[jt]sx?$': 'babel-jest',
   },
   transformIgnorePatterns: [
-    "/node_modules/(?!(@babel/preset-react)/)",
+    "node_modules/(?!(axios)/)"
   ],
-  testEnvironment: 'node',
-  // setupFiles: ['./jest.setup.js'], 
+  testEnvironment: 'jsdom',
+  presets: [
+    '@babel/preset-react'
+  ],
 };

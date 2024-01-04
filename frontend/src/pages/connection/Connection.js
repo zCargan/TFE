@@ -15,9 +15,9 @@ import bcrypt from 'bcryptjs'
 
 
 // FONCTIONS
-import { sameString } from '../FonctionsUtilitaires';
-import { HasLowerCaseLetter } from '../FonctionsUtilitaires';
-import { useConnection } from '../FonctionsUtilitaires';
+import { sameString } from '../FonctionsUnitaires';
+import { HasLowerCaseLetter } from '../FonctionsUnitaires';
+import { useConnection } from '../FonctionAPI';
 
 const Connection = (props) => {
 
@@ -159,7 +159,7 @@ const Connection = (props) => {
               } else if (response.status === 201) {
                 Swal.fire({
                   title: 'Compte créé',
-                  text: 'Votre compte a été créé avec succès!',
+                  text: 'Votre compte a été créé avec succès! \n Un email de confirmation vous a été envoyé',
                   icon: 'success',
                 }).then(() => {
                   navigate('/home');
@@ -252,7 +252,7 @@ const Connection = (props) => {
 
               </div>
             ) : (
-              <div>
+              <div id="divInscription">
                 <br />
                 <input type="text" className="inputForm" placeholder="Nom d'utilisateur" id="surname" onChange={(e) => setSurname(e.target.value)}></input>
                 <br />

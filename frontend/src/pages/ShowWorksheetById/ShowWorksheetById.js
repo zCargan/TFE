@@ -187,6 +187,7 @@ const ShowWorksheetById = () => {
     function testVraitest() {
         var somme = 0;
         for (var i = 0; i < score.length; i++) {
+            console.log(score[i])
             somme += score[i];
         }
         var moyenne = somme / score.length;
@@ -208,9 +209,17 @@ const ShowWorksheetById = () => {
         axios
             .post("http://localhost:4000/exercice/registerAnswers", { data }, config)
             .then((res) => {
-                setTimeout(() => {
+
+                console.log(res)
+
+                Swal.fire({
+                    title: "Note obtenue",
+                    text: "Vous avez obtenu la note de : " + Math.floor(moyenne) + " %",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                }).then(() => {
                     navigate('/home');
-                }, 1000);
+                });
             })
             .catch((error) => {
                 Swal.fire({

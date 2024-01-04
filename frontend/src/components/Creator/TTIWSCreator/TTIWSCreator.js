@@ -67,7 +67,7 @@ const TTIWSCreator = ({ exo, onTTIDataChange }) => {
                 axios
                     .get(`http://localhost:4000/photos/getImage/${cles[i]}`, config)
                     .then((res) => {
-                        reponsesAttendues.push(exo.reponses[cles[i]])
+                        reponsesAttendues.push(exo.reponses[cles[i]].toLowerCase())
                         for (let j = 0; j < res.data.length; j++) {
                             const imageBinaryData = res.data[j].image_data.data;
                             const blob = new Blob([new Uint8Array(imageBinaryData)], { type: res.data[j].type_mime });
@@ -108,19 +108,27 @@ const TTIWSCreator = ({ exo, onTTIDataChange }) => {
     const buttonClicked = () => {
         if (exo.length !== 0) {
             console.log(reponsesAttendues)
-            let inputs = document.getElementsByClassName('answerExoTTI');
-            let length = inputs.length
+            let inputUser = document.getElementsByClassName('answerExoTTI');
+            let length = inputUser.length
             let nbrExos = 0;
             let score = 0;
-            for (let i = 0; i < length; i++) {
-                console.log(reponsesAttendues[i])
-                if (inputs[i].value === reponsesAttendues[i]) {
+
+            for (let i = 0; i < reponsesAttendues.length; i++) {          
+                console.log(String(inputUser[i].value).trim().toLowerCase() === String(reponsesAttendues[i]).trim().toLowerCase());
+                if (String(inputUser[i].value).trim().toLowerCase() === String(reponsesAttendues[i]).trim().toLowerCase()) {
                     score += 1;
                 }
                 nbrExos += 1;
             }
-            console.log(score)
-            console.log(nbrExos)
+
+            // for (let i = 0; i < length; i++) {
+            //     console.log(reponsesAttendues[i])
+            //     if (inputs[i].value === reponsesAttendues[i]) {
+            //         score += 1;
+            //     }
+            //     nbrExos += 1;
+            // }
+            // console.log(((score / nbrExos) * 100));
             onTTIDataChange((score / nbrExos) * 100);
         }
 

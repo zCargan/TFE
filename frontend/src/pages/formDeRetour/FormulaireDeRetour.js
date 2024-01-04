@@ -86,7 +86,7 @@ function FormulaireDeRetour() {
                                 <option className='optionSelect' value="report">Signaler un utilisateur</option>
                             </select>
                             <p className='pfdr'>Comment pouvons nous t'aider?<span class="required" >*</span></p>
-                            <textarea id="detailReportTextarea" rows={7} cols={92} placeholder='Donne nous un maximum de détails sur la situations...'>
+                            <textarea id="detailReportTextarea" placeholder='Donne nous un maximum de détails sur la situations...'>
                             </textarea>
                         </div>
                     </div>

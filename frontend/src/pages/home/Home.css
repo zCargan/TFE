@@ -20,3 +20,26 @@
     font-size: 25px;
 }
 
+.important4 {
+    color: yellow
+}
+
+
+#infoSpan {
+    margin-top: 0.5%;
+    margin-right: 0.5%;
+}
+
+
+#text_zone10 {
+    text-align: center;
+    background: rgb(255,255,255, 0.7);
+    padding: 2%;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid orange;
+}
+
+#text_zone10 h1 {
+    color: red;
+}

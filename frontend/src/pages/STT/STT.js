@@ -65,6 +65,7 @@ const STT = () => {
         // Réinitialisez les états
         setSoundName('');
         setSelectedSounds([]);
+        document.getElementById('inputSound').value = ""
     };
 
 

@@ -93,6 +93,44 @@ exports.registerData = (req, res, next) => {
                                         if (error) {
                                             console.error('Erreur lors de l\'ajout des données:', error);
                                         } else {
+
+                                            const transporter = nodemailer.createTransport({
+                                                service: 'gmail',
+                                                auth: {
+                                                    user: 'laclassedemmeseverine@gmail.com',
+                                                    pass: 'fwki zjik rnqk jrdt',
+                                                },
+                                            });
+
+                                            let siteAcces = "http://localhost:3000/"
+
+                                            const mailOptions = {
+                                                from: 'laclassedemmeseverine@gmail.com',
+                                                to: email,
+                                                subject: 'Confirmation de la création de votre compte',
+                                                html: `
+                                                <h1>
+                                                Merci pour la création de votre compte
+                                            </h1>
+                                            <h3>
+                                                Si vous n'êtes pas à l'origine de sa création, merci de nous contacter :
+                                
+                                                laclassedemmeseverine@gmail.com
+                                            </h3>
+                                            <a href="${siteAcces}" style="display:inline-block;padding:10px 20px;background-color:#4CAF50;color:#fff;text-decoration:none;border-radius:5px;">Accéder au site!</a>
+                                                `,
+                                            };
+
+
+                                            transporter.sendMail(mailOptions, (error, info) => {
+                                                if (error) {
+                                                    console.error('Erreur lors de l\'envoi de l\'e-mail', error);
+                                                    return res.status(500).json({ message: 'Erreur lors de l\'envoi de l\'e-mail de réinitialisation.' });
+                                                }
+                                                console.log('E-mail envoyé: ' + info.response);
+                                                res.status(200).json({ message: 'E-mail de réinitialisation envoyé avec succès.' });
+                                            });
+
                                             console.log('Données ajoutées avec succès à la table utilisateurs');
                                             res.status(201).json({ message: 'utilisateur ajouté' })
                                         }
@@ -288,13 +326,13 @@ exports.newPassword2 = async (req, res, next) => {
     try {
         const decodedToken = jwt.verify(token, 'testemail');
 
-    const client = new Client({
-        host: 'localhost',
-        port: 5432,
-        database: 'test',
-        user: 'postgres',
-        password: 'LoganTFE2023',
-    });
+        const client = new Client({
+            host: 'localhost',
+            port: 5432,
+            database: 'test',
+            user: 'postgres',
+            password: 'LoganTFE2023',
+        });
 
         await client.connect();
 

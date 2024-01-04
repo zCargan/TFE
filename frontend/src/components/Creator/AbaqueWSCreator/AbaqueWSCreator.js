@@ -60,9 +60,9 @@ const AbaqueWSCreator = ({ exo, onAbaqueDataChange }) => {
             for (let i = 0; i < hauteur; i++) {
                 for (let j = 0; j < longueur; j++) {
                     if ((reponseInitiale[k]) == undefined) {
-                        texte += "<input placeholder='valeur ici' class='inputUserResponseAbaque'></input>"
+                        texte += "<input class='inputUserResponseAbaque'></input>"
                     } else {
-                        texte += "<input placeholder='valeur ici' class='inputUserResponseAbaque'" + " value='" + reponseInitiale[k] + "'></input>"
+                        texte += "<input class='inputUserResponseAbaque'" + " value='" + reponseInitiale[k] + "'></input>"
                     }
                     k += 1;
                 }
@@ -78,10 +78,22 @@ const AbaqueWSCreator = ({ exo, onAbaqueDataChange }) => {
 
     const buttonClicked = () => {
         if (exo.length !== 0) {
-            console.log(exo.reponseInitiale)
+
+            console.log("aahahaha")
 
             let resultatAttendu = exo.reponseFinale;
             let resultatInitial = exo.reponseInitiale;
+
+            let index = [];
+
+            for (let l = 0; l < resultatAttendu.length; l++) {
+                if (resultatAttendu[l] !== resultatInitial[l]) {
+                    console.log(resultatAttendu[l])
+                    index.push(l)
+                }
+            }
+
+
             let resultatRecu = []
             let a = document.getElementsByClassName("inputUserResponseAbaque")
             for (let i = 0; i < a.length; i++) {
@@ -90,21 +102,28 @@ const AbaqueWSCreator = ({ exo, onAbaqueDataChange }) => {
             let tailleArray = resultatInitial.length;
             let nbrAnswer = 0;
             let score = 0;
-            for (let i = 0; i < tailleArray; i++) {
-                if (resultatInitial[i] === "") {
-                    nbrAnswer += 1;
-                    console.log(resultatAttendu[i])
-                    console.log(resultatRecu[i])
-                    if (resultatAttendu[i] !== resultatRecu[i]) {
-                        console.log("Mauvaise réponse")
-                    } else {
-                        console.log("Bonne réponse")
-                        score += 1;
-                    }
+
+
+        
+            for (let i = 0; i < index.length; i++) {
+                console.log(resultatAttendu[index[i]])
+                if(resultatAttendu[index[i]] == resultatRecu[index[i]]) {
+                    score += 1;
                 }
+                nbrAnswer += 1;
             }
-            console.log(score)
-            console.log(nbrAnswer)
+
+
+            // for (let i = 0; i < tailleArray; i++) {
+            //     if (resultatInitial[i] === "") {
+            //         nbrAnswer += 1;
+            //         if (resultatAttendu[i] !== resultatRecu[i]) {
+            //         } else {
+            //             score += 1;
+            //         }
+            //     }
+            // }
+            // console.log((score / nbrAnswer) * 100)
             onAbaqueDataChange((score / nbrAnswer) * 100);
         }
     }

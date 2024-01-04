@@ -7,6 +7,8 @@ import Cookies from 'js-cookie';
 import { GrRefresh } from "react-icons/gr";
 import { LuRefreshCcw } from "react-icons/lu";
 import Logo from '../../components/LCDMS_logo/LCDMS_logo'
+import InfoIcon from '@mui/icons-material/Info';
+import Popup from 'reactjs-popup';
 
 
 import './Home.css'
@@ -16,6 +18,7 @@ import ShowRandomExos from '../../components/showRandomExos/showRandomExos';
 const Home = () => {
     const [randomExos, setRandomExos] = useState({});
     const [randomExosList, setRandomExosList] = useState([]);
+    const [popupOpen, setPopupOpen] = useState(false);
 
 
     const getMBCalledRef = useRef(false);
@@ -118,7 +121,21 @@ const Home = () => {
             <Navbar />
             <SearchBar />
             <div id="refreshHome">
-                <h2 id="propExos">Proposition d'exercices</h2><LuRefreshCcw className="iconRefresh" id="iconRefresh" onClick={(e) => {window.location.reload()}}/>
+                <Popup
+                    trigger={
+                        <div id="infoSpan"><span className='important4'><InfoIcon className='infoLogo' /></span></div>
+                    }
+                    open={popupOpen}
+                    position="bottom center"
+                    on="hover"
+                >
+                    <div id='text_zone10'>
+                        <h1>Attention</h1>
+                        <p>Le site est réalisé pour une utilisation sur ordinateur.</p>
+                        <p>Il se peut que toutes les pages ne soient pas très adaptées à toutes les appareils.</p>
+                    </div>
+                </Popup>
+                <h2 id="propExos">Proposition d'exercices</h2><LuRefreshCcw className="iconRefresh" id="iconRefresh" onClick={(e) => { window.location.reload() }} />
             </div>
             {randomExosList.map((randomExos, index) => (
                 <ShowRandomExos key={index} randomExos={randomExos} />
