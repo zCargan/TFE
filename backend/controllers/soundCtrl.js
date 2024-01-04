@@ -25,7 +25,7 @@ exports.postSound = (req, res, next) => {
                 const fileBuffer = file.buffer;
 
                 const client = new Client({
-                    host: 'dbContainer',
+                    host: 'db',
                     port: 5432,
                     database: 'test',
                     user: 'loganAdmin',
@@ -61,7 +61,7 @@ exports.getSound = (req, res, next) => {
     console.log(idUser)
 
     const client = new Client({
-        host: 'dbContainer',
+        host: 'db',
         port: 5432,
         database: 'test',
         user: 'loganAdmin',
@@ -98,7 +98,7 @@ exports.getSoundById = (req, res, next) => {
     console.log(idSound)
 
     const client = new Client({
-        host: 'dbContainer',
+        host: 'db',
         port: 5432,
         database: 'test',
         user: 'loganAdmin',
@@ -146,7 +146,7 @@ exports.updateSonName = (req, res, next) => {
             } else {
 
                 const client = new Client({
-                    host: 'dbContainer',
+                    host: 'db',
                     port: 5432,
                     database: 'test',
                     user: 'loganAdmin',
@@ -176,7 +176,7 @@ exports.deleteSound = (req, res, next) => {
     const sonId = req.params.id
 
     const client = new Client({
-        host: 'dbContainer',
+        host: 'db',
         port: 5432,
         database: 'test',
         user: 'loganAdmin',

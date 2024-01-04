@@ -33,7 +33,7 @@ exports.getAllInformationsUsers = (req, res, next) => {
     const query = 'SELECT * FROM utilisateurs;';
     const dictionnaireUser = {};
     const client = new Client({
-        host: 'dbContainer',
+        host: 'db',
         port: 5432,
         database: 'test',
         user: 'loganAdmin',
@@ -82,7 +82,7 @@ exports.updateUserInformations = (req, res, next) => {
 
 
     const client = new Client({
-        host: 'dbContainer',
+        host: 'db',
         port: 5432,
         database: 'test',
         user: 'loganAdmin',
@@ -154,7 +154,7 @@ exports.getAllExercicesFromProfesseur = async (req, res, next) => {
             const decoded = jwt.verify(jwtToken, secretKey);
 
             const client = new Client({
-                host: 'dbContainer',
+                host: 'db',
                 port: 5432,
                 database: 'test',
                 user: 'loganAdmin',
