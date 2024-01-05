@@ -32,22 +32,28 @@ const TexteATrou = ({ onTatData }) => {
         } else {
 
             var textarea = document.getElementById("textArea").value;
-            var motAAjouter = document.getElementById("motAAjouter").value;
-            const motsTextArea = textarea.split(' '); // Diviser la chaîne en mots
+
+            if (textarea.endsWith(" ")) {
+                textarea = textarea.slice(0, -1);
+            }
+
+            var motAAjouter = document.getElementById("motAAjouter").value.trim();
+            
+            const motsTextArea = textarea.split(' '); 
 
             motsTextArea.forEach(mot => {
                 enonce.push(mot)
-                arrayOfWords.push(mot); // Afficher chaque mot dans la console
+                arrayOfWords.push(mot); 
             });
 
-            const motsInput = motAAjouter.split(' '); // Diviser la chaîne en mots
+            const motsInput = motAAjouter.split(' '); 
 
             motsInput.forEach(mot => {
                 enonce.push(mot)
                 arrayOfWords.push("inputUserExercice")
             });
 
-            newSentence = html + textarea + "<span class='spanBT'>" + motAAjouter + "</span> "
+            newSentence = html + textarea + " <span class='spanBT'>" + motAAjouter + "</span> "
             console.log(newSentence)
             document.getElementById("phrase").innerHTML = newSentence
             setHTML(newSentence)

@@ -35,7 +35,7 @@ const SearchBarWS = ({ dataDeLenfant }) => {
                 };
 
                 axios
-                    .get(`http://localhost:4000/exercice/getSpecificWS`, { params: query })
+                    .get(`http://51.77.150.97:4000/exercice/getSpecificWS`, { params: query })
                     .then((response) => {
                         dataDeLenfant(response.data);
                     })

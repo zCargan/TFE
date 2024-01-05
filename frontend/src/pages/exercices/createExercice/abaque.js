@@ -85,7 +85,7 @@ const Abaque = ({ onAbaqueData }) => {
     }
 
     function recupereExo() {
-        axios.get("http://localhost:4000/exercice/getAbaque").then((res) => {
+        axios.get("http://51.77.150.97:4000/exercice/getAbaque").then((res) => {
             console.log(res.data[0])
             let reponseInitiale = res.data[0].reponseInitiale;
             let hauteur = res.data[0].hauteur;
@@ -113,7 +113,7 @@ const Abaque = ({ onAbaqueData }) => {
 
 
     function correction() {
-        axios.get("http://localhost:4000/exercice/getAbaque").then((res) => {
+        axios.get("http://51.77.150.97:4000/exercice/getAbaque").then((res) => {
             let resultatAttendu = res.data[0].reponseFinale
             let resultatInitial = res.data[0].reponseInitiale;
             let resultatRecu = []
@@ -158,7 +158,7 @@ const Abaque = ({ onAbaqueData }) => {
                 idExercice: idExercice
             }
 
-            axios.post("http://localhost:4000/exercice/registerAnswers", { data }, config)
+            axios.post("http://51.77.150.97:4000/exercice/registerAnswers", { data }, config)
 
 
 

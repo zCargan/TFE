@@ -9,10 +9,10 @@ const jwt = require("jsonwebtoken");
 
 router.post('/', upload.array('photo', 3), async (req, res) => {
   const client = new Client({
-    host: 'localhost',
+    host: 'db',
     port: 5432,
     database: 'test',
-    user: 'postgres',
+    user: 'loganAdmin',
     password: 'LoganTFE2023',
 });
 
@@ -70,10 +70,10 @@ router.get('/testNewRoute', (req, res) => {
         console.error('Erreur lors de la vérification du JWT :', err);
       } else {
         const client = new Client({
-          host: 'localhost',
+          host: 'db',
           port: 5432,
           database: 'test',
-          user: 'postgres',
+          user: 'loganAdmin',
           password: 'LoganTFE2023',
       });
 
