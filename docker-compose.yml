@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: loganAdmin
       POSTGRES_DB: test
     ports:
-     - "5433:5432"
+      - "5432:5432" 
     networks:
       - mynetwork
     volumes:
@@ -24,7 +24,6 @@ services:
     restart: always
     depends_on:
       - db
-    command: sh -c "sleep 10 && node your-backend-entry-point.js"  # Ajout de la commande pour attendre 10 secondes avant de démarrer le backend
 
   frontend:
     build:

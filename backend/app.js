@@ -19,7 +19,7 @@ app.use(cors());
 
 const client = new Client({
     host: 'db',
-    port: 5433,
+    port: 5432,
     database: 'test',
     user: 'loganAdmin',
     password: 'LoganTFE2023',

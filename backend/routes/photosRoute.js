@@ -10,11 +10,11 @@ const jwt = require("jsonwebtoken");
 router.post('/', upload.array('photo', 3), async (req, res) => {
   const client = new Client({
     host: 'db',
-    port: 5433,
+    port: 5432,
     database: 'test',
     user: 'loganAdmin',
     password: 'LoganTFE2023',
-});
+  });
 
   client.connect()
     .then(() => console.log('Connexion à PostgresSQL réussie dans photosRoute.js!'))
@@ -71,11 +71,11 @@ router.get('/testNewRoute', (req, res) => {
       } else {
         const client = new Client({
           host: 'db',
-          port: 5433,
+          port: 5432,
           database: 'test',
           user: 'loganAdmin',
           password: 'LoganTFE2023',
-      });
+        });
 
         client.connect((err) => {
           if (err) {

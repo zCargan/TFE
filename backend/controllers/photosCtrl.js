@@ -40,7 +40,7 @@ exports.testRoute (req, res, next) => {
     }
     const client = new Client({
         host: 'db',
-        port: 5433,
+        port: 5432,
         database: 'test',
         user: 'loganAdmin',
         password: 'LoganTFE2023',
@@ -59,7 +59,7 @@ exports.getPhotoDetail = (req, res) => {
 
     const client = new Client({
         host: 'db',
-        port: 5433,
+        port: 5432,
         database: 'test',
         user: 'loganAdmin',
         password: 'LoganTFE2023',
@@ -90,7 +90,7 @@ exports.getPhotoDetail = (req, res) => {
 exports.getPhotos = (req, res, next) => {
     const client = new Client({
         host: 'db',
-        port: 5433,
+        port: 5432,
         database: 'test',
         user: 'loganAdmin',
         password: 'LoganTFE2023',
@@ -151,7 +151,7 @@ exports.register = (req, res, next) => {
 
                 const client = new Client({
                     host: 'db',
-                    port: 5433,
+                    port: 5432,
                     database: 'test',
                     user: 'loganAdmin',
                     password: 'LoganTFE2023',
@@ -203,7 +203,7 @@ exports.updateImageName = (req, res, next) => {
                 
                 const client = new Client({
                     host: 'db',
-                    port: 5433,
+                    port: 5432,
                     database: 'test',
                     user: 'loganAdmin',
                     password: 'LoganTFE2023',
@@ -237,7 +237,7 @@ exports.deleteImage = (req, res, next) => {
 
     const client = new Client({
         host: 'db',
-        port: 5433,
+        port: 5432,
         database: 'test',
         user: 'loganAdmin',
         password: 'LoganTFE2023',
@@ -274,7 +274,7 @@ exports.getImage = (req, res) => {
             } else {
                 const client = new Client({
                     host: 'db',
-                    port: 5433,
+                    port: 5432,
                     database: 'test',
                     user: 'loganAdmin',
                     password: 'LoganTFE2023',

@@ -479,7 +479,7 @@ exports.getSTTById = (req, res) => {
             } else {
                 const client = new Client({
                     host: 'db',
-                    port: 5433,
+                    port: 5432,
                     database: 'test',
                     user: 'loganAdmin',
                     password: 'LoganTFE2023',
@@ -546,7 +546,7 @@ exports.registerAnswer = (req, res) => {
 
                 const client = new Client({
                     host: 'db',
-                    port: 5433,
+                    port: 5432,
                     database: 'test',
                     user: 'loganAdmin',
                     password: 'LoganTFE2023',
@@ -581,7 +581,7 @@ exports.getExosFromExercice = (req, res) => {
 
     const client = new Client({
         host: 'db',
-        port: 5433,
+        port: 5432,
         database: 'test',
         user: 'loganAdmin',
         password: 'LoganTFE2023',
@@ -1449,7 +1449,7 @@ exports.addExoToUser = (req, res, next) => {
 
                 const client = new Client({
                     host: 'db',
-                    port: 5433,
+                    port: 5432,
                     database: 'test',
                     user: 'loganAdmin',
                     password: 'LoganTFE2023',

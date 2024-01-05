@@ -26,7 +26,7 @@ exports.postSound = (req, res, next) => {
 
                 const client = new Client({
                     host: 'db',
-                    port: 5433,
+                    port: 5432,
                     database: 'test',
                     user: 'loganAdmin',
                     password: 'LoganTFE2023',
@@ -63,7 +63,7 @@ exports.getSound = (req, res, next) => {
     
     const client = new Client({
         host: 'db',
-        port: 5433,
+        port: 5432,
         database: 'test',
         user: 'loganAdmin',
         password: 'LoganTFE2023',
@@ -100,7 +100,7 @@ exports.getSoundById = (req, res, next) => {
 
     const client = new Client({
         host: 'db',
-        port: 5433,
+        port: 5432,
         database: 'test',
         user: 'loganAdmin',
         password: 'LoganTFE2023',
@@ -148,7 +148,7 @@ exports.updateSonName = (req, res, next) => {
 
                 const client = new Client({
                     host: 'db',
-                    port: 5433,
+                    port: 5432,
                     database: 'test',
                     user: 'loganAdmin',
                     password: 'LoganTFE2023',
@@ -178,7 +178,7 @@ exports.deleteSound = (req, res, next) => {
 
     const client = new Client({
         host: 'db',
-        port: 5433,
+        port: 5432,
         database: 'test',
         user: 'loganAdmin',
         password: 'LoganTFE2023',
