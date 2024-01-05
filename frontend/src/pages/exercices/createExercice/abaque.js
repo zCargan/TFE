@@ -4,6 +4,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import Popup from 'reactjs-popup';
+import InfoIcon from '@mui/icons-material/Info';
 
 const Abaque = ({ onAbaqueData }) => {
 
@@ -84,7 +85,7 @@ const Abaque = ({ onAbaqueData }) => {
     }
 
     function recupereExo() {
-        axios.get("http://51.77.150.97:4000/exercice/getAbaque").then((res) => {
+        axios.get("http://localhost:4000/exercice/getAbaque").then((res) => {
             console.log(res.data[0])
             let reponseInitiale = res.data[0].reponseInitiale;
             let hauteur = res.data[0].hauteur;
@@ -112,7 +113,7 @@ const Abaque = ({ onAbaqueData }) => {
 
 
     function correction() {
-        axios.get("http://51.77.150.97:4000/exercice/getAbaque").then((res) => {
+        axios.get("http://localhost:4000/exercice/getAbaque").then((res) => {
             let resultatAttendu = res.data[0].reponseFinale
             let resultatInitial = res.data[0].reponseInitiale;
             let resultatRecu = []
@@ -157,7 +158,7 @@ const Abaque = ({ onAbaqueData }) => {
                 idExercice: idExercice
             }
 
-            axios.post("http://51.77.150.97:4000/exercice/registerAnswers", { data }, config)
+            axios.post("http://localhost:4000/exercice/registerAnswers", { data }, config)
 
 
 
@@ -170,15 +171,40 @@ const Abaque = ({ onAbaqueData }) => {
 
     return (
         <div>
+            <br />
+            <Popup
+                trigger={
+                    <span className='important2'><InfoIcon className='infoLogo' /></span>
+                }
+                open={popupOpen}
+                position="bottom center"
+                on="hover"
+            >
+                <div className='explicationExo'>
+                    <h1>Explication de la réalisation de l'exercice</h1>
+                    <br />
+                    <p>Créer votre abaque en séléctionnant la descritpion, le nombre de colonnes et de lignes de votre abaque.</p>
+                    <br />
+                    <p>Appuyer sur le bouton <span className='divSpanButton'>"Créer mon abaque"</span> afin d'obtenir le squelette de l'exercice</p>
+                    <br />
+                    <p>Entrez les données connues de votre exercice sans entrer les réponses. Une fois fini, cliquer sur <span className='divSpanButton'>"Valider le squelette"</span></p>
+                    <br />
+                    <p>Pour finir, entrez les réponses attendues de l'exercices et cliquer sur <span className='divSpanButton'>"Valider les réponses"</span> pour sauver votre exercice</p>
+                    <p>Si tout les champs sont bien remplis et si aucune erreur n'est survenue, votre exercice est bien créer!</p>
+                    <br />
+                    <p>Féliciation!</p>
+                </div>
+            </Popup>
             <div className='divAbaqueWS'>
+
                 <textarea id="descriptionExercice" placeholder="Description de l'exercice" rows={7} cols={60}></textarea>
                 <input className='caractAbaque' id="hauteur" onChange={(e) => { correctHeight(e.target.value) }} placeholder="Hauteur de l'abaque"></input>
                 <input className='caractAbaque' id="largeur" onChange={(e) => { correctWidth(e.target.value) }} placeholder="Largeur de l'abaque"></input>
                 <div className='divButtonAbaqueWS'>
-                    <button onClick={showExercice}>Créer !</button>
+                    <button onClick={showExercice} className='abaqueButtonWS'>Créer mon abaque</button>
                     <Popup
                         trigger={
-                            <button onClick={saveAbaque}>Sauvez le squelette</button>}
+                            <button onClick={saveAbaque} className='abaqueButtonWS'>Valider le squelette</button>}
                         position="left center"
                         open={popupOpen}
                         on="hover"
@@ -196,7 +222,7 @@ const Abaque = ({ onAbaqueData }) => {
                     </Popup>
                     <Popup
                         trigger={
-                            <button onClick={saveAnswer}>Sauvez les réponses</button>}
+                            <button onClick={saveAnswer} className='abaqueButtonWS'>Valider les réponses</button>}
                         position="right center"
                         open={popupOpen}
                         on="hover"

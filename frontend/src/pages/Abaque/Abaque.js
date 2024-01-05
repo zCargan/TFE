@@ -7,12 +7,15 @@ import Navbar from '../../components/navbar/Navbar';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
+import Popup from 'reactjs-popup';
+import InfoIcon from '@mui/icons-material/Info';
 
 const Abaque = () => {
 
     const [height, setHeight] = useState(0);
     const [width, setWidth] = useState(0);
     const [word, setWord] = useState("")
+    const [popupOpen, setPopupOpen] = useState(false);
 
     const navigate = useNavigate();
 
@@ -62,17 +65,7 @@ const Abaque = () => {
 
 
     function saveAbaque() {
-        console.log("on est ici")
-        var radios = document.getElementsByName('anneeScolaire');
-        var valeur;
-        for (var i = 0; i < radios.length; i++) {
-            if (radios[i].checked) {
-                valeur = radios[i].value;
-            }
-        }
-
         dictionnaire.nom = document.getElementById('titreAbaque').value;
-        dictionnaire.anneeScolaire = valeur;
         dictionnaire.description = document.getElementById("descriptionExercice").value;
         dictionnaire.type = "abaque";
         dictionnaire.hauteur = Number(height);
@@ -88,72 +81,93 @@ const Abaque = () => {
     }
 
     function saveAnswer() {
-        let array1 = []
-        let a = document.getElementsByClassName("inputAbaqueCreation")
-        for (let i = 0; i < a.length; i++) {
-            array1.push(a[i].value)
-        }
-        dictionnaire.reponseFinale = array1;
-        console.log(dictionnaire)
 
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get('JWT')}`
+        var radios = document.getElementsByName('anneeScolaire');
+        var valeur;
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                valeur = radios[i].value;
             }
         }
 
-        const data = {
-            exercice: dictionnaire
-        }
-        console.log(data)
+        if (valeur === undefined) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Erreur',
+                text: 'Veuillez choisir une année scolaire valide',
+                confirmButtonText: 'OK',
+            });
+        } else {
+            dictionnaire.anneeScolaire = valeur;
 
-        axios.post("http://51.77.150.97:4000/exercice/registerAbaque", { data }, config)
-            .then((res) => {
+            let array1 = []
+            let a = document.getElementsByClassName("inputAbaqueCreation")
+            for (let i = 0; i < a.length; i++) {
+                array1.push(a[i].value)
+            }
+            dictionnaire.reponseFinale = array1;
+            console.log(dictionnaire)
 
-                if (res.status == 201) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Abaque créé!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    }).then((result) => {
-                        if (result.dismiss === Swal.DismissReason.timer) {
-                            navigate('/');
-                        }
-                    });
-                } else {
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${Cookies.get('JWT')}`
+                }
+            }
+
+            const data = {
+                exercice: dictionnaire
+            }
+            console.log(data)
+
+            axios.post("http://localhost:4000/exercice/registerAbaque", { data }, config)
+                .then((res) => {
+
+                    if (res.status == 201) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Abaque créé!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then((result) => {
+                            if (result.dismiss === Swal.DismissReason.timer) {
+                                navigate('/');
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Une erreur s\'est produite durant la création de l\'abaque',
+                            text: 'Veuillez réessayer plus tard.',
+                        });
+                    }
+
+
+                    let data = {
+                        idExo: res.data.data._id,
+                        type: "abaque"
+                    }
+
+                    axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                        .then((res) => {
+                            console.log(res)
+                        })
+                        .catch((error) => {
+                            console.log(error)
+                        })
+                })
+                .catch((error) => {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Une erreur s\'est produite durant la création de l\'abaque',
-                        text: 'Veuillez réessayer plus tard.',
+                        title: 'Erreur!',
+                        text: 'Une erreur s\'est produite.',
                     });
-                }
+                })
+        }
 
-
-                let data = {
-                    idExo: res.data.data._id,
-                    type: "abaque"
-                }
-
-                axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
-                    .then((res) => {
-                        console.log(res)
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
-            })
-            .catch((error) => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erreur!',
-                    text: 'Une erreur s\'est produite.',
-                });
-            })
     }
 
     function recupereExo() {
-        axios.get("http://51.77.150.97:4000/exercice/getAbaque").then((res) => {
+        axios.get("http://localhost:4000/exercice/getAbaque").then((res) => {
             console.log(res.data[0])
             let reponseInitiale = res.data[0].reponseInitiale;
             let hauteur = res.data[0].hauteur;
@@ -168,7 +182,7 @@ const Abaque = () => {
                     console.log(k)
                     console.log(reponseInitiale)
                     console.log(reponseInitiale[k])
-                    texte += "<input placeholder='valeur ici' class='test'" + " value='" + reponseInitiale[k] + "'></input>"
+                    texte += "<input class='inputAbaquePart'" + " value='" + reponseInitiale[k] + "'></input>"
                     k += 1;
                 }
                 texte += "<br></br>"
@@ -181,12 +195,12 @@ const Abaque = () => {
 
 
     function correction() {
-        axios.get("http://51.77.150.97:4000/exercice/getAbaque").then((res) => {
+        axios.get("http://localhost:4000/exercice/getAbaque").then((res) => {
             let resultatAttendu = res.data[0].reponseFinale
             let resultatInitial = res.data[0].reponseInitiale;
             let resultatRecu = []
             let idExercice = res.data[0]._id;
-            let a = document.getElementsByClassName("test")
+            let a = document.getElementsByClassName("inputAbaquePart")
             for (let i = 0; i < a.length; i++) {
                 resultatRecu.push(a[i].value)
             }
@@ -226,7 +240,7 @@ const Abaque = () => {
                 idExercice: idExercice
             }
 
-            axios.post("http://51.77.150.97:4000/exercice/registerAnswers", { data }, config)
+            axios.post("http://localhost:4000/exercice/registerAnswers", { data }, config)
 
 
 
@@ -240,6 +254,30 @@ const Abaque = () => {
             <Navbar />
             <div id="divCreationAbaque">
                 <h2 className='MenuAbaqueTitle'>Menu de création de l'abaque</h2>
+                <Popup
+                    trigger={
+                        <span className='important2'><InfoIcon className='infoLogo' /></span>
+                    }
+                    open={popupOpen}
+                    position="bottom center"
+                    on="hover"
+                >
+                    <div className='explicationExo'>
+                        <h1>Explication de la réalisation de l'exercice</h1>
+                        <br />
+                        <p>Afin de réaliser l'exercice, vous devez en premier lieu séléctionner une année ciblée</p>
+                        <p>Ensuite, créer votre abaque en séléctionnant le titre, la descritpion, le nombre de colonnes et de lignes de votre abaque.</p>
+                        <br />
+                        <p>Appuyer sur le bouton <span className='divSpanButton'>"Créer mon abaque"</span> afin d'obtenir le squelette de l'exercice</p>
+                        <br />
+                        <p>Entrez les données connues de votre exercice sans entrer les réponses. Une fois fini, cliquer sur <span className='divSpanButton'>"Valider le squelette"</span></p>
+                        <br />
+                        <p>Pour finir, entrez les réponses attendues de l'exercices et cliquer sur <span className='divSpanButton'>"Valider les réponses"</span> pour sauver votre exercice</p>
+                        <p>Si tout les champs sont bien remplis et si aucune erreur n'est survenue, votre exercice est bien créer!</p>
+                        <br />
+                        <p>Féliciation!</p>
+                    </div>
+                </Popup>
                 <div className='anneeScolaireAbaque'>
                     <p className='legendAnneeScolaireAbaque'>Choisissez l'année scolaire ciblée:</p>
                     <div className="AnneeScolaireChoiceAbaque">
@@ -284,7 +322,7 @@ const Abaque = () => {
                     <img id='creatifImg' src='creatif2.png'></img>
                 </div>
             </div>
-            <h2 className='abaqueH2'>Votre abaque :</h2>
+            <h2 className='abaqueH2'>Votre abaque apparaitra ici:</h2>
             <p id="abaqueCreation"></p>
         </div>
     );

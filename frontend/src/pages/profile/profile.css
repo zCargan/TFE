@@ -77,6 +77,7 @@
 }
 
 .pConnection {
+    margin-top: 1%;
     font-size: 220%;
     font-weight: bold;
     font-family: j2;
@@ -173,7 +174,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 15%;
+    margin-top: 21%;
 }
 
 
@@ -229,12 +230,13 @@
     margin-top: 10%;
     margin-left: 56%;
     font-size: 45px;
+    width: 100%;
 }
 
 .eleveImg {
     position: fixed;
-    bottom: 50px;
-    left: 33%;
+    top: 28%;
+    left: 30%;
     opacity: 50%;
     transform: translateX(-50%);
     transform: scaleX(-1);
@@ -265,4 +267,30 @@
     background-color: black;
     color: white;
     border-radius: 10px;
+}
+
+
+
+
+@media screen and (max-width: 930px) {
+    .eleveImg {
+        display: none;
+    }
+}
+
+
+
+@media screen and (max-width: 800px) {
+    .profImg {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1636px) {
+    .adminImg {
+        display: none;
+    }
+    .pConnectionAdmin {
+        margin-left: -70%;
+    }
 }

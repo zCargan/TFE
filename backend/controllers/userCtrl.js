@@ -33,10 +33,10 @@ exports.getAllInformationsUsers = (req, res, next) => {
     const query = 'SELECT * FROM utilisateurs;';
     const dictionnaireUser = {};
     const client = new Client({
-        host: 'db',
+        host: 'localhost',
         port: 5432,
         database: 'test',
-        user: 'loganAdmin',
+        user: 'postgres',
         password: 'LoganTFE2023',
     });
 
@@ -82,10 +82,10 @@ exports.updateUserInformations = (req, res, next) => {
 
 
     const client = new Client({
-        host: 'db',
+        host: 'localhost',
         port: 5432,
         database: 'test',
-        user: 'loganAdmin',
+        user: 'postgres',
         password: 'LoganTFE2023',
     });
 
@@ -154,10 +154,10 @@ exports.getAllExercicesFromProfesseur = async (req, res, next) => {
             const decoded = jwt.verify(jwtToken, secretKey);
 
             const client = new Client({
-                host: 'db',
+                host: 'localhost',
                 port: 5432,
                 database: 'test',
-                user: 'loganAdmin',
+                user: 'postgres',
                 password: 'LoganTFE2023',
             });
 

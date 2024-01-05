@@ -32,7 +32,7 @@
 .inputTATBottom {
     margin-top: 1%;
     width: 92%;
-    height: 20px;
+    height: auto;
     border-radius: 10px;
     background-color: black;
     color: white;
@@ -58,28 +58,36 @@
 
 .phraseTATBottom {
     background-color: black;
-    width: 40%;
+    width: auto;
     text-align: center;
-    border: 1px solid white;
-    height: 3vh;
+    border: 1px solid transparent;
+    height: auto;
     color: white;
     border-radius: 10px;
 }
 
+.phraseTATBottom::placeholder {
+    color: white;
+}
+
 .wordTATBottom {
-    width: 150px;
+    width: auto;
     background-color: black;
     margin-left: 1%;
     color: white;
     text-align: center;
-    border: 1px solid white;
-    height: 3vh;
+    border: 1px solid transparent;
+    height: auto;
     border-radius: 10px;
+}
+
+.wordTATBottom::placeholder {
+    color: white;
 }
 
 .textareaTAT {
     text-align: center;
-    height: 5vh;
+    height: auto;
     width: 92%;
     margin-top: 1%;
     background-color: black;
@@ -90,7 +98,7 @@
 }
 
 .textareaTAT::placeholder {
-    padding-top: 1%;
+    padding-top: 3%;
     color: white;
 }
 
@@ -109,7 +117,7 @@
 .boutonbottomTAT {
     background-color: black;
     color: white;
-    height: 3vh;
+    height: auto;
     text-align: center;
     width: 20vh;
     border-radius: 10px;
@@ -121,4 +129,11 @@
     background-color: white;
     color: black;
     border: 1px solid black;
+}
+
+.inputTATuser {
+    border-radius: 10px;
+    border: 1px solid transparent;
+    margin: 1%;
+    width: 10%;
 }

@@ -7,6 +7,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie';
 import Popup from 'reactjs-popup';
 import Navbar from '../../../components/navbar/Navbar';
+import InfoIcon from '@mui/icons-material/Info';
 
 const MaisonDesNombres = ({ onMdnData }) => {
     let exo = {}
@@ -85,7 +86,7 @@ const MaisonDesNombres = ({ onMdnData }) => {
 
     function showRedux() {
         console.log(exerciceRedux)
-        //axios.post('http://51.77.150.97:4000/exercice/post_mdn_exercices', exerciceRedux)
+        //axios.post('http://localhost:4000/exercice/post_mdn_exercices', exerciceRedux)
     }
 
 
@@ -106,7 +107,7 @@ const MaisonDesNombres = ({ onMdnData }) => {
                 reponseUser.push(ligne1[i].value)
             }
         }
-        axios.get('http://51.77.150.97:4000/exercice/get_mdn_exercice').then((res) => {
+        axios.get('http://localhost:4000/exercice/get_mdn_exercice').then((res) => {
             let dicFinale = res.data[0].reponseFinale;
             let dicInitiale = res.data[0].reponseInitiale;
             let idExercice = res.data[0]._id;
@@ -164,7 +165,7 @@ const MaisonDesNombres = ({ onMdnData }) => {
                 idExercice: idExercice
             }
 
-            axios.post("http://51.77.150.97:4000/exercice/registerAnswers", { data }, config)
+            axios.post("http://localhost:4000/exercice/registerAnswers", { data }, config)
         })
 
     }
@@ -174,14 +175,42 @@ const MaisonDesNombres = ({ onMdnData }) => {
 
     return (
         <div id="MDN_div">
+            <br />
+            <Popup
+                trigger={
+                    <span className='important2'><InfoIcon className='infoLogo' /></span>
+                }
+                open={popupOpen}
+                position="bottom center"
+                on="hover"
+            >
+                <div className='explicationExo'>
+                    <h1>Explication de la réalisation de l'exercice</h1>
+                    <br />
+                    <p>Créer votre maison des nombres en séléctionnant la descritpion, le nombre de lignes que vous souhaitez pour votre exercice.</p>
+                    <br />
+                    <p>Appuyer sur le bouton <span className='divSpanButton'>"Voir mon squelette"</span> afin d'obtenir le squelette de l'exercice</p>
+                    <br />
+                    <p>Entrez les données connues de votre exercice sans entrer les réponses. Une fois fini, cliquer sur <span className='divSpanButton'>"Valider le squelette"</span></p>
+                    <br />
+                    <p>Pour finir, entrez les réponses attendues de l'exercices et cliquer sur <span className='divSpanButton'>"Valider les réponses"</span> pour sauver votre exercice</p>
+                    <p>Si tout les champs sont bien remplis et si aucune erreur n'est survenue, votre exercice est bien créer!</p>
+                    <br />
+                    <p>Féliciation!</p>
+                </div>
+            </Popup>
             <div className='divMDNWS'>
                 <textarea rows={7} cols={60} id="descriptionExercice" placeholder="Description de l'exercice"></textarea>
                 <input id="nombreInput" placeholder='Nombre de colonnes'></input>
                 <div className='divButtonMDNWS'>
-                    <button onClick={showSqueleton}>Créer !</button>
-                    <Popup
+                    <button onClick={showSqueleton}>Voir mon squelette</button>
+                    <button onClick={saveSquelette}>Valider le squelette</button>
+                    <button onClick={final}>Valider les réponses</button>
+
+                    {/* <Popup
                         trigger={
-                            <button onClick={saveSquelette}>Valider le squelette</button>}
+                            <button onClick={saveSquelette}>Valider le squelette</button>
+                            }
                         position="left center"
                         open={popupOpen}
                         on="hover"
@@ -213,7 +242,7 @@ const MaisonDesNombres = ({ onMdnData }) => {
                                 </p>
                             </div>
                         </div>
-                    </Popup>
+                    </Popup> */}
                 </div>
             </div>
             <div className='resultMDNWS'>

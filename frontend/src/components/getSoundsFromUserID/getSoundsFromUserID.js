@@ -14,10 +14,10 @@ const GetSounds = ({ onSoundSelect }) => {
       }
     };
 
-    axios.post("http://51.77.150.97:4000/connection/infoUser", {}, config)
+    axios.post("http://localhost:4000/connection/infoUser", {}, config)
       .then(response => {
         let id = response.data.id
-        axios.get(`http://51.77.150.97:4000/sound/getSound/${id}`, {}, config)
+        axios.get(`http://localhost:4000/sound/getSound/${id}`, {}, config)
           .then((res) => {
             // Ajouter une étiquette à chaque son
             const sonsAvecLabels = res.data.resultat.map((son, index) => ({
@@ -57,7 +57,7 @@ const GetSounds = ({ onSoundSelect }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
       <div id="zone_sound">
-        <button onClick={getSon} id="buttonGetSound">Click ici pour un son</button>
+        <button onClick={getSon} id="buttonGetSound">Récupérer mes sons</button>
         <div id="zoneExoSon" style={{ display: 'flex', flexDirection: 'row', gap: '10px', justifyContent: 'center' }}>
           {sons.map((son, index) => (
             <div className='sonDivMap' key={index} style={{ marginRight: '10px' }}>

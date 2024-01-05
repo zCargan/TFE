@@ -3,6 +3,7 @@ import Navbar from '../../components/navbar/Navbar'
 import { useNavigate } from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import './newExercice.css'
+import InfoIcon from '@mui/icons-material/Info';
 
 import LDN from '../LDN/LDN'
 import MDN from '../MDN/MDN'
@@ -129,7 +130,7 @@ const NewExercice = () => {
                         <div className='popupExos'>
                             <h3>Son avec texte</h3>
                             <p>
-                                Vous pouvez créer ici un exercice utilisant le son. Vous pouvez <a href="http://localhost:3000/uploadSound" id="soundLink">
+                                Vous pouvez créer ici un exercice utilisant le son. Vous pouvez <a href="http://http://51.77.150.97/uploadSound" id="soundLink">
                                     uploader des sons ici
                                 </a>.
                                 Vous pouvez ensuite associer chaque son à sa valeur.
@@ -185,12 +186,42 @@ const NewExercice = () => {
                 <br />
                 <br />
                 <div className="divExoCreation" id="div_photo_create_exercice">
+                    <br />
+                    <Popup
+                        trigger={
+                            <span className='important2'><InfoIcon className='infoLogo' /></span>
+                        }
+                        open={popupOpen}
+                        position="bottom center"
+                        on="hover"
+                    >
+                        <div className='explicationExo'>
+                            <p>Endroit ou vous pouvez ajouter des <span className='divSpanButton'>images</span> à votre profil.</p>
+                            <br />
+                            <p>Si vous désirez créer des <span className='divSpanButton'>"Texte avec images"</span> ou des <span className='divSpanButton'>"Mot bazard"</span>, vous devez avoir ajouter des images à votre compte</p>
+                        </div>
+                    </Popup>
                     <h2>Partie photo : </h2>
                     <img src="gallerie.png" onClick={callGetPhotos} width="100" height="100" />
                 </div>
                 <br />
                 <br />
                 <div className="divExoCreation" id="div_son_create_exercice">
+                    <br />
+                    <Popup
+                        trigger={
+                            <span className='important2'><InfoIcon className='infoLogo' /></span>
+                        }
+                        open={popupOpen}
+                        position="bottom center"
+                        on="hover"
+                    >
+                        <div className='explicationExo'>
+                            <p>Endroit ou vous pouvez ajouter des <span className='divSpanButton'>sons</span> à votre profil.</p>
+                            <br />
+                            <p>Si vous désirez créer des <span className='divSpanButton'>"Son avec texte"</span> vous devez avoir ajouter des sons à votre compte</p>
+                        </div>
+                    </Popup>
                     <h2>Partie musique : </h2>
                     <img src="musique.png" onClick={showAllSounds} width="100" height="100" />
                     <img src="uploadMusique.png" onClick={callUploadSound} width="100" height="100" />

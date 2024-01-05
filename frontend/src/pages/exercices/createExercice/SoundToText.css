@@ -24,9 +24,10 @@
 .buttonSTTWS {
     background-color: black;
     color: white;
-    height: 3.5vh;
+    padding: 1%;
+    height: auto;
     text-align: center;
-    width: 15vh;
+    width: auto;
     border-radius: 10px;
     border: 1px solid transparent;
     transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
@@ -41,3 +42,20 @@
 .table-container {
     padding-bottom: 2%;
 }
+
+#descriptionExoSTTWS {
+    margin-top: 1%;
+    text-align: center;
+    height: 7vh;
+    width: 90%;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  
+  #descriptionExoSTTWS::placeholder {
+    color: white;
+    padding-top: 1%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }

@@ -25,6 +25,7 @@ header {
 }
 
 nav a {
+	
 	margin: 0 1rem;
 	color: var(--textColor);
 	text-decoration: none;
@@ -52,9 +53,9 @@ header div {
 }
 
 header nav {
-	position: fixed;
+
 	width: 40%;
-	margin-left: 30%;
+	margin-left: 3.6%;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -94,6 +95,10 @@ header nav {
 	nav a {
 		font-size: 1.5rem;
 	}
+}
+
+header .nav-icons {
+    position: fixed;
 }
 
 .buttonProfile2:hover {
@@ -145,3 +150,4 @@ header nav {
 .logout {
 	color: rgb(136,60,52);
 }
+

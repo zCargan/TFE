@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import Cookies from 'js-cookie';
 import Navbar from '../../components/navbar/Navbar';
@@ -6,15 +6,18 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import './LDN.css'
 
+import Popup from 'reactjs-popup';
+import InfoIcon from '@mui/icons-material/Info';
+
 const LDN = () => {
 
-    
+    const [popupOpen, setPopupOpen] = useState(false);
 
     let exercice = {}
     var texte = ""
     let exo = {};
     const navigate = useNavigate();
-    
+
     function submit_squelette() {
         let allInput = document.querySelectorAll('.inputUser')
         allInput.forEach(element => {
@@ -32,17 +35,10 @@ const LDN = () => {
     }
 
     function saveSqueleton() {
-        var radios = document.getElementsByName('anneeScolaire');
-        var valeur;
-        for (var i = 0; i < radios.length; i++) {
-            if (radios[i].checked) {
-                valeur = radios[i].value;
-            }
-        }
+
 
         let reponsesEnoncees = []
         exo.nom = document.getElementById("name").value;
-        exo.anneeScolaire = valeur;
         exo.description = document.getElementById("descriptionLDN").value;
         exo.type = 'LDN'
         let option = document.getElementById("direction").value;
@@ -85,59 +81,75 @@ const LDN = () => {
         }
 
         exo.reponseFinale = reponsesFinales
-
-        console.log(exo)
-
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get('JWT')}`
+        
+        var radios = document.getElementsByName('anneeScolaire');
+        var valeur;
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                valeur = radios[i].value;
             }
         }
 
-
-        axios.post("http://51.77.150.97:4000/exercice/registerLDN", { exo }, config).then((res) => {
-
-            if (res.status == 201) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Ligne des nomnbres créé!',
-                    showConfirmButton: false,
-                    timer: 1500
-                }).then((result) => {
-                    if (result.dismiss === Swal.DismissReason.timer) {
-                        navigate('/');
-                    }
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Une erreur s\'est produite durant la création de la ligne des nomnbres',
-                    text: 'Veuillez réessayer plus tard.',
-                });
+        if (valeur === undefined) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Erreur',
+                text: 'Veuillez choisir une année scolaire valide',
+                confirmButtonText: 'OK',
+            });
+        } else {
+            exo.anneeScolaire = valeur;
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${Cookies.get('JWT')}`
+                }
             }
 
-            let data = {
-                idExo: res.data.data._id,
-                type: "LDN"
-            }
 
-            axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
-                .then((res) => {
-                    console.log(res)
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-        })
-            .catch((error) => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erreur!',
-                    text: 'Une erreur s\'est produite.',
-                });
+            axios.post("http://localhost:4000/exercice/registerLDN", { exo }, config).then((res) => {
+
+                if (res.status == 201) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Ligne des nombres créé!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then((result) => {
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                            navigate('/');
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Une erreur s\'est produite durant la création de la ligne des nombres',
+                        text: 'Veuillez réessayer plus tard.',
+                    });
+                }
+
+                let data = {
+                    idExo: res.data.data._id,
+                    type: "LDN"
+                }
+
+                axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                    .then((res) => {
+                        console.log(res)
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
             })
+                .catch((error) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erreur!',
+                        text: 'Une erreur s\'est produite.',
+                    });
+                })
 
 
+        }
     }
 
     function hidden() {
@@ -184,7 +196,32 @@ const LDN = () => {
     return (
         <div>
             <Navbar />
-            <h2 className='MenuLDNTitle'>Menu de création de la maison des nombres</h2>
+            <h2 className='MenuLDNTitle'>Menu de création de la ligne des nombres</h2>
+            <Popup
+                trigger={
+                    <span className='important2'><InfoIcon className='infoLogo' /></span>
+                }
+                open={popupOpen}
+                position="bottom center"
+                on="hover"
+            >
+                <div className='explicationExo'>
+                    <h1>Explication de la réalisation de l'exercice</h1>
+                    <br />
+                    <p>Afin de réaliser l'exercice, vous devez en premier lieu séléctionner une année ciblée</p>
+                    <p>Ensuite, créer votre ligne des nombres en séléctionnant le titre, la descritpion, le nombre de case ainsi que la direction de votre ligne des nombres</p>
+                    <br />
+                    <p>Appuyer sur le bouton <span className='divSpanButton'>"Créer ma ligne des nombres"</span> afin d'obtenir le squelette de l'exercice</p>
+                    <br />
+                    <p>Entrez les données connues de votre exercice sans entrer les réponses. Une fois fini, cliquer sur <span className='divSpanButton'>"Valider le squelette"</span></p>
+                    <br />
+                    <p>Pour finir, entrez les réponses attendues de l'exercices et cliquer sur <span className='divSpanButton'>"Valider les réponses"</span> pour sauver votre exercice</p>
+                    <p>Si tout les champs sont bien remplis et si aucune erreur n'est survenue, votre exercice est bien créer!</p>
+                    <br />
+                    <p>Féliciation!</p>
+                </div>
+            </Popup>
+            <br />
             <div className='anneeScolaireLDN'>
                 <p className='legendAnneeScolaireLDN'>Choisissez l'année scolaire ciblée:</p>
                 <div className="AnneeScolaireChoiceLDN">
@@ -198,8 +235,8 @@ const LDN = () => {
             </div>
             <br />
             <div id="LDNdivcreation">
-                <input className="inputAbaque" placeholder="Titre de l'abaque" id="name"></input>
-                <textarea placeholder="Description de l'exercice" id="descriptionLDN"></textarea>
+                <input className="inputAbaque" placeholder="Titre de la ligne des nombres" id="name"></input>
+                <textarea placeholder="Description de l'exercice" id="descriptionLDN" className='inputLDN'></textarea>
                 <input id="length" placeholder='Taille de la LDN' className='inputLDNCreation'></input>
                 <div id="selectLDNcreation">
                     Direction de ma droite des nombres <select id="direction">
@@ -215,7 +252,7 @@ const LDN = () => {
                 <button className="boutonOfSaveExoLDN" onClick={testSaveAll}>Valider les réponses</button>
             </div>
             <div>
-                <h2 className='ldnResultatCreator'>Votre ligne des nombres</h2>
+                <h2 className='ldnResultatCreator'>Votre résultat apparaitra ici :</h2>
                 <p id="showResult"></p>
             </div>
             <div>

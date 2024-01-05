@@ -12,7 +12,7 @@ import Popup from 'reactjs-popup';
 import Swal from 'sweetalert2';
 import { FaEye } from "react-icons/fa";
 import { CSSTransition } from 'react-transition-group';
-
+import InfoIcon from '@mui/icons-material/Info';
 
 import BlankText from './blankText.js';
 import TextToImg from './textToImg.js';
@@ -80,7 +80,7 @@ const CreateExercice = () => {
                 }
             };
 
-            axios.post("http://51.77.150.97:4000/connection/checkToken", {}, config)
+            axios.post("http://localhost:4000/connection/checkToken", {}, config)
                 .then(response => {
                     console.log(response.data.role)
                     if (response.data.role !== "professeur" || '') {
@@ -114,7 +114,7 @@ const CreateExercice = () => {
         console.log("exercice redux ")
         console.log(exerciceRedux)
         for (let i = 0; i < nbrExercice; i++) {
-            axios.post('http://51.77.150.97:4000/exercice/send_test_exercice', exerciceRedux)
+            axios.post('http://localhost:4000/exercice/send_test_exercice', exerciceRedux)
             /*
                 .then(response => {
                 console.log('Réponse du backend :', response.data);
@@ -158,7 +158,7 @@ const CreateExercice = () => {
                         }
 
                         axios
-                            .post('http://51.77.150.97:4000/exercice/saveWorksheet', { data }, config)
+                            .post('http://localhost:4000/exercice/saveWorksheet', { data }, config)
                             .then((res) => {
 
                                 if (res.status == 201) {
@@ -185,7 +185,7 @@ const CreateExercice = () => {
                                     type: "WS"
                                 }
 
-                                axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
+                                axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
                                     .then((res) => {
                                         console.log(res)
                                     })
@@ -268,6 +268,26 @@ const CreateExercice = () => {
                     </div>
                 </Popup>
                 <button className='buttonCreationWS' onClick={saveWorksheet}>Sauver la feuille d'exercice</button>
+                <Popup
+                    trigger={
+                        <span className='important2'><InfoIcon className='infoLogo' /></span>
+                    }
+                    open={popupOpen}
+                    position="bottom center"
+                    on="hover"
+                >
+                    <div className='explicationExo'>
+                        <h1>Explication de la réalisation d'une feuille d'exercice</h1>
+                        <br />
+                        <p>Vous devez renseigenre l'année scolaire étant visé par la feuille d'exercice que vous allez créer.</p>
+                        <br />
+                        <p>Veuillez préciser également le titre de la feuille d'exercice ainsi que sa description.</p>
+                        <br />
+                        <p>Une fois cela fait, vous pouvez commencer à ajouter des exercices avec la liste déroulant présente si dessous</p>
+                        <br />
+                        <p>Bonne création !</p>
+                    </div>
+                </Popup>
             </div>
             <div>
                 <div>
@@ -289,7 +309,7 @@ const CreateExercice = () => {
                     <input className='nameWSGlobal' id="nameInput" placeholder="Nom de votre feuille d'exercice"></input>
                 </div>
                 <div>
-                    <textarea className='descriptionWSGlobal' id="textareaCE" rows={7} cols={60} placeholder="Description de votre feuille d'exercice..." />
+                    <textarea className='descriptionWSGlobal' id="textareaCE" placeholder="Description de votre feuille d'exercice..." />
                 </div>
             </div>
             <div>
@@ -326,6 +346,9 @@ const CreateExercice = () => {
                 }
             </div>
             <br />
+            <div>
+                <img id='creatifImg' src='creatif2.png'></img>
+            </div>
         </div>
     );
 };

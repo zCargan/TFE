@@ -7,6 +7,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { IoIosInformationCircle } from "react-icons/io";
 import Popup from 'reactjs-popup';
+import InfoIcon from '@mui/icons-material/Info';
 
 const MotBazard = ({ onMbData }) => {
     const [tableData, setTableData] = useState([]);
@@ -69,36 +70,33 @@ const MotBazard = ({ onMbData }) => {
             <br />
             <Popup
                 trigger={
-                    <a href="#" title="Historique" id="InfoCircle">
-                        <IoIosInformationCircle />
-                    </a>}
-                position="left center"
+                    <span className='important2'><InfoIcon className='infoLogo' /></span>
+                }
                 open={popupOpen}
+                position="bottom center"
                 on="hover"
-                closeOnDocumentClick
             >
-                <div>
-                    <div id="fonctionnement">
-                        <h3>Fonctionnement</h3>
-                        <div>
-                            <p>Afin de réussir la création de l'exercice:
-                                <br />
-                                <br />
-                                1° Veuillez récupérer vos images
-                                <br />
-                                2° Cliquez sur l'image désiré (Son nom apparaitra à coté de "Image séléctionnée")
-                                <br />
-                                3° Entrez le nom de l'image choisie et cliquez sur confirmer pour valider
-                                <br />
-                                4° Si la relation image apparait avec le nom que vous lui avez donné, c'est bon
-                            </p>
-                        </div>
-                    </div>
+                <div className='explicationExo'>
+                    <h1>Explication de la réalisation de l'exercice</h1>
+                    <br />
+                    <h3>Avant de commencer la création de votre exercice, assurez vous de bien avoir ajouté vos images à votre compte. Vous pouvez le faire <span className='divSpanButton'><a href='http://51.77.150.97/photo'>ici</a></span></h3>
+                    <br />
+                    <p>Créer votre "Mot bazard" en séléctionnant la descritpion de votre "Mot bazard".</p>
+                    <br />
+                    <p>Appuyer sur le bouton <span className='divSpanButton'>Récupérer mes photos"</span> afin de récupérer les images que vous avez ajouter à votre profil</p>
+                    <br />
+                    <p>Cliquer sur l'image désirée. Le nom de cette dernière sera affiché à coté de "Nom de l'image sélectionné". Entrez le nom que vous désirez lui à l'endroit dédié</p>
+                    <br />
+                    <p>Cliquer sur <span className='divSpanButton'>"Confirmer"</span> afin d'ajouter l'image avec son nom s'y rapportant dans le tableau</p>
+                    <br />
+                    <p>Une fois toute les images désirées présentes dans le tableau, cliquer sur <span className='divSpanButton'>"Valider l'exercice"</span> afin de valider votre exercice</p>
+                    <br />
+                    <p>Féliciation!</p>
                 </div>
             </Popup>
             <div className="partMBWS">
                 <div>
-                    <textarea id="descriptionExo" placeholder="Description de l'exercice" rows={7} cols={60}></textarea>
+                    <textarea id="descriptionExo" placeholder="Description de l'exercice" ></textarea>
                 </div>
                 <div>
                     {selectedImageInfo.id && (
@@ -106,7 +104,7 @@ const MotBazard = ({ onMbData }) => {
                             <h3 className='h3mbWS'>Nom de l'image sélectionnée : {selectedImageInfo.name}</h3>
                         </div>
                     )}
-                    <input className='divmbWS' placeholder='Placez ici le nom se rapportant à cette image' id="name_photo" style={{ width: "300px" }}></input><button className='buttonMBWS' onClick={confirm}>Confirmer</button>
+                    <input className='divmbWS' placeholder='Placez ici le nom se rapportant à cette image' id="name_photo"></input><button className='buttonMBWS' onClick={confirm}>Confirmer</button>
                 </div>
                 <br />
                 <div className="table-container">

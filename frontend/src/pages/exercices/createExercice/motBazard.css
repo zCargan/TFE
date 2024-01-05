@@ -11,8 +11,8 @@
 
 .divmbWS {
     margin-top: 1%;
-    width: 92vh;
-    height: 20px;
+    width: 90%;
+    height: auto;
     border-radius: 10px;
     background-color: black;
     color: white;
@@ -35,7 +35,8 @@
 .buttonMBWS {
     background-color: black;
     color: white;
-    height: 3.5vh;
+    height: auto;
+    padding: 1%;
     text-align: center;
     width: 15vh;
     border-radius: 10px;

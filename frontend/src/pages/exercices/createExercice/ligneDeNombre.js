@@ -7,7 +7,7 @@ import { store } from '../../../features/exerciceSlice'
 import { addExercice } from '../../../features/exerciceSlice'
 import Navbar from '../../../components/navbar/Navbar';
 import Popup from 'reactjs-popup';
-
+import InfoIcon from '@mui/icons-material/Info';
 
 const LigneDeNombre = ({ onLdnData }) => {
 
@@ -143,6 +143,30 @@ const LigneDeNombre = ({ onLdnData }) => {
     return (
 
         <div>
+            <br />
+            <Popup
+                trigger={
+                    <span className='important2'><InfoIcon className='infoLogo' /></span>
+                }
+                open={popupOpen}
+                position="bottom center"
+                on="hover"
+            >
+                <div className='explicationExo'>
+                    <h1>Explication de la réalisation de l'exercice</h1>
+                    <br />
+                    <p>Créer votre ligne des nombres en séléctionnant la descritpion, le nombre de case ainsi que la direction de votre ligne des nombres</p>
+                    <br />
+                    <p>Appuyer sur le bouton <span className='divSpanButton'>"Créer ma ligne des nombres"</span> afin d'obtenir le squelette de l'exercice</p>
+                    <br />
+                    <p>Entrez les données connues de votre exercice sans entrer les réponses. Une fois fini, cliquer sur <span className='divSpanButton'>"Valider le squelette"</span></p>
+                    <br />
+                    <p>Pour finir, entrez les réponses attendues de l'exercices et cliquer sur <span className='divSpanButton'>"Valider les réponses"</span> pour sauver votre exercice</p>
+                    <p>Si tout les champs sont bien remplis et si aucune erreur n'est survenue, votre exercice est bien créer!</p>
+                    <br />
+                    <p>Féliciation!</p>
+                </div>
+            </Popup>
             <div className='divLDNWS'>
                 <textarea placeholder="Description DE l'exercice" rows={7} cols={60} id="descriptionLDN"></textarea>
                 <input className='longueurLDNWS' id="length" placeholder='Longueur de la ligne'></input>
@@ -151,7 +175,7 @@ const LigneDeNombre = ({ onLdnData }) => {
                     Direction de ma droite des nombres <select id="direction"><option value="droite">▶</option><option value="gauche">◀</option></select>
                 </div>
                 <div className='buttonLDNWS'>
-                    <button onClick={createLine}>Créer !</button>
+                    <button onClick={createLine}>Créer ma ligne des nombres</button>
                     <Popup
                         trigger={
                             <button id="button_squelette" onClick={saveSqueleton}>Valider le squelette</button>}

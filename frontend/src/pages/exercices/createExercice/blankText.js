@@ -5,6 +5,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie';
 import { IoIosInformationCircle } from "react-icons/io";
 import Popup from 'reactjs-popup';
+import InfoIcon from '@mui/icons-material/Info';
 
 const TexteATrou = ({ onTatData }) => {
 
@@ -99,6 +100,31 @@ const TexteATrou = ({ onTatData }) => {
 
     return (
         <div id="texteATrou">
+            <br />
+            <Popup
+                trigger={
+                    <span className='important2'><InfoIcon className='infoLogo' /></span>
+                }
+                open={popupOpen}
+                position="bottom center"
+                on="hover"
+            >
+                <div className='explicationExo'>
+                    <h1>Explication de la réalisation de l'exercice</h1>
+                    <br />
+                    <p>Créer votre texte à trous en séléctionnant le titre, la descritpion de votre exercice.</p>
+                    <br />
+                    <p>Ecrivez le début de votre phrase dans "Ecrivez votre phrase ici". Vous pouvez ajouter votre mot manquant dans "Mot à ajouter". Cliquer ensuite sur <span className='divSpanButton'>"Ajouter ce mot".</span></p>
+                    <br />
+                    <p>Votre phrase apparait à "Résultat de la phrase". Elle est composé de vos mots manquants en rouge.</p>
+                    <br />
+                    <p>Vous pouvez compléter votre phrase avec via le formulaire afin de compléter d'avantage votre exercice.</p>
+                    <br />
+                    <p>Valider votre texte à trou en cliquant sur <span className='divSpanButton'>"Valider cette phrase".</span></p>
+                    <br />
+                    <p>Féliciation!</p>
+                </div>
+            </Popup>
             <div className='divInputsTAT'>
                 <textarea className="textareaTAT" id="descriptionTAT" rows={5} cols={52} placeholder="Description de l'exercice"></textarea>
                 <div>
@@ -108,7 +134,7 @@ const TexteATrou = ({ onTatData }) => {
                     <p className='resultTATPhrase'>Résultat de la phrase :</p><p id="phrase"></p>
                 </div>
                 <div>
-                <button className="boutonbottomTAT" onClick={validateSentence}>Valider cette phrase</button>
+                    <button className="boutonbottomTAT" onClick={validateSentence}>Valider cette phrase</button>
                 </div>
             </div>
 

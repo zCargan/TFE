@@ -41,20 +41,21 @@
 /* Input abaque */
 .divInputs {
     background: rgb(0, 0, 0, 0.5);
-    padding: 10px;
+    padding: 1%;
     width: 36%;
-    height: 19vh;
+    height: 10%;
     margin-left: 32%;
     border: 1px solid white;
     border-radius: 10px;
 }
 
 .inputAbaque {
-    width: 92%;
-    height: 20px;
+    width: 90%;
+    height: auto;
     border-radius: 10px;
     background-color: black;
-    color: white
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .inputAbaque::placeholder {
@@ -63,9 +64,10 @@
 
 #descriptionExercice {
     text-align: center;
-    height: 5vh;
-    width: 92%;
+    height: 2%;
+    width: 90%;
     background-color: black;
+    border: 1px solid transparent;
     color: white
 }
 
@@ -83,16 +85,16 @@
     background: rgb(0, 0, 0, 0.5);
     border: 1px solid white;
     border-radius: 10px;
-    height: 6vh;
+    height: auto;
 }
 
 .boutonOfCreation, .boutonOfSaveSquelet, .boutonOfSaveExo {
     background-color: black;
     color: white;
     padding: 2%;
-    height: 4vh;
+    height: auto;
     text-align: center;
-    width: 15vh;
+    width: auto;
     border-radius: 10px;
     border: 1px solid transparent;
 }
@@ -101,9 +103,9 @@
     background-color: rgb(248, 222, 222);
     color: black;
     padding: 2%;
-    height: 4vh;
+    height: auto;
     text-align: center;
-    width: 15vh;
+    width: auto;
     border-radius: 10px;
     border: 1px solid bla;
 }
@@ -125,7 +127,17 @@
 .abaqueH2 {
     margin-top: 1%;
     font-family: j2;
-    font-size: 50px;
+    margin-top: 1%;
+    color: white;
+    font-family: j2;
+    margin-top: 1%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: auto;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px
 }
 
 .inputAbaqueCreation {
@@ -133,6 +145,7 @@
     width: 8%;
     height: 3vh;
     margin-left: 1%;
+    
 }
 
 .abaqueInputDivCreation {
@@ -150,4 +163,13 @@
     border: 1px solid transparent;
     color: white;
     border-radius: 10px;
+}
+
+
+.inputAbaquePart {
+    border-radius: 10px;
+    border: 1px solid transparent;
+    margin: 1%;
+    width: 10%;
+    text-align: center;
 }

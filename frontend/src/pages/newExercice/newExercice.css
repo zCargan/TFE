@@ -90,8 +90,12 @@ img {
     color: orange;
 }
 
-@media only screen and (max-width: 600px) {
+
+@media screen and (max-width: 1453px) {
     #bigDiv {
-      background-image: none; /* Retire le fond d'écran lorsque la largeur de l'écran est de 600 pixels ou moins */
+        background-image: none;
+        background: linear-gradient(45deg, #FF8C42, #FF6384);
+        height: 100%;
+        color: white;
     }
-  }
+}

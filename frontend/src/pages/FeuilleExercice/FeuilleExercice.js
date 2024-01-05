@@ -122,7 +122,7 @@ const FeuilleExercice = () => {
                     <div className='popupExos'>
                         <h3>Son avec texte</h3>
                         <p>
-                            Vous pouvez créer ici un exercice utilisant le son. Vous pouvez <a href="http://localhost:3000/uploadSound">
+                            Vous pouvez créer ici un exercice utilisant le son. Vous pouvez <a href="http:/http://51.77.150.97/uploadSound">
                                 uploader des sons ici
                             </a>.
                             Vous pouvez ensuite associer chaque son à sa valeur.

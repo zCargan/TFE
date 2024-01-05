@@ -19,7 +19,7 @@
     background: rgb(0, 0, 0, 0.5);
     padding: 10px;
     width: 36%;
-    height: 19vh;
+    height: auto;
     margin-left: 32%;
     border: 1px solid white;
     border-radius: 10px;
@@ -33,7 +33,8 @@
     align-items: center;
     width: auto;
     border-radius: 10px;
-    height: 6vh;
+    width: auto;
+    height: auto;
 }
 
 
@@ -41,9 +42,9 @@
     background-color: black;
     color: white;
     padding: 2%;
-    height: 5vh;
+    height: auto;
     text-align: center;
-    width: 20vh;
+    width: auto;
     border-radius: 10px;
     border: 1px solid transparent;
 }
@@ -52,7 +53,7 @@
 #nombreInput {
     margin-top: 1%;
     width: 92%;
-    height: 3vh;
+    height: auto;
     border-radius: 10px;
     background-color: black;
     color: white;

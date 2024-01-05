@@ -10,9 +10,13 @@
     color: white
 }
 
+#descriptionLDN {
+    height: auto;
+}
+
 .inputLDNCreation {
-    width: 92%;
-    height: 25px;
+    width: 90%;
+    height: auto;
     border-radius: 10px;
     background-color: black;
     border:1px solid transparent;
@@ -28,7 +32,7 @@
     background: rgb(0, 0, 0, 0.5);
     padding: 10px;
     width: 36%;
-    height: 19.3vh;
+    height: auto;
     margin-left: 32%;
     border: 1px solid white;
     border-radius: 10px;
@@ -37,8 +41,8 @@
 #selectLDNcreation {
     margin-top: 2%;
     background-color: black;
-    width: 90.5%;
-    margin-left: 4%;
+    width: 90%;
+    margin-left: 5%;
     color: white;
     padding: 0.8%;
     border-radius: 10px;
@@ -55,9 +59,10 @@
 .boutonOfCreationLDN, .boutonOfSaveSqueletLDN, .boutonOfSaveExoLDN {
     background-color: black;
     color: white;
-    height: 4vh;
+    height: auto;
+    padding: 1%;
     text-align: center;
-    width: 20vh;
+    width: auto;
     border-radius: 10px;
     border: 1px solid transparent;
 }
@@ -78,13 +83,22 @@
     background: rgb(0, 0, 0, 0.5);
     border: 1px solid white;
     border-radius: 10px;
-    height: 7svh;
+    height: auto;
 }
 
 .ldnResultatCreator {
+    
     margin-top: 1%;
+    color: white;
     font-family: j2;
-    font-size: 50px;
+    margin-top: 1%;
+    background: rgb(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 36%;
+    height: auto;
+    margin-left: 32%;
+    border: 1px solid white;
+    border-radius: 10px;
 }
 
 .inputLDNCreator {
@@ -129,4 +143,51 @@
     margin-left: 32%;
     border: 1px solid white;
     border-radius: 10px;
+}
+
+
+.inputLDN {
+    width: 92%;
+    height: 20px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+
+}
+
+.inputLDN::placeholder {
+    color: white;
+    font-family:Arial, Helvetica, sans-serif
+}
+
+
+
+
+.explicationExo {
+    background-color: white;
+    padding: 3%;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    
+}
+
+.explicationExo h1 {
+    font-family: j2;
+    font-size: 150%;
+    text-decoration: underline;
+}
+
+
+.divSpanButton {
+    color: red;
+}
+
+
+.inputUserAnswer {
+    border-radius: 10px;
+    border: 1px solid transparent;
+    margin: 1%;
+    width: 10%;
+    text-align: center;
 }

@@ -19,9 +19,10 @@
 .buttonGPC {
     background-color: black;
     color: white;
-    height: 5vh;
+    height: auto;
     text-align: center;
-    width: 20vh;
+    width:auto;
+    padding: 1%;
     border-radius: 10px;
     border: 1px solid transparent;
     transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;

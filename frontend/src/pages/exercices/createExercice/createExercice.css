@@ -108,8 +108,9 @@
 
 .nameWSGlobal {
     margin-top: 1%;
-    width: 92%;
-    height: 3vh;
+    width: 90%;
+    padding: 1%;
+    height: auto;
     border-radius: 10px;
     background-color: black;
     color: white;
@@ -124,7 +125,7 @@
 .descriptionWSGlobal {
     margin-top: 1%;
     text-align: center;
-    height: 7vh;
+    height: auto;
     width: 90%;
     background-color: black;
     color: white;
@@ -149,9 +150,9 @@
     background-color: black;
     color: white;
     padding: 2%;
-    height: 5vh;
+    height: auto;
     text-align: center;
-    width: 20vh;
+    width: auto;
     border-radius: 10px;
     border: 1px solid transparent;
 }

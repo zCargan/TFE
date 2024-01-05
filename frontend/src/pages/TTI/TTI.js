@@ -6,6 +6,9 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Navbar from '../../components/navbar/Navbar';
 
+import Popup from 'reactjs-popup';
+import InfoIcon from '@mui/icons-material/Info';
+
 import { useNavigate } from 'react-router-dom';
 
 import './TTI.css'
@@ -14,6 +17,7 @@ const TTI = () => {
     const [tableData, setTableData] = useState([]);
     const [selectedImageInfo, setSelectedImageInfo] = useState({ id: null, name: null });
     const [dictionary, setDictionary] = useState({});
+    const [popupOpen, setPopupOpen] = useState(false);
 
     const navigate = useNavigate();
 
@@ -58,63 +62,74 @@ const TTI = () => {
                 valeur = radios[i].value;
             }
         }
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get('JWT')}`,
-                'Content-Type': 'application/json' // Utilisation de 'application/json' pour le Content-Type
-            }
-        };
 
-        const data = {
-            nom: document.getElementById('nameExo').value,
-            anneeScolaire: valeur,
-            description: document.getElementById('descriptionExo').value,
-            type: "TTI",
-            reponses: dictionary
-        }
+        if (valeur === undefined) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Erreur',
+                text: 'Veuillez choisir une année scolaire valide',
+                confirmButtonText: 'OK',
+            });
+        } else {
 
-        axios.post(`http://51.77.150.97:4000/exercice/registerTTI`, data, config).then((res) => {
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${Cookies.get('JWT')}`,
+                    'Content-Type': 'application/json' // Utilisation de 'application/json' pour le Content-Type
+                }
+            };
 
-
-            if (res.status == 201) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Texte à image créé!',
-                    showConfirmButton: false,
-                    timer: 1500
-                }).then((result) => {
-                    if (result.dismiss === Swal.DismissReason.timer) {
-                        navigate('/');
-                    }
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Une erreur s\'est produite durant la création du texte à image',
-                    text: 'Veuillez réessayer plus tard.',
-                });
+            const data = {
+                nom: document.getElementById('nameExo').value,
+                anneeScolaire: valeur,
+                description: document.getElementById('descriptionExoTTI').value,
+                type: "TTI",
+                reponses: dictionary
             }
 
-            let data = {
-                idExo: res.data.data._id,
-                type: "TTI"
-            }
+            axios.post(`http://localhost:4000/exercice/registerTTI`, data, config).then((res) => {
 
-            axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
-                .then((res) => {
-                    console.log(res)
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-        })
-            .catch((error) => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erreur!',
-                    text: 'Une erreur s\'est produite.',
-                });
+
+                if (res.status == 201) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Texte à image créé!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then((result) => {
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                            navigate('/');
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Une erreur s\'est produite durant la création du texte à image',
+                        text: 'Veuillez réessayer plus tard.',
+                    });
+                }
+
+                let data = {
+                    idExo: res.data.data._id,
+                    type: "TTI"
+                }
+
+                axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                    .then((res) => {
+                        console.log(res)
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
             })
+                .catch((error) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erreur!',
+                        text: 'Une erreur s\'est produite.',
+                    });
+                })
+        }
     }
 
     return (
@@ -122,6 +137,33 @@ const TTI = () => {
             <Navbar />
             <div>
                 <h2 className='MenuTTITitle'>Menu de création du "Texte avec images"</h2>
+                <Popup
+                    trigger={
+                        <span className='important2'><InfoIcon className='infoLogo' /></span>
+                    }
+                    open={popupOpen}
+                    position="bottom center"
+                    on="hover"
+                >
+                    <div className='explicationExo'>
+                        <h1>Explication de la réalisation de l'exercice</h1>
+                        <br />
+                        <h3>Avant de commencer la création de votre exercice, assurez vous de bien avoir ajouté vos images à votre compte. Vous pouvez le faire <span className='divSpanButton'><a href='http://51.77.150.97/photo'>ici</a></span></h3>
+                        <br />
+                        <p>Afin de réaliser l'exercice, vous devez en premier lieu séléctionner une année ciblée</p>
+                        <p>Ensuite, créer votre "Texte avec images" en séléctionnant le titre, la descritpion de votre "Texte avec images".</p>
+                        <br />
+                        <p>Appuyer sur le bouton <span className='divSpanButton'>Récupérer mes photos"</span> afin de récupérer les images que vous avez ajouter à votre profil</p>
+                        <br />
+                        <p>Cliquer sur l'image désirée. Le nom de cette dernière sera affiché à coté de "Nom de l'image sélectionné". Entrez le nom que vous désirez lui à l'endroit dédié</p>
+                        <br />
+                        <p>Cliquer sur <span className='divSpanButton'>"Confirmer"</span> afin d'ajouter l'image avec son nom s'y rapportant dans le tableau</p>
+                        <br />
+                        <p>Une fois toute les images désirées présentes dans le tableau, cliquer sur <span className='divSpanButton'>"Valider l'exercice"</span> afin de valider votre exercice</p>
+                        <br />
+                        <p>Féliciation!</p>
+                    </div>
+                </Popup>
                 <div className='anneeScolaireTTI'>
                     <p className='legendAnneeScolaireTTI'>Choisissez l'année scolaire ciblée:</p>
                     <div className="AnneeScolaireChoiceTTI">
@@ -137,7 +179,7 @@ const TTI = () => {
             <br />
             <div className='divInputsTTI'>
                 <input className="inputTTIBottom" id="nameExo" placeholder="Nom de l'exercice"></input>
-                <textarea className="textareaTTI" id="descriptionExo" placeholder="Description de l'exercice" rows="5" cols="100"></textarea>
+                <textarea className="textareaTTI" id="descriptionExoTTI" placeholder="Description de l'exercice" rows="5" cols="100"></textarea>
             </div>
             <br />
             <div className="divDuDessous">
@@ -148,7 +190,7 @@ const TTI = () => {
                         </div>
                     )}
                     <div id="suite">
-                        <input className='sonImageTTI' placeholder='Placez ici le nom se rapportant à cette image' id="name_photo" style={{ width: "300px" }}></input>
+                        <input className='sonImageTTI' placeholder='Placez ici le nom se rapportant à cette image' id="name_photo"></input>
                         <button className='buttonTTI' onClick={confirm}>Confirmer</button>
                     </div>
                     <br />

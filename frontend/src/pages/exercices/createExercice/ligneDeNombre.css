@@ -80,6 +80,7 @@
 
 .longueurLDNWS {
     width: 92%;
+    padding: 1%;
     height: 25px;
     border-radius: 10px;
     background-color: black;
@@ -135,16 +136,16 @@
     align-items: center;
     width: auto;
     border-radius: 10px;
-    height: 6vh;
+    height: auto;
 }
 
 .buttonLDNWS button {
     background-color: black;
     color: white;
     padding: 2%;
-    height: 5vh;
+    height: auto;
     text-align: center;
-    width: 20vh;
+    width: auto;
     border-radius: 10px;
     border: 1px solid transparent;
 }

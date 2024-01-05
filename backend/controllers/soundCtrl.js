@@ -25,10 +25,10 @@ exports.postSound = (req, res, next) => {
                 const fileBuffer = file.buffer;
 
                 const client = new Client({
-                    host: 'db',
+                    host: 'localhost',
                     port: 5432,
                     database: 'test',
-                    user: 'loganAdmin',
+                    user: 'postgres',
                     password: 'LoganTFE2023',
                 });
 
@@ -60,11 +60,12 @@ exports.getSound = (req, res, next) => {
 
     console.log(idUser)
 
+    
     const client = new Client({
-        host: 'db',
+        host: 'localhost',
         port: 5432,
         database: 'test',
-        user: 'loganAdmin',
+        user: 'postgres',
         password: 'LoganTFE2023',
     });
 
@@ -98,10 +99,10 @@ exports.getSoundById = (req, res, next) => {
     console.log(idSound)
 
     const client = new Client({
-        host: 'db',
+        host: 'localhost',
         port: 5432,
         database: 'test',
-        user: 'loganAdmin',
+        user: 'postgres',
         password: 'LoganTFE2023',
     });
 
@@ -146,10 +147,10 @@ exports.updateSonName = (req, res, next) => {
             } else {
 
                 const client = new Client({
-                    host: 'db',
+                    host: 'localhost',
                     port: 5432,
                     database: 'test',
-                    user: 'loganAdmin',
+                    user: 'postgres',
                     password: 'LoganTFE2023',
                 });
 
@@ -176,10 +177,10 @@ exports.deleteSound = (req, res, next) => {
     const sonId = req.params.id
 
     const client = new Client({
-        host: 'db',
+        host: 'localhost',
         port: 5432,
         database: 'test',
-        user: 'loganAdmin',
+        user: 'postgres',
         password: 'LoganTFE2023',
     });
 

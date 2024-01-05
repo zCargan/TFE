@@ -8,12 +8,15 @@ import Navbar from '../../components/navbar/Navbar';
 
 import { useNavigate } from 'react-router-dom';
 
+import Popup from 'reactjs-popup';
+import InfoIcon from '@mui/icons-material/Info';
 import './MB.css'
 
 const MB = () => {
     const [tableData, setTableData] = useState([]);
     const [selectedImageInfo, setSelectedImageInfo] = useState({ id: null, name: null });
     const [dictionary, setDictionary] = useState({});
+    const [popupOpen, setPopupOpen] = useState(false);
 
     const navigate = useNavigate();
 
@@ -52,6 +55,8 @@ const MB = () => {
 
     function saveExo() {
 
+
+
         var radios = document.getElementsByName('anneeScolaire');
         var valeur;
         for (var i = 0; i < radios.length; i++) {
@@ -60,64 +65,74 @@ const MB = () => {
             }
         }
 
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get('JWT')}`,
-                'Content-Type': 'application/json' // Utilisation de 'application/json' pour le Content-Type
-            }
-        };
+        if (valeur === undefined) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Erreur',
+                text: 'Veuillez choisir une année scolaire valide',
+                confirmButtonText: 'OK',
+            });
+        } else {
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${Cookies.get('JWT')}`,
+                    'Content-Type': 'application/json' // Utilisation de 'application/json' pour le Content-Type
+                }
+            };
 
-        const data = {
-            nom: document.getElementById('name').value,
-            anneeScolaire: valeur,
-            description: document.getElementById('descriptionExoMB').value,
-            type: "MB",
-            reponses: dictionary
+            const data = {
+                nom: document.getElementById('name').value,
+                anneeScolaire: valeur,
+                description: document.getElementById('descriptionExoMB').value,
+                type: "MB",
+                reponses: dictionary
+            }
+
+
+
+            axios.post(`http://localhost:4000/exercice/registerMB`, { data }, config).then((res) => {
+
+                if (res.status == 201) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Mot bazard créé!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then((result) => {
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                            navigate('/');
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Une erreur s\'est produite durant la création du mot bazard',
+                        text: 'Veuillez réessayer plus tard.',
+                    });
+                }
+
+                let data = {
+                    idExo: res.data.data._id,
+                    type: "MB"
+                }
+
+                axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                    .then((res) => {
+                        console.log(res)
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+            })
+                .catch((error) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erreur!',
+                        text: 'Une erreur s\'est produite.',
+                    });
+                })
         }
 
-
-
-        axios.post(`http://51.77.150.97:4000/exercice/registerMB`, { data }, config).then((res) => {
-
-            if (res.status == 201) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Mot bazard créé!',
-                    showConfirmButton: false,
-                    timer: 1500
-                }).then((result) => {
-                    if (result.dismiss === Swal.DismissReason.timer) {
-                        navigate('/');
-                    }
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Une erreur s\'est produite durant la création du mot bazard',
-                    text: 'Veuillez réessayer plus tard.',
-                });
-            }
-
-            let data = {
-                idExo: res.data.data._id,
-                type: "MB"
-            }
-
-            axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
-                .then((res) => {
-                    console.log(res)
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-        })
-            .catch((error) => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erreur!',
-                    text: 'Une erreur s\'est produite.',
-                });
-            })
 
     }
 
@@ -125,6 +140,33 @@ const MB = () => {
         <div id="mbPage">
             <Navbar />
             <h2 className='MenuMBTitle'>Menu de création votre mot bazard</h2>
+            <Popup
+                trigger={
+                    <span className='important2'><InfoIcon className='infoLogo' /></span>
+                }
+                open={popupOpen}
+                position="bottom center"
+                on="hover"
+            >
+                <div className='explicationExo'>
+                    <h1>Explication de la réalisation de l'exercice</h1>
+                    <br />
+                    <h3>Avant de commencer la création de votre exercice, assurez vous de bien avoir ajouté vos images à votre compte. Vous pouvez le faire <span className='divSpanButton'><a href='http://51.77.150.97/photo'>ici</a></span></h3>
+                    <br />
+                    <p>Afin de réaliser l'exercice, vous devez en premier lieu séléctionner une année ciblée</p>
+                    <p>Ensuite, créer votre "Mot bazard" en séléctionnant le titre, la descritpion de votre "Mot bazard".</p>
+                    <br />
+                    <p>Appuyer sur le bouton <span className='divSpanButton'>Récupérer mes photos"</span> afin de récupérer les images que vous avez ajouter à votre profil</p>
+                    <br />
+                    <p>Cliquer sur l'image désirée. Le nom de cette dernière sera affiché à coté de "Nom de l'image sélectionné". Entrez le nom que vous désirez lui à l'endroit dédié</p>
+                    <br />
+                    <p>Cliquer sur <span className='divSpanButton'>"Confirmer"</span> afin d'ajouter l'image avec son nom s'y rapportant dans le tableau</p>
+                    <br />
+                    <p>Une fois toute les images désirées présentes dans le tableau, cliquer sur <span className='divSpanButton'>"Valider l'exercice"</span> afin de valider votre exercice</p>
+                    <br />
+                    <p>Féliciation!</p>
+                </div>
+            </Popup>
             <div className='anneeScolaireMB'>
                 <p className='legendAnneeScolaireMB'>Choisissez l'année scolaire ciblée:</p>
                 <div className="AnneeScolaireChoiceMB">
@@ -150,7 +192,7 @@ const MB = () => {
                     )}
                 </div>
                 <div id="suite">
-                    <input placeholder='Placez ici le nom se rapportant à cette image' id="name_photo_mb" style={{ width: "300px" }}></input>
+                    <input placeholder='Placez ici le nom se rapportant à cette image' id="name_photo_mb"></input>
                     <button className='buttonMB' onClick={confirm}>Confirmer</button>
                 </div>
                 <br />
