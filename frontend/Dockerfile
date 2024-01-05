@@ -17,5 +17,8 @@ RUN sed -i '/<Directory "\/usr\/local\/apache2\/htdocs">/,/<\/Directory>/ s/Allo
 # Copiez le build de l'application dans le répertoire web d'Apache
 COPY --from=builder /app/build/ /usr/local/apache2/htdocs/
 
+# Ajoutez la configuration pour la gestion des routes côté client
+COPY httpd.conf /usr/local/apache2/conf/httpd.conf
+
 # Exposez le port sur lequel Apache écoute (par défaut, le port 80)
 EXPOSE 80
