@@ -10,7 +10,7 @@ const jwt = require("jsonwebtoken");
 router.post('/', upload.array('photo', 3), async (req, res) => {
   const client = new Client({
     host: 'db',
-    port: 5432,
+    port: 5433,
     database: 'test',
     user: 'loganAdmin',
     password: 'LoganTFE2023',
@@ -71,7 +71,7 @@ router.get('/testNewRoute', (req, res) => {
       } else {
         const client = new Client({
           host: 'db',
-          port: 5432,
+          port: 5433,
           database: 'test',
           user: 'loganAdmin',
           password: 'LoganTFE2023',

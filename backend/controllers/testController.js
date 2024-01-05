@@ -5,7 +5,7 @@ exports.getInfoPQ = (req, res, next) => {
     console.log("on passe par icicicddddi")
     const client = new Client({
         host: 'db',
-        port: 5432,
+        port: 5433,
         database: 'test',
         user: 'loganAdmin',
         password: 'LoganTFE2023',
@@ -28,10 +28,10 @@ exports.getInfoPQ = (req, res, next) => {
 
 exports.sendData = (req, res, next) => {
     const client = new Client({
-        host: 'localhost',
-        port: 5432,
+        host: 'db',
+        port: 5433,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
 

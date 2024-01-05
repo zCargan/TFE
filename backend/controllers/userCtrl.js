@@ -33,10 +33,10 @@ exports.getAllInformationsUsers = (req, res, next) => {
     const query = 'SELECT * FROM utilisateurs;';
     const dictionnaireUser = {};
     const client = new Client({
-        host: 'localhost',
-        port: 5432,
+        host: 'db',
+        port: 5433,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
 
@@ -79,13 +79,11 @@ exports.updateUserInformations = (req, res, next) => {
     } else {
         console.log("Pas de token")
     }
-
-
     const client = new Client({
-        host: 'localhost',
-        port: 5432,
+        host: 'db',
+        port: 5433,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
 
@@ -154,10 +152,10 @@ exports.getAllExercicesFromProfesseur = async (req, res, next) => {
             const decoded = jwt.verify(jwtToken, secretKey);
 
             const client = new Client({
-                host: 'localhost',
-                port: 5432,
+                host: 'db',
+                port: 5433,
                 database: 'test',
-                user: 'postgres',
+                user: 'loganAdmin',
                 password: 'LoganTFE2023',
             });
 

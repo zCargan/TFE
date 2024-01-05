@@ -6,4 +6,4 @@ COPY init-database.sql /docker-entrypoint-initdb.d/
 COPY init-schema.sql /docker-entrypoint-initdb.d/
 
 # Exposer le port par défaut
-EXPOSE 5432 
+EXPOSE 5433 
