@@ -3,12 +3,15 @@ version: '3'
 services:
   db:
     image: postgres
+    container_name: dbContainer
     environment:
       POSTGRES_PASSWORD: LoganTFE2023
       POSTGRES_USER: loganAdmin
       POSTGRES_DB: test
     ports:
       - "5433:5432"
+    networks:
+      - mynetwork
     volumes:
       - ./DB/init-schema.sql:/docker-entrypoint-initdb.d/init-schema.sql
 
@@ -31,3 +34,6 @@ services:
     depends_on:
       - backend
     restart: always
+networks:
+  mynetwork:
+    driver: bridge
