@@ -5,7 +5,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Popup from 'reactjs-popup';
 import { useNavigate, Redirect  } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
 
 const Photo = () => {
 
@@ -71,7 +71,13 @@ const Photo = () => {
      */
     function rename() {
         if(document.getElementById("newName").value == undefined) {
-            alert("veuillez saisir un nom") 
+            Swal.fire({
+                title: 'Attention',
+                text: 'Veuillez saisir un nom',
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            });
         } else {
             const fileInput = document.getElementById("newIMG");
             const newFileName = document.getElementById("newName").value;
