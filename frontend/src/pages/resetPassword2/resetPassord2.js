@@ -7,6 +7,7 @@ import Cookies from 'js-cookie';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import bcrypt from 'bcryptjs'
 
 import Popup from 'reactjs-popup';
 
@@ -40,12 +41,12 @@ const ResetPassword2 = () => {
     function resetPassword() {
         if (passwordOk(password, confirmPassword)) {
             const token = new URLSearchParams(location.search).get('token');
-
+            const hashedPassword = bcrypt.hashSync(password, "$2a$10$sZk/IsTrgMV.iO0dRgU/xu");
             console.log(token)
-            console.log(password)
+            console.log(hashedPassword)
 
             axios
-                .post('http://51.77.150.97:4000/connection/newPassword', { token, password })
+                .post('http://51.77.150.97:4000/connection/newPassword', { token, hashedPassword })
                 .then((res) => {
                     Swal.fire({
                         title: 'Succès',

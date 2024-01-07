@@ -148,7 +148,6 @@ exports.register = (req, res, next) => {
             if (err) {
                 console.error('Erreur lors de la vérification du JWT :', err);
             } else {
-
                 const client = new Client({
                     host: 'db',
                     port: 5432,

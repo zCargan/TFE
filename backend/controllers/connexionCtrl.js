@@ -291,7 +291,7 @@ exports.resetPassword = (req, res, next) => {
                 });
 
                 const resetLink = `http://51.77.150.97/reset-password2?token=${token}`;
-                //const resetLink = `http://localhost/reset-password2?token=${token}`;
+                //const resetLink = `http://localhost:3000/reset-password2?token=${token}`;
                 const mailOptions = {
                     from: 'laclassedemmeseverine@gmail.com',
                     to: email,
@@ -322,7 +322,7 @@ exports.resetPassword = (req, res, next) => {
 
 exports.newPassword2 = async (req, res, next) => {
     const { token } = req.body;
-    const newPassword = req.body.password;
+    const newPassword = req.body.hashedPassword;
 
     console.log(token)
     console.log(newPassword)
