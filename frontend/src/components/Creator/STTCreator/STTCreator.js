@@ -30,7 +30,7 @@ const STTCreator = ({ exo }) => {
     };
 
     axios
-      .get(`http://localhost:4000/exercice/getSTTexo/${exo}`, config)
+      .get(`http://51.77.150.97:4000/exercice/getSTTexo/${exo}`, config)
       .then((res) => {
         setId(res.data._id);
         setNom(res.data.nom);
@@ -52,7 +52,7 @@ const STTCreator = ({ exo }) => {
 
           setAllResponses([...nouvellesReponses]);
 
-          const promesseReponse = axios.get(`http://localhost:4000/exercice/getSTT/${cles[i]}`, config)
+          const promesseReponse = axios.get(`http://51.77.150.97:4000/exercice/getSTT/${cles[i]}`, config)
             .then((nestedRes) => {
               return nestedRes.data[0];
             })
@@ -124,7 +124,7 @@ const STTCreator = ({ exo }) => {
     });
 
     axios
-      .post("http://localhost:4000/exercice/registerAnswers", { data }, config)
+      .post("http://51.77.150.97:4000/exercice/registerAnswers", { data }, config)
       .then((res) => {
         setTimeout(() => {
           navigate('/home');
@@ -162,6 +162,7 @@ const STTCreator = ({ exo }) => {
     <div id="div_stt">
       <h3>{nom}</h3>
       <p id="description">{description}</p>
+      <p className='anneeScolaireCreator'>Année scolaire visée : {anneeScolaire}</p>
       <br />
       <div id="zoneExoSon" style={{ display: 'flex', flexDirection: 'row', gap: '10px', justifyContent: 'center' }}>
         {sons.map((son, index) => (

@@ -35,7 +35,7 @@ const AbaqueCreator = ({ exo }) => {
 
     function recupereExo() {
         axios
-        .get(`http://localhost:4000/exercice/getAbaque/${exo}`, config)
+        .get(`http://51.77.150.97:4000/exercice/getAbaque/${exo}`, config)
         .then((res) => {
             console.log(res.data)
             let resultatAttendu =  res.data.reponseFinale
@@ -68,7 +68,7 @@ const AbaqueCreator = ({ exo }) => {
  
 
     function correction() {
-        axios.get(`http://localhost:4000/exercice/getAbaque/${exo}`).then((res) => {
+        axios.get(`http://51.77.150.97:4000/exercice/getAbaque/${exo}`).then((res) => {
             let resultatAttendu =  res.data.reponseFinale
             let resultatInitial = res.data.reponseInitiale;
             let resultatRecu = []
@@ -119,7 +119,7 @@ const AbaqueCreator = ({ exo }) => {
             }
 
             axios
-            .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
+            .post("http://51.77.150.97:4000/exercice/registerAnswers", {data}, config)
             .then((res) => {
                 setTimeout(() => {
                     navigate('/home');
@@ -160,6 +160,7 @@ const AbaqueCreator = ({ exo }) => {
             <div id='div_abaque'>
                 <h3>{nom}</h3>
                 <p id="description">{description}</p>
+                <p className='anneeScolaireCreator'>Année scolaire visée : {anneeScolaire}</p>
                 <br />
                 <p id="abaqueFromDB"></p>
                 <button onClick={correction} id="buttonCorrection">Corriger mon exercice !</button>

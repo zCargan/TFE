@@ -58,7 +58,7 @@ const MBCreator = ({ exo }) => {
 
     function getMB() {
         axios
-            .get(`http://localhost:4000/exercice/getMB/${exo}`, config)
+            .get(`http://51.77.150.97:4000/exercice/getMB/${exo}`, config)
             .then((res) => {
                 const img = res.data.reponses;
                 console.log(img)
@@ -77,7 +77,7 @@ const MBCreator = ({ exo }) => {
 
                 for (let i = 0; i < cles.length; i++) {
                     axios
-                        .get(`http://localhost:4000/photos/getImage/${cles[i]}`, config)
+                        .get(`http://51.77.150.97:4000/photos/getImage/${cles[i]}`, config)
                         .then((resPhoto) => {
                             reponsesAttendues.push(resPhoto.data.nom_d_origine);
                             console.log(res.data.reponses)
@@ -131,7 +131,7 @@ const MBCreator = ({ exo }) => {
 
     function valideReponsesMB () {
         axios
-        .get(`http://localhost:4000/exercice/getMB/${exo}`, config)
+        .get(`http://51.77.150.97:4000/exercice/getMB/${exo}`, config)
         .then((res) => {
             console.log(res)
             let inputUser = document.getElementsByClassName('answerExoMB');
@@ -164,7 +164,7 @@ const MBCreator = ({ exo }) => {
             });
 
             axios
-            .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
+            .post("http://51.77.150.97:4000/exercice/registerAnswers", {data}, config)
             .then((res) => {
                 setTimeout(() => {
                     navigate('/home');
@@ -204,6 +204,7 @@ const MBCreator = ({ exo }) => {
         <div id='div_mb'>
             <h3>{nom}</h3>
             <p id="description">{description}</p>
+            <p className='anneeScolaireCreator'>Année scolaire visée : {anneeScolaire}</p>
             <br />
             <div id="zone_mb">
                 <div id="zoneExoMB"></div>

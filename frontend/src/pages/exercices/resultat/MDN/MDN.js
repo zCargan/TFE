@@ -29,7 +29,7 @@ const MDN = () => {
     };
 
     function getMDN() {
-        axios.get('http://localhost:4000/exercice/getMDN').then((res)=> {
+        axios.get('http://51.77.150.97:4000/exercice/getMDN').then((res)=> {
             let length = res.data[0].cols
             let reponseInitiale = res.data[0].reponseInitiale
             let nom = res.data[0].nom
@@ -67,7 +67,7 @@ const MDN = () => {
             }
         }
         
-        axios.get('http://localhost:4000/exercice/getMDN').then((res)=> {
+        axios.get('http://51.77.150.97:4000/exercice/getMDN').then((res)=> {
             let dicFinal = res.data[0].reponseFinal;
             let dicInitiale = res.data[0].reponseInitiale;
             let idExercice = res.data[0]._id;
@@ -105,7 +105,7 @@ const MDN = () => {
             });
 
             axios
-            .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
+            .post("http://51.77.150.97:4000/exercice/registerAnswers", {data}, config)
             .then((res) => {
                 setTimeout(() => {
                     navigate('/');
@@ -126,7 +126,7 @@ const MDN = () => {
     }
 
     function seeCorrection() {
-        axios.get('http://localhost:4000/exercice/getMDN').then((res)=> {
+        axios.get('http://51.77.150.97:4000/exercice/getMDN').then((res)=> {
 
             let dicFinal = res.data[0].reponseFinal;
             let dicInitiale = res.data[0].reponseInitiale;

@@ -18,10 +18,10 @@ app.use(express.json())
 app.use(cors());
 
 const client = new Client({
-    host: 'localhost',
+    host: 'db',
     port: 5432,
     database: 'test',
-    user: 'postgres',
+    user: 'loganAdmin',
     password: 'LoganTFE2023',
 });
 

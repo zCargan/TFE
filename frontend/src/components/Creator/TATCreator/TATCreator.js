@@ -32,7 +32,7 @@ const TATCreator = ({ exo }) => {
     function getExoTAT() {
 
         axios
-            .get(`http://localhost:4000/exercice/getTAT/${exo}`, config)
+            .get(`http://51.77.150.97:4000/exercice/getTAT/${exo}`, config)
             .then((res) => {
                 let reponsesFromDB = []
                 let string = "";
@@ -65,7 +65,7 @@ const TATCreator = ({ exo }) => {
 
     function correction() {
         axios
-        .get('http://localhost:4000/exercice/getTAT', config)
+        .get('http://51.77.150.97:4000/exercice/getTAT', config)
         .then((res) => {
             let arrayUserResponse = [];
             let inputUser = document.getElementsByClassName('inputTATuser')
@@ -105,7 +105,7 @@ const TATCreator = ({ exo }) => {
             });
     
             axios
-            .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
+            .post("http://51.77.150.97:4000/exercice/registerAnswers", {data}, config)
             .then((res) => {
                 setTimeout(() => {
                     navigate('/home');
@@ -146,6 +146,7 @@ const TATCreator = ({ exo }) => {
         <div id="div_tat">
             <h3>{nom}</h3>
             <p id="description">{description}</p>
+            <p className='anneeScolaireCreator'>Année scolaire visée : {anneeScolaire}</p>
             <br />
             <div id="zone_tat">
                 <br />

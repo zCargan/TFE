@@ -89,7 +89,7 @@ const Connexion = () => {
                     "email": email,
                     "password": password
                 }
-                axios.post("http://localhost:4000/register", data_to_send)
+                axios.post("http://51.77.150.97:4000/register", data_to_send)
                     .then(response => {
                         if (response.status === 201) {
                             Swal.fire({

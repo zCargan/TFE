@@ -45,7 +45,7 @@ const ResetPassword2 = () => {
             console.log(password)
 
             axios
-                .post('http://localhost:4000/connection/newPassword', { token, password })
+                .post('http://51.77.150.97:4000/connection/newPassword', { token, password })
                 .then((res) => {
                     Swal.fire({
                         title: 'Succès',
