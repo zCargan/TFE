@@ -290,7 +290,7 @@ exports.resetPassword = (req, res, next) => {
                     },
                 });
 
-                const resetLink = `http://51.77.150.97/reset-password2?token=${token}`;
+                const resetLink = `http://www.laclassedemadameseverine.be/reset-password2?token=${token}`;
                 //const resetLink = `http://localhost:3000/reset-password2?token=${token}`;
                 const mailOptions = {
                     from: 'laclassedemmeseverine@gmail.com',
