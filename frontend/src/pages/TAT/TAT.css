@@ -30,6 +30,7 @@
 
 
 .inputTATBottom {
+    padding: 1%;
     margin-top: 1%;
     width: 92%;
     height: auto;
@@ -57,6 +58,7 @@
 }
 
 .phraseTATBottom {
+    padding: 1%;
     background-color: black;
     width: auto;
     text-align: center;
@@ -71,6 +73,7 @@
 }
 
 .wordTATBottom {
+    padding: 1%;
     width: auto;
     background-color: black;
     margin-left: 1%;
@@ -115,6 +118,7 @@
 }
 
 .boutonbottomTAT {
+    padding: 1%;
     background-color: black;
     color: white;
     height: auto;

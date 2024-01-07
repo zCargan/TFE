@@ -6,6 +6,8 @@ import Cookies from 'js-cookie';
 import { IoIosInformationCircle } from "react-icons/io";
 import Popup from 'reactjs-popup';
 import InfoIcon from '@mui/icons-material/Info';
+import Swal from 'sweetalert2';
+
 
 const TexteATrou = ({ onTatData }) => {
 
@@ -28,7 +30,13 @@ const TexteATrou = ({ onTatData }) => {
         let arrayOfWords = []
 
         if (document.getElementById("textArea").value === "") {
-            alert("Veuillez entrez une phrase valide")
+            Swal.fire({
+                title: 'Attention',
+                text: "Veuillez entrez une phrase valide",
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            });
         } else {
 
             var textarea = document.getElementById("textArea").value;

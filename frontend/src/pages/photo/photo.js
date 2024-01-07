@@ -28,7 +28,7 @@ const Photo = () => {
     }
 
     function getPhotos() {
-        axios.put('http://51.77.150.97:4000/photos/testNewRoute')
+        axios.put('http://localhost:4000/photos/testNewRoute')
             .then((res) => {
                 const buffer = res.data[3].image_data.data;
                 console.log('on passeici')
@@ -62,7 +62,13 @@ const Photo = () => {
         const newNameValue = document.getElementById("newName").value.trim();
 
         if (newNameValue === '') {
-            alert("Veuillez saisir un nom.");
+            Swal.fire({
+                title: 'Attention',
+                text: "Veuillez saisir un nom.",
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            });
         } else {
             const fileInput = document.getElementById("newIMG");
             const newFileName = newNameValue;
@@ -81,7 +87,7 @@ const Photo = () => {
                 formData.append('name', newFileName);
 
 
-                axios.post('http://51.77.150.97:4000/photos/register/img', formData, config)
+                axios.post('http://localhost:4000/photos/register/img', formData, config)
                     .then((response) => {
                         Swal.fire({
                             title: 'Succes',
@@ -135,7 +141,7 @@ const Photo = () => {
 
         console.log(config);
 
-        axios.get('http://51.77.150.97:4000/photos/testNewRoute', config)
+        axios.get('http://localhost:4000/photos/testNewRoute', config)
             .then((res) => {
                 const imageContainer = document.getElementById('photoUserP');
 

@@ -74,7 +74,10 @@ const Connection = (props) => {
   }
 
   const handleToggleForm = () => {
+    // document.getElementById('surname').value = "";
+    console.log("test")
     setShowLoginForm(!showLoginForm);
+
   };
 
 
@@ -115,87 +118,99 @@ const Connection = (props) => {
 
 
   function registerAccount() {
-    if (!passwordOk(password, samePassword)) {
+    if (surname === "") {
+      document.getElementById('surname').value = "";
       Swal.fire({
-        title: 'Erreur',
-        text: 'Les mots de passe ne respecte pas tous les critères, ou ne sont pas les même.',
-        icon: 'error',
+        icon: 'warning',
+        title: 'Attention',
+        text: 'Veuillez entrer un nom d\'utilisateur',
+        confirmButtonText: 'OK'
       });
-      return;
     } else {
-      if (checkEmail(email)) {
-        if (sameString(password, samePassword)) {
-          const hashedPassword = bcrypt.hashSync(password, "$2a$10$sZk/IsTrgMV.iO0dRgU/xu");
-          const data_to_send = {
-            "surname": surname,
-            "name": name,
-            "pseudo": pseudo,
-            "email": email,
-            "password": hashedPassword
-          }
-          axios.post("http://51.77.150.97:4000/connection/register", data_to_send)
-            .then(response => {
-              if (response.data.exist) {
-                Swal.fire({
-                  icon: 'warning',
-                  title: 'Adresse email déjà utilisée',
-                  text: 'Cette adresse email est déjà associée à un utilisateur.',
-                  showCancelButton: false,
-                  confirmButtonText: 'OK'
-                })
-              } else if (response.data.user) {
-                Swal.fire({
-                  icon: 'warning',
-                  title: "Ce nom d'utilisateur est déja pris",
-                  confirmButtonText: 'OK',
-                  showCancelButton: false,
-                  showCloseButton: false,
-                  showConfirmButton: true,
-                  showLoaderOnConfirm: false,
-                  allowOutsideClick: false,
-                  allowEscapeKey: false,
-                  allowEnterKey: false,
-                });
-              } else if (response.status === 201) {
-                Swal.fire({
-                  title: 'Compte créé',
-                  text: 'Votre compte a été créé avec succès! \n Un email de confirmation vous a été envoyé',
-                  icon: 'success',
-                }).then(() => {
-                  navigate('/home');
-                });
-              } else {
+      if (!passwordOk(password, samePassword)) {
+        Swal.fire({
+          title: 'Erreur',
+          text: 'Les mots de passe ne respecte pas tous les critères, ou ne sont pas les même.',
+          icon: 'error',
+        });
+        return;
+      } else {
+        if (checkEmail(email)) {
+          if (sameString(password, samePassword)) {
+            const hashedPassword = bcrypt.hashSync(password, "$2a$10$sZk/IsTrgMV.iO0dRgU/xu");
+            const data_to_send = {
+              "surname": surname,
+              "name": name,
+              "pseudo": pseudo,
+              "email": email,
+              "password": hashedPassword
+            }
+            axios.post("http://localhost:4000/connection/register", data_to_send)
+              .then(response => {
+                if (response.data.exist) {
+                  Swal.fire({
+                    icon: 'warning',
+                    title: 'Adresse email déjà utilisée',
+                    text: 'Cette adresse email est déjà associée à un utilisateur.',
+                    showCancelButton: false,
+                    confirmButtonText: 'OK'
+                  })
+                } else if (response.data.user) {
+                  Swal.fire({
+                    icon: 'warning',
+                    title: "Ce nom d'utilisateur est déja pris",
+                    confirmButtonText: 'OK',
+                    showCancelButton: false,
+                    showCloseButton: false,
+                    showConfirmButton: true,
+                    showLoaderOnConfirm: false,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                  });
+                } else if (response.status === 201) {
+                  Swal.fire({
+                    title: 'Compte créé',
+                    text: 'Votre compte a été créé avec succès! \n Un email de confirmation vous a été envoyé',
+                    icon: 'success',
+                  }).then(() => {
+                    navigate('/home');
+                  });
+                } else {
+                  Swal.fire({
+                    title: 'Erreur',
+                    text: 'Une erreur est survenue lors de la création du compte.',
+                    icon: 'error',
+                  });
+                }
+              })
+              .catch(error => {
+                console.error('Erreur lors de la création du compte', error);
                 Swal.fire({
                   title: 'Erreur',
-                  text: 'Une erreur est survenue lors de la création du compte.',
+                  text: 'Une erreur s\'est produite lors de la création du compte.',
                   icon: 'error',
                 });
-              }
-            })
-            .catch(error => {
-              console.error('Erreur lors de la création du compte', error);
-              Swal.fire({
-                title: 'Erreur',
-                text: 'Une erreur s\'est produite lors de la création du compte.',
-                icon: 'error',
               });
+          } else {
+            Swal.fire({
+              title: 'Erreur',
+              text: 'Vos deux mots de passe ne correspondent pas.',
+              icon: 'error',
             });
+          }
+
         } else {
           Swal.fire({
             title: 'Erreur',
-            text: 'Vos deux mots de passe ne correspondent pas.',
+            text: 'Veuillez entrer une adresse email valide.',
             icon: 'error',
           });
         }
-
-      } else {
-        Swal.fire({
-          title: 'Erreur',
-          text: 'Veuillez entrer une adresse email valide.',
-          icon: 'error',
-        });
       }
     }
+    console.log(surname)
+
   }
 
 
@@ -213,10 +228,10 @@ const Connection = (props) => {
           </div>
           <div className='divGlobalConnection'>
             <div className="card-header">
-              <div id="forLogin" className={`buttonForm ${showLoginForm ? 'active' : ''}`} onClick={() => setShowLoginForm(true)}>
+              <div id="forLogin" className={`buttonForm ${showLoginForm ? 'active' : ''}`} onClick={() => { setShowLoginForm(true); document.getElementById('surname').value = "" }}>
                 Se connecter
               </div>
-              <div id="forRegister" className={`buttonForm ${!showLoginForm ? 'active' : ''}`} onClick={() => setShowLoginForm(false)}>
+              <div id="forRegister" className={`buttonForm ${!showLoginForm ? 'active' : ''}`} onClick={() => { handleToggleForm(); document.getElementById('pseudo').value = "" }}>
                 S'inscrire                <Popup
                   trigger={
                     <span className='important'>*</span>
@@ -306,7 +321,9 @@ const Connection = (props) => {
           <button className='newPassword' onClick={(e) => navigate('/reset-password')}>Changer mon mot de passe</button>
         </div>
       </div>
-
+      <div>
+        <img className="imgConnection" src="./crayon.png"></img>
+      </div>
     </div>
 
   );

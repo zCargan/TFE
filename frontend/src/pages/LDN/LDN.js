@@ -106,7 +106,7 @@ const LDN = () => {
             }
 
 
-            axios.post("http://51.77.150.97:4000/exercice/registerLDN", { exo }, config).then((res) => {
+            axios.post("http://localhost:4000/exercice/registerLDN", { exo }, config).then((res) => {
 
                 if (res.status == 201) {
                     Swal.fire({
@@ -132,7 +132,7 @@ const LDN = () => {
                     type: "LDN"
                 }
 
-                axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
+                axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
                     .then((res) => {
                         console.log(res)
                     })

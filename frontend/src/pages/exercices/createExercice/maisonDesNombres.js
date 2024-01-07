@@ -86,7 +86,7 @@ const MaisonDesNombres = ({ onMdnData }) => {
 
     function showRedux() {
         console.log(exerciceRedux)
-        //axios.post('http://51.77.150.97:4000/exercice/post_mdn_exercices', exerciceRedux)
+        //axios.post('http://localhost:4000/exercice/post_mdn_exercices', exerciceRedux)
     }
 
 
@@ -107,7 +107,7 @@ const MaisonDesNombres = ({ onMdnData }) => {
                 reponseUser.push(ligne1[i].value)
             }
         }
-        axios.get('http://51.77.150.97:4000/exercice/get_mdn_exercice').then((res) => {
+        axios.get('http://localhost:4000/exercice/get_mdn_exercice').then((res) => {
             let dicFinale = res.data[0].reponseFinale;
             let dicInitiale = res.data[0].reponseInitiale;
             let idExercice = res.data[0]._id;
@@ -165,7 +165,7 @@ const MaisonDesNombres = ({ onMdnData }) => {
                 idExercice: idExercice
             }
 
-            axios.post("http://51.77.150.97:4000/exercice/registerAnswers", { data }, config)
+            axios.post("http://localhost:4000/exercice/registerAnswers", { data }, config)
         })
 
     }

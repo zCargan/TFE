@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
 
 import './searchBar.css'
 
@@ -15,10 +15,7 @@ const SearchBar = () => {
         let rechercheSpecifique = document.getElementById('rechercheSpecifique').value;
         let matiere = document.getElementById('matiere').value;
 
-        if ((anneeScolaire === '---') && (rechercheSpecifique === '---') && (matiere === '---')) {
-            alert("Veuillez selectionner une matiere ou une année")
-        } else {
-
+        if ((anneeScolaire !== '---') && (rechercheSpecifique !== '') && (matiere !== '---')) {
             navigate('/exercices', {
                 state: {
                     anneeScolaire: anneeScolaire,
@@ -26,8 +23,14 @@ const SearchBar = () => {
                     matiere: matiere
                 },
             });
-
-
+        } else {
+            Swal.fire({
+                title: 'Attention',
+                text: 'Veuillez remplir tous les champs de recherche',
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            });
         }
 
     }
@@ -40,6 +43,9 @@ const SearchBar = () => {
             <div id="test" className="navbar">
                 <ul>
                     <li>
+                        <input placeholder='Recherche spécifique' id="rechercheSpecifique"></input>
+                    </li>
+                    <li>
                         <select id='anneeScolaire' className="custom-select-searchBar">
                             <option selected>---</option>
                             <option value="1">1er</option>
@@ -49,9 +55,6 @@ const SearchBar = () => {
                             <option value="5">5ème</option>
                             <option value="6">6ème</option>
                         </select>
-                    </li>
-                    <li>
-                        <input placeholder='Recherche spécifique' id="rechercheSpecifique"></input>
                     </li>
                     <li>
                         <select id="matiere" className="custom-select-searchBar">

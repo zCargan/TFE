@@ -45,7 +45,7 @@ const Home = () => {
 
     function getTotalCounts() {
         axios
-            .get("http://51.77.150.97:4000/exercice/getTotalCounts")
+            .get("http://localhost:4000/exercice/getTotalCounts")
             .then((res) => {
                 data = res.data.moreInformations;
                 const max = res.data.nbrExercices;
@@ -97,7 +97,7 @@ const Home = () => {
             selectedExosSet.add(JSON.stringify(testRandomExos));
 
             axios
-                .get('http://51.77.150.97:4000/exercice/getARandomExo', {
+                .get('http://localhost:4000/exercice/getARandomExo', {
                     params: testRandomExos,
                     headers: config.headers,
                 })

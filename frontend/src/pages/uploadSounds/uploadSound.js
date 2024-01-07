@@ -18,7 +18,13 @@ const UploadSound = () => {
     let newNameValue = document.getElementById("newNameAudio").value;
 
     if (newNameValue === '') {
-      alert("Veuillez saisir un nom.");
+      Swal.fire({
+        title: 'Attention',
+        text: "Veuillez saisir un nom.",
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK'
+    });
     } else {
 
       const config = {
@@ -40,7 +46,7 @@ const UploadSound = () => {
       formData.append('name', newNameValue);
 
       try {
-        const response = await axios.post('http://51.77.150.97:4000/sound/postSound', formData, config);
+        const response = await axios.post('http://localhost:4000/sound/postSound', formData, config);
     
         if (response.status === 200) {
             Swal.fire({

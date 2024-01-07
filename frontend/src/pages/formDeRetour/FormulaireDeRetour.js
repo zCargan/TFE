@@ -42,7 +42,7 @@ function FormulaireDeRetour() {
                 details: details
             }
 
-            axios.post('http://51.77.150.97:4000/user/sendRequest', data, config)
+            axios.post('http://localhost:4000/user/sendRequest', data, config)
                 .then((res) => {
                     console.log(res.data)
                     setResetRequested(true);

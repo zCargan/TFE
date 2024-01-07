@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import './searchBarAdmin.css'
 
@@ -14,10 +15,7 @@ const SearchBarAdmin = () => {
         let rechercheSpecifique = document.getElementById('rechercheSpecifiqueAdmin').value;
         let matiere = document.getElementById('matiere').value;
 
-        if ((anneeScolaire === '---') && (rechercheSpecifique === '---') && (matiere === '---')) {
-            alert("Veuillez selectionner une matiere ou une année")
-        } else {
-
+        if ((anneeScolaire !== '---') && (rechercheSpecifique !== '') && (matiere !== '---')) {
             navigate('/manage_exerices', {
                 state: {
                     anneeScolaire: anneeScolaire,
@@ -26,7 +24,14 @@ const SearchBarAdmin = () => {
                 },
             });
 
-
+        } else {
+            Swal.fire({
+                title: 'Attention',
+                text: 'Veuillez sélectionner une matière ou une année',
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            });
         }
 
     }

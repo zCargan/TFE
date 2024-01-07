@@ -26,7 +26,13 @@ const Abaque = () => {
         if (/^[0-9]+$/.test(number)) {
             setWidth(number)
         } else {
-            alert("Veuillez entrer un nombre entier")
+            Swal.fire({
+                title: 'Attention',
+                text: 'Veuillez entrez un nombre entier',
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            });
         }
     }
 
@@ -34,7 +40,13 @@ const Abaque = () => {
         if (/^[0-9]+$/.test(number)) {
             setHeight(number)
         } else {
-            alert("Veuillez entrer un nombre entier")
+            Swal.fire({
+                title: 'Attention',
+                text: 'Veuillez entrez un nombre entier',
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            });
         }
     }
 
@@ -119,7 +131,7 @@ const Abaque = () => {
             }
             console.log(data)
 
-            axios.post("http://51.77.150.97:4000/exercice/registerAbaque", { data }, config)
+            axios.post("http://localhost:4000/exercice/registerAbaque", { data }, config)
                 .then((res) => {
 
                     if (res.status == 201) {
@@ -147,7 +159,7 @@ const Abaque = () => {
                         type: "abaque"
                     }
 
-                    axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
+                    axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
                         .then((res) => {
                             console.log(res)
                         })
@@ -167,7 +179,7 @@ const Abaque = () => {
     }
 
     function recupereExo() {
-        axios.get("http://51.77.150.97:4000/exercice/getAbaque").then((res) => {
+        axios.get("http://localhost:4000/exercice/getAbaque").then((res) => {
             console.log(res.data[0])
             let reponseInitiale = res.data[0].reponseInitiale;
             let hauteur = res.data[0].hauteur;
@@ -195,7 +207,7 @@ const Abaque = () => {
 
 
     function correction() {
-        axios.get("http://51.77.150.97:4000/exercice/getAbaque").then((res) => {
+        axios.get("http://localhost:4000/exercice/getAbaque").then((res) => {
             let resultatAttendu = res.data[0].reponseFinale
             let resultatInitial = res.data[0].reponseInitiale;
             let resultatRecu = []
@@ -240,7 +252,7 @@ const Abaque = () => {
                 idExercice: idExercice
             }
 
-            axios.post("http://51.77.150.97:4000/exercice/registerAnswers", { data }, config)
+            axios.post("http://localhost:4000/exercice/registerAnswers", { data }, config)
 
 
 

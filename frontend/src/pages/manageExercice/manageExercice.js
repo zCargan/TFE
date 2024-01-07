@@ -12,6 +12,8 @@ import Swal from 'sweetalert2';
 const ManageExercice = () => {
     const [exos, setExos] = useState([]);
 
+    const [nonVide, setNonVide] = useState(true);
+
     const getMBCalledRef = useRef(false);
     const navigate = useNavigate();
 
@@ -21,7 +23,7 @@ const ManageExercice = () => {
     const config = {
         headers: {
             'Authorization': `Bearer ${Cookies.get('JWT')}`,
-            'Content-Type': 'application/json' 
+            'Content-Type': 'application/json'
         }
     };
 
@@ -52,81 +54,85 @@ const ManageExercice = () => {
             matiere: matiere,
         };
 
-
+        console.log(data)
 
         axios
-            .post('http://51.77.150.97:4000/exercice/getExosFromRequest', data)
+            .post('http://localhost:4000/exercice/getExosFromRequest', data)
             .then((res) => {
-                console.log(res.data)
-                const cles = Object.keys(res.data.data);
-                const valeurs = Object.values(res.data.data);
-                console.log('Clés:', cles);
-                console.log('Valeurs:', valeurs);
+                console.log(res.data.data)
+                if (Object.keys(res.data.data).length === 0) {
+                    setNonVide(false)
+                } else {
+                    const cles = Object.keys(res.data.data);
+                    const valeurs = Object.values(res.data.data);
+                    console.log('Clés:', cles);
+                    console.log('Valeurs:', valeurs);
 
-                for (let i = 0; i < valeurs.length; i++) {
-                    const cleActuelle = cles[i];
-                    const valeurActuelle = valeurs[i];
+                    for (let i = 0; i < valeurs.length; i++) {
+                        const cleActuelle = cles[i];
+                        const valeurActuelle = valeurs[i];
 
-                    console.log(valeurActuelle)
+                        console.log(valeurActuelle)
 
-                    switch (valeurActuelle) {
-                        case 'MB':
-                            axios
-                                .get(`http://51.77.150.97:4000/exercice/getMB/${cleActuelle}`)
-                                .then((res) => {
-                                    setExos(res.data)
+                        switch (valeurActuelle) {
+                            case 'MB':
+                                axios
+                                    .get(`http://localhost:4000/exercice/getMB/${cleActuelle}`)
+                                    .then((res) => {
+                                        setExos(res.data)
 
-                                });
-                            break;
-                        case 'LDN':
-                            axios
-                                .get(`http://51.77.150.97:4000/exercice/getLDN/${cleActuelle}`)
-                                .then((res) => {
-                                    setExos(res.data)
+                                    });
+                                break;
+                            case 'LDN':
+                                axios
+                                    .get(`http://localhost:4000/exercice/getLDN/${cleActuelle}`)
+                                    .then((res) => {
+                                        setExos(res.data)
 
-                                });
-                            break;
-                        case 'MDN':
-                            axios
-                                .get(`http://51.77.150.97:4000/exercice/getMDN/${cleActuelle}`)
-                                .then((res) => {
-                                    setExos(res.data)
+                                    });
+                                break;
+                            case 'MDN':
+                                axios
+                                    .get(`http://localhost:4000/exercice/getMDN/${cleActuelle}`)
+                                    .then((res) => {
+                                        setExos(res.data)
 
-                                });
-                            break;
-                        case 'abaque':
-                            axios
-                                .get(`http://51.77.150.97:4000/exercice/getAbaque/${cleActuelle}`)
-                                .then((res) => {
-                                    setExos(res.data)
+                                    });
+                                break;
+                            case 'abaque':
+                                axios
+                                    .get(`http://localhost:4000/exercice/getAbaque/${cleActuelle}`)
+                                    .then((res) => {
+                                        setExos(res.data)
 
-                                });
-                            break;
-                        case 'TAT':
-                            axios
-                                .get(`http://51.77.150.97:4000/exercice/getTAT/${cleActuelle}`)
-                                .then((res) => {
-                                    setExos(res.data)
+                                    });
+                                break;
+                            case 'TAT':
+                                axios
+                                    .get(`http://localhost:4000/exercice/getTAT/${cleActuelle}`)
+                                    .then((res) => {
+                                        setExos(res.data)
 
-                                });
-                            break;
-                        case 'STT':
-                            axios
-                                .get(`http://51.77.150.97:4000/exercice/getSTT/${cleActuelle}`)
-                                .then((res) => {
-                                    setExos(res.data)
+                                    });
+                                break;
+                            case 'STT':
+                                axios
+                                    .get(`http://localhost:4000/exercice/getSTT/${cleActuelle}`)
+                                    .then((res) => {
+                                        setExos(res.data)
 
-                                });
-                            break;
-                        case 'TTI':
-                            axios
-                                .get(`http://51.77.150.97:4000/exercice/getTTI/${cleActuelle}`)
-                                .then((res) => {
-                                    setExos(res.data)
-                                });
-                            break;
-                        default:
-                            console.log('Valeur inattendue:', valeurActuelle);
+                                    });
+                                break;
+                            case 'TTI':
+                                axios
+                                    .get(`http://localhost:4000/exercice/getTTI/${cleActuelle}`)
+                                    .then((res) => {
+                                        setExos(res.data)
+                                    });
+                                break;
+                            default:
+                                console.log('Valeur inattendue:', valeurActuelle);
+                        }
                     }
                 }
             })
@@ -144,25 +150,25 @@ const ManageExercice = () => {
         }
 
 
-        axios.delete(`http://51.77.150.97:4000/exercice/deleteExoById`, {data}, config)
-        .then((res) => {
-            console.log(res.status)
-            if(res.status === 200) {
-                Swal.fire({
-                    title: 'Suppression réussie',
-                    text: 'Supprimer avec succès',
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 1000
-                });
-                setTimeout(() => {
-                    navigate('/profile');
-                  }, 1000);
-            }
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+        axios.delete(`http://localhost:4000/exercice/deleteExoById`, { data }, config)
+            .then((res) => {
+                console.log(res.status)
+                if (res.status === 200) {
+                    Swal.fire({
+                        title: 'Suppression réussie',
+                        text: 'Supprimer avec succès',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                    setTimeout(() => {
+                        navigate('/profile');
+                    }, 1000);
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
 
         console.log(exos._id)
     }
@@ -171,6 +177,7 @@ const ManageExercice = () => {
     return (
         <div>
             <Navbar />
+            {nonVide ? (
             <div>
                 <div className="showRandomExosContainer">
                     <div className="imageAndTypeContainer">
@@ -189,10 +196,16 @@ const ManageExercice = () => {
                         </div>
                     </div>
                     <div>
-                        <button onClick={(e) => supprimerExos()}>Supprimer</button>
+                        <button className='buttonGlobalCSS' onClick={(e) => supprimerExos()}>Supprimer</button>
                     </div>
                 </div>
             </div>
+            ) : (
+            <div>
+                <h1 className='AucunElem'>Aucun élément trouvé!</h1>
+                <button className='buttonGlobalCSS' onClick={(e) => navigate('/profile')}>Retourner sur mon profil</button>
+            </div>    
+            )}
         </div>
     );
 };

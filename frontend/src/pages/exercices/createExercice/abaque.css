@@ -2,6 +2,7 @@
 }
 
 .caractAbaque {
+    padding: 1.5%;
     margin: 5px;
     width: 150px;
     border-radius: 10px;
@@ -64,6 +65,7 @@
 
 
 .caractAbaque {
+    padding: 1.5%;
     text-align: center;
     width: 92%;
     height: 20px;

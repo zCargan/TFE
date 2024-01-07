@@ -60,7 +60,7 @@ const STTWSCreator = ({ exo, onSTTDataChange }) => {
 
         nouvellesReponses.push(exo.reponses[cles[i]].toLowerCase())
 
-        const promesseReponse = axios.get(`http://51.77.150.97:4000/exercice/getSTT/${cles[i]}`, config)
+        const promesseReponse = axios.get(`http://localhost:4000/exercice/getSTT/${cles[i]}`, config)
           .then((nestedRes) => {
             return nestedRes.data[0];
           })

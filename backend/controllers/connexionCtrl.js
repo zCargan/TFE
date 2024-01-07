@@ -50,10 +50,10 @@ exports.registerData = (req, res, next) => {
     console.log("Mot de passe venant du frontend : " + password)
 
     const client = new Client({
-        host: 'db',
+        host: 'localhost',
         port: 5432,
         database: 'test',
-        user: 'loganAdmin',
+        user: 'postgres',
         password: 'LoganTFE2023',
     });
 
@@ -161,10 +161,10 @@ exports.connection = (req, res, next) => {
     const query = `SELECT * FROM public.utilisateurs WHERE nom='${pseudo}'`;
 
     const client = new Client({
-        host: 'db',
+        host: 'localhost',
         port: 5432,
         database: 'test',
-        user: 'loganAdmin',
+        user: 'postgres',
         password: 'LoganTFE2023',
     });
 
@@ -261,10 +261,10 @@ exports.resetPassword = (req, res, next) => {
     const encryptedEmail = encryptEmail(email);
 
     const client = new Client({
-        host: 'db',
+        host: 'localhost',
         port: 5432,
         database: 'test',
-        user: 'loganAdmin',
+        user: 'postgres',
         password: 'LoganTFE2023',
     });
 
@@ -290,7 +290,8 @@ exports.resetPassword = (req, res, next) => {
                     },
                 });
 
-                const resetLink = `http://51.77.150.97/reset-password2?token=${token}`;
+                // const resetLink = `http://51.77.150.97:80/reset-password2?token=${token}`;
+                const resetLink = `http://localhost/reset-password2?token=${token}`;
                 const mailOptions = {
                     from: 'laclassedemmeseverine@gmail.com',
                     to: email,
@@ -323,41 +324,55 @@ exports.newPassword2 = async (req, res, next) => {
     const { token } = req.body;
     const newPassword = req.body.password;
 
-    try {
-        const decodedToken = jwt.verify(token, 'testemail');
+    console.log(token)
+    console.log(newPassword)
+    const decodedToken = jwt.verify(token, 'testemail');
 
-        const client = new Client({
-            host: 'db',
-            port: 5432,
-            database: 'test',
-            user: 'loganAdmin',
-            password: 'LoganTFE2023',
-        });
+    const client = new Client({
+        host: 'localhost',
+        port: 5432,
+        database: 'test',
+        user: 'postgres',
+        password: 'LoganTFE2023',
+    });
 
-        await client.connect();
+    client.connect();
 
-        const email = decodedToken.email;
+    const email = decodedToken.email;
 
-        const userQuery = 'SELECT * FROM public.utilisateurs WHERE email = $1';
-        const userValues = [email];
-        const userResult = await client.query(userQuery, userValues);
+    console.log(email)
 
-        if (userResult.rows.length === 0) {
-            return res.status(404).json({ message: 'Aucun utilisateur trouvé avec cet e-mail.' });
+    const encryptedEmail = encryptEmail(email);
+
+    const query1 = 'SELECT * FROM public.utilisateurs WHERE email = $1';
+    const values = [encryptedEmail];
+
+    client.query(query1, values, (error, result) => {
+        if (error) {
+            console.error('Erreur lors de la requête SQL:', error.message);
+            return res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs' });
+        } else {
+            // console.log(result.rows[0].nom) ==== Csargan
+            hashPassword(newPassword)
+            .then((hashedPassword) => {
+                console.log('Mot de passe haché avec succès:', hashedPassword);
+
+                const user = result.rows[0].nom;
+
+                const updateQuery = 'UPDATE public.utilisateurs SET password = $1 WHERE nom = $2';
+                const updateValues = [hashedPassword, user];
+
+                client.query(updateQuery, updateValues, (error, result) => {
+                    if (error) {
+                        console.error('Erreur lors de la requête SQL:', error.message);
+                        return res.status(500).json({ error: 'Erreur lors du changement de mot de passe' });
+                    } else {
+                        res.status(200).json({ message: 'Le mot de passe a été réinitialisé avec succès.' });
+                    }
+                })
+            })
         }
-
-        const user = userResult.rows[0];
-
-        const updateQuery = 'UPDATE public.utilisateurs SET password = $1 WHERE email = $2';
-        const updateValues = [newPassword, email];
-
-        await client.query(updateQuery, updateValues);
-
-        res.status(200).json({ message: 'Le mot de passe a été réinitialisé avec succès.' });
-    } catch (error) {
-        console.error('Erreur lors de la réinitialisation du mot de passe', error);
-        res.status(500).json({ message: 'Une erreur s\'est produite lors de la réinitialisation du mot de passe.' });
-    }
+    })
 };
 
 exports.existEmail = (req, res, next) => {
@@ -367,10 +382,10 @@ exports.existEmail = (req, res, next) => {
     console.log(email)
 
     const client = new Client({
-        host: 'db',
+        host: 'localhost',
         port: 5432,
         database: 'test',
-        user: 'loganAdmin',
+        user: 'postgres',
         password: 'LoganTFE2023',
     });
 

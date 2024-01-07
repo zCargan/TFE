@@ -44,7 +44,7 @@ const Profile = () => {
     useEffect(() => {
 
         axios
-            .post("http://51.77.150.97:4000/connection/infoUser", {}, config)
+            .post("http://localhost:4000/connection/infoUser", {}, config)
             .then(response => {
                 console.log(response.data)
                 setNom(response.data.nom)
@@ -70,7 +70,7 @@ const Profile = () => {
             };
 
             axios
-                .get('http://51.77.150.97:4000/user/getAllExercicesFromProfesseur', config)
+                .get('http://localhost:4000/user/getAllExercicesFromProfesseur', config)
                 .then((res) => {
                     console.log(res.data);
                     setExercices(res.data);
@@ -116,7 +116,7 @@ const Profile = () => {
         };
 
         axios
-            .get("http://51.77.150.97:4000/user/getAllInformationsUsers", {}, config)
+            .get("http://localhost:4000/user/getAllInformationsUsers", {}, config)
             .then((res) => {
                 setRolesData(res.data);
                 const initialSelectedRoles = {};
@@ -151,7 +151,7 @@ const Profile = () => {
                 dictionnaireUser[nom] = document.getElementById(nom).value;
 
                 axios
-                    .put('http://51.77.150.97:4000/user/updateUserInformations', dictionnaireUser)
+                    .put('http://localhost:4000/user/updateUserInformations', dictionnaireUser)
                     .then((res) => {
                         Swal.fire('Mise à jour réussie!', '', 'success');
                     })
@@ -169,7 +169,7 @@ const Profile = () => {
 
     function deleteExos(idExo, typeExo) {
         console.log(idExo, typeExo)
-        axios.delete(`http://51.77.150.97:4000/exercice/deleteExo?type=${typeExo}&id=${idExo}`)
+        axios.delete(`http://localhost:4000/exercice/deleteExo?type=${typeExo}&id=${idExo}`)
             .then((res) => {
                 if (res.status === 200) {
                     Swal.fire({
@@ -236,8 +236,6 @@ const Profile = () => {
                                 <div id="compteConnecte">
                                     <p className='pConnection'>Vous êtes connecté à un compte <span className='roleUser'>{role}</span></p>
                                 </div>
-                                <br />
-                                <br />
                                 <div id="divExos">
                                     <h3 className='h3exoslist'>Listes de vos exercices</h3>
                                     {currentExercices.map((element) => (
@@ -280,15 +278,8 @@ const Profile = () => {
                                 <br />
                                 <h3 className='welcomeUsername'>Bienvenue sur votre profil, <span className='roleUser'>{nom}</span></h3>
                                 <div id="compteConnecteAdmin">
-                                    <p className='pConnectionAdmin'>Vous êtes connecté à un compte <span className='roleUser'>{role}</span></p>
+                                    <p>Vous êtes connecté à un compte <span className='roleUser'>{role}</span></p>
                                 </div>
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <p className='pProfileAdmin'></p>
-                                <div id='managementUsers' />
-                                <br />
                                 <div className="container">
                                     <h3 className='h3exoslistUser'>Gérer ici vos utilisateurs</h3>
                                     {currentRolesPage.map(([nom, role]) => (
@@ -317,11 +308,10 @@ const Profile = () => {
                                 <div id="SearchBarAdmin">
                                     <SearchBarAdmin />
                                 </div>
-                                <br />
                                 <div>
                                     <button id="resetPasswordAdmin" className="buttonProfile" onClick={(e) => navigate('/reset-password')}>Changer mon mot de passe</button>
                                 </div>
-                                <br />
+
                                 <div>
                                     <img className='adminImg' src='geek-removebg.png'></img>
                                 </div>

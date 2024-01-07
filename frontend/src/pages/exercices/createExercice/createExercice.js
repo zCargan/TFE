@@ -80,7 +80,7 @@ const CreateExercice = () => {
                 }
             };
 
-            axios.post("http://51.77.150.97:4000/connection/checkToken", {}, config)
+            axios.post("http://localhost:4000/connection/checkToken", {}, config)
                 .then(response => {
                     console.log(response.data.role)
                     if (response.data.role !== "professeur" || '') {
@@ -114,7 +114,7 @@ const CreateExercice = () => {
         console.log("exercice redux ")
         console.log(exerciceRedux)
         for (let i = 0; i < nbrExercice; i++) {
-            axios.post('http://51.77.150.97:4000/exercice/send_test_exercice', exerciceRedux)
+            axios.post('http://localhost:4000/exercice/send_test_exercice', exerciceRedux)
             /*
                 .then(response => {
                 console.log('Réponse du backend :', response.data);
@@ -158,7 +158,7 @@ const CreateExercice = () => {
                         }
 
                         axios
-                            .post('http://51.77.150.97:4000/exercice/saveWorksheet', { data }, config)
+                            .post('http://localhost:4000/exercice/saveWorksheet', { data }, config)
                             .then((res) => {
 
                                 if (res.status == 201) {
@@ -185,7 +185,7 @@ const CreateExercice = () => {
                                     type: "WS"
                                 }
 
-                                axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
+                                axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
                                     .then((res) => {
                                         console.log(res)
                                     })

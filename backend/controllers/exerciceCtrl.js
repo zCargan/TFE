@@ -478,10 +478,10 @@ exports.getSTTById = (req, res) => {
                 console.error('Erreur lors de la vérification du JWT :', err);
             } else {
                 const client = new Client({
-                    host: 'db',
+                    host: 'localhost',
                     port: 5432,
                     database: 'test',
-                    user: 'loganAdmin',
+                    user: 'postgres',
                     password: 'LoganTFE2023',
                 });
 
@@ -543,12 +543,11 @@ exports.registerAnswer = (req, res) => {
 
 
                 const values = [utilisateurId, idExo, pourcentage, type];
-
                 const client = new Client({
-                    host: 'db',
+                    host: 'localhost',
                     port: 5432,
                     database: 'test',
-                    user: 'loganAdmin',
+                    user: 'postgres',
                     password: 'LoganTFE2023',
                 });
 
@@ -580,10 +579,10 @@ exports.getExosFromExercice = (req, res) => {
     console.log(req.body.data.id)
 
     const client = new Client({
-        host: 'db',
+        host: 'localhost',
         port: 5432,
         database: 'test',
-        user: 'loganAdmin',
+        user: 'postgres',
         password: 'LoganTFE2023',
     });
 
@@ -1036,10 +1035,12 @@ exports.getExosFromRequest = async (req, res, next) => {
     let anneeScolaire = req.body.anneeScolaire;
     let matiere = req.body.matiere;
 
+    console.log(rechercheSpecifique, anneeScolaire, matiere)
+
     if (rechercheSpecifique !== "" && req.body.anneeScolaire !== "---" && req.body.matiere !== "---") {
         let anneeScolaire = req.body.anneeScolaire;
         let matiere = req.body.matiere;
-
+        console.log("onbaubcgvzeigcg")
         dicAnswers = {};
 
         let model = '';
@@ -1448,10 +1449,10 @@ exports.addExoToUser = (req, res, next) => {
                 const values = [utilisateurId, idExo, type];
 
                 const client = new Client({
-                    host: 'db',
+                    host: 'localhost',
                     port: 5432,
                     database: 'test',
-                    user: 'loganAdmin',
+                    user: 'postgres',
                     password: 'LoganTFE2023',
                 });
 

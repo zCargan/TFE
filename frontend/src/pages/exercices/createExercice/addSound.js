@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './addSound.css';
 import Cookies from 'js-cookie';
-
+import Swal from 'sweetalert2';
 
 const AddSound = () => {
   const [audioFile, setAudioFile] = useState(null);
@@ -17,35 +17,41 @@ const AddSound = () => {
     let newNameValue = document.getElementById("newNameAudio").value;
 
     if (newNameValue === '') {
-        alert("Veuillez saisir un nom.");
+      Swal.fire({
+        title: 'Attention',
+        text: 'Veuillez saisir un nom',
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK'
+      });
     } else {
 
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get('JWT')}`,
-                'Content-Type': 'multipart/form-data'
-            }
-        };
-
-        event.preventDefault();
-
-        if (!audioFile) {
-            console.log("Aucun fichier audio sélectionné.");
-            return;
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${Cookies.get('JWT')}`,
+          'Content-Type': 'multipart/form-data'
         }
+      };
 
-        const formData = new FormData();
-        formData.append('audio', audioFile);
-        formData.append('name', newNameValue);
+      event.preventDefault();
 
-        try {
-            const response = await axios.post('http://51.77.150.97:4000/sound/postSound', formData, config);
+      if (!audioFile) {
+        console.log("Aucun fichier audio sélectionné.");
+        return;
+      }
 
-            console.log('Réponse du serveur :', response.data);
+      const formData = new FormData();
+      formData.append('audio', audioFile);
+      formData.append('name', newNameValue);
 
-        } catch (error) {
-            console.error('Erreur lors de l\'envoi du fichier audio :', error);
-        }
+      try {
+        const response = await axios.post('http://localhost:4000/sound/postSound', formData, config);
+
+        console.log('Réponse du serveur :', response.data);
+
+      } catch (error) {
+        console.error('Erreur lors de l\'envoi du fichier audio :', error);
+      }
     }
   };
 
