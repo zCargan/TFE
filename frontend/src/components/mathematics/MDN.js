@@ -24,14 +24,13 @@ const MDN = () => {
         var number = document.getElementById('nombre').value;
         if (/^[0-9]+$/.test(number)) {
             let texte = "<div class='triangle-container'>";
-            //texte += '<div class="triangle-down"></div>'; // Conteneur pour le triangle
-            texte += '<h1>' + document.getElementById('nomMDN').value + '</h1>'; // Titre à l'intérieur du conteneur du triangle
+            texte += '<h1>' + document.getElementById('nomMDN').value + '</h1>'; 
             texte += "<div id='mdnContent'>";
             for (let i = 0; i < number; i++) {
                 texte += '<input id="' + i + '" class="inputMDN"></input><input id="' + i + '" class="inputMDN"></input>';
                 texte += "<br></br>";
             }
-            texte += "</div></div>"; // Fin du conteneur
+            texte += "</div></div>"; 
             document.getElementById("mdn").innerHTML = texte;
         }
     }
@@ -74,7 +73,7 @@ const MDN = () => {
             }
         }
 
-        axios.post("http://51.77.150.97:4000/exercice/registerMDN", {exo}, config)
+        axios.post("http://localhost:4000/exercice/registerMDN", {exo}, config)
     }
 
 
@@ -86,7 +85,7 @@ return (
                 <img
                     src='mdn.png'
                     alt='Image pour popup'
-                    style={{ width: '150px', height: '150px' }} // Les styles doivent être dans un objet JavaScript
+                    style={{ width: '150px', height: '150px' }} 
                 />
                 </div>
             }

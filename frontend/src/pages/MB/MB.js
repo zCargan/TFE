@@ -40,15 +40,31 @@ const MB = () => {
                     timer: 2000
                 });
             } else {
-                // Convertir la chaîne de caractères en tableau
-                const nameArray = newName.split('');
+                if (document.getElementById('name_photo_mb').value !== "") {
+                    const nameArray = newName.split('');
 
-                const newRow = { id: newId, photo: newId, name: nameArray };
-                setTableData([...tableData, newRow]);
+                    const newRow = { id: newId, photo: newId, name: nameArray };
+                    setTableData([...tableData, newRow]);
 
-                const newDictionary = { ...dictionary };
-                newDictionary[selectedImageInfo.id] = nameArray;
-                setDictionary(newDictionary);
+                    const newDictionary = { ...dictionary };
+                    newDictionary[selectedImageInfo.id] = nameArray;
+                    setDictionary(newDictionary);
+                    document.getElementById("name_photo_mb").value = "";
+                    Swal.fire({
+                        title: 'Image ajoutée',
+                        icon: 'success',
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Erreur',
+                        text: 'Veuillez donner un nom à l\'image choisie',
+                        confirmButtonText: 'OK',
+                    });
+                }
             }
         }
     }
@@ -73,64 +89,84 @@ const MB = () => {
                 confirmButtonText: 'OK',
             });
         } else {
-            const config = {
-                headers: {
-                    'Authorization': `Bearer ${Cookies.get('JWT')}`,
-                    'Content-Type': 'application/json' // Utilisation de 'application/json' pour le Content-Type
-                }
-            };
-
-            const data = {
-                nom: document.getElementById('name').value,
-                anneeScolaire: valeur,
-                description: document.getElementById('descriptionExoMB').value,
-                type: "MB",
-                reponses: dictionary
-            }
-
-
-
-            axios.post(`http://51.77.150.97:4000/exercice/registerMB`, { data }, config).then((res) => {
-
-                if (res.status == 201) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Mot bazard créé!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    }).then((result) => {
-                        if (result.dismiss === Swal.DismissReason.timer) {
-                            navigate('/');
+            if (Object.keys(dictionary).length === 0) {
+                Swal.fire({
+                    title: "Aucune image",
+                    text: "L'exercice n'est composé d'aucune image",
+                    icon: 'info',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                if ((document.getElementById("name").value !== "") && (document.getElementById("descriptionExoMB").value !== "")) {
+                    const config = {
+                        headers: {
+                            'Authorization': `Bearer ${Cookies.get('JWT')}`,
+                            'Content-Type': 'application/json' // Utilisation de 'application/json' pour le Content-Type
                         }
-                    });
+                    };
+
+                    const data = {
+                        nom: document.getElementById('name').value,
+                        anneeScolaire: valeur,
+                        description: document.getElementById('descriptionExoMB').value,
+                        type: "MB",
+                        reponses: dictionary
+                    }
+
+
+
+                    axios.post(`http://localhost:4000/exercice/registerMB`, { data }, config).then((res) => {
+
+                        if (res.status == 201) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Mot bazard créé!',
+                                showConfirmButton: false,
+                                timer: 1000
+                            }).then((result) => {
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    navigate('/');
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Une erreur s\'est produite durant la création du mot bazard',
+                                text: 'Veuillez réessayer plus tard.',
+                            });
+                        }
+
+                        let data = {
+                            idExo: res.data.data._id,
+                            type: "MB"
+                        }
+
+                        axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                            .then((res) => {
+                                console.log(res)
+                            })
+                            .catch((error) => {
+                                console.log(error)
+                            })
+                    })
+                        .catch((error) => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erreur!',
+                                text: 'Une erreur s\'est produite.',
+                            });
+                        })
                 } else {
                     Swal.fire({
-                        icon: 'error',
-                        title: 'Une erreur s\'est produite durant la création du mot bazard',
-                        text: 'Veuillez réessayer plus tard.',
+                        title: 'Erreur',
+                        text: 'Veuillez compléter tous les champs',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
                     });
                 }
 
-                let data = {
-                    idExo: res.data.data._id,
-                    type: "MB"
-                }
-
-                axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
-                    .then((res) => {
-                        console.log(res)
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
-            })
-                .catch((error) => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erreur!',
-                        text: 'Une erreur s\'est produite.',
-                    });
-                })
+            }
+            console.log(dictionary)
         }
 
 

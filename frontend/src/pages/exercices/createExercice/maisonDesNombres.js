@@ -8,6 +8,9 @@ import Cookies from 'js-cookie';
 import Popup from 'reactjs-popup';
 import Navbar from '../../../components/navbar/Navbar';
 import InfoIcon from '@mui/icons-material/Info';
+import Swal from 'sweetalert2';
+
+import { estUnNombre } from '../../FonctionsUnitaires';
 
 const MaisonDesNombres = ({ onMdnData }) => {
     let exo = {}
@@ -16,6 +19,8 @@ const MaisonDesNombres = ({ onMdnData }) => {
     const exerciceRedux = useSelector(state => (state))
     const [nbrItem, setNbrItem] = useState("");
     const [popupOpen, setPopupOpen] = useState(false);
+    const [exoCreated, setExoCreated] = useState(false);
+    const [squelettonSaved, setSquelettonSaved] = useState(false);
 
     function verifyAvancement() {
         let dictionnaireFinal = {};
@@ -25,68 +30,112 @@ const MaisonDesNombres = ({ onMdnData }) => {
         console.log(dictionnaireFinal.infoOriginale)
     }
 
+
+
     function showSqueleton() {
-        var number = document.getElementById('nombreInput').value;
-        if (/^[0-9]+$/.test(number)) {
-            let texte = "<div class='triangle-container'>";
-            texte += document.getElementById('descriptionExercice').value;
-            texte += '<br />'
-            texte += '<br />'
-            //texte += '<div class="triangle-down"></div>'; // Conteneur pour le triangle
-            texte += "<div id='mdnContent'>";
-            for (let i = 0; i < number; i++) {
-                texte += '<input id="' + i + '" class="inputMDNWS"></input><input id="' + i + '" class="inputMDNWS"></input>';
-                texte += "<br></br>";
+        if ((document.getElementById('descriptionExercice').value !== "") && (document.getElementById('nombreInput').value !== "")) {
+            var number = document.getElementById('nombreInput').value;
+            if (estUnNombre(number)) {
+                if (/^[0-9]+$/.test(number)) {
+                    let texte = "<div class='triangle-container'>";
+                    texte += document.getElementById('descriptionExercice').value;
+                    texte += '<br />'
+                    texte += '<br />'
+                    texte += "<div id='mdnContent'>";
+                    for (let i = 0; i < number; i++) {
+                        texte += '<input id="' + i + '" class="inputMDNWS"></input><input id="' + i + '" class="inputMDNWS"></input>';
+                        texte += "<br></br>";
+                    }
+                    texte += "</div></div>";
+                    document.getElementById("mdn").innerHTML = texte;
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Exercice créé!',
+                        text: 'Vous pouvez ajouter les données de l\'énoncé de l\'execice',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    setExoCreated(true)
+                }
+            } else {
+                Swal.fire({
+                    title: 'Erreur',
+                    text: 'Veuillez entrer un nombre de colonnes valide',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                });
+                document.getElementById('nombreInput').value = "";
             }
-            texte += "</div></div>"; // Fin du conteneur
-            document.getElementById("mdn").innerHTML = texte;
+        } else {
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Veuillez compléter tous les champs',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
         }
     }
 
 
 
     function saveSquelette() {
-        exo.description = document.getElementById("descriptionExercice").value;
-        exo.type = "MDN";
-        exo.cols = Number(document.getElementById('nombreInput').value);
+        if (exoCreated === false) {
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Veuillez d\'abord créer votre abaque',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+        } else {
+            exo.description = document.getElementById("descriptionExercice").value;
+            exo.type = "MDN";
+            exo.cols = Number(document.getElementById('nombreInput').value);
 
-        let arrayEnonce = []
+            let arrayEnonce = []
 
-        let input = document.getElementsByClassName('inputMDNWS')
-        console.log(input)
+            let input = document.getElementsByClassName('inputMDNWS')
+            console.log(input)
 
-        for (let i = 0; i < input.length; i++) {
-            console.log(input[i].value)
-            arrayEnonce.push(input[i].value)
+            for (let i = 0; i < input.length; i++) {
+                console.log(input[i].value)
+                arrayEnonce.push(input[i].value)
+            }
+
+            exo.reponseInitiale = arrayEnonce
+            Swal.fire({
+                icon: 'success',
+                title: 'Squelette de la maison des nombres sauvegardé!',
+                text: 'Vous pouvez maintenant introduire les réponses attendues',
+                showConfirmButton: false,
+                timer: 1800
+            })
+            setSquelettonSaved(true)
         }
-
-        exo.reponseInitiale = arrayEnonce
-
-
     }
 
     function final() {
-        let arrayFinal = []
-
-        let input = document.getElementsByClassName('inputMDNWS')
-
-        for (let i = 0; i < input.length; i++) {
-            arrayFinal.push(input[i].value)
+        if (squelettonSaved === false) {
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Veuillez d\'abord sauver votre squelette',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+        } else {
+            let arrayFinal = []
+            let input = document.getElementsByClassName('inputMDNWS')
+            for (let i = 0; i < input.length; i++) {
+                arrayFinal.push(input[i].value)
+            }
+            exo.reponseFinal = arrayFinal
+            onMdnData(exo)
         }
-
-        console.log(arrayFinal)
-
-        exo.reponseFinal = arrayFinal
-
-        onMdnData(exo)
-
-
     }
 
 
     function showRedux() {
         console.log(exerciceRedux)
-        //axios.post('http://51.77.150.97:4000/exercice/post_mdn_exercices', exerciceRedux)
+        //axios.post('http://localhost:4000/exercice/post_mdn_exercices', exerciceRedux)
     }
 
 
@@ -107,7 +156,7 @@ const MaisonDesNombres = ({ onMdnData }) => {
                 reponseUser.push(ligne1[i].value)
             }
         }
-        axios.get('http://51.77.150.97:4000/exercice/get_mdn_exercice').then((res) => {
+        axios.get('http://localhost:4000/exercice/get_mdn_exercice').then((res) => {
             let dicFinale = res.data[0].reponseFinale;
             let dicInitiale = res.data[0].reponseInitiale;
             let idExercice = res.data[0]._id;
@@ -165,7 +214,7 @@ const MaisonDesNombres = ({ onMdnData }) => {
                 idExercice: idExercice
             }
 
-            axios.post("http://51.77.150.97:4000/exercice/registerAnswers", { data }, config)
+            axios.post("http://localhost:4000/exercice/registerAnswers", { data }, config)
         })
 
     }

@@ -59,7 +59,7 @@ const ShowWorksheetById = () => {
 
     function testPQ2() {
         console.log("on passe dans testPQ2")
-        axios.get("http://51.77.150.97:4000/exercice/getWorksheet", config)
+        axios.get("http://localhost:4000/exercice/getWorksheet", config)
             .then(res => {
                 console.log(res.data[0])
                 if (res.data.length > 0 && res.data[0].data.length > 0) {
@@ -100,13 +100,13 @@ const ShowWorksheetById = () => {
             })
             .catch(err => {
                 console.log(err);
-                setLoaded(true); // Set loaded à true même en cas d'erreur pour éviter de rester dans un état de chargement infini
+                setLoaded(true); 
             });
     }
 
     function testPQ3() {
         console.log("on passe dans testPQ2")
-        axios.get(`http://51.77.150.97:4000/exercice/getWS/${exo}`, config)
+        axios.get(`http://localhost:4000/exercice/getWS/${exo}`, config)
             .then(res => {
                 console.log(res.data)
                 setName(res.data.nom)
@@ -207,7 +207,7 @@ const ShowWorksheetById = () => {
         }
 
         axios
-            .post("http://51.77.150.97:4000/exercice/registerAnswers", { data }, config)
+            .post("http://localhost:4000/exercice/registerAnswers", { data }, config)
             .then((res) => {
 
                 console.log(res)
@@ -269,7 +269,7 @@ const ShowWorksheetById = () => {
     function getWSById() {
         console.log("cliqué ici")
         axios
-            .get(`http://51.77.150.97:4000/exercice/getWS/${exo}`)
+            .get(`http://localhost:4000/exercice/getWS/${exo}`)
             .then((res) =>
                 console.log(res.data)
             )

@@ -161,7 +161,7 @@ const NewExercice = () => {
                         closeOnDocumentClick
                     >
                         <div className='popupExos'>
-                            <h3>De texte à images</h3>
+                            <h3>De texte à image</h3>
                             <p>
                                 Réaliser un exercice ou l'utilisateur doit réussir à retrouver le mot correspondant à chaque image proposée
                             </p>
@@ -222,7 +222,7 @@ const NewExercice = () => {
                             <p>Si vous désirez créer des <span className='divSpanButton'>"Son avec texte"</span> vous devez avoir ajouter des sons à votre compte</p>
                         </div>
                     </Popup>
-                    <h2>Partie musique : </h2>
+                    <h2>Partie son : </h2>
                     <img src="musique.png" onClick={showAllSounds} width="100" height="100" />
                     <img src="uploadMusique.png" onClick={callUploadSound} width="100" height="100" />
                 </div>

@@ -9,9 +9,7 @@ const FormulaireDeRetour = () => {
       message: '',
     },
     onSubmit: values => {
-      // Vous pouvez envoyer les données du formulaire à votre serveur ici
       console.log('Formulaire soumis :', values);
-      // Ajoutez le code pour envoyer les données par e-mail ici
     },
   });
 

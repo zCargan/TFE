@@ -89,6 +89,26 @@ const InfoExercice = () => {
         setScore(prevScore => [...prevScore, newScore]);
     };
 
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // Échanger les éléments de manière aléatoire
+        }
+    }
+
+    function concatenateLetters(id, reponses) {
+        if (reponses[id] && Array.isArray(reponses[id])) {
+            const originalOrderString = reponses[id].join('').toUpperCase();
+            setArrayMotBonOrdre((prevArray) => [...prevArray, originalOrderString]); // Mettre à jour l'état
+            const shuffledLetters = reponses[id].slice();
+            shuffleArray(shuffledLetters);
+            const concatenatedString = shuffledLetters.join('');
+            return concatenatedString.toUpperCase();
+        } else {
+            return '';
+        }
+    }
+
     function showDetails() {
         const config = {
             headers: {
@@ -123,7 +143,7 @@ const InfoExercice = () => {
 
     function TTIdetails(config, data) {
         axios
-            .get(`http://51.77.150.97:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
+            .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
             .then((res) => {
                 setName(res.data.exerciceInfos.nom)
                 setAnnee(res.data.exerciceInfos.anneeScolaire)
@@ -135,7 +155,7 @@ const InfoExercice = () => {
                 console.log(cles)
                 for (let i = 0; i < cles.length; i++) {
                     axios
-                        .get(`http://51.77.150.97:4000/photos/getImage/${cles[i]}`, config)
+                        .get(`http://localhost:4000/photos/getImage/${cles[i]}`, config)
                         .then((res) => {
                             const imageContainer = document.getElementById('infoAvecCorrection');
                             imageContainer.style.display = 'flex';
@@ -208,21 +228,21 @@ const InfoExercice = () => {
 
     function MBdetails(config, data) {
         axios
-            .get(`http://51.77.150.97:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
+            .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
             .then((res) => {
                 setName(res.data.exerciceInfos.nom)
                 setAnnee(res.data.exerciceInfos.anneeScolaire)
                 setDescription(res.data.exerciceInfos.description)
-
+                let reponses = res.data.exerciceInfos.reponses
+                console.log(reponses)
                 setReponses(res.data.exerciceInfos.reponses)
                 const valeurDesCles = Object.values(res.data.exerciceInfos.reponses);
                 let cles = Object.keys(res.data.exerciceInfos.reponses);
 
                 for (let i = 0; i < cles.length; i++) {
                     axios
-                        .get(`http://51.77.150.97:4000/photos/getImage/${cles[i]}`, config)
+                        .get(`http://localhost:4000/photos/getImage/${cles[i]}`, config)
                         .then((res) => {
-                            console.log(valeurDesCles[i])
                             const imageContainer = document.getElementById('infoAvecCorrection');
                             imageContainer.style.display = 'flex';
                             imageContainer.style.flexWrap = 'wrap'; // Permettre le retour à la ligne si nécessaire
@@ -252,12 +272,45 @@ const InfoExercice = () => {
                                 imageInputContainer.appendChild(headingElement);
                                 imageContainer.appendChild(imageInputContainer);
                             }
+
+                            const imageContainer2 = document.getElementById('infoSansCorrection');
+                            imageContainer2.style.display = 'flex';
+                            imageContainer2.style.flexWrap = 'wrap';
+                            imageContainer2.style.justifyContent = 'center';
+                            for (let j = 0; j < res.data.length; j++) {
+                                console.log(cles[i])
+                                console.log(reponses)
+                                const imageBinaryData = res.data[j].image_data.data;
+                                const blob = new Blob([new Uint8Array(imageBinaryData)], { type: res.data[j].type_mime });
+                                const objectURL = URL.createObjectURL(blob);
+
+                                const imageInputContainer2 = document.createElement('div');
+                                imageInputContainer2.style.margin = '20px';
+                                imageInputContainer2.style.textAlign = 'center';
+                                imageInputContainer2.style.display = 'flex';
+                                imageInputContainer2.style.flexDirection = 'column';
+
+                                const nameElement = document.createElement('div');
+                                const imageName = concatenateLetters(cles[i], reponses);
+                                nameElement.textContent = imageName;
+                                nameElement.style.marginTop = '10px';
+
+
+                                const imageElement2 = document.createElement('img');
+                                imageElement2.src = objectURL;
+                                imageElement2.style.width = '200px';
+                                imageElement2.style.height = '200px';
+
+                                imageInputContainer2.appendChild(imageElement2);
+                                imageInputContainer2.appendChild(nameElement);
+                                imageContainer2.appendChild(imageInputContainer2);
+                            }
+
                         })
                         .catch((error) => {
                             console.log(error);
                         });
                 }
-                document.getElementById('infosSansCorrection').style.display = 'none';
             }
             )
             .catch((error) => {
@@ -269,7 +322,7 @@ const InfoExercice = () => {
 
     function LDNdetails(config, data) {
         axios
-            .get(`http://51.77.150.97:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
+            .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
             .then((res) => {
                 let resultatAttendu = res.data.exerciceInfos.reponseFinale
                 setName(res.data.exerciceInfos.nom)
@@ -329,7 +382,7 @@ const InfoExercice = () => {
 
     function STTdetails(config, data) {
         axios
-            .get(`http://51.77.150.97:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
+            .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
             .then((res) => {
                 console.log(res.data.exerciceInfos)
                 setName(res.data.exerciceInfos.nom)
@@ -350,7 +403,7 @@ const InfoExercice = () => {
 
                     setAllResponses([...nouvellesReponses]);
 
-                    const promesseReponse = axios.get(`http://51.77.150.97:4000/exercice/getSTT/${cles[i]}`, config)
+                    const promesseReponse = axios.get(`http://localhost:4000/exercice/getSTT/${cles[i]}`, config)
                         .then((nestedRes) => {
                             return nestedRes.data[0];
                         })
@@ -383,7 +436,7 @@ const InfoExercice = () => {
 
     function Abaquedetails(config, data) {
         axios
-            .get(`http://51.77.150.97:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
+            .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
             .then((res) => {
 
                 let reponseInitiale = res.data.exerciceInfos.reponseInitiale;
@@ -424,7 +477,7 @@ const InfoExercice = () => {
 
     function TATdetails(config, data) {
         axios
-            .get(`http://51.77.150.97:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
+            .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
             .then((res) => {
                 let reponsesFromDB = []
 
@@ -464,7 +517,7 @@ const InfoExercice = () => {
 
     function MDNdetails(config, data) {
         axios
-            .get(`http://51.77.150.97:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
+            .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
             .then((res) => {
 
                 let length = res.data.exerciceInfos.cols
@@ -506,7 +559,7 @@ const InfoExercice = () => {
 
     function WSdetails(config, data) {
         axios
-            .get(`http://51.77.150.97:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
+            .get(`http://localhost:4000/exercice/getDetailsExos`, { params: data, headers: config.headers })
             .then((res) => {
                 console.log(res.data.exerciceInfos.data)
                 setName(res.data.exerciceInfos.nom)
@@ -564,6 +617,7 @@ const InfoExercice = () => {
             </div>
             <div className="zoneSC">
                 <h3 id="infosSansCorrection" className='h3ie'>Exercice vierge</h3>
+
                 <div>
                     {loaded && (
                         <div>

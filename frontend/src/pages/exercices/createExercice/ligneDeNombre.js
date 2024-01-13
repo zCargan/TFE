@@ -8,6 +8,9 @@ import { addExercice } from '../../../features/exerciceSlice'
 import Navbar from '../../../components/navbar/Navbar';
 import Popup from 'reactjs-popup';
 import InfoIcon from '@mui/icons-material/Info';
+import Swal from 'sweetalert2';
+
+import { estUnNombre } from '../../FonctionsUnitaires';
 
 const LigneDeNombre = ({ onLdnData }) => {
 
@@ -15,6 +18,8 @@ const LigneDeNombre = ({ onLdnData }) => {
     const exerciceRedux = useSelector(state => (state))
 
     const [popupOpen, setPopupOpen] = useState(false);
+    const [exoCreated, setExoCreated] = useState(false);
+    const [squelettonSaved, setSquelettonSaved] = useState(false);
 
     let exercice = {}
     var texte = ""
@@ -44,32 +49,47 @@ const LigneDeNombre = ({ onLdnData }) => {
         cette fonction a pour but de sauver le squelette de l'excerice
 
         */
-
-        let reponsesEnoncees = []
-
-        exo.description = document.getElementById("descriptionLDN").value;
-        exo.type = 'LDN'
-        let option = document.getElementById("direction").value;
-        if (option === "gauche") {
-            exo.direction = "G"
+        if (exoCreated === false) {
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Veuillez d\'abord créer votre abaque',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
         } else {
-            exo.direction = "D"
+            let reponsesEnoncees = []
+
+            exo.description = document.getElementById("descriptionLDN").value;
+            exo.type = 'LDN'
+            let option = document.getElementById("direction").value;
+            if (option === "gauche") {
+                exo.direction = "G"
+            } else {
+                exo.direction = "D"
+            }
+
+            let inputClass = document.getElementsByClassName("inputUserLDNWS");
+
+            for (let i = 0; i < inputClass.length; i++) {
+                reponsesEnoncees.push(inputClass[i].value)
+            }
+
+            exo.reponseInitiale = reponsesEnoncees
+
+
+
+            console.log(exo)
+
+            exercice.baseExercice = exo
+            Swal.fire({
+                icon: 'success',
+                title: 'Squelette de la ligne des nombres sauvegardé!',
+                text: 'Vous pouvez maintenant introduire les réponses attendues',
+                showConfirmButton: false,
+                timer: 1800
+            })
+            setSquelettonSaved(true)
         }
-
-        let inputClass = document.getElementsByClassName("inputUserLDNWS");
-
-        for (let i = 0; i < inputClass.length; i++) {
-            reponsesEnoncees.push(inputClass[i].value)
-        }
-
-        exo.reponseInitiale = reponsesEnoncees
-
-
-
-        console.log(exo)
-
-        exercice.baseExercice = exo
-
     }
 
 
@@ -80,22 +100,29 @@ const LigneDeNombre = ({ onLdnData }) => {
         Cette fonction sauve l'exercice dans rédux avec les valeurs finales des inputs 
 
         */
+        if (squelettonSaved === false) {
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Veuillez d\'abord sauver votre squelette',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+        } else {
+
+            let reponsesFinales = []
+
+            let inputClass = document.getElementsByClassName("inputUserLDNWS");
+
+            for (let i = 0; i < inputClass.length; i++) {
+                reponsesFinales.push(inputClass[i].value)
+            }
+
+            exo.reponseFinale = reponsesFinales
+            onLdnData(exo)
 
 
-        let reponsesFinales = []
-
-        let inputClass = document.getElementsByClassName("inputUserLDNWS");
-
-        for (let i = 0; i < inputClass.length; i++) {
-            reponsesFinales.push(inputClass[i].value)
+            console.log(exo)
         }
-
-        exo.reponseFinale = reponsesFinales
-        onLdnData(exo)
-
-
-        console.log(exo)
-
 
 
     }
@@ -112,26 +139,53 @@ const LigneDeNombre = ({ onLdnData }) => {
 
     function createLine() {
         document.getElementById("resultatP").innerHTML = "";
-        texte += "";
-        texte += String("<p>" + document.getElementById("descriptionLDN").value + "</p>")
-        texte += String("<div id='ligneDuTemps'>")
-        let length = document.getElementById('length').value;
-        let option = document.getElementById("direction").value;
+        texte = "";
+        if ((document.getElementById('descriptionLDN').value !== "")) {
+            let length = document.getElementById('length').value;
+            if (estUnNombre(length)) {
+                texte += String("<p>" + document.getElementById("descriptionLDN").value + "</p>")
+                texte += String("<div id='ligneDuTemps'>")
+                let option = document.getElementById("direction").value;
 
-        if (option === "gauche") {
-            texte += '◀'
-            for (let i = 0; i < length; i++) {
-                texte += String("<input class='inputUserLDNWS'></input>");
+                if (option === "gauche") {
+                    texte += '◀'
+                    for (let i = 0; i < length; i++) {
+                        texte += String("<input class='inputUserLDNWS'></input>");
+                    }
+                } else {
+                    for (let i = 0; i < length; i++) {
+                        texte += String("<input class='inputUserLDNWS'></input>");
+                    }
+                    texte += '▶'
+                }
+                texte += "</div>"
+                console.log(texte)
+                document.getElementById("resultatP").innerHTML = texte
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Exercice créé!',
+                    text: 'Vous pouvez ajouter les données de l\'énoncé de l\'execice',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                setExoCreated(true)
+            } else {
+                Swal.fire({
+                    title: 'Erreur',
+                    text: 'Veuillez entrer un nombre valide',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                });
+                document.getElementById('length').value = "";
             }
         } else {
-            for (let i = 0; i < length; i++) {
-                texte += String("<input class='inputUserLDNWS'></input>");
-            }
-            texte += '▶'
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Veuillez entrer une description valide',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
         }
-        texte += "</div>"
-        console.log(texte)
-        document.getElementById("resultatP").innerHTML = texte
     }
 
 

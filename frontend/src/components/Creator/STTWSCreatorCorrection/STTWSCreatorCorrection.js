@@ -28,7 +28,6 @@ const STTWSCreatorCorrection = ({ exo, onSTTDataChange }) => {
       getSTT();
       getMBCalledRef.current = true;
 
-      // Attacher l'événement de clic ici après le premier rendu
       const testVraitestElement = document.getElementById("testVraitest");
       if (testVraitestElement) {
         testVraitestElement.addEventListener("click", buttonClicked);
@@ -61,7 +60,7 @@ const STTWSCreatorCorrection = ({ exo, onSTTDataChange }) => {
 
         nouvellesReponses.push(exo.reponses[cles[i]])
 
-        const promesseReponse = axios.get(`http://51.77.150.97:4000/exercice/getSTT/${cles[i]}`, config)
+        const promesseReponse = axios.get(`http://localhost:4000/exercice/getSTT/${cles[i]}`, config)
           .then((nestedRes) => {
             return nestedRes.data[0];
           })

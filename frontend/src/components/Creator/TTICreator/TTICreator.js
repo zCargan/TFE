@@ -30,7 +30,7 @@ const TTICreator = ({ exo }) => {
     const config = {
         headers: {
             'Authorization': `Bearer ${Cookies.get('JWT')}`,
-            'Content-Type': 'application/json' // Utilisation de 'application/json' pour le Content-Type
+            'Content-Type': 'application/json' 
         }
     };
 
@@ -38,7 +38,7 @@ const TTICreator = ({ exo }) => {
 
 
         axios
-            .get(`http://51.77.150.97:4000/exercice/getTTI/${exo}`, config)
+            .get(`http://localhost:4000/exercice/getTTI/${exo}`, config)
             .then((reponse) => {
                 const img = reponse.data.reponses;
                 console.log(reponse.data.description)
@@ -52,12 +52,12 @@ const TTICreator = ({ exo }) => {
                 const imageContainer = document.getElementById('zoneExos');
     
                 imageContainer.style.display = 'flex';
-                imageContainer.style.flexWrap = 'wrap'; // Permettre le retour à la ligne si nécessaire
-                imageContainer.style.justifyContent = 'center'; // Centrez horizontalement
+                imageContainer.style.flexWrap = 'wrap';
+                imageContainer.style.justifyContent = 'center'; 
     
                 for (let i = 0; i < cles.length; i++) {
                     axios
-                        .get(`http://51.77.150.97:4000/photos/getImage/${cles[i]}`, config)
+                        .get(`http://localhost:4000/photos/getImage/${cles[i]}`, config)
                         .then((res) => {
                             console.log(reponse.data.reponses)
                             reponsesAttendues.push(reponse.data.reponses[cles[i]])
@@ -68,9 +68,9 @@ const TTICreator = ({ exo }) => {
     
                                 const imageInputContainer = document.createElement('div');
                                 imageInputContainer.style.margin = '20px';
-                                imageInputContainer.style.textAlign = 'center'; // Centrer le contenu
-                                imageInputContainer.style.display = 'flex'; // Conteneur en colonne
-                                imageInputContainer.style.flexDirection = 'column'; // Alignement en colonne
+                                imageInputContainer.style.textAlign = 'center'; 
+                                imageInputContainer.style.display = 'flex'; 
+                                imageInputContainer.style.flexDirection = 'column'; 
     
                                 const imageElement = document.createElement('img');
                                 imageElement.src = objectURL;
@@ -82,10 +82,10 @@ const TTICreator = ({ exo }) => {
                                 inputElement.type = 'text';
                                 inputElement.placeholder = 'Saisir un texte ici';
                                 inputElement.style.width = '200px';
-                                inputElement.style.marginTop = '10px'; // Ajouter un espace en haut de l'input
+                                inputElement.style.marginTop = '10px'; 
     
-                                inputElement.value = ''; // Valeur par défaut
-                                inputElement.classList.add('answerExo'); // Ajout de la classe 'answerExo'
+                                inputElement.value = ''; 
+                                inputElement.classList.add('answerExo'); 
     
                                 imageInputContainer.appendChild(imageElement);
                                 imageInputContainer.appendChild(inputElement);
@@ -106,7 +106,7 @@ const TTICreator = ({ exo }) => {
 
     function Correction() {
         axios
-            .get('http://51.77.150.97:4000/exercice/getTTI', config)
+            .get('http://localhost:4000/exercice/getTTI', config)
             .then((res) => {
                 let inputs = document.getElementsByClassName('answerExo');
                 let length = inputs.length
@@ -142,7 +142,7 @@ const TTICreator = ({ exo }) => {
                 });
         
                 axios
-                .post("http://51.77.150.97:4000/exercice/registerAnswers", {data}, config)
+                .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
                 .then((res) => {
                     setTimeout(() => {
                         navigate('/home');
@@ -185,7 +185,7 @@ const TTICreator = ({ exo }) => {
                     <div id="zoneExos"></div>
                     <button onClick={Correction} id="buttonCorrection">Correction</button>
                     <br />
-                    <button onClick={seeCorrection}>Voir la correction</button>
+                    {/* <button onClick={seeCorrection}>Voir la correction</button> */}
                 </div>
         </div>
     );

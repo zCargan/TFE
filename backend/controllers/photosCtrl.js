@@ -58,10 +58,10 @@ exports.getPhotoDetail = (req, res) => {
     const photoId = req.params.id;
 
     const client = new Client({
-        host: 'db',
+        host: 'localhost',
         port: 5432,
         database: 'test',
-        user: 'loganAdmin',
+        user: 'postgres',
         password: 'LoganTFE2023',
     });
 
@@ -89,10 +89,10 @@ exports.getPhotoDetail = (req, res) => {
 
 exports.getPhotos = (req, res, next) => {
     const client = new Client({
-        host: 'db',
+        host: 'localhost',
         port: 5432,
         database: 'test',
-        user: 'loganAdmin',
+        user: 'postgres',
         password: 'LoganTFE2023',
     });
     
@@ -149,10 +149,10 @@ exports.register = (req, res, next) => {
                 console.error('Erreur lors de la vérification du JWT :', err);
             } else {
                 const client = new Client({
-                    host: 'db',
+                    host: 'localhost',
                     port: 5432,
                     database: 'test',
-                    user: 'loganAdmin',
+                    user: 'postgres',
                     password: 'LoganTFE2023',
                 });
                 //console.log(decoded.id)
@@ -201,10 +201,10 @@ exports.updateImageName = (req, res, next) => {
             } else {
                 
                 const client = new Client({
-                    host: 'db',
+                    host: 'localhost',
                     port: 5432,
                     database: 'test',
-                    user: 'loganAdmin',
+                    user: 'postgres',
                     password: 'LoganTFE2023',
                 });
 
@@ -235,10 +235,10 @@ exports.deleteImage = (req, res, next) => {
     const photoId = req.params.id
 
     const client = new Client({
-        host: 'db',
+        host: 'localhost',
         port: 5432,
         database: 'test',
-        user: 'loganAdmin',
+        user: 'postgres',
         password: 'LoganTFE2023',
     });
 
@@ -272,10 +272,10 @@ exports.getImage = (req, res) => {
                 console.error('Erreur lors de la vérification du JWT :', err);
             } else {
                 const client = new Client({
-                    host: 'db',
+                    host: 'localhost',
                     port: 5432,
                     database: 'test',
-                    user: 'loganAdmin',
+                    user: 'postgres',
                     password: 'LoganTFE2023',
                 });
             

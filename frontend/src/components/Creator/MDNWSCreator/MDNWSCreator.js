@@ -22,7 +22,6 @@ const MDNWSCreator = ({ exo, onMDNDataChange }) => {
             getMDN();
             getMBCalledRef.current = true;
 
-            // Attacher l'événement de clic ici après le premier rendu
             const testVraitestElement = document.getElementById("testVraitest");
             if (testVraitestElement) {
                 testVraitestElement.addEventListener("click", buttonClicked);
@@ -69,9 +68,6 @@ const MDNWSCreator = ({ exo, onMDNDataChange }) => {
                 let ligne1 = document.getElementsByClassName("answerUserMDN");
                 for (let i = 0; i < dicInitiale.length; i++) {
                     reponseUser.push(ligne1[i].value)
-
-                    // if (dicInitiale[i] === '') {
-                    // }
                 }
             }
 

@@ -37,10 +37,10 @@ const History = () => {
                     }
                 };
 
-                const response = await axios.post("http://51.77.150.97:4000/connection/infoUser", {}, config);
+                const response = await axios.post("http://localhost:4000/connection/infoUser", {}, config);
                 const data = { id: response.data.id };
 
-                const exosResponse = await axios.post("http://51.77.150.97:4000/exercice/getExosFromUser", { data });
+                const exosResponse = await axios.post("http://localhost:4000/exercice/getExosFromUser", { data });
 
 
                 const sortedExos = exosResponse.data.sort((a, b) => new Date(b.temps) - new Date(a.temps));

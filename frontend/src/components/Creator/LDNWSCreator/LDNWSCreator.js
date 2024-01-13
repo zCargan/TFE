@@ -45,7 +45,6 @@ const LDNWSCreator = ({ exo, onTATDataChange }) => {
             let direction = exo.direction
 
             let texte = String("<div id='ligneDuTemps'><table><tbody>")
-
             if (direction === "G") {
                 texte += '◀'
                 for (let i = 0; i < length; i++) {

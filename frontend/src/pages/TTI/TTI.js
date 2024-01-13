@@ -41,13 +41,29 @@ const TTI = () => {
                     timer: 2000
                 });
             } else {
-                const newRow = { id: newId, photo: newId, name: newName };
-                setTableData([...tableData, newRow]);
+                if (document.getElementById('name_photo').value !== "") {
+                    const newRow = { id: newId, photo: newId, name: newName };
+                    setTableData([...tableData, newRow]);
 
-                const newDictionary = { ...dictionary };
-                newDictionary[selectedImageInfo.id] = newName;
-                setDictionary(newDictionary);
-                document.getElementById("suite").value = ""
+                    const newDictionary = { ...dictionary };
+                    newDictionary[selectedImageInfo.id] = newName;
+                    setDictionary(newDictionary);
+                    document.getElementById("suite").value = ""
+                    Swal.fire({
+                        title: 'Image ajoutée',
+                        icon: 'success',
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Erreur',
+                        text: 'Veuillez donner un nom à l\'image chosi',
+                        confirmButtonText: 'OK',
+                    });
+                }
             }
         }
     }
@@ -71,64 +87,77 @@ const TTI = () => {
                 confirmButtonText: 'OK',
             });
         } else {
-
-            const config = {
-                headers: {
-                    'Authorization': `Bearer ${Cookies.get('JWT')}`,
-                    'Content-Type': 'application/json' // Utilisation de 'application/json' pour le Content-Type
-                }
-            };
-
-            const data = {
-                nom: document.getElementById('nameExo').value,
-                anneeScolaire: valeur,
-                description: document.getElementById('descriptionExoTTI').value,
-                type: "TTI",
-                reponses: dictionary
-            }
-
-            axios.post(`http://51.77.150.97:4000/exercice/registerTTI`, data, config).then((res) => {
-
-
-                if (res.status == 201) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Texte à image créé!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    }).then((result) => {
-                        if (result.dismiss === Swal.DismissReason.timer) {
-                            navigate('/');
+            if (Object.keys(dictionary).length === 0) {
+                Swal.fire({
+                    title: "Aucune image",
+                    text: "L'exercice n'est composé d'aucune image",
+                    icon: 'info',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                if ((document.getElementById("nameExo").value !== "") && (document.getElementById("descriptionExoTTI").value !== "")) {
+                    const config = {
+                        headers: {
+                            'Authorization': `Bearer ${Cookies.get('JWT')}`,
+                            'Content-Type': 'application/json' // Utilisation de 'application/json' pour le Content-Type
                         }
-                    });
+                    };
+                    const data = {
+                        nom: document.getElementById('nameExo').value,
+                        anneeScolaire: valeur,
+                        description: document.getElementById('descriptionExoTTI').value,
+                        type: "TTI",
+                        reponses: dictionary
+                    }
+                    axios.post(`http://localhost:4000/exercice/registerTTI`, data, config).then((res) => {
+                        if (res.status == 201) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Texte à image créé!',
+                                showConfirmButton: false,
+                                timer: 1000
+                            }).then((result) => {
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    navigate('/');
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Une erreur s\'est produite durant la création du texte à image',
+                                text: 'Veuillez réessayer plus tard.',
+                            });
+                        }
+
+                        let data = {
+                            idExo: res.data.data._id,
+                            type: "TTI"
+                        }
+
+                        axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                            .then((res) => {
+                                console.log(res)
+                            })
+                            .catch((error) => {
+                                console.log(error)
+                            })
+                    })
+                        .catch((error) => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erreur!',
+                                text: 'Une erreur s\'est produite.',
+                            });
+                        })
                 } else {
                     Swal.fire({
-                        icon: 'error',
-                        title: 'Une erreur s\'est produite durant la création du texte à image',
-                        text: 'Veuillez réessayer plus tard.',
+                        title: 'Erreur',
+                        text: 'Veuillez compléter tous les champs',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
                     });
                 }
-
-                let data = {
-                    idExo: res.data.data._id,
-                    type: "TTI"
-                }
-
-                axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
-                    .then((res) => {
-                        console.log(res)
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
-            })
-                .catch((error) => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erreur!',
-                        text: 'Une erreur s\'est produite.',
-                    });
-                })
+            }
         }
     }
 

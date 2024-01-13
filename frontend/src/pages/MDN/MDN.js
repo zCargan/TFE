@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import './MDN.css'
 
+import { estUnNombre } from '../FonctionsUnitaires';
 import InfoIcon from '@mui/icons-material/Info';
 
 const MDN = () => {
@@ -15,6 +16,8 @@ const MDN = () => {
 
     const [nbrItem, setNbrItem] = useState("");
     const [popupOpen, setPopupOpen] = useState(false);
+    const [exoCreated, setExoCreated] = useState(false);
+    const [squelettonSaved, setSquelettonSaved] = useState(false);
 
     const navigate = useNavigate();
 
@@ -27,144 +30,183 @@ const MDN = () => {
     }
 
     function showSqueleton() {
-        var number = document.getElementById('nombre').value;
-        if (/^[0-9]+$/.test(number)) {
-            let texte = "<div class='triangle-container'>";
-            texte += '<h1>' + document.getElementById('nomMDN').value + '</h1>';
-            texte += "<h3>" + document.getElementById('descriptionMDN').value + "</h3>"
-            texte += "<div id='mdnContent'>";
-            for (let i = 0; i < number; i++) {
-                texte += '<div className="divExoMDN">'
-                texte += '<input id="' + i + '" class="inputMDN"></input><input id="' + i + '" class="inputMDN"></input>';
-                texte += '</div>'
+        if ((document.getElementById("nomMDN").value !== "") && (document.getElementById("descriptionMDN").value !== "") && (document.getElementById("nombre").value !== "")) {
+            var number = document.getElementById('nombre').value;
+            if (estUnNombre(number)) {
+                let texte = "<div class='triangle-container'>";
+                texte += '<h1>' + document.getElementById('nomMDN').value + '</h1>';
+                texte += "<h3>" + document.getElementById('descriptionMDN').value + "</h3>"
+                texte += "<div id='mdnContent'>";
+                for (let i = 0; i < number; i++) {
+                    texte += '<div className="divExoMDN">'
+                    texte += '<input id="' + i + '" class="inputMDN"></input><input id="' + i + '" class="inputMDN"></input>';
+                    texte += '</div>'
+                }
+                texte += "</div></div>";
+                console.log(texte)
+                document.getElementById("mdn").innerHTML = texte;
+                setExoCreated(true)
+            } else {
+                Swal.fire({
+                    title: 'Erreur',
+                    text: 'Veuillez entrer un nombre de colonnes valide',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                });
+                document.getElementById('nombre').value = "";
             }
-            texte += "</div></div>";
-            console.log(texte)
-            document.getElementById("mdn").innerHTML = texte;
+        } else {
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Veuillez compléter tous les champs',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
         }
     }
 
 
 
     function saveSquelette() {
-
-        var radios = document.getElementsByName('anneeScolaire');
-        var valeur;
-        for (var i = 0; i < radios.length; i++) {
-            if (radios[i].checked) {
-                valeur = radios[i].value;
-            }
-        }
-
-
-
-        exo.nom = document.getElementById("nomMDN").value;
-        exo.description = document.getElementById("descriptionMDN").value;
-        exo.type = "MDN";
-        exo.cols = Number(document.getElementById('nombre').value);
-
-        let arrayEnonce = []
-
-        let input = document.getElementsByClassName('inputMDN')
-        console.log(input)
-
-        for (let i = 0; i < input.length; i++) {
-            console.log(input[i].value)
-            arrayEnonce.push(input[i].value)
-        }
-
-        exo.reponseInitiale = arrayEnonce
-
-
-    }
-
-    function final() {
-        let arrayFinal = []
-
-        let input = document.getElementsByClassName('inputMDN')
-
-        for (let i = 0; i < input.length; i++) {
-            arrayFinal.push(input[i].value)
-        }
-
-        console.log(arrayFinal)
-        var radios = document.getElementsByName('anneeScolaire');
-        var valeur;
-        for (var i = 0; i < radios.length; i++) {
-            if (radios[i].checked) {
-                valeur = radios[i].value;
-            }
-        }
-
-        if (valeur === undefined) {
+        if (exoCreated === false) {
             Swal.fire({
-                icon: 'warning',
                 title: 'Erreur',
-                text: 'Veuillez choisir une année scolaire valide',
+                text: 'Veuillez d\'abord créer votre abaque',
+                icon: 'error',
                 confirmButtonText: 'OK',
             });
         } else {
-            exo.anneeScolaire = valeur;
-            exo.reponseFinal = arrayFinal
-
-            const config = {
-                headers: {
-                    'Authorization': `Bearer ${Cookies.get('JWT')}`
+            var radios = document.getElementsByName('anneeScolaire');
+            var valeur;
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    valeur = radios[i].value;
                 }
             }
 
-            axios
-                .post("http://51.77.150.97:4000/exercice/registerMDN", { exo }, config)
 
-                .then((res) => {
 
-                    if (res.status == 201) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Maison des nombres créé!',
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then((result) => {
-                            if (result.dismiss === Swal.DismissReason.timer) {
-                                navigate('/');
-                            }
-                        });
-                    } else {
+            exo.nom = document.getElementById("nomMDN").value;
+            exo.description = document.getElementById("descriptionMDN").value;
+            exo.type = "MDN";
+            exo.cols = Number(document.getElementById('nombre').value);
+
+            let arrayEnonce = []
+
+            let input = document.getElementsByClassName('inputMDN')
+            console.log(input)
+
+            for (let i = 0; i < input.length; i++) {
+                console.log(input[i].value)
+                arrayEnonce.push(input[i].value)
+            }
+
+            exo.reponseInitiale = arrayEnonce
+            Swal.fire({
+                icon: 'success',
+                title: 'Squelette de la maison des nombres sauvegardé!',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            setSquelettonSaved(true)
+        }
+    }
+
+    function final() {
+        if (squelettonSaved === false) {
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Veuillez d\'abord sauver votre squelette',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+        } else {
+            let arrayFinal = []
+
+            let input = document.getElementsByClassName('inputMDN')
+
+            for (let i = 0; i < input.length; i++) {
+                arrayFinal.push(input[i].value)
+            }
+
+            console.log(arrayFinal)
+            var radios = document.getElementsByName('anneeScolaire');
+            var valeur;
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    valeur = radios[i].value;
+                }
+            }
+
+            if (valeur === undefined) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Erreur',
+                    text: 'Veuillez choisir une année scolaire valide',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                exo.anneeScolaire = valeur;
+                exo.reponseFinal = arrayFinal
+
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${Cookies.get('JWT')}`
+                    }
+                }
+
+                axios
+                    .post("http://localhost:4000/exercice/registerMDN", { exo }, config)
+
+                    .then((res) => {
+
+                        if (res.status == 201) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Maison des nombres créé!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then((result) => {
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    navigate('/');
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Une erreur s\'est produite durant la création de la maison des nombres',
+                                text: 'Veuillez réessayer plus tard.',
+                            });
+                        }
+
+                        let data = {
+                            idExo: res.data.data._id,
+                            type: "MDN"
+                        }
+
+                        axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                            .then((res) => {
+                                console.log(res)
+                            })
+                            .catch((error) => {
+                                console.log(error)
+                            })
+                    })
+                    .catch((error) => {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Une erreur s\'est produite durant la création de la maison des nombres',
-                            text: 'Veuillez réessayer plus tard.',
+                            title: 'Erreur!',
+                            text: 'Une erreur s\'est produite.',
                         });
-                    }
-
-                    let data = {
-                        idExo: res.data.data._id,
-                        type: "MDN"
-                    }
-
-                    axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
-                        .then((res) => {
-                            console.log(res)
-                        })
-                        .catch((error) => {
-                            console.log(error)
-                        })
-                })
-                .catch((error) => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erreur!',
-                        text: 'Une erreur s\'est produite.',
-                    });
-                })
+                    })
+            }
         }
-
 
     }
 
 
     function get_exos_mdn() {
-        axios.get('http://51.77.150.97:4000/exercice/get_mdn_exercice').then((res) => {
+        axios.get('http://localhost:4000/exercice/get_mdn_exercice').then((res) => {
             let exo = res.data[0];
             let nom = exo.nom;
             let reponseInitiale = exo.reponseInitiale;
@@ -204,7 +246,7 @@ const MDN = () => {
                 reponseUser.push(ligne1[i].value)
             }
         }
-        axios.get('http://51.77.150.97:4000/exercice/get_mdn_exercice').then((res) => {
+        axios.get('http://localhost:4000/exercice/get_mdn_exercice').then((res) => {
             let dicFinale = res.data[0].reponseFinale;
             let dicInitiale = res.data[0].reponseInitiale;
             let idExercice = res.data[0]._id;
@@ -262,7 +304,7 @@ const MDN = () => {
                 idExercice: idExercice
             }
 
-            axios.post("http://51.77.150.97:4000/exercice/registerAnswers", { data }, config)
+            axios.post("http://localhost:4000/exercice/registerAnswers", { data }, config)
         })
 
     }
@@ -318,7 +360,7 @@ const MDN = () => {
                 <input className="inputMDNBottom" id="nombre" placeholder='Nombre de ligne de votre maison des nombres'></input>
             </div>
             <div className='divButtonMDN'>
-                <button className="boutonbottomMDN" onClick={showSqueleton}>Voir mon squelette</button><button className="boutonbottomMDN" onClick={saveSquelette}>Valider le squelette</button><button className="boutonbottomMDN" onClick={final}>Valider les réponses</button>
+                <button className="boutonbottomMDN" onClick={showSqueleton}>Voir mon squelette</button><button className="boutonbottomMDN" onClick={saveSquelette}>Sauver le squelette</button><button className="boutonbottomMDN" onClick={final}>Valider les réponses</button>
             </div>
             <div className='mdnZone'>
                 <p id="mdn">Votre résultat apparaitra ici</p>

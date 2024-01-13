@@ -5,6 +5,7 @@ import GetSounds from '../../../components/getSoundsFromUserID/getSoundsFromUser
 import { IoIosInformationCircle } from "react-icons/io";
 import Popup from 'reactjs-popup';
 import InfoIcon from '@mui/icons-material/Info';
+import Swal from 'sweetalert2';
 
 import './SoundToText.css'
 
@@ -31,14 +32,11 @@ const SoundToText = ({ onSttData }) => {
     };
 
     const confirmeNameToString = () => {
-        // Vérifier si le son est déjà présent dans le tableau
         const isSoundAlreadySelected = soundTable.some(item => item.sound === selectedSoundName);
-
-        // Si le son est déjà sélectionné, mettez à jour la valeur associée
         if (isSoundAlreadySelected) {
             const updatedTable = soundTable.map(item => {
                 if (item.sound === selectedSoundName) {
-                    console.log(id); // Afficher l'ancienne valeur associée
+                    console.log(id);
                     console.log("Nouveau nom associé:", soundName);
                     setDictionnaire(prevDictionnaire => ({
                         ...prevDictionnaire,
@@ -50,17 +48,22 @@ const SoundToText = ({ onSttData }) => {
             });
             setSoundTable(updatedTable);
         } else {
-            // Si le son n'est pas déjà sélectionné, ajoutez-le au tableau
-            console.log("Nom associé:", soundName);
-            console.log(id);
-            setDictionnaire(prevDictionnaire => ({
-                ...prevDictionnaire,
-                [id]: soundName,
-            }));
-            setSoundTable(prevTable => [...prevTable, { sound: selectedSoundName, inputValue: soundName }]);
+            if (document.getElementById('inputSound').value !== "") {
+                setDictionnaire(prevDictionnaire => ({
+                    ...prevDictionnaire,
+                    [id]: soundName,
+                }));
+                setSoundTable(prevTable => [...prevTable, { sound: selectedSoundName, inputValue: soundName }]);
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Erreur',
+                    text: 'Veuillez donner un nom au son chosi',
+                    confirmButtonText: 'OK',
+                });
+            }
         }
 
-        // Réinitialisez les états
         setSoundName('');
         setSelectedSounds([]);
     };
@@ -68,16 +71,30 @@ const SoundToText = ({ onSttData }) => {
 
 
     function validerExo() {
-
-
-
-        const data = {
-            description: document.getElementById('descriptionExoSTTWS').value,
-            type: "STT",
-            reponses: dictionnaire
+        if (Object.keys(dictionnaire).length === 0) {
+            Swal.fire({
+                title: "Aucun son",
+                text: "L'exercice n'est composé d'aucun son",
+                icon: 'info',
+                confirmButtonText: 'OK',
+            });
+        } else {
+            if (document.getElementById('descriptionExoSTTWS').value !== "") {
+                const data = {
+                    description: document.getElementById('descriptionExoSTTWS').value,
+                    type: "STT",
+                    reponses: dictionnaire
+                }
+                onSttData(data)
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Erreur',
+                    text: 'Veuillez choisir une description valide',
+                    confirmButtonText: 'OK',
+                });
+            }
         }
-        onSttData(data)
-
     }
 
     return (
@@ -145,15 +162,12 @@ const SoundToText = ({ onSttData }) => {
                                 ))}
                             </tbody>
                         </table>
+                        <button className='buttonSTTWS' onClick={validerExo}>Valider l'exercice</button>
                     </div>
                 </div>
             </div>
 
             <GetSounds onSoundSelect={handleSoundSelect} />
-
-            <div>
-                <button className='buttonSTTWS' onClick={validerExo}>Valider l'exercice</button>
-            </div>
         </div>
     );
 };

@@ -16,7 +16,6 @@ const LDNCreator = ({ exo }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log(exo)
         getExoLDN()
     }, [])
 
@@ -28,7 +27,7 @@ const LDNCreator = ({ exo }) => {
 
     function getExoLDN() {
         axios
-            .get(`http://51.77.150.97:4000/exercice/getLDN/${exo}`, config)
+            .get(`http://localhost:4000/exercice/getLDN/${exo}`, config)
             .then((res) => {
                 console.log(res.data)
                 let resultatAttendu =  res.data.reponseFinale
@@ -72,7 +71,7 @@ const LDNCreator = ({ exo }) => {
         }
 
         axios
-            .get(`http://51.77.150.97:4000/exercice/getLDN/${exo}`, config)
+            .get(`http://localhost:4000/exercice/getLDN/${exo}`, config)
             .then((res) => {
                 console.log(res.data)
                 let reponseAttendue = res.data.reponseFinale;
@@ -121,7 +120,7 @@ const LDNCreator = ({ exo }) => {
                 });
 
                 axios
-                .post("http://51.77.150.97:4000/exercice/registerAnswers", {data}, config)
+                .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
                 .then((res) => {
                     setTimeout(() => {
                         navigate('/home');
@@ -168,7 +167,7 @@ const LDNCreator = ({ exo }) => {
                 <div id="zoneExoLDN"></div>
                 <button onClick={correction} id="buttonCorrection">Corriger mon exercice !</button>
                 <br />
-                <button onClick={seeCorrection}>Voir la correction</button>
+                {/* <button onClick={seeCorrection}>Voir la correction</button> */}
             </div>
         </div>
     );

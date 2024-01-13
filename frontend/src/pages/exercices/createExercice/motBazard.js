@@ -35,34 +35,60 @@ const MotBazard = ({ onMbData }) => {
                     timer: 2000
                 });
             } else {
-                // Convertir la chaîne de caractères en tableau
-                const nameArray = newName.split('');
+                if (document.getElementById('name_photo').value !== "") {
+                    const nameArray = newName.split('');
 
-                const newRow = { id: newId, photo: newId, name: nameArray };
-                setTableData([...tableData, newRow]);
+                    const newRow = { id: newId, photo: newId, name: nameArray };
+                    setTableData([...tableData, newRow]);
 
-                const newDictionary = { ...dictionary };
-                newDictionary[selectedImageInfo.id] = nameArray;
-                setDictionary(newDictionary);
+                    const newDictionary = { ...dictionary };
+                    newDictionary[selectedImageInfo.id] = nameArray;
+                    setDictionary(newDictionary);
+                    document.getElementById("name_photo").value = "";
+                    Swal.fire({
+                        title: 'Image ajoutée',
+                        icon: 'success',
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Erreur',
+                        text: 'Veuillez donner un nom à l\'image chosi',
+                        confirmButtonText: 'OK',
+                    });
+                }
             }
         }
     }
 
     function saveExo() {
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get('JWT')}`,
-                'Content-Type': 'application/json' // Utilisation de 'application/json' pour le Content-Type
+        if (Object.keys(dictionary).length === 0) {
+            Swal.fire({
+                title: "Aucune image",
+                text: "L'exercice n'est composé d'aucune image",
+                icon: 'info',
+                confirmButtonText: 'OK',
+            });
+        } else {
+            if (document.getElementById('descriptionExo').value !== "") {
+                const data = {
+                    description: document.getElementById('descriptionExo').value,
+                    type: "MB",
+                    reponses: dictionary
+                }
+                onMbData(data)
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Erreur',
+                    text: 'Veuillez choisir une description valide',
+                    confirmButtonText: 'OK',
+                });
             }
-        };
-
-        const data = {
-            description: document.getElementById('descriptionExo').value,
-            type: "MB",
-            reponses: dictionary
         }
-        onMbData(data)
-
     }
 
     return (
@@ -126,14 +152,12 @@ const MotBazard = ({ onMbData }) => {
                             ))}
                         </tbody>
                     </table>
-
+                    <button className='buttonMBWS' onClick={(e) => saveExo()}>Valider l'exercice</button>
                 </div>
-
             </div>
             <div>
                 <GetPhotos onImageClick={handleImageClick} />
             </div>
-            <button className='buttonMBWS' onClick={(e) => saveExo()}>Valider l'exercice</button>
         </div>
     );
 };

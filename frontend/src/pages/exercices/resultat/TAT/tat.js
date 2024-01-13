@@ -33,7 +33,7 @@ const TAT = () => {
     function getExoTAT() {
 
         axios
-            .get('http://51.77.150.97:4000/exercice/getTAT', config)
+            .get('http://localhost:4000/exercice/getTAT', config)
             .then((res) => {
                 let reponsesFromDB = []
                 let string = "";
@@ -68,7 +68,7 @@ const TAT = () => {
 
     function correction() {
         axios
-        .get('http://51.77.150.97:4000/exercice/getTAT', config)
+        .get('http://localhost:4000/exercice/getTAT', config)
         .then((res) => {
             let arrayUserResponse = [];
             let inputUser = document.getElementsByClassName('inputTATuser')
@@ -107,7 +107,7 @@ const TAT = () => {
             });
     
             axios
-            .post("http://51.77.150.97:4000/exercice/registerAnswers", {data}, config)
+            .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
             .then((res) => {
                 setTimeout(() => {
                     navigate('/');
@@ -155,7 +155,7 @@ const TAT = () => {
                 <div id="zoneExoTAT"></div>
                 <button onClick={correction} id="buttonCorrection">Corriger mon exercice !</button>
                 <br />
-                <button onClick={seeCorrection}>Voir la correction</button>
+                {/* <button onClick={seeCorrection}>Voir la correction</button> */}
             </div>
         </div>
     );

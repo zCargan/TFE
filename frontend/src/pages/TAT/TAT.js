@@ -88,82 +88,101 @@ const TAT = () => {
     }
 
     function validateSentence() {
-
-        var radios = document.getElementsByName('anneeScolaire');
-        var valeur;
-        for (var i = 0; i < radios.length; i++) {
-            if (radios[i].checked) {
-                valeur = radios[i].value;
-            }
-        }
-
-        if (valeur === undefined) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Erreur',
-                text: 'Veuillez choisir une année scolaire valide',
-                confirmButtonText: 'OK',
-            });
-        } else {
-
-            const config = {
-                headers: {
-                    'Authorization': `Bearer ${Cookies.get('JWT')}`
+        if ((document.getElementById("name").value !== "") && (document.getElementById("descriptionTAT").value !== "")) {
+            if (document.getElementById('phrase').innerHTML === "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Erreur',
+                    text: 'Votre texte à trou est vide',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                var radios = document.getElementsByName('anneeScolaire');
+                var valeur;
+                for (var i = 0; i < radios.length; i++) {
+                    if (radios[i].checked) {
+                        valeur = radios[i].value;
+                    }
                 }
-            }
 
-            const data = {
-                nom: document.getElementById("name").value,
-                anneeScolaire: valeur,
-                description: document.getElementById("descriptionTAT").value,
-                type: "TAT",
-                reponseInitiale: arrayEnonce,
-                reponseFinale: arrayFinal
-            }
+                if (valeur === undefined) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Erreur',
+                        text: 'Veuillez choisir une année scolaire valide',
+                        confirmButtonText: 'OK',
+                    });
+                } else {
 
-            axios.post("http://51.77.150.97:4000/exercice/registerTAT", { data }, config)
-                .then((res) => {
-
-                    if (res.status == 201) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Texte à trous créé!',
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then((result) => {
-                            if (result.dismiss === Swal.DismissReason.timer) {
-                                navigate('/');
-                            }
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Une erreur s\'est produite durant la création du texte à trou',
-                            text: 'Veuillez réessayer plus tard.',
-                        });
+                    const config = {
+                        headers: {
+                            'Authorization': `Bearer ${Cookies.get('JWT')}`
+                        }
                     }
 
-                    let data = {
-                        idExo: res.data.data._id,
-                        type: "TAT"
+                    const data = {
+                        nom: document.getElementById("name").value,
+                        anneeScolaire: valeur,
+                        description: document.getElementById("descriptionTAT").value,
+                        type: "TAT",
+                        reponseInitiale: arrayEnonce,
+                        reponseFinale: arrayFinal
                     }
 
-                    axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
+                    axios.post("http://localhost:4000/exercice/registerTAT", { data }, config)
                         .then((res) => {
-                            console.log(res)
+
+                            if (res.status == 201) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Texte à trous créé!',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                }).then((result) => {
+                                    if (result.dismiss === Swal.DismissReason.timer) {
+                                        navigate('/');
+                                    }
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Une erreur s\'est produite durant la création du texte à trou',
+                                    text: 'Veuillez réessayer plus tard.',
+                                });
+                            }
+
+                            let data = {
+                                idExo: res.data.data._id,
+                                type: "TAT"
+                            }
+
+                            axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                                .then((res) => {
+                                    console.log(res)
+                                })
+                                .catch((error) => {
+                                    console.log(error)
+                                })
                         })
                         .catch((error) => {
-                            console.log(error)
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erreur!',
+                                text: 'Une erreur s\'est produite.',
+                            });
                         })
-                })
-                .catch((error) => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erreur!',
-                        text: 'Une erreur s\'est produite.',
-                    });
-                })
+                }
+            }
+        } else {
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Veuillez compléter tous les champs',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
         }
+
+
     }
 
     function changeValueText(event) {

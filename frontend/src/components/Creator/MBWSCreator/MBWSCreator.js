@@ -13,6 +13,7 @@ const MBWSCreator = ({ exo, onMBDataChange }) => {
     const [description, setDescription] = useState('');
 
     useEffect(() => {
+        console.log(exo)
         if (!getMBCalledRef.current) {
             getMB();
             getMBCalledRef.current = true;
@@ -71,7 +72,7 @@ const MBWSCreator = ({ exo, onMBDataChange }) => {
 
             for (let i = 0; i < cles.length; i++) {
                 axios
-                    .get(`http://51.77.150.97:4000/photos/getImage/${cles[i]}`, config)
+                    .get(`http://localhost:4000/photos/getImage/${cles[i]}`, config)
                     .then((resPhoto) => {
                         reponsesAttendues.push(img[cles[i]].join('').toLowerCase());
                         console.log(reponsesAttendues)
@@ -94,6 +95,8 @@ const MBWSCreator = ({ exo, onMBDataChange }) => {
                             imageElement.style.height = '200px';
 
                             const nameElement = document.createElement('div');
+                            console.log(cles[i])
+                            console.log(exo.reponses)
                             const imageName = concatenateLetters(cles[i], exo.reponses);
                             nameElement.textContent = imageName; // Ajouter le nom en tant que texte
                             nameElement.style.marginTop = '10px'; // Ajouter un espace en haut du texte

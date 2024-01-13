@@ -8,10 +8,13 @@ import './LDN.css'
 
 import Popup from 'reactjs-popup';
 import InfoIcon from '@mui/icons-material/Info';
+import { estUnNombre } from '../FonctionsUnitaires';
 
 const LDN = () => {
 
     const [popupOpen, setPopupOpen] = useState(false);
+    const [exoCreated, setExoCreated] = useState(false);
+    const [squelettonSaved, setSquelettonSaved] = useState(false);
 
     let exercice = {}
     var texte = ""
@@ -35,31 +38,39 @@ const LDN = () => {
     }
 
     function saveSqueleton() {
-
-
-        let reponsesEnoncees = []
-        exo.nom = document.getElementById("name").value;
-        exo.description = document.getElementById("descriptionLDN").value;
-        exo.type = 'LDN'
-        let option = document.getElementById("direction").value;
-        if (option === "gauche") {
-            exo.direction = "G"
+        if (exoCreated === false) {
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Veuillez d\'abord créer votre ligne des nombres',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
         } else {
-            exo.direction = "D"
+            let reponsesEnoncees = []
+            exo.nom = document.getElementById("name").value;
+            exo.description = document.getElementById("descriptionLDN").value;
+            exo.type = 'LDN'
+            let option = document.getElementById("direction").value;
+            if (option === "gauche") {
+                exo.direction = "G"
+            } else {
+                exo.direction = "D"
+            }
+            let inputClass = document.getElementsByClassName("inputUser");
+
+            for (let i = 0; i < inputClass.length; i++) {
+                reponsesEnoncees.push(inputClass[i].value)
+            }
+            exo.reponseInitiale = reponsesEnoncees
+            exercice.baseExercice = exo
+            Swal.fire({
+                icon: 'success',
+                title: 'Squelette de la ligne des nombres sauvergardé',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            setSquelettonSaved(true)
         }
-
-        let inputClass = document.getElementsByClassName("inputUser");
-
-        for (let i = 0; i < inputClass.length; i++) {
-            reponsesEnoncees.push(inputClass[i].value)
-        }
-
-        exo.reponseInitiale = reponsesEnoncees
-
-        console.log(exo)
-
-        exercice.baseExercice = exo
-
     }
 
 
@@ -71,84 +82,91 @@ const LDN = () => {
 
         */
 
-
-        let reponsesFinales = []
-
-        let inputClass = document.getElementsByClassName("inputUser");
-
-        for (let i = 0; i < inputClass.length; i++) {
-            reponsesFinales.push(inputClass[i].value)
-        }
-
-        exo.reponseFinale = reponsesFinales
-        
-        var radios = document.getElementsByName('anneeScolaire');
-        var valeur;
-        for (var i = 0; i < radios.length; i++) {
-            if (radios[i].checked) {
-                valeur = radios[i].value;
-            }
-        }
-
-        if (valeur === undefined) {
+        if (squelettonSaved === false) {
             Swal.fire({
-                icon: 'warning',
                 title: 'Erreur',
-                text: 'Veuillez choisir une année scolaire valide',
+                text: 'Veuillez d\'abord sauver votre squelette',
+                icon: 'error',
                 confirmButtonText: 'OK',
             });
         } else {
-            exo.anneeScolaire = valeur;
-            const config = {
-                headers: {
-                    'Authorization': `Bearer ${Cookies.get('JWT')}`
+            let reponsesFinales = []
+
+            let inputClass = document.getElementsByClassName("inputUser");
+
+            for (let i = 0; i < inputClass.length; i++) {
+                reponsesFinales.push(inputClass[i].value)
+            }
+
+            exo.reponseFinale = reponsesFinales
+
+            var radios = document.getElementsByName('anneeScolaire');
+            var valeur;
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    valeur = radios[i].value;
                 }
             }
 
-
-            axios.post("http://51.77.150.97:4000/exercice/registerLDN", { exo }, config).then((res) => {
-
-                if (res.status == 201) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Ligne des nombres créé!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    }).then((result) => {
-                        if (result.dismiss === Swal.DismissReason.timer) {
-                            navigate('/');
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Une erreur s\'est produite durant la création de la ligne des nombres',
-                        text: 'Veuillez réessayer plus tard.',
-                    });
+            if (valeur === undefined) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Erreur',
+                    text: 'Veuillez choisir une année scolaire valide',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                exo.anneeScolaire = valeur;
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${Cookies.get('JWT')}`
+                    }
                 }
 
-                let data = {
-                    idExo: res.data.data._id,
-                    type: "LDN"
-                }
 
-                axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
-                    .then((res) => {
-                        console.log(res)
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
-            })
-                .catch((error) => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erreur!',
-                        text: 'Une erreur s\'est produite.',
-                    });
+                axios.post("http://localhost:4000/exercice/registerLDN", { exo }, config).then((res) => {
+
+                    if (res.status == 201) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Ligne des nombres créé!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then((result) => {
+                            if (result.dismiss === Swal.DismissReason.timer) {
+                                navigate('/');
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Une erreur s\'est produite durant la création de la ligne des nombres',
+                            text: 'Veuillez réessayer plus tard.',
+                        });
+                    }
+
+                    let data = {
+                        idExo: res.data.data._id,
+                        type: "LDN"
+                    }
+
+                    axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                        .then((res) => {
+                            console.log(res)
+                        })
+                        .catch((error) => {
+                            console.log(error)
+                        })
                 })
+                    .catch((error) => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur!',
+                            text: 'Une erreur s\'est produite.',
+                        });
+                    })
 
-
+            }
         }
     }
 
@@ -163,31 +181,61 @@ const LDN = () => {
 
 
     function createLine() {
-        texte = ""
-        texte += "<div class='divLDNCreator'>"
-        texte += String("<h4>" + document.getElementById("name").value + "</h4>")
-        texte += String("<p>" + document.getElementById("descriptionLDN").value + "</p>")
-        texte += String("<div id='ligneDuTemps'><table><tbody>")
-        let length = document.getElementById('length').value;
-        let option = document.getElementById("direction").value;
+        document.getElementById("showResult").innerHTML = "";
+        texte = "";
+        if ((document.getElementById("name").value !== "") && (document.getElementById("descriptionLDN").value !== "") && (document.getElementById("length").value !== "")) {
+            let length = document.getElementById('length').value;
+            if (estUnNombre(length)) {
+                texte += "<div class='divLDNCreator'>"
+                texte += String("<h4>" + document.getElementById("name").value + "</h4>")
+                texte += String("<p>" + document.getElementById("descriptionLDN").value + "</p>")
+                texte += String("<div id='ligneDuTemps'><table><tbody>")
+                texte += String("<br />")
+                let length = document.getElementById('length').value;
+                let option = document.getElementById("direction").value;
 
-        if (option === "gauche") {
-            texte += '◀'
-            for (let i = 0; i < length; i++) {
-                texte += String("<input id='" + (i + 1) + "' class='inputUser inputLDNCreator'></input>");
+                if (option === "gauche") {
+                    texte += '◀'
+                    for (let i = 0; i < length; i++) {
+                        texte += String("<input id='" + (i + 1) + "' class='inputUser inputLDNCreator'></input>");
+                    }
+                    texte += String("</tbody></table></div>");
+                    console.log(texte)
+                } else {
+                    for (let i = 0; i < length; i++) {
+                        texte += String("<input id='" + (i + 1) + "' class='inputUser inputLDNCreator'></input>");
+                    }
+                    texte += '▶'
+                    texte += String("</tbody></table></div>");
+                }
+
+                texte += "</div>"
+                document.getElementById("showResult").innerHTML = texte
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Exercice créé!',
+                    text: 'Vous pouvez ajouter les données de l\'énoncé de l\'execice',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                setExoCreated(true)
+            } else {
+                Swal.fire({
+                    title: 'Erreur',
+                    text: 'Veuillez entrer un nombre valide',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                });
+                document.getElementById('length').value = "";
             }
-            texte += String("</tbody></table></div>");
-            console.log(texte)
         } else {
-            for (let i = 0; i < length; i++) {
-                texte += String("<input id='" + (i + 1) + "' class='inputUser inputLDNCreator'></input>");
-            }
-            texte += '▶'
-            texte += String("</tbody></table></div>");
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Veuillez compléter tous les champs',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
         }
-
-        texte += "</div>"
-        document.getElementById("showResult").innerHTML = texte
     }
 
 

@@ -12,10 +12,12 @@ import InfoIcon from '@mui/icons-material/Info';
 
 const Abaque = () => {
 
-    const [height, setHeight] = useState(0);
-    const [width, setWidth] = useState(0);
+    const [height, setHeight] = useState("");
+    const [width, setWidth] = useState("");
     const [word, setWord] = useState("")
     const [popupOpen, setPopupOpen] = useState(false);
+    const [exoCreated, setExoCreated] = useState(false);
+    const [squelettonSaved, setSquelettonSaved] = useState(false);
 
     const navigate = useNavigate();
 
@@ -33,6 +35,7 @@ const Abaque = () => {
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK'
             });
+            document.getElementById('largeur').value = ""
         }
     }
 
@@ -47,139 +50,180 @@ const Abaque = () => {
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK'
             });
+            document.getElementById('hauteur').value = ""
         }
     }
 
 
 
     function showExercice() {
-        let texte = String("<div id='abaque'><table><tbody>");
-        let titre = document.getElementById('titreAbaque').value;
-        let description = document.getElementById('descriptionExercice').value;
-        texte += "<br />"
-        texte += '<div class="abaqueInputDivCreation">'
-        texte += '<h1>Titre : ' + titre + '</h1>'
-        texte += '<h2>Description : ' + description + '</h2>'
-        texte += '<br />'
-        for (let i = 0; i < height; i++) {
-            for (let j = 0; j < width; j++) {
-                console.log("largeur")
-                console.log("longueur")
-                texte += "<input class='inputAbaqueCreation' " + "></input>"
+        if ((document.getElementById("titreAbaque").value !== "") && (document.getElementById("descriptionExercice").value !== "") && (height !== "") && (width !== "")) {
+            let texte = String("<div id='abaque'><table><tbody>");
+            let titre = document.getElementById('titreAbaque').value;
+            let description = document.getElementById('descriptionExercice').value;
+            texte += "<br />"
+            texte += '<div class="abaqueInputDivCreation">'
+            texte += '<h1>Titre : ' + titre + '</h1>'
+            texte += '<h2>Description : ' + description + '</h2>'
+            texte += '<br />'
+            for (let i = 0; i < height; i++) {
+                for (let j = 0; j < width; j++) {
+                    console.log("largeur")
+                    console.log("longueur")
+                    texte += "<input class='inputAbaqueCreation' " + "></input>"
+                }
+                texte += "<br></br>"
             }
-            texte += "<br></br>"
+            texte += "</div>"
+            texte += "</div>"
+            console.log(texte)
+            document.getElementById("abaqueCreation").innerHTML = texte;
+            Swal.fire({
+                icon: 'success',
+                title: 'Exercice créé!',
+                text: 'Vous pouvez ajouter les données de l\'énoncé de l\'execice',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            setExoCreated(true)
+        } else {
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Veuillez compléter tous les champs',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
         }
-        texte += "</div>"
-        texte += "</div>"
-        console.log(texte)
-        document.getElementById("abaqueCreation").innerHTML = texte;
     }
 
 
     function saveAbaque() {
-        dictionnaire.nom = document.getElementById('titreAbaque').value;
-        dictionnaire.description = document.getElementById("descriptionExercice").value;
-        dictionnaire.type = "abaque";
-        dictionnaire.hauteur = Number(height);
-        dictionnaire.longueur = Number(width);
-        let array1 = []
-        let a = document.getElementsByClassName("inputAbaqueCreation")
-        for (let i = 0; i < a.length; i++) {
-            array1.push(a[i].value)
-        }
-        dictionnaire.reponseInitiale = array1;
-        console.log(dictionnaire)
-
-    }
-
-    function saveAnswer() {
-
-        var radios = document.getElementsByName('anneeScolaire');
-        var valeur;
-        for (var i = 0; i < radios.length; i++) {
-            if (radios[i].checked) {
-                valeur = radios[i].value;
-            }
-        }
-
-        if (valeur === undefined) {
+        if (exoCreated === false) {
             Swal.fire({
-                icon: 'warning',
                 title: 'Erreur',
-                text: 'Veuillez choisir une année scolaire valide',
+                text: 'Veuillez d\'abord créer votre abaque',
+                icon: 'error',
                 confirmButtonText: 'OK',
             });
         } else {
-            dictionnaire.anneeScolaire = valeur;
-
+            dictionnaire.nom = document.getElementById('titreAbaque').value;
+            dictionnaire.description = document.getElementById("descriptionExercice").value;
+            dictionnaire.type = "abaque";
+            dictionnaire.hauteur = Number(height);
+            dictionnaire.longueur = Number(width);
             let array1 = []
             let a = document.getElementsByClassName("inputAbaqueCreation")
             for (let i = 0; i < a.length; i++) {
                 array1.push(a[i].value)
             }
-            dictionnaire.reponseFinale = array1;
+            dictionnaire.reponseInitiale = array1;
             console.log(dictionnaire)
+            Swal.fire({
+                icon: 'success',
+                title: 'Squelette de la maison de nombres sauvegardé!',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            setSquelettonSaved(true)
+        }
+    }
 
-            const config = {
-                headers: {
-                    'Authorization': `Bearer ${Cookies.get('JWT')}`
+    function saveAnswer() {
+        if (exoCreated === false) {
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Veuillez d\'abord créer votre abaque',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+        } else {
+            var radios = document.getElementsByName('anneeScolaire');
+            var valeur;
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    valeur = radios[i].value;
                 }
             }
 
-            const data = {
-                exercice: dictionnaire
-            }
-            console.log(data)
+            if (valeur === undefined) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Erreur',
+                    text: 'Veuillez choisir une année scolaire valide',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                dictionnaire.anneeScolaire = valeur;
 
-            axios.post("http://51.77.150.97:4000/exercice/registerAbaque", { data }, config)
-                .then((res) => {
+                let array1 = []
+                let a = document.getElementsByClassName("inputAbaqueCreation")
+                for (let i = 0; i < a.length; i++) {
+                    array1.push(a[i].value)
+                }
+                dictionnaire.reponseFinale = array1;
+                console.log(dictionnaire)
 
-                    if (res.status == 201) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Abaque créé!',
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then((result) => {
-                            if (result.dismiss === Swal.DismissReason.timer) {
-                                navigate('/');
-                            }
-                        });
-                    } else {
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${Cookies.get('JWT')}`
+                    }
+                }
+
+                const data = {
+                    exercice: dictionnaire
+                }
+                console.log(data)
+
+                axios.post("http://localhost:4000/exercice/registerAbaque", { data }, config)
+                    .then((res) => {
+
+                        if (res.status == 201) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Abaque créé!',
+                                showConfirmButton: false,
+                                timer: 1000
+                            }).then((result) => {
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    navigate('/');
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Une erreur s\'est produite durant la création de l\'abaque',
+                                text: 'Veuillez réessayer plus tard.',
+                            });
+                        }
+
+
+                        let data = {
+                            idExo: res.data.data._id,
+                            type: "abaque"
+                        }
+
+                        axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                            .then((res) => {
+                                console.log(res)
+                            })
+                            .catch((error) => {
+                                console.log(error)
+                            })
+                    })
+                    .catch((error) => {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Une erreur s\'est produite durant la création de l\'abaque',
-                            text: 'Veuillez réessayer plus tard.',
+                            title: 'Erreur!',
+                            text: 'Une erreur s\'est produite.',
                         });
-                    }
-
-
-                    let data = {
-                        idExo: res.data.data._id,
-                        type: "abaque"
-                    }
-
-                    axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
-                        .then((res) => {
-                            console.log(res)
-                        })
-                        .catch((error) => {
-                            console.log(error)
-                        })
-                })
-                .catch((error) => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erreur!',
-                        text: 'Une erreur s\'est produite.',
-                    });
-                })
+                    })
+            }
         }
 
     }
 
     function recupereExo() {
-        axios.get("http://51.77.150.97:4000/exercice/getAbaque").then((res) => {
+        axios.get("http://localhost:4000/exercice/getAbaque").then((res) => {
             console.log(res.data[0])
             let reponseInitiale = res.data[0].reponseInitiale;
             let hauteur = res.data[0].hauteur;
@@ -207,7 +251,7 @@ const Abaque = () => {
 
 
     function correction() {
-        axios.get("http://51.77.150.97:4000/exercice/getAbaque").then((res) => {
+        axios.get("http://localhost:4000/exercice/getAbaque").then((res) => {
             let resultatAttendu = res.data[0].reponseFinale
             let resultatInitial = res.data[0].reponseInitiale;
             let resultatRecu = []
@@ -252,7 +296,7 @@ const Abaque = () => {
                 idExercice: idExercice
             }
 
-            axios.post("http://51.77.150.97:4000/exercice/registerAnswers", { data }, config)
+            axios.post("http://localhost:4000/exercice/registerAnswers", { data }, config)
 
 
 

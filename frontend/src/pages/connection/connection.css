@@ -48,12 +48,12 @@
 
 #input_connection_div h1 {
     font-weight: bold;
-    font-size: 50px;
+    font-size: 300%;
     font-family: 'j2';
 }
 
 #input_connection_div h2 {
-    font-size: 35px;
+    font-size: 200%;
     font-family: 'j2';
     color: linear-gradient(to right, #ff0000, #00ff00);
 
@@ -105,7 +105,7 @@
 
 
 .divGlobalConnection {
-    margin-top: 1%;
+    margin-top: 2%;
     border-radius: 10px;
     border: 2px solid rgb(144,68,60);
     padding: 1%;
@@ -170,8 +170,8 @@
 
 .newPassword {
     position: relative;
-    margin-top: 3%;
-    font-size: 30px;
+    margin-top: auto;
+    font-size: 180%;
     font-family: 'homeKitchen';
     background-color: black;
     color: white;
@@ -235,7 +235,7 @@
 
 
 
-@media screen and (max-width: 1017px) {
+@media screen and (max-width: 1700px) and (max-height: 920px) {
     #input_connection_div {
       background-image: none;
       background: linear-gradient(45deg, #FF8C42, #FF6384);

@@ -17,6 +17,12 @@ import bcrypt from 'bcryptjs'
 // FONCTIONS
 import { sameString } from '../FonctionsUnitaires';
 import { HasLowerCaseLetter } from '../FonctionsUnitaires';
+import { HasValidLength } from '../FonctionsUnitaires';
+import { HasUpperCaseLetter } from '../FonctionsUnitaires';
+import { HasSpecialCharacter } from '../FonctionsUnitaires';
+import { HasNumber } from '../FonctionsUnitaires';
+import { checkEmail } from '../FonctionsUnitaires';
+
 import { useConnection } from '../FonctionAPI';
 
 const Connection = (props) => {
@@ -79,30 +85,6 @@ const Connection = (props) => {
     setShowLoginForm(!showLoginForm);
 
   };
-
-
-  function HasValidLength(string) {
-    return (string.length >= 12)
-  }
-
-
-  function HasUpperCaseLetter(string) {
-    return (/[A-Z]/.test(string))
-  }
-
-  function HasSpecialCharacter(string) {
-    return (/[!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?]/.test(string))
-  }
-
-  function HasNumber(string) {
-    return (/[0-9]/.test(string))
-  }
-
-  function checkEmail(email) {
-    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  }
-
   function passwordOk(string1, string2) {
     if (passwordHasValidLength && passwordHasLowercaseLetter && passwordHasUppercaseLetter && passwordHasNumber && passwordHasSpecialCharacter) {
       return sameString(string1, string2);
@@ -145,7 +127,7 @@ const Connection = (props) => {
               "email": email,
               "password": hashedPassword
             }
-            axios.post("http://51.77.150.97:4000/connection/register", data_to_send)
+            axios.post("http://localhost:4000/connection/register", data_to_send)
               .then(response => {
                 if (response.data.exist) {
                   Swal.fire({
@@ -228,10 +210,20 @@ const Connection = (props) => {
           </div>
           <div className='divGlobalConnection'>
             <div className="card-header">
-              <div id="forLogin" className={`buttonForm ${showLoginForm ? 'active' : ''}`} onClick={() => { setShowLoginForm(true); document.getElementById('surname').value = "" }}>
+              <div id="forLogin" className={`buttonForm ${showLoginForm ? 'active' : ''}`} onClick={() => {
+                setShowLoginForm(true); const surnameInput = document.getElementById('surname');
+                if (surnameInput) {
+                  surnameInput.value = "";
+                }
+              }}>
                 Se connecter
               </div>
-              <div id="forRegister" className={`buttonForm ${!showLoginForm ? 'active' : ''}`} onClick={() => { handleToggleForm(); document.getElementById('pseudo').value = "" }}>
+              <div id="forRegister" className={`buttonForm ${!showLoginForm ? 'active' : ''}`} onClick={() => {
+                setShowLoginForm(false); const pseudoInput = document.getElementById('pseudo');
+                if (pseudoInput) {
+                  pseudoInput.value = "";
+                }
+              }}>
                 S'inscrire                <Popup
                   trigger={
                     <span className='important'>*</span>
@@ -249,7 +241,7 @@ const Connection = (props) => {
             {showLoginForm ? (
               <div>
                 <br />
-                <input type="text" className="inputForm" placeholder="Nom d'utilisateur" id="pseudo" />
+                <input type="text" className="inputForm" placeholder="Pseudonyme" id="pseudo" />
                 <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                   <input
                     type={showPassword ? 'text' : 'password'}
@@ -269,7 +261,7 @@ const Connection = (props) => {
             ) : (
               <div id="divInscription">
                 <br />
-                <input type="text" className="inputForm" placeholder="Nom d'utilisateur" id="surname" onChange={(e) => setSurname(e.target.value)}></input>
+                <input type="text" className="inputForm" placeholder="Pseudonyme" id="surname" onChange={(e) => setSurname(e.target.value)}></input>
                 <br />
                 <input className="inputForm" placeholder='Adresse email' type='text' id="emai" onChange={(e) => setEmail(e.target.value)}></input>
                 <br />
@@ -320,9 +312,6 @@ const Connection = (props) => {
         <div>
           <button className='newPassword' onClick={(e) => navigate('/reset-password')}>Changer mon mot de passe</button>
         </div>
-      </div>
-      <div>
-        <img className="imgConnection" src="./crayon.png"></img>
       </div>
     </div>
 

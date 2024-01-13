@@ -17,10 +17,10 @@ exports.registerData = (req, res, next) => {
     console.log(req.body.email)
 
     const client = new Client({
-        host: 'db',
+        host: 'localhost',
         port: 5432,
         database: 'test',
-        user: 'loganAdmin',
+        user: 'postgres',
         password: 'LoganTFE2023',
     });
 

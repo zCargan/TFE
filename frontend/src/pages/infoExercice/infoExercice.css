@@ -46,6 +46,11 @@
   border-radius: 20px;
 }
 
+.zoneSC div {
+  color: white;
+  font-weight: bold;
+}
+
 .zoneAC {
   margin: 2%;
   margin-left: 10%;

@@ -46,15 +46,15 @@ const TexteATrou = ({ onTatData }) => {
             }
 
             var motAAjouter = document.getElementById("motAAjouter").value.trim();
-            
-            const motsTextArea = textarea.split(' '); 
+
+            const motsTextArea = textarea.split(' ');
 
             motsTextArea.forEach(mot => {
                 enonce.push(mot)
-                arrayOfWords.push(mot); 
+                arrayOfWords.push(mot);
             });
 
-            const motsInput = motAAjouter.split(' '); 
+            const motsInput = motAAjouter.split(' ');
 
             motsInput.forEach(mot => {
                 enonce.push(mot)
@@ -92,20 +92,38 @@ const TexteATrou = ({ onTatData }) => {
 
     function validateSentence() {
 
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get('JWT')}`
+        console.log(document.getElementById('phrase').innerHTML === "")
+
+        if (document.getElementById('descriptionTAT').value === "") {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Erreur',
+                text: 'Veuillez choisir une description valide',
+                confirmButtonText: 'OK',
+            });
+        } else {
+            if (document.getElementById('phrase').innerHTML === "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Erreur',
+                    text: 'Votre texte à trou est vide',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${Cookies.get('JWT')}`
+                    }
+                }
+                const data = {
+                    description: document.getElementById("descriptionTAT").value,
+                    type: "TAT",
+                    reponseInitiale: arrayEnonce,
+                    reponseFinale: arrayFinal
+                }
+                onTatData(data)
             }
         }
-
-        const data = {
-            description: document.getElementById("descriptionTAT").value,
-            type: "TAT",
-            reponseInitiale: arrayEnonce,
-            reponseFinale: arrayFinal
-        }
-
-        onTatData(data)
     }
 
     function changeValueText(event) {
@@ -143,12 +161,12 @@ const TexteATrou = ({ onTatData }) => {
                 <textarea className="textareaTAT" id="descriptionTAT" rows={5} cols={52} placeholder="Description de l'exercice"></textarea>
                 <div>
                     <input className='phraseTATBottom' id="textArea" onChange={changeValueText} placeholder='Ecrivez votre phrase ici'></input>
-                    <input className='wordTATBottom' id="motAAjouter" placeholder='Mot à ajouter'></input><button className="boutonbottomTAT" onClick={addWords}>Ajouter ce mot</button>
+                    <input className='wordTATBottom' id="motAAjouter" placeholder='Mot à ajouter ici'></input><button className="boutonbottomTAT" onClick={addWords}>Ajouter le mot</button>
                     <br />
                     <p className='resultTATPhrase'>Résultat de la phrase :</p><p id="phrase"></p>
                 </div>
                 <div>
-                    <button className="boutonbottomTAT" onClick={validateSentence}>Valider cette phrase</button>
+                    <button className="boutonbottomTAT" onClick={validateSentence}>Valider mon texte à trou</button>
                 </div>
             </div>
 

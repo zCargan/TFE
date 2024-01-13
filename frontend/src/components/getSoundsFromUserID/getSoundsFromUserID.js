@@ -14,15 +14,14 @@ const GetSounds = ({ onSoundSelect }) => {
       }
     };
 
-    axios.post("http://51.77.150.97:4000/connection/infoUser", {}, config)
+    axios.post("http://localhost:4000/connection/infoUser", {}, config)
       .then(response => {
         let id = response.data.id
-        axios.get(`http://51.77.150.97:4000/sound/getSound/${id}`, {}, config)
+        axios.get(`http://localhost:4000/sound/getSound/${id}`, {}, config)
           .then((res) => {
-            // Ajouter une étiquette à chaque son
             const sonsAvecLabels = res.data.resultat.map((son, index) => ({
               ...son,
-              label: `Son ${index + 1}` // Étiquette du son
+              label: `Son ${index + 1}` 
             }));
             setSons(anciensSons => [...anciensSons, ...sonsAvecLabels]);
             document.getElementById('buttonGetSound').style.display = 'none';

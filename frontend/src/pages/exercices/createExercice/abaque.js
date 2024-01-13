@@ -8,10 +8,12 @@ import InfoIcon from '@mui/icons-material/Info';
 
 const Abaque = ({ onAbaqueData }) => {
 
-    const [height, setHeight] = useState(0);
-    const [width, setWidth] = useState(0);
+    const [height, setHeight] = useState("");
+    const [width, setWidth] = useState("");
     const [word, setWord] = useState("")
     const [popupOpen, setPopupOpen] = useState(false);
+    const [exoCreated, setExoCreated] = useState(false);
+    const [squelettonSaved, setSquelettonSaved] = useState(false);
 
     let dictionnaire = {};
 
@@ -22,11 +24,12 @@ const Abaque = ({ onAbaqueData }) => {
         } else {
             Swal.fire({
                 title: 'Attention',
-                text: 'Veuillez entrer un nombre entier',
+                text: 'Veuillez entrer un nombre entierrr',
                 icon: 'warning',
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK'
             });
+            document.getElementById('largeur').value = ""
         }
     }
 
@@ -41,63 +44,106 @@ const Abaque = ({ onAbaqueData }) => {
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK'
             });
+            document.getElementById('hauteur').value = ""
         }
     }
 
 
 
     function showExercice() {
-        let texte = String("<div id='abaque'><table><tbody>");
-        texte += "<p>" + document.getElementById('descriptionExercice').value + "</p>"
-        for (let i = 0; i < height; i++) {
-            texte += "<div class='ligneAbaqueWS'>"
-            for (let j = 0; j < width; j++) {
-                console.log("largeur")
-                console.log("longueur")
-                texte += "<input placeholder='' class='inputAbaqueCreation' " + "></input>"
+        if ((document.getElementById('descriptionExercice').value !== "") && (height !== "") && (width !== "")) {
+            let texte = String("<div id='abaque'><table><tbody>");
+            texte += "<p>" + document.getElementById('descriptionExercice').value + "</p>"
+            for (let i = 0; i < height; i++) {
+                texte += "<div class='ligneAbaqueWS'>"
+                for (let j = 0; j < width; j++) {
+                    console.log("largeur")
+                    console.log("longueur")
+                    texte += "<input placeholder='' class='inputAbaqueCreation' " + "></input>"
+                }
+                texte += "</div>"
             }
             texte += "</div>"
+            console.log(texte)
+            document.getElementById("abaque").innerHTML = texte;
+            Swal.fire({
+                icon: 'success',
+                title: 'Exercice créé!',
+                text: 'Vous pouvez ajouter les données de l\'énoncé de l\'execice',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            setExoCreated(true)
+        } else {
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Veuillez compléter tous les champs',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
         }
-        texte += "</div>"
-        console.log(texte)
-        document.getElementById("abaque").innerHTML = texte;
     }
 
 
     function saveAbaque() {
-        dictionnaire.description = document.getElementById("descriptionExercice").value;
-        dictionnaire.type = "abaque";
-        dictionnaire.hauteur = Number(height);
-        dictionnaire.longueur = Number(width);
-        let array1 = []
-        let a = document.getElementsByClassName("inputAbaqueCreation")
-        for (let i = 0; i < a.length; i++) {
-            array1.push(a[i].value)
+        if (exoCreated === false) {
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Veuillez d\'abord créer votre abaque',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+        } else {
+            dictionnaire.description = document.getElementById("descriptionExercice").value;
+            dictionnaire.type = "abaque";
+            dictionnaire.hauteur = Number(height);
+            dictionnaire.longueur = Number(width);
+            let array1 = []
+            let a = document.getElementsByClassName("inputAbaqueCreation")
+            for (let i = 0; i < a.length; i++) {
+                array1.push(a[i].value)
+            }
+            dictionnaire.reponseInitiale = array1;
+            console.log(dictionnaire)
+            Swal.fire({
+                icon: 'success',
+                title: 'Squelette de l\'abaque sauvegardé!',
+                text: 'Vous pouvez maintenant introduire les réponses attendues',
+                showConfirmButton: false,
+                timer: 1800
+            })
+            setSquelettonSaved(true)
         }
-        dictionnaire.reponseInitiale = array1;
-        console.log(dictionnaire)
-
     }
 
     function saveAnswer() {
-        let array1 = []
-        let a = document.getElementsByClassName("inputAbaqueCreation")
-        for (let i = 0; i < a.length; i++) {
-            array1.push(a[i].value)
-        }
-        dictionnaire.reponseFinale = array1;
-        console.log(dictionnaire)
-
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get('JWT')}`
+        if (squelettonSaved === false) {
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Veuillez d\'abord sauver votre squelette',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+        } else {
+            let array1 = []
+            let a = document.getElementsByClassName("inputAbaqueCreation")
+            for (let i = 0; i < a.length; i++) {
+                array1.push(a[i].value)
             }
+            dictionnaire.reponseFinale = array1;
+            console.log(dictionnaire)
+
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${Cookies.get('JWT')}`
+                }
+            }
+            onAbaqueData(dictionnaire);
         }
-        onAbaqueData(dictionnaire);
     }
 
     function recupereExo() {
-        axios.get("http://51.77.150.97:4000/exercice/getAbaque").then((res) => {
+        axios.get("http://localhost:4000/exercice/getAbaque").then((res) => {
             console.log(res.data[0])
             let reponseInitiale = res.data[0].reponseInitiale;
             let hauteur = res.data[0].hauteur;
@@ -125,7 +171,7 @@ const Abaque = ({ onAbaqueData }) => {
 
 
     function correction() {
-        axios.get("http://51.77.150.97:4000/exercice/getAbaque").then((res) => {
+        axios.get("http://localhost:4000/exercice/getAbaque").then((res) => {
             let resultatAttendu = res.data[0].reponseFinale
             let resultatInitial = res.data[0].reponseInitiale;
             let resultatRecu = []
@@ -170,7 +216,7 @@ const Abaque = ({ onAbaqueData }) => {
                 idExercice: idExercice
             }
 
-            axios.post("http://51.77.150.97:4000/exercice/registerAnswers", { data }, config)
+            axios.post("http://localhost:4000/exercice/registerAnswers", { data }, config)
 
 
 

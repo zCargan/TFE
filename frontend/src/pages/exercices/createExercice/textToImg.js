@@ -35,26 +35,51 @@ const TextToImg = ({ onTtiData }) => {
                     timer: 2000
                 });
             } else {
-                const newRow = { id: newId, photo: newId, name: newName };
-                setTableData([...tableData, newRow]);
+                if (document.getElementById('name_photo').value !== "") {
+                    const newRow = { id: newId, photo: newId, name: newName };
+                    setTableData([...tableData, newRow]);
 
-                const newDictionary = { ...dictionary };
-                newDictionary[selectedImageInfo.id] = newName;
-                setDictionary(newDictionary);
-                document.getElementById('name_photo').value = "";
+                    const newDictionary = { ...dictionary };
+                    newDictionary[selectedImageInfo.id] = newName;
+                    setDictionary(newDictionary);
+                    document.getElementById('name_photo').value = "";
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Erreur',
+                        text: 'Veuillez donner un nom à l\'image choisie',
+                        confirmButtonText: 'OK',
+                    });
+                }
             }
         }
     }
 
     function saveExo() {
-
-
-        const data = {
-            description: document.getElementById('descriptionExo').value,
-            type: "TTI",
-            reponses: dictionary
+        if (Object.keys(dictionary).length === 0) {
+            Swal.fire({
+                title: "Aucune image",
+                text: "L'exercice n'est composé d'aucune image",
+                icon: 'info',
+                confirmButtonText: 'OK',
+            });
+        } else {
+            if (document.getElementById('descriptionExo').value !== "") {
+                const data = {
+                    description: document.getElementById('descriptionExo').value,
+                    type: "TTI",
+                    reponses: dictionary
+                }
+                onTtiData(data)
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Erreur',
+                    text: 'Veuillez choisir une description valide',
+                    confirmButtonText: 'OK',
+                });
+            }
         }
-        onTtiData(data)
     }
 
     return (
@@ -118,6 +143,7 @@ const TextToImg = ({ onTtiData }) => {
                             ))}
                         </tbody>
                     </table>
+                    <button className='buttonTTIWS' onClick={(e) => saveExo()}>Valider l'exercice</button>
                 </div>
             </div>
 
@@ -126,7 +152,7 @@ const TextToImg = ({ onTtiData }) => {
                 <GetPhotos onImageClick={handleImageClick} />
             </div>
             <br />
-            <button className='buttonTTIWS' onClick={(e) => saveExo()}>Valider l'exercice</button>
+
         </div>
     );
 };

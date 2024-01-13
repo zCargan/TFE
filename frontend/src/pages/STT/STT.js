@@ -36,14 +36,14 @@ const STT = () => {
     };
 
     const confirmeNameToString = () => {
-        // Vérifier si le son est déjà présent dans le tableau
+
         const isSoundAlreadySelected = soundTable.some(item => item.sound === selectedSoundName);
 
-        // Si le son est déjà sélectionné, mettez à jour la valeur associée
+
         if (isSoundAlreadySelected) {
             const updatedTable = soundTable.map(item => {
                 if (item.sound === selectedSoundName) {
-                    console.log(id); // Afficher l'ancienne valeur associée
+                    console.log(id);
                     console.log("Nouveau nom associé:", soundName);
                     setDictionnaire(prevDictionnaire => ({
                         ...prevDictionnaire,
@@ -55,17 +55,25 @@ const STT = () => {
             });
             setSoundTable(updatedTable);
         } else {
-            // Si le son n'est pas déjà sélectionné, ajoutez-le au tableau
-            console.log("Nom associé:", soundName);
-            console.log(id);
-            setDictionnaire(prevDictionnaire => ({
-                ...prevDictionnaire,
-                [id]: soundName,
-            }));
-            setSoundTable(prevTable => [...prevTable, { sound: selectedSoundName, inputValue: soundName }]);
+            if (document.getElementById('inputSound').value !== "") {
+                console.log("Nom associé:", soundName);
+                console.log(id);
+                setDictionnaire(prevDictionnaire => ({
+                    ...prevDictionnaire,
+                    [id]: soundName,
+                }));
+                setSoundTable(prevTable => [...prevTable, { sound: selectedSoundName, inputValue: soundName }]);
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Erreur',
+                    text: 'Veuillez donner un nom au son chosi',
+                    confirmButtonText: 'OK',
+                });
+            }
         }
 
-        // Réinitialisez les états
+
         setSoundName('');
         setSelectedSounds([]);
         document.getElementById('inputSound').value = ""
@@ -91,63 +99,75 @@ const STT = () => {
                 confirmButtonText: 'OK',
             });
         } else {
-
-
-            const config = {
-                headers: {
-                    'Authorization': `Bearer ${Cookies.get('JWT')}`,
-                    'Content-Type': 'application/json' // Utilisation de 'application/json' pour le Content-Type
-                }
-            };
-
-
-            const data = {
-                nom: document.getElementById('nameExo').value,
-                anneeScolaire: valeur,
-                description: document.getElementById('descriptionExoSTT').value,
-                type: "STT",
-                reponses: dictionnaire
-            }
-
-            axios
-                .post(`http://51.77.150.97:4000/exercice/registerSTT`, data, config)
-                .then((res) => {
-
-                    if (res.status == 201) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Son avec texte créé!',
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then((result) => {
-                            if (result.dismiss === Swal.DismissReason.timer) {
-                                navigate('/');
-                            }
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Une erreur s\'est produite durant la création du son avec texte',
-                            text: 'Veuillez réessayer plus tard.',
-                        });
+            if (Object.keys(dictionnaire).length === 0) {
+                Swal.fire({
+                    title: "Aucune image",
+                    text: "L'exercice n'est composé d'aucune image",
+                    icon: 'info',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                if ((document.getElementById("nameExo").value !== "") && (document.getElementById("descriptionExoSTT").value !== "")) {
+                    const config = {
+                        headers: {
+                            'Authorization': `Bearer ${Cookies.get('JWT')}`,
+                            'Content-Type': 'application/json'
+                        }
+                    };
+                    const data = {
+                        nom: document.getElementById('nameExo').value,
+                        anneeScolaire: valeur,
+                        description: document.getElementById('descriptionExoSTT').value,
+                        type: "STT",
+                        reponses: dictionnaire
                     }
-
-                    let data = {
-                        idExo: res.data.data._id,
-                        type: "STT"
-                    }
-
-                    axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
+                    axios
+                        .post(`http://localhost:4000/exercice/registerSTT`, data, config)
                         .then((res) => {
-                            console.log(res)
-                        })
-                        .catch((error) => {
-                            console.log(error)
-                        })
-                })
-                .catch((error) => { })
-        }
 
+                            if (res.status == 201) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Son avec texte créé!',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                }).then((result) => {
+                                    if (result.dismiss === Swal.DismissReason.timer) {
+                                        navigate('/');
+                                    }
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Une erreur s\'est produite durant la création du son avec texte',
+                                    text: 'Veuillez réessayer plus tard.',
+                                });
+                            }
+
+                            let data = {
+                                idExo: res.data.data._id,
+                                type: "STT"
+                            }
+
+                            axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                                .then((res) => {
+                                    console.log(res)
+                                })
+                                .catch((error) => {
+                                    console.log(error)
+                                })
+                        })
+                        .catch((error) => { })
+                } else {
+                    Swal.fire({
+                        title: 'Erreur',
+                        text: 'Veuillez compléter tous les champs',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            }
+        }
     }
 
     return (

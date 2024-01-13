@@ -13,6 +13,7 @@ const MBWSCreatorCorrection = ({ exo, onMBDataChange }) => {
     const [description, setDescription] = useState('');
 
     useEffect(() => {
+        console.log(exo)
         if (!getMBCalledRef.current) {
             getMB();
             getMBCalledRef.current = true;
@@ -71,7 +72,7 @@ const MBWSCreatorCorrection = ({ exo, onMBDataChange }) => {
 
             for (let i = 0; i < cles.length; i++) {
                 axios
-                    .get(`http://51.77.150.97:4000/photos/getImage/${cles[i]}`, config)
+                    .get(`http://localhost:4000/photos/getImage/${cles[i]}`, config)
                     .then((resPhoto) => {
                         console.log(img[cles[i]]);
                         reponsesAttendues.push(img[cles[i]].join(''));
