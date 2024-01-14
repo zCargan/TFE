@@ -13,28 +13,74 @@ import { estUnNombre } from '../FonctionsUnitaires';
 const LDN = () => {
 
     const [popupOpen, setPopupOpen] = useState(false);
-    const [exoCreated, setExoCreated] = useState(false);
-    const [squelettonSaved, setSquelettonSaved] = useState(false);
+
+
+    let exoCreated = false;
+    let squelettonSaved = false;
 
     let exercice = {}
     var texte = ""
     let exo = {};
     const navigate = useNavigate();
 
-    function submit_squelette() {
-        let allInput = document.querySelectorAll('.inputUser')
-        allInput.forEach(element => {
-            if (element.value !== "") {
-                console.log(element.id)
-                console.log(element.value)
-            }
-        });
-        var div = document.getElementById("administratif");
-        div.style.display = "none"
-    }
 
-    function test123() {
-        console.log(document.getElementById("length").value)
+
+    function createLine() {
+        document.getElementById("showResult").innerHTML = "";
+        texte = "";
+        if ((document.getElementById("name").value !== "") && (document.getElementById("descriptionLDN").value !== "") && (document.getElementById("length").value !== "")) {
+            let length = document.getElementById('length').value;
+            if (estUnNombre(length)) {
+                texte += "<div class='divLDNCreator'>"
+                texte += String("<h4>" + document.getElementById("name").value + "</h4>")
+                texte += String("<p>" + document.getElementById("descriptionLDN").value + "</p>")
+                texte += String("<div id='ligneDuTemps'><table><tbody>")
+                texte += String("<br />")
+                let length = document.getElementById('length').value;
+                let option = document.getElementById("direction").value;
+
+                if (option === "gauche") {
+                    texte += '◀'
+                    for (let i = 0; i < length; i++) {
+                        texte += String("<input id='" + (i + 1) + "' class='inputUser inputLDNCreator'></input>");
+                    }
+                    texte += String("</tbody></table></div>");
+                    console.log(texte)
+                } else {
+                    for (let i = 0; i < length; i++) {
+                        texte += String("<input id='" + (i + 1) + "' class='inputUser inputLDNCreator'></input>");
+                    }
+                    texte += '▶'
+                    texte += String("</tbody></table></div>");
+                }
+
+                texte += "</div>"
+                document.getElementById("showResult").innerHTML = texte
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Exercice créé!',
+                    text: 'Vous pouvez ajouter les données de l\'énoncé de l\'execice',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                exoCreated = true
+            } else {
+                Swal.fire({
+                    title: 'Erreur',
+                    text: 'Veuillez entrer un nombre valide',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                });
+                document.getElementById('length').value = "";
+            }
+        } else {
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Veuillez compléter tous les champs',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
+        }
     }
 
     function saveSqueleton() {
@@ -69,7 +115,7 @@ const LDN = () => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            setSquelettonSaved(true)
+            squelettonSaved = true;
         }
     }
 
@@ -162,7 +208,7 @@ const LDN = () => {
                         Swal.fire({
                             icon: 'error',
                             title: 'Erreur!',
-                            text: 'Une erreur s\'est produite.',
+                            text: 'Une erreur s\'est produite. Vérifier que l\'exercice est complet.',
                         });
                     })
 
@@ -180,65 +226,19 @@ const LDN = () => {
     }
 
 
-    function createLine() {
-        document.getElementById("showResult").innerHTML = "";
-        texte = "";
-        if ((document.getElementById("name").value !== "") && (document.getElementById("descriptionLDN").value !== "") && (document.getElementById("length").value !== "")) {
-            let length = document.getElementById('length').value;
-            if (estUnNombre(length)) {
-                texte += "<div class='divLDNCreator'>"
-                texte += String("<h4>" + document.getElementById("name").value + "</h4>")
-                texte += String("<p>" + document.getElementById("descriptionLDN").value + "</p>")
-                texte += String("<div id='ligneDuTemps'><table><tbody>")
-                texte += String("<br />")
-                let length = document.getElementById('length').value;
-                let option = document.getElementById("direction").value;
 
-                if (option === "gauche") {
-                    texte += '◀'
-                    for (let i = 0; i < length; i++) {
-                        texte += String("<input id='" + (i + 1) + "' class='inputUser inputLDNCreator'></input>");
-                    }
-                    texte += String("</tbody></table></div>");
-                    console.log(texte)
-                } else {
-                    for (let i = 0; i < length; i++) {
-                        texte += String("<input id='" + (i + 1) + "' class='inputUser inputLDNCreator'></input>");
-                    }
-                    texte += '▶'
-                    texte += String("</tbody></table></div>");
-                }
 
-                texte += "</div>"
-                document.getElementById("showResult").innerHTML = texte
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Exercice créé!',
-                    text: 'Vous pouvez ajouter les données de l\'énoncé de l\'execice',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                setExoCreated(true)
-            } else {
-                Swal.fire({
-                    title: 'Erreur',
-                    text: 'Veuillez entrer un nombre valide',
-                    icon: 'error',
-                    confirmButtonText: 'OK',
-                });
-                document.getElementById('length').value = "";
+    function submit_squelette() {
+        let allInput = document.querySelectorAll('.inputUser')
+        allInput.forEach(element => {
+            if (element.value !== "") {
+                console.log(element.id)
+                console.log(element.value)
             }
-        } else {
-            Swal.fire({
-                title: 'Erreur',
-                text: 'Veuillez compléter tous les champs',
-                icon: 'warning',
-                confirmButtonText: 'OK'
-            });
-        }
+        });
+        var div = document.getElementById("administratif");
+        div.style.display = "none"
     }
-
-
 
 
     return (

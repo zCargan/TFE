@@ -9,7 +9,7 @@
 
 #allViergeInfo {
 
-  width: 100vw; 
+  width: auto; 
   height: 100%; 
   text-align: center;
   background-color: red;
@@ -75,4 +75,9 @@
 
 #zoneAC, h4 {
   color: white;
+}
+
+#infoAvecCorrection {
+  color: white;
+  padding: 1%;
 }

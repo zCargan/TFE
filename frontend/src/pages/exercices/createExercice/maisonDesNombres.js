@@ -19,8 +19,9 @@ const MaisonDesNombres = ({ onMdnData }) => {
     const exerciceRedux = useSelector(state => (state))
     const [nbrItem, setNbrItem] = useState("");
     const [popupOpen, setPopupOpen] = useState(false);
-    const [exoCreated, setExoCreated] = useState(false);
-    const [squelettonSaved, setSquelettonSaved] = useState(false);
+
+    let exoCreated = false;
+    let squelettonSaved = false;
 
     function verifyAvancement() {
         let dictionnaireFinal = {};
@@ -55,7 +56,7 @@ const MaisonDesNombres = ({ onMdnData }) => {
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    setExoCreated(true)
+                    exoCreated = true;
                 }
             } else {
                 Swal.fire({
@@ -109,7 +110,7 @@ const MaisonDesNombres = ({ onMdnData }) => {
                 showConfirmButton: false,
                 timer: 1800
             })
-            setSquelettonSaved(true)
+            squelettonSaved = true;
         }
     }
 

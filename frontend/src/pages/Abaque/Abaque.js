@@ -16,9 +16,10 @@ const Abaque = () => {
     const [width, setWidth] = useState("");
     const [word, setWord] = useState("")
     const [popupOpen, setPopupOpen] = useState(false);
-    const [exoCreated, setExoCreated] = useState(false);
-    const [squelettonSaved, setSquelettonSaved] = useState(false);
 
+    let exoCreated =  false;
+    let squelettonSaved = false
+    
     const navigate = useNavigate();
 
     let dictionnaire = {};
@@ -85,7 +86,7 @@ const Abaque = () => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            setExoCreated(true)
+            exoCreated = true;
         } else {
             Swal.fire({
                 title: 'Erreur',
@@ -120,11 +121,11 @@ const Abaque = () => {
             console.log(dictionnaire)
             Swal.fire({
                 icon: 'success',
-                title: 'Squelette de la maison de nombres sauvegardé!',
+                title: 'Squelette de l\'abaque sauvegardé!',
                 showConfirmButton: false,
                 timer: 1500
             })
-            setSquelettonSaved(true)
+            squelettonSaved = true
         }
     }
 
@@ -137,6 +138,7 @@ const Abaque = () => {
                 confirmButtonText: 'OK',
             });
         } else {
+            console.log(dictionnaire)
             var radios = document.getElementsByName('anneeScolaire');
             var valeur;
             for (var i = 0; i < radios.length; i++) {
@@ -182,7 +184,7 @@ const Abaque = () => {
                                 icon: 'success',
                                 title: 'Abaque créé!',
                                 showConfirmButton: false,
-                                timer: 1000
+                                timer: 800
                             }).then((result) => {
                                 if (result.dismiss === Swal.DismissReason.timer) {
                                     navigate('/');

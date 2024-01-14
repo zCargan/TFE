@@ -47,7 +47,7 @@ const STT = () => {
                     console.log("Nouveau nom associé:", soundName);
                     setDictionnaire(prevDictionnaire => ({
                         ...prevDictionnaire,
-                        [id]: soundName,
+                        [id]: soundName.toUpperCase(),
                     }));
                     return { ...item, inputValue: soundName };
                 }
@@ -60,7 +60,7 @@ const STT = () => {
                 console.log(id);
                 setDictionnaire(prevDictionnaire => ({
                     ...prevDictionnaire,
-                    [id]: soundName,
+                    [id]: soundName.toUpperCase(),
                 }));
                 setSoundTable(prevTable => [...prevTable, { sound: selectedSoundName, inputValue: soundName }]);
             } else {

@@ -16,8 +16,9 @@ const MDN = () => {
 
     const [nbrItem, setNbrItem] = useState("");
     const [popupOpen, setPopupOpen] = useState(false);
-    const [exoCreated, setExoCreated] = useState(false);
-    const [squelettonSaved, setSquelettonSaved] = useState(false);
+
+    let exoCreated = false;
+    let squelettonSaved = false;
 
     const navigate = useNavigate();
 
@@ -45,7 +46,7 @@ const MDN = () => {
                 texte += "</div></div>";
                 console.log(texte)
                 document.getElementById("mdn").innerHTML = texte;
-                setExoCreated(true)
+                exoCreated = true;
             } else {
                 Swal.fire({
                     title: 'Erreur',
@@ -108,7 +109,7 @@ const MDN = () => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            setSquelettonSaved(true)
+            squelettonSaved = true;
         }
     }
 

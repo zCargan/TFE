@@ -19,7 +19,7 @@ const TTICreator = ({ exo }) => {
     const [reponses, setReponses] = useState('');
 
     let idExos = 2;
-    
+
     useEffect(() => {
         if (!getMBCalledRef.current) {
             getExoTTI();
@@ -30,13 +30,15 @@ const TTICreator = ({ exo }) => {
     const config = {
         headers: {
             'Authorization': `Bearer ${Cookies.get('JWT')}`,
-            'Content-Type': 'application/json' 
+            'Content-Type': 'application/json'
         }
     };
 
+    function supprimerEspaces(chaine) {
+        return chaine.replace(/\s/g, '');
+    }
+
     function getExoTTI() {
-
-
         axios
             .get(`http://localhost:4000/exercice/getTTI/${exo}`, config)
             .then((reponse) => {
@@ -50,11 +52,11 @@ const TTICreator = ({ exo }) => {
                 let cles = Object.keys(img);
 
                 const imageContainer = document.getElementById('zoneExos');
-    
+
                 imageContainer.style.display = 'flex';
                 imageContainer.style.flexWrap = 'wrap';
-                imageContainer.style.justifyContent = 'center'; 
-    
+                imageContainer.style.justifyContent = 'center';
+
                 for (let i = 0; i < cles.length; i++) {
                     axios
                         .get(`http://localhost:4000/photos/getImage/${cles[i]}`, config)
@@ -65,28 +67,28 @@ const TTICreator = ({ exo }) => {
                                 const imageBinaryData = res.data[j].image_data.data;
                                 const blob = new Blob([new Uint8Array(imageBinaryData)], { type: res.data[j].type_mime });
                                 const objectURL = URL.createObjectURL(blob);
-    
+
                                 const imageInputContainer = document.createElement('div');
                                 imageInputContainer.style.margin = '20px';
-                                imageInputContainer.style.textAlign = 'center'; 
-                                imageInputContainer.style.display = 'flex'; 
-                                imageInputContainer.style.flexDirection = 'column'; 
-    
+                                imageInputContainer.style.textAlign = 'center';
+                                imageInputContainer.style.display = 'flex';
+                                imageInputContainer.style.flexDirection = 'column';
+
                                 const imageElement = document.createElement('img');
                                 imageElement.src = objectURL;
                                 imageElement.style.width = '200px';
                                 imageElement.style.height = '200px';
 
-    
+
                                 const inputElement = document.createElement('input');
                                 inputElement.type = 'text';
                                 inputElement.placeholder = 'Saisir un texte ici';
                                 inputElement.style.width = '200px';
-                                inputElement.style.marginTop = '10px'; 
-    
-                                inputElement.value = ''; 
-                                inputElement.classList.add('answerExo'); 
-    
+                                inputElement.style.marginTop = '10px';
+
+                                inputElement.value = '';
+                                inputElement.classList.add('answerExo');
+
                                 imageInputContainer.appendChild(imageElement);
                                 imageInputContainer.appendChild(inputElement);
                                 imageContainer.appendChild(imageInputContainer);
@@ -112,58 +114,55 @@ const TTICreator = ({ exo }) => {
                 let length = inputs.length
                 let nbrExos = 0;
                 let score = 0;
-                for(let i = 0; i < length; i ++) {
-                    console.log(reponses[i])
-                    if(inputs[i].value.trim() === reponses[i]) {
+                for (let i = 0; i < length; i++) {
+                    if (supprimerEspaces(inputs[i].value.trim().toUpperCase()) === reponses[i].toUpperCase()) {
                         score += 1;
                     }
                     nbrExos += 1;
                 }
-        
-
                 const config = {
                     headers: {
                         'Authorization': `Bearer ${Cookies.get('JWT')}`
                     }
                 }
-        
+
                 const data = {
                     type: "TTI",
-                    score: Math.floor((score/nbrExos) * 100),
+                    score: Math.floor((score / nbrExos) * 100),
                     idExercice: id
                 }
 
                 Swal.fire({
                     title: 'Résultat',
-                    text: 'Vous avez obtenu la note de : ' + (score/nbrExos) * 100 + "%",
+                    text: 'Vous avez obtenu la note de : ' + (score / nbrExos) * 100 + "%",
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 2000
                 });
-        
+
                 axios
-                .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
-                .then((res) => {
-                    setTimeout(() => {
-                        navigate('/home');
-                      }, 2000);
-                })
-                .catch((error) => {
-                    Swal.fire({
-                        title: 'Erreur',
-                        text: "Une erreur s'est produite lors de l'enregistrement de votre score",
-                        icon: 'error',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                })
+                    .post("http://localhost:4000/exercice/registerAnswers", { data }, config)
+                    .then((res) => {
+                        setTimeout(() => {
+                            navigate('/home');
+                        }, 2000);
+                    })
+                    .catch((error) => {
+                        Swal.fire({
+                            title: 'Erreur',
+                            text: "Une erreur s'est produite lors de l'enregistrement de votre score",
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    })
             })
-  
+
     }
 
     function seeCorrection() {
         let inputUser = document.getElementsByClassName('answerExo')
-        for(let i = 0; i < inputUser.length; i ++) {
+        for (let i = 0; i < inputUser.length; i++) {
             inputUser[i].value = reponses[i]
         }
         Swal.fire({
@@ -181,12 +180,12 @@ const TTICreator = ({ exo }) => {
             <p id="description">{description}</p>
             <p>Année primaire visée: {anneeScolaire}</p>
             <br />
-                <div>
-                    <div id="zoneExos"></div>
-                    <button onClick={Correction} id="buttonCorrection">Correction</button>
-                    <br />
-                    {/* <button onClick={seeCorrection}>Voir la correction</button> */}
-                </div>
+            <div>
+                <div id="zoneExos"></div>
+                <button onClick={Correction} id="buttonCorrection">Correction</button>
+                <br />
+                {/* <button onClick={seeCorrection}>Voir la correction</button> */}
+            </div>
         </div>
     );
 };

@@ -72,7 +72,9 @@ const TexteATrou = ({ onTatData }) => {
             setArrayEnonce(prevArray => [...prevArray, ...enonceFinal]);
             setArrayFinal(prevArray => [...prevArray, ...arrayOfWordsFinal]);
             console.log()
-
+            
+            document.getElementById('textArea').value = ""
+            document.getElementById('motAAjouter').value = ""
 
             console.log(arrayEnonce, arrayFinal)
         }

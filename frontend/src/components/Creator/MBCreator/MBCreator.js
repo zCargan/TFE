@@ -42,6 +42,9 @@ const MBCreator = ({ exo }) => {
         }
     }
 
+    function supprimerEspaces(chaine) {
+        return chaine.replace(/\s/g, '');
+    }
 
     function concatenateLetters(id, reponses) {
         if (reponses[id] && Array.isArray(reponses[id])) {
@@ -129,65 +132,65 @@ const MBCreator = ({ exo }) => {
             });
     }
 
-    function valideReponsesMB () {
+    function valideReponsesMB() {
         axios
-        .get(`http://localhost:4000/exercice/getMB/${exo}`, config)
-        .then((res) => {
-            console.log(res)
-            let inputUser = document.getElementsByClassName('answerExoMB');
-            let score = 0;
-            let nbrExos = 0;
-            for(let i = 0; i < arrayMotBonOrdre.length; i ++) {
-                if(inputUser[i].value.toUpperCase() === arrayMotBonOrdre[i]) {
-                    score += 1;
-                }
-                nbrExos += 1;
-            }
-            const config = {
-                headers: {
-                    'Authorization': `Bearer ${Cookies.get('JWT')}`
-                }
-            }
-
-            const data = {
-                type: "MB",
-                score: Math.floor((score/nbrExos)*100),
-                idExercice: id
-            }
-
-            Swal.fire({
-                title: 'Résultat',
-                text: 'Vous avez obtenu la note de : ' + (score/nbrExos)*100 + "%",
-                icon: 'success',
-                showConfirmButton: false,
-                timer: 2000
-            });
-
-            axios
-            .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
+            .get(`http://localhost:4000/exercice/getMB/${exo}`, config)
             .then((res) => {
-                setTimeout(() => {
-                    navigate('/home');
-                }, 1000);
+                console.log(res)
+                let inputUser = document.getElementsByClassName('answerExoMB');
+                let score = 0;
+                let nbrExos = 0;
+                for (let i = 0; i < arrayMotBonOrdre.length; i++) {
+                    if (supprimerEspaces(inputUser[i].value.toUpperCase()) === arrayMotBonOrdre[i]) {
+                        score += 1;
+                    }
+                    nbrExos += 1;
+                }
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${Cookies.get('JWT')}`
+                    }
+                }
+
+                const data = {
+                    type: "MB",
+                    score: Math.floor((score / nbrExos) * 100),
+                    idExercice: id
+                }
+
+                Swal.fire({
+                    title: 'Résultat',
+                    text: 'Vous avez obtenu la note de : ' + Math.floor((score / nbrExos) * 100) + "%",
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+
+                axios
+                    .post("http://localhost:4000/exercice/registerAnswers", { data }, config)
+                    .then((res) => {
+                        setTimeout(() => {
+                            navigate('/home');
+                        }, 1000);
+                    })
+                    .catch((error) => {
+                        Swal.fire({
+                            title: 'Erreur',
+                            text: "Une erreur s'est produite lors de l'enregistrement de votre score",
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    })
             })
             .catch((error) => {
-                Swal.fire({
-                    title: 'Erreur',
-                    text: "Une erreur s'est produite lors de l'enregistrement de votre score",
-                    icon: 'error',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            })
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+                console.log(error);
+            });
     }
 
     function seeCorrection() {
         let inputUser = document.getElementsByClassName('answerExoMB')
-        for(let i = 0; i < inputUser.length; i ++) {
+        for (let i = 0; i < inputUser.length; i++) {
             inputUser[i].value = arrayMotBonOrdre[i]
         }
         Swal.fire({

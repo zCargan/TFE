@@ -43,3 +43,7 @@ export function checkNotNul(string) {
 export function estUnNombre(valeur) {
     return !isNaN(parseFloat(valeur)) && isFinite(valeur);
 }
+
+export function supprimerEspaces(chaine) {
+    return chaine.replace(/\s/g, '');
+}

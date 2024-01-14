@@ -79,25 +79,19 @@ const AbaqueCreator = ({ exo }) => {
             }
 
             const resultatRecuOK = resultatRecu.map(str => str.trim());
-
             let tailleArray = resultatInitial.length;
             let nbrAnswer = 0;
             let score = 0;
             for(let i = 0; i < tailleArray; i ++) {
-                if(resultatInitial[i] === "") {
+                if(resultatAttendu[i] !== resultatInitial[i]) {
                     nbrAnswer += 1;
-                    console.log(resultatAttendu[i])
-                    console.log(resultatRecuOK[i])
-                    if(resultatAttendu[i] !== resultatRecuOK[i]) {
-                        console.log("Mauvaise réponse")
-                    } else {
-                        console.log("Bonne réponse")
+                    if(resultatAttendu[i] === resultatRecuOK[i]) {
                         score += 1;
-                    }
+                    } 
                 }
             }
-
             let scoreFinal = (Math.floor((score/nbrAnswer) *100))
+
             Swal.fire({
                 title: 'Résultat',
                 text: 'Vous avez obtenu la note de : ' + scoreFinal + "%",
@@ -121,10 +115,9 @@ const AbaqueCreator = ({ exo }) => {
             axios
             .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
             .then((res) => {
-                console.log(res)
-                // setTimeout(() => {
-                //     navigate('/home');
-                //   }, 1300);
+                setTimeout(() => {
+                    navigate('/home');
+                  }, 1300);
             })
             .catch((error) => {
                 Swal.fire({

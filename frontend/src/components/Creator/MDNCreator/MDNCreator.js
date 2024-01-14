@@ -99,7 +99,7 @@ const MDNCreator = ({ exo }) => {
 
             Swal.fire({
                 title: 'Résultat',
-                text: 'Vous avez obtenu la note de : ' + (score/nbrExos) * 100 + "%",
+                text: 'Vous avez obtenu la note de : ' + Math.floor((score/nbrExos) * 100) + "%",
                 icon: 'success',
                 showConfirmButton: false,
                 timer: 2000

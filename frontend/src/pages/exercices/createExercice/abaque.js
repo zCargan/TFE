@@ -12,8 +12,10 @@ const Abaque = ({ onAbaqueData }) => {
     const [width, setWidth] = useState("");
     const [word, setWord] = useState("")
     const [popupOpen, setPopupOpen] = useState(false);
-    const [exoCreated, setExoCreated] = useState(false);
-    const [squelettonSaved, setSquelettonSaved] = useState(false);
+
+
+    let exoCreated = false;
+    let squelettonSaved = false;
 
     let dictionnaire = {};
 
@@ -73,7 +75,7 @@ const Abaque = ({ onAbaqueData }) => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            setExoCreated(true)
+            exoCreated = true
         } else {
             Swal.fire({
                 title: 'Erreur',
@@ -112,7 +114,7 @@ const Abaque = ({ onAbaqueData }) => {
                 showConfirmButton: false,
                 timer: 1800
             })
-            setSquelettonSaved(true)
+            squelettonSaved = true;
         }
     }
 

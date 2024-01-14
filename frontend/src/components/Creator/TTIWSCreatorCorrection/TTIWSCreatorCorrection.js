@@ -85,7 +85,7 @@ const TTIWSCreatorCorrection = ({ exo, onTTIDataChange }) => {
 
 
                             const headingElement = document.createElement('h4');
-                            headingElement.innerText = exo.reponses[cles[i]];
+                            headingElement.innerText = exo.reponses[cles[i]].toUpperCase();
                             headingElement.style.marginTop = '10px';
 
 

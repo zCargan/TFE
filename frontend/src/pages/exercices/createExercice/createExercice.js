@@ -154,7 +154,8 @@ const CreateExercice = () => {
                             nom: document.getElementById('nameInput').value,
                             descriptionWorksheet: document.getElementById('textareaCE').value,
                             anneeScolaire: valeur,
-                            data: exerciseDataArray
+                            data: exerciseDataArray,
+                            type: "WS"
                         }
 
                         axios

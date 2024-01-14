@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
+import { supprimerEspaces } from '../../../pages/FonctionsUnitaires';
 import './TATWSCreator.css'
 
 const TATWSCreator = ({ exo, onTATDataChange }) => {
@@ -61,8 +62,6 @@ const TATWSCreator = ({ exo, onTATDataChange }) => {
 
 
     const buttonClicked = () => {
-
-
         if (exo.length !== 0) {
 
             console.log(exo.reponseInitiale)
@@ -80,7 +79,9 @@ const TATWSCreator = ({ exo, onTATDataChange }) => {
 
             for (let i = 0; i < exo.reponseInitiale.length; i++) {
                 if ((exo.reponseFinale[i]) !== (exo.reponseInitiale[i])) {
-                    if ((arrayUserResponse[nbr]) == (exo.reponseInitiale[i])) {
+                    console.log(supprimerEspaces(arrayUserResponse[nbr]));
+                    console.log(exo.reponseInitiale[i])
+                    if (supprimerEspaces(arrayUserResponse[nbr]) == (exo.reponseInitiale[i])) {
                         score += 1;
                     }
                     nbrExos += 1;

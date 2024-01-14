@@ -30,7 +30,7 @@ const LDNCreator = ({ exo }) => {
             .get(`http://localhost:4000/exercice/getLDN/${exo}`, config)
             .then((res) => {
                 console.log(res.data)
-                let resultatAttendu =  res.data.reponseFinale
+                let resultatAttendu = res.data.reponseFinale
                 setReponses(resultatAttendu)
                 let length = res.data.reponseFinale.length;
                 let enonceIndex = res.data.reponseInitiale;
@@ -42,16 +42,16 @@ const LDNCreator = ({ exo }) => {
                 setType(res.data.type);
 
                 let texte = String("<div id='ligneDuTemps'><table><tbody>")
-                
-                if(direction === "G") {
+
+                if (direction === "G") {
                     texte += '◀'
-                    for(let i = 0; i < length; i ++) {
-                        texte += String("<input id='" + (i+1) + "' class='inputUserAnswer' value='" + enonceIndex[i] + "'></input>");
+                    for (let i = 0; i < length; i++) {
+                        texte += String("<input id='" + (i + 1) + "' class='inputUserAnswer' value='" + enonceIndex[i] + "'></input>");
                     }
                     texte += String("</tbody></table></div>");
                 } else {
-                    for(let i = 0; i < length; i ++) {
-                        texte += String("<input id='" + (i+1) + "' class='inputUserAnswer' value='" + enonceIndex[i] + "'></input>");
+                    for (let i = 0; i < length; i++) {
+                        texte += String("<input id='" + (i + 1) + "' class='inputUserAnswer' value='" + enonceIndex[i] + "'></input>");
                     }
                     texte += '▶'
                     texte += String("</tbody></table></div>");
@@ -75,11 +75,12 @@ const LDNCreator = ({ exo }) => {
             .then((res) => {
                 console.log(res.data)
                 let reponseAttendue = res.data.reponseFinale;
+                let reponseInitiale = res.data.reponseInitiale;
                 let enonceIndex = res.data.reponseInitiale;
                 let reponsesRecues = [];
                 let inputClassAnswer = document.getElementsByClassName("inputUserAnswer");
-                for(let i = 0; i < inputClassAnswer.length; i ++) {
-                    reponsesRecues.push(inputClassAnswer[i].value)     
+                for (let i = 0; i < inputClassAnswer.length; i++) {
+                    reponsesRecues.push(inputClassAnswer[i].value)
                 }
 
                 const reponsesRecuesOK = reponsesRecues.map(str => str.trim());
@@ -89,23 +90,22 @@ const LDNCreator = ({ exo }) => {
                 let nbrExos = 0;
                 let score = 0;
 
-                for(let i = 0; i < reponseAttendue.length; i ++) {
-                    if(enonceIndex[i] === '') {
-                        if(reponseAttendue[i] === reponsesRecuesOK[i]) {
-                            console.log("bonne réponse")
+                for (let i = 0; i < reponseAttendue.length; i++) {
+                    if (reponseAttendue[i] !== reponseInitiale[i]) {
+                        nbrExos +=1;
+                        if (reponseAttendue[i] === reponsesRecuesOK[i]) {
                             score += 1;
                         }
-                        console.log("mauvaise réponse")
-                        nbrExos +=1;
                     }
                 }
+                console.log(Math.floor((score/nbrExos) * 100))
 
                 const config = {
                     headers: {
                         'Authorization': `Bearer ${Cookies.get('JWT')}`
                     }
                 }
-        
+
                 const data = {
                     type: "LDN",
                     score: Math.floor((score/nbrExos) * 100),
@@ -113,7 +113,7 @@ const LDNCreator = ({ exo }) => {
                 }
                 Swal.fire({
                     title: 'Résultat',
-                    text: 'Vous avez obtenu la note de : ' + (score/nbrExos) * 100 + "%",
+                    text: 'Vous avez obtenu la note de : ' + Math.floor((score/nbrExos) * 100) + "%",
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 2000
@@ -143,7 +143,7 @@ const LDNCreator = ({ exo }) => {
 
     function seeCorrection() {
         let inputUser = document.getElementsByClassName('inputUserAnswer')
-        for(let i = 0; i < inputUser.length; i ++) {
+        for (let i = 0; i < inputUser.length; i++) {
             inputUser[i].value = reponses[i]
         }
         Swal.fire({
@@ -156,11 +156,11 @@ const LDNCreator = ({ exo }) => {
     }
 
     return (
-        <div id='div_ldn'> 
+        <div id='div_ldn'>
             <h3>{nom}</h3>
             <p id="description">{description}</p>
             <p className='anneeScolaireCreator'>Année scolaire visée : {anneeScolaire}</p>
-            <br />    
+            <br />
             <br />
             <div id='zone_ldn'>
                 <br />

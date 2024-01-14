@@ -100,7 +100,7 @@ const MBWSCreatorCorrection = ({ exo, onMBDataChange }) => {
                             nameElement.style.marginTop = '10px'; // Ajouter un espace en haut du texte
 
                             const headingElement = document.createElement('h4');
-                            headingElement.innerText = img[cles[i]].join('');
+                            headingElement.innerText = img[cles[i]].join('').toUpperCase();
                             headingElement.style.marginTop = '10px';
 
                             imageInputContainer.appendChild(imageElement);

@@ -12,7 +12,11 @@
     text-align: center;
     border-radius: 10px;
     border: 1px solid white;
-    width: 5%;
-    margin-left: 0.25%;
-    margin-right: 0.25%;
+    width: 15%;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+}
+
+.answerUserMDN {
+    width: 15%;
 }

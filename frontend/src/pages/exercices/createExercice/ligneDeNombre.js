@@ -18,8 +18,9 @@ const LigneDeNombre = ({ onLdnData }) => {
     const exerciceRedux = useSelector(state => (state))
 
     const [popupOpen, setPopupOpen] = useState(false);
-    const [exoCreated, setExoCreated] = useState(false);
-    const [squelettonSaved, setSquelettonSaved] = useState(false);
+
+    let exoCreated = false;
+    let squelettonSaved = false;
 
     let exercice = {}
     var texte = ""
@@ -88,7 +89,7 @@ const LigneDeNombre = ({ onLdnData }) => {
                 showConfirmButton: false,
                 timer: 1800
             })
-            setSquelettonSaved(true)
+            squelettonSaved = true;
         }
     }
 
@@ -168,7 +169,7 @@ const LigneDeNombre = ({ onLdnData }) => {
                     showConfirmButton: false,
                     timer: 1500
                 })
-                setExoCreated(true)
+                exoCreated = true;
             } else {
                 Swal.fire({
                     title: 'Erreur',

@@ -189,6 +189,10 @@ const Profile = () => {
             })
     }
 
+    // function deleteExos(idExo) {
+    //     console.log(idExo)
+    // }
+
     const reversedExercices = [...exercices].reverse();
 
     const indexOfLastExercice = currentPage * exercicesPerPage;
@@ -243,6 +247,7 @@ const Profile = () => {
                                             <div key={element._id} className='divExoDelete'>
                                                 <p>Nom : <span className='nameElement'>{element.nom}</span></p>
                                                 <button className='buttonDeleteExo' onClick={(e) => deleteExos(element._id, element.type)}>Supprimer cet exercice</button>
+                                                {/* <button className='buttonDeleteExo' onClick={(e) => deleteExos(element)}>Supprimer cet exercice</button> */}
                                             </div>
                                         )
                                     ))}

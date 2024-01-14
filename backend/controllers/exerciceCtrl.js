@@ -1350,6 +1350,7 @@ exports.saveWorksheet = (req, res, next) => {
             } else {
                 console.log(decoded)
                 let arrayExercices = req.body.data
+                console.log("on passe ici")
                 console.log(arrayExercices)
                 const worksheet = new Worksheet({
                     ...req.body.data

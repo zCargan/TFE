@@ -46,7 +46,7 @@ const TTI = () => {
                     setTableData([...tableData, newRow]);
 
                     const newDictionary = { ...dictionary };
-                    newDictionary[selectedImageInfo.id] = newName;
+                    newDictionary[selectedImageInfo.id] = newName.toUpperCase();
                     setDictionary(newDictionary);
                     document.getElementById("suite").value = ""
                     Swal.fire({
@@ -56,6 +56,7 @@ const TTI = () => {
                         showConfirmButton: false,
                         timer: 1000
                     });
+                    document.getElementById('name_photo').value = "";
                 } else {
                     Swal.fire({
                         icon: 'warning',

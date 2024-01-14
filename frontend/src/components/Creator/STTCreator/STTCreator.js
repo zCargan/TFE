@@ -21,6 +21,10 @@ const STTCreator = ({ exo }) => {
     getSTT();
   }, [])
 
+  function supprimerEspaces(chaine) {
+    return chaine.replace(/\s/g, '');
+  }
+
   function getSTT() {
     const config = {
       headers: {
@@ -94,12 +98,11 @@ const STTCreator = ({ exo }) => {
       reponseUser.push(inputUser[i].value)
     }
 
-    const reponseUserOK = reponseUser.map(str => str.trim());
+    const reponseUserOK = reponseUser.map(str => str.toUpperCase().trim());
 
     let score = 0;
     let nbrExos = 0;
 
-    console.log(allResponses)
 
     for (let j = 0; j < reponseUser.length; j++) {
       if (allResponses[j] === reponseUserOK[j]) {
@@ -107,7 +110,6 @@ const STTCreator = ({ exo }) => {
       }
       nbrExos += 1;
     }
-
 
     const data = {
       type: "STT",
@@ -117,7 +119,7 @@ const STTCreator = ({ exo }) => {
 
     Swal.fire({
       title: 'Résultat',
-      text: 'Vous avez obtenu la note de : ' + (score / nbrExos) * 100 + "%",
+      text: 'Vous avez obtenu la note de : ' + Math.floor((score / nbrExos) * 100) + "%",
       icon: 'success',
       showConfirmButton: false,
       timer: 2000
