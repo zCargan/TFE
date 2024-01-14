@@ -64,7 +64,7 @@ const TTIWSCreatorCorrection = ({ exo, onTTIDataChange }) => {
 
             for (let i = 0; i < cles.length; i++) {
                 axios
-                    .get(`http://localhost:4000/photos/getImage/${cles[i]}`, config)
+                    .get(`http://51.77.150.97:4000/photos/getImage/${cles[i]}`, config)
                     .then((res) => {
                         reponsesAttendues.push(exo.reponses[cles[i]])
                         for (let j = 0; j < res.data.length; j++) {

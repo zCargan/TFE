@@ -58,7 +58,7 @@ const MB = () => {
 
     function getMB() {
         axios
-            .get('http://localhost:4000/exercice/getMB')
+            .get('http://51.77.150.97:4000/exercice/getMB')
             .then((res) => {
                 console.log(res.data[0]._id);
                 const img = res.data[0].reponses;
@@ -77,7 +77,7 @@ const MB = () => {
     
                 for (let i = 0; i < cles.length; i++) {
                     axios
-                        .get(`http://localhost:4000/photos/getImage/${cles[i]}`, config)
+                        .get(`http://51.77.150.97:4000/photos/getImage/${cles[i]}`, config)
                         .then((resPhoto) => {
                             
                             for (let j = 0; j < resPhoto.data.length; j++) {
@@ -129,7 +129,7 @@ const MB = () => {
 
     function valideReponsesMB () {
         axios
-        .get('http://localhost:4000/exercice/getMB')
+        .get('http://51.77.150.97:4000/exercice/getMB')
         .then((res) => {
             let inputUser = document.getElementsByClassName('answerExoMB');
             let score = 0;
@@ -162,7 +162,7 @@ const MB = () => {
             });
 
             axios
-            .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
+            .post("http://51.77.150.97:4000/exercice/registerAnswers", {data}, config)
             .then((res) => {
                 setTimeout(() => {
                     navigate('/');

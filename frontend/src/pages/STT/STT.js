@@ -122,7 +122,7 @@ const STT = () => {
                         reponses: dictionnaire
                     }
                     axios
-                        .post(`http://localhost:4000/exercice/registerSTT`, data, config)
+                        .post(`http://51.77.150.97:4000/exercice/registerSTT`, data, config)
                         .then((res) => {
 
                             if (res.status == 201) {
@@ -149,7 +149,7 @@ const STT = () => {
                                 type: "STT"
                             }
 
-                            axios.post(`http://localhost:4000/exercice/addExoToUser`, data, config)
+                            axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
                                 .then((res) => {
                                     console.log(res)
                                 })

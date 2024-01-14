@@ -73,7 +73,7 @@ const MDN = () => {
             }
         }
 
-        axios.post("http://localhost:4000/exercice/registerMDN", {exo}, config)
+        axios.post("http://51.77.150.97:4000/exercice/registerMDN", {exo}, config)
     }
 
 

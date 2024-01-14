@@ -57,7 +57,7 @@ const ManageExercice = () => {
         console.log(data)
 
         axios
-            .post('http://localhost:4000/exercice/getExosFromRequest', data)
+            .post('http://51.77.150.97:4000/exercice/getExosFromRequest', data)
             .then((res) => {
                 console.log(res.data.data)
                 if (Object.keys(res.data.data).length === 0) {
@@ -77,7 +77,7 @@ const ManageExercice = () => {
                         switch (valeurActuelle) {
                             case 'MB':
                                 axios
-                                    .get(`http://localhost:4000/exercice/getMB/${cleActuelle}`)
+                                    .get(`http://51.77.150.97:4000/exercice/getMB/${cleActuelle}`)
                                     .then((res) => {
                                         setExos(res.data)
 
@@ -85,7 +85,7 @@ const ManageExercice = () => {
                                 break;
                             case 'LDN':
                                 axios
-                                    .get(`http://localhost:4000/exercice/getLDN/${cleActuelle}`)
+                                    .get(`http://51.77.150.97:4000/exercice/getLDN/${cleActuelle}`)
                                     .then((res) => {
                                         setExos(res.data)
 
@@ -93,7 +93,7 @@ const ManageExercice = () => {
                                 break;
                             case 'MDN':
                                 axios
-                                    .get(`http://localhost:4000/exercice/getMDN/${cleActuelle}`)
+                                    .get(`http://51.77.150.97:4000/exercice/getMDN/${cleActuelle}`)
                                     .then((res) => {
                                         setExos(res.data)
 
@@ -101,7 +101,7 @@ const ManageExercice = () => {
                                 break;
                             case 'abaque':
                                 axios
-                                    .get(`http://localhost:4000/exercice/getAbaque/${cleActuelle}`)
+                                    .get(`http://51.77.150.97:4000/exercice/getAbaque/${cleActuelle}`)
                                     .then((res) => {
                                         setExos(res.data)
 
@@ -109,7 +109,7 @@ const ManageExercice = () => {
                                 break;
                             case 'TAT':
                                 axios
-                                    .get(`http://localhost:4000/exercice/getTAT/${cleActuelle}`)
+                                    .get(`http://51.77.150.97:4000/exercice/getTAT/${cleActuelle}`)
                                     .then((res) => {
                                         setExos(res.data)
 
@@ -117,7 +117,7 @@ const ManageExercice = () => {
                                 break;
                             case 'STT':
                                 axios
-                                    .get(`http://localhost:4000/exercice/getSTT/${cleActuelle}`)
+                                    .get(`http://51.77.150.97:4000/exercice/getSTT/${cleActuelle}`)
                                     .then((res) => {
                                         setExos(res.data)
 
@@ -125,7 +125,7 @@ const ManageExercice = () => {
                                 break;
                             case 'TTI':
                                 axios
-                                    .get(`http://localhost:4000/exercice/getTTI/${cleActuelle}`)
+                                    .get(`http://51.77.150.97:4000/exercice/getTTI/${cleActuelle}`)
                                     .then((res) => {
                                         setExos(res.data)
                                     });
@@ -150,7 +150,7 @@ const ManageExercice = () => {
         }
 
 
-        axios.delete(`http://localhost:4000/exercice/deleteExoById`, { data }, config)
+        axios.delete(`http://51.77.150.97:4000/exercice/deleteExoById`, { data }, config)
             .then((res) => {
                 console.log(res.status)
                 if (res.status === 200) {

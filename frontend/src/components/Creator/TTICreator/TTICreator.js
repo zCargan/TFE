@@ -40,7 +40,7 @@ const TTICreator = ({ exo }) => {
 
     function getExoTTI() {
         axios
-            .get(`http://localhost:4000/exercice/getTTI/${exo}`, config)
+            .get(`http://51.77.150.97:4000/exercice/getTTI/${exo}`, config)
             .then((reponse) => {
                 const img = reponse.data.reponses;
                 console.log(reponse.data.description)
@@ -59,7 +59,7 @@ const TTICreator = ({ exo }) => {
 
                 for (let i = 0; i < cles.length; i++) {
                     axios
-                        .get(`http://localhost:4000/photos/getImage/${cles[i]}`, config)
+                        .get(`http://51.77.150.97:4000/photos/getImage/${cles[i]}`, config)
                         .then((res) => {
                             console.log(reponse.data.reponses)
                             reponsesAttendues.push(reponse.data.reponses[cles[i]])
@@ -108,7 +108,7 @@ const TTICreator = ({ exo }) => {
 
     function Correction() {
         axios
-            .get('http://localhost:4000/exercice/getTTI', config)
+            .get('http://51.77.150.97:4000/exercice/getTTI', config)
             .then((res) => {
                 let inputs = document.getElementsByClassName('answerExo');
                 let length = inputs.length
@@ -141,7 +141,7 @@ const TTICreator = ({ exo }) => {
                 });
 
                 axios
-                    .post("http://localhost:4000/exercice/registerAnswers", { data }, config)
+                    .post("http://51.77.150.97:4000/exercice/registerAnswers", { data }, config)
                     .then((res) => {
                         setTimeout(() => {
                             navigate('/home');

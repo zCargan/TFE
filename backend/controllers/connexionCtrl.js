@@ -50,10 +50,10 @@ exports.registerData = (req, res, next) => {
     console.log("Mot de passe venant du frontend : " + password)
 
     const client = new Client({
-        host: 'localhost',
+        host: 'db',
         port: 5432,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
 
@@ -161,10 +161,10 @@ exports.connection = (req, res, next) => {
     const query = `SELECT * FROM public.utilisateurs WHERE nom='${pseudo}'`;
 
     const client = new Client({
-        host: 'localhost',
+        host: 'db',
         port: 5432,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
 
@@ -260,10 +260,10 @@ exports.resetPassword = (req, res, next) => {
 
     const encryptedEmail = encryptEmail(email);
     const client = new Client({
-        host: 'localhost',
+        host: 'db',
         port: 5432,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
 
@@ -328,10 +328,10 @@ exports.newPassword2 = async (req, res, next) => {
     const decodedToken = jwt.verify(token, 'testemail');
 
     const client = new Client({
-        host: 'localhost',
+        host: 'db',
         port: 5432,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
 
@@ -381,10 +381,10 @@ exports.existEmail = (req, res, next) => {
     console.log(email)
 
     const client = new Client({
-        host: 'localhost',
+        host: 'db',
         port: 5432,
         database: 'test',
-        user: 'postgres',
+        user: 'loganAdmin',
         password: 'LoganTFE2023',
     });
 

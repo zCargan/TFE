@@ -29,7 +29,7 @@ const STT = () => {
     };
 
     axios
-      .get('http://localhost:4000/exercice/getSTT', {}, config)
+      .get('http://51.77.150.97:4000/exercice/getSTT', {}, config)
       .then((res) => {
         setId(res.data[0]._id);
         setNom(res.data[0].nom);
@@ -51,7 +51,7 @@ const STT = () => {
 
           setAllResponses([...nouvellesReponses]);
 
-          const promesseReponse = axios.get(`http://localhost:4000/exercice/getSTT/${cles[i]}`, config)
+          const promesseReponse = axios.get(`http://51.77.150.97:4000/exercice/getSTT/${cles[i]}`, config)
             .then((nestedRes) => {
               return nestedRes.data[0];
             })
@@ -120,7 +120,7 @@ const STT = () => {
     });
 
     axios
-    .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
+    .post("http://51.77.150.97:4000/exercice/registerAnswers", {data}, config)
     .then((res) => {
       setTimeout(() => {
           navigate('/');

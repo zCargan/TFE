@@ -31,7 +31,7 @@ const LDN = () => {
 
     function getExoLDN() {
         axios
-            .get('http://localhost:4000/exercice/getLDN', config)
+            .get('http://51.77.150.97:4000/exercice/getLDN', config)
             .then((res) => {
                 let resultatAttendu =  res.data[0].reponseFinale
                 setReponses(resultatAttendu)
@@ -80,7 +80,7 @@ const LDN = () => {
         }
 
         axios
-            .get('http://localhost:4000/exercice/getLDN', config)
+            .get('http://51.77.150.97:4000/exercice/getLDN', config)
             .then((res) => {
                 let reponseAttendue = res.data[0].reponseFinale;
                 let enonceIndex = res.data[0].reponseInitiale;
@@ -123,7 +123,7 @@ const LDN = () => {
                 });
 
                 axios
-                .post("http://localhost:4000/exercice/registerAnswers", {data}, config)
+                .post("http://51.77.150.97:4000/exercice/registerAnswers", {data}, config)
                 .then((res) => {
                     setTimeout(() => {
                         navigate('/');
