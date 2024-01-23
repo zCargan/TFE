@@ -55,7 +55,7 @@ const SearchBarAdmin = () => {
                     </select>
                 </li>
                 <li className='liSBC'>
-                    <input className="inputSBC" placeholder='Champs spécifique' id="rechercheSpecifiqueAdmin"></input>
+                    <input className="inputSBC" placeholder='Champ spécifique' id="rechercheSpecifiqueAdmin"></input>
                 </li>
                 <li className='liSBC'>
                     <select className="selectSBC" id="matiere">
@@ -65,7 +65,7 @@ const SearchBarAdmin = () => {
                         <option value="TAT">Texte à trous</option>
                         <option value="STT">Sons vers texte</option>
                         <option value="LDN">Ligne des nombres</option>
-                        <option value="MB">Mot dans le bazard</option>
+                        <option value="MB">Mot dans le bazar</option>
                         <option value="TTI">Image vers texte</option>
                     </select>
                 </li>

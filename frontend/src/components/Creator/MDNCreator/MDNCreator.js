@@ -21,34 +21,34 @@ const MDNCreator = ({ exo }) => {
 
     const config = {
         headers: {
-          'Authorization': `Bearer ${Cookies.get('JWT')}`,
-          'Content-Type': 'application/json'
+            'Authorization': `Bearer ${Cookies.get('JWT')}`,
+            'Content-Type': 'application/json'
         }
     };
 
     function getMDN() {
         axios
-        .get(`http://51.77.150.97:4000/exercice/getMDN/${exo}`, config)
-        .then((res)=> {
-            let length = res.data.cols
-            let reponseInitiale = res.data.reponseInitiale
-            let nom = res.data.nom
-            setId(res.data._id);
-            setNom(res.data.nom);
-            setAnneeScolaire(res.data.anneeScolaire);
-            setDescription(res.data.description);
-            setType(res.data.type);
-            let texte = "<div id='mdn_resulat'>"
-            let score = 0;
-            for(let i = 0; i <length; i ++) {
-                texte += '<input class="answerUser" value=' + reponseInitiale[score] + '>' + '</input><input class="answerUser" value="' + reponseInitiale[score+1] + '"></input>'
-                texte += "<br></br>"
-                score += 2;
-            }
-            
-            texte += "</div>"
-            document.getElementById("zoneExoMDN").innerHTML = texte
-        })
+            .get(`https://www.laclassedemadameseverine.be:4000/exercice/getMDN/${exo}`, config)
+            .then((res) => {
+                let length = res.data.cols
+                let reponseInitiale = res.data.reponseInitiale
+                let nom = res.data.nom
+                setId(res.data._id);
+                setNom(res.data.nom);
+                setAnneeScolaire(res.data.anneeScolaire);
+                setDescription(res.data.description);
+                setType(res.data.type);
+                let texte = "<div id='mdn_resulat'>"
+                let score = 0;
+                for (let i = 0; i < length; i++) {
+                    texte += '<input class="answerUser" value=' + reponseInitiale[score] + '>' + '</input><input class="answerUser" value="' + reponseInitiale[score + 1] + '"></input>'
+                    texte += "<br></br>"
+                    score += 2;
+                }
+
+                texte += "</div>"
+                document.getElementById("zoneExoMDN").innerHTML = texte
+            })
     }
 
 
@@ -59,23 +59,24 @@ const MDNCreator = ({ exo }) => {
         let reponseUser = [];
         let index = [];
 
-        for(let j = 0; j < (nbrItem+1); j++) {
+        for (let j = 0; j < (nbrItem + 1); j++) {
             let ligne1 = document.getElementsByClassName("answerUser");
-            for(let i = 0; i < ligne1.length; i ++) {
+            for (let i = 0; i < ligne1.length; i++) {
                 reponseUser.push(ligne1[i].value)
             }
         }
-        
+
         const reponseUserOK = reponseUser.map(str => str.trim());
 
-        axios.get(`http://51.77.150.97:4000/exercice/getMDN/${exo}`).then((res)=> {
+        axios.get(`https://www.laclassedemadameseverine.be:4000/exercice/getMDN/${exo}`).then((res) => {
             let dicFinal = res.data.reponseFinal;
             let dicInitiale = res.data.reponseInitiale;
             let idExercice = res.data._id;
 
+            console.log(dicInitiale)
 
-            for(let i = 0; i < dicInitiale.length; i ++) {
-                if(dicFinal[i] !== dicInitiale[i]) {
+            for (let i = 0; i < dicInitiale.length; i++) {
+                if (dicInitiale[i] === "") {
                     index.push(i)
                 }
             }
@@ -83,17 +84,18 @@ const MDNCreator = ({ exo }) => {
             let score = 0;
             let nbrExos = 0;
 
-            for(let j = 0; j < index.length; j ++) {
-
-                if(dicFinal[index[j]] === reponseUserOK[index[j]]) {
+            for (let j = 0; j < index.length; j++) {
+                if (dicFinal[index[j]] === reponseUserOK[index[j]]) {
                     score += 1;
                 }
                 nbrExos += 1;
             }
 
+            console.log(Math.floor((score / nbrExos) * 100))
+
             const data = {
                 type: "MDN",
-                score: Math.floor((score/nbrExos) * 100),
+                score: Math.floor((score / nbrExos) * 100),
                 idExercice: id
             }
 
@@ -106,7 +108,7 @@ const MDNCreator = ({ exo }) => {
             });
 
             axios
-            .post("http://51.77.150.97:4000/exercice/registerAnswers", {data}, config)
+            .post("https://www.laclassedemadameseverine.be:4000/exercice/registerAnswers", {data}, config)
             .then((res) => {
                 setTimeout(() => {
                     navigate('/home');
@@ -122,20 +124,20 @@ const MDNCreator = ({ exo }) => {
                 });
             })
         })
-        
+
 
     }
 
     function seeCorrection() {
-        axios.get('http://51.77.150.97:4000/exercice/getMDN').then((res)=> {
+        axios.get('https://www.laclassedemadameseverine.be:4000/exercice/getMDN').then((res) => {
 
             let dicFinal = res.data[0].reponseFinal;
             let dicInitiale = res.data[0].reponseInitiale;
             let idExercice = res.data[0]._id;
 
             let inputUser = document.getElementsByClassName("answerUser");
-            
-            for(let i = 0; i < inputUser.length; i ++) {
+
+            for (let i = 0; i < inputUser.length; i++) {
                 console.log(inputUser[i].value = dicFinal[i])
             }
         })

@@ -28,7 +28,7 @@ const Photo = () => {
     }
 
     function getPhotos() {
-        axios.put('http://51.77.150.97:4000/photos/testNewRoute')
+        axios.put('https://www.laclassedemadameseverine.be:4000/photos/testNewRoute')
             .then((res) => {
                 const buffer = res.data[3].image_data.data;
                 console.log('on passeici')
@@ -87,7 +87,7 @@ const Photo = () => {
                 formData.append('name', newFileName);
 
 
-                axios.post('http://51.77.150.97:4000/photos/register/img', formData, config)
+                axios.post('https://www.laclassedemadameseverine.be:4000/photos/register/img', formData, config)
                     .then((response) => {
                         Swal.fire({
                             title: 'Succes',
@@ -141,7 +141,7 @@ const Photo = () => {
 
         console.log(config);
 
-        axios.get('http://51.77.150.97:4000/photos/testNewRoute', config)
+        axios.get('https://www.laclassedemadameseverine.be:4000/photos/testNewRoute', config)
             .then((res) => {
                 const imageContainer = document.getElementById('photoUserP');
 
@@ -205,7 +205,7 @@ const Photo = () => {
             <Navbar></Navbar>
             <div className='digDivPhoto'>
                 <div className='divh1photo'>
-                    <h1>Uploader une nouvelle image</h1>
+                    <h1>Ajouter une nouvelle image</h1>
                     {imageURL && (
                         <div>
                             <h2>Image prévisualisée :</h2>

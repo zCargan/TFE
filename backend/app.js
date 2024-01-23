@@ -18,16 +18,16 @@ app.use(express.json())
 app.use(cors());
 
 const client = new Client({
-    host: 'db',
+    host: 'localhost',
     port: 5432,
     database: 'test',
-    user: 'loganAdmin',
+    user: 'postgres',
     password: 'LoganTFE2023',
 });
 
 client.connect()
     .then(() => console.log('Connexion à PostgresSQL réussie !'))
-    .catch(() => console.log('Connexion à PostgresSQL échouée !'))
+    .catch(() => console.log('Connexion à PostgresSQL échouéeeeee !'))
 // Libère la pool de connexions
 
 

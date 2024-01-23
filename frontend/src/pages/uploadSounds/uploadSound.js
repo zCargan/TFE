@@ -46,7 +46,7 @@ const UploadSound = () => {
       formData.append('name', newNameValue);
 
       try {
-        const response = await axios.post('http://51.77.150.97:4000/sound/postSound', formData, config);
+        const response = await axios.post('https://www.laclassedemadameseverine.be:4000/sound/postSound', formData, config);
     
         if (response.status === 200) {
             Swal.fire({
@@ -78,12 +78,12 @@ const UploadSound = () => {
     <div>
       <Navbar />
       <div className='uploadSdiv'>
-        <h1 className='h12fdr'>Uploader un fichier audio</h1>
+        <h1 className='h12fdr'>Ajouter un fichier audio</h1>
         <form onSubmit={handleSubmit}>
           <input type="file" accept="audio/*" onChange={handleFileChange} />
           <br />
           <input id="newNameAudio" placeholder='Ecrivez ici le nouveau nom de votre fichier'></input>
-          <button  class="buttonGlobalCSS" type="submit">Uploader</button>
+          <button  class="buttonGlobalCSS" type="submit">Ajouter</button>
         </form>
       </div>
     </div>

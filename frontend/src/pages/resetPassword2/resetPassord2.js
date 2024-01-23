@@ -46,7 +46,7 @@ const ResetPassword2 = () => {
             console.log(hashedPassword)
 
             axios
-                .post('http://51.77.150.97:4000/connection/newPassword', { token, hashedPassword })
+                .post('https://www.laclassedemadameseverine.be:4000/connection/newPassword', { token, hashedPassword })
                 .then((res) => {
                     Swal.fire({
                         title: 'Succès',

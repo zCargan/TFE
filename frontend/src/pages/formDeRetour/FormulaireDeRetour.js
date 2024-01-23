@@ -42,7 +42,7 @@ function FormulaireDeRetour() {
                 details: details
             }
 
-            axios.post('http://51.77.150.97:4000/user/sendRequest', data, config)
+            axios.post('https://www.laclassedemadameseverine.be:4000/user/sendRequest', data, config)
                 .then((res) => {
                     console.log(res.data)
                     setResetRequested(true);
@@ -69,7 +69,7 @@ function FormulaireDeRetour() {
                 <div>
                     <div id="introductionFDR">
                         <h1 className='h1fdr'>Nous contacter</h1>
-                        <h3 className='h3fdr'>Besoin d'assist ou simplement envie de discuter ? Tu es au bon endroit !</h3>
+                        <h3 className='h3fdr'>Besoin d'assistance ou simplement envie de discuter ? Tu es au bon endroit !</h3>
                     </div>
                     <br />
                     <div>

@@ -24,7 +24,7 @@ const ResetPasswordPage = () => {
             });
             return;
         }
-        axios.post('http://51.77.150.97:4000/connection/reset-password', { email })
+        axios.post('https://www.laclassedemadameseverine.be:4000/connection/reset-password', { email })
             .then((res) => {
                 console.log(res.data)
                 setResetRequested(true);
@@ -76,7 +76,7 @@ const ResetPasswordPage = () => {
             {resetRequested ? (
                 <div>
                     <div id="divh2RP2">
-                        <p className='pEmailRP'>Un e-mail de réinitialisation a été envoyé à votre adresse email.</p>
+                        <p className='pEmailRP'>Un email de réinitialisation a été envoyé à votre adresse email.</p>
                     </div>
                     <p className='pEmailRP2'>Veuillez vérifier votre boîte de réception pour les instructions.</p>
                     <div>
@@ -92,7 +92,7 @@ const ResetPasswordPage = () => {
                         <h2 className='h2rp'>Page pour réinitialiser son mot de passe</h2>
                     </div>
                     <div>
-                        <p id="divpRP">Si votre adresse email existe, un email de récupération vous sera envoyé</p>
+                        <p id="divpRP">Si votre adresse email existe, un email de récupération vous sera envoyé.</p>
                     </div>
                     <input
                         className="inputRE"

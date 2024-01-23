@@ -96,19 +96,19 @@ const TextToImg = ({ onTtiData }) => {
                 <div className='explicationExo'>
                     <h1>Explication de la réalisation de l'exercice</h1>
                     <br />
-                    <h3>Avant de commencer la création de votre exercice, assurez vous de bien avoir ajouté vos images à votre compte. Vous pouvez le faire <span className='divSpanButton'><a href='http://51.77.150.97/photo'>ici</a></span></h3>
+                    <h3>Avant de commencer la création de votre exercice, assurez-vous de bien avoir ajouté vos images à votre compte. Vous pouvez le faire <span className='divSpanButton'><a href='https://www.laclassedemadameseverine.be/photo'>ici</a></span></h3>
                     <br />
-                    <p>Créer votre "Texte avec images" en séléctionnant la descritpion de votre "Texte avec images".</p>
+                    <p>Créez votre "Texte avec images" en sélectionnant la description de votre "Texte avec images".</p>
                     <br />
-                    <p>Appuyer sur le bouton <span className='divSpanButton'>Récupérer mes photos"</span> afin de récupérer les images que vous avez ajouter à votre profil</p>
+                    <p>Appuyez sur le bouton <span className='divSpanButton'>Récupérer mes photos"</span> afin de récupérer les images que vous avez ajoutées à votre profil.</p>
                     <br />
-                    <p>Cliquer sur l'image désirée. Le nom de cette dernière sera affiché à coté de "Nom de l'image sélectionné". Entrez le nom que vous désirez lui à l'endroit dédié</p>
+                    <p>Cliquez sur l'image désirée. Le nom de cette dernière sera affiché à coté de "Nom de l'image sélectionnée". Entrez le nom que vous désirez lui donner à l'endroit dédié.</p>
                     <br />
-                    <p>Cliquer sur <span className='divSpanButton'>"Confirmer"</span> afin d'ajouter l'image avec son nom s'y rapportant dans le tableau</p>
+                    <p>Cliquez sur <span className='divSpanButton'>"Confirmer"</span> afin d'ajouter l'image avec le nom s'y rapportant dans le tableau.</p>
                     <br />
-                    <p>Une fois toute les images désirées présentes dans le tableau, cliquer sur <span className='divSpanButton'>"Valider l'exercice"</span> afin de valider votre exercice</p>
+                    <p>Une fois toutes les images désirées présentes dans le tableau, cliquer sur <span className='divSpanButton'>"Valider l'exercice"</span> afin de valider votre exercice.</p>
                     <br />
-                    <p>Féliciation!</p>
+                    <p>Félicitations!</p>
                 </div>
             </Popup>
             <div className='divTTIWS'>

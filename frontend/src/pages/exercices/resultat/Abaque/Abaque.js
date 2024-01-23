@@ -26,7 +26,7 @@ const Abaque = () => {
     let dictionnaire = {};
 
     function recupereExo() {
-        axios.get("http://51.77.150.97:4000/exercice/getAbaque").then((res) => {
+        axios.get("https://www.laclassedemadameseverine.be:4000/exercice/getAbaque").then((res) => {
             let resultatAttendu =  res.data[0].reponseFinale
             setReponses(resultatAttendu)
             let reponseInitiale = res.data[0].reponseInitiale;
@@ -59,7 +59,7 @@ const Abaque = () => {
  
 
     function correction() {
-        axios.get("http://51.77.150.97:4000/exercice/getAbaque").then((res) => {
+        axios.get("https://www.laclassedemadameseverine.be:4000/exercice/getAbaque").then((res) => {
             let resultatAttendu =  res.data[0].reponseFinale
             let resultatInitial = res.data[0].reponseInitiale;
             let resultatRecu = []
@@ -105,7 +105,7 @@ const Abaque = () => {
             }
 
             axios
-            .post("http://51.77.150.97:4000/exercice/registerAnswers", {data}, config)
+            .post("https://www.laclassedemadameseverine.be:4000/exercice/registerAnswers", {data}, config)
             .then((res) => {
                 setTimeout(() => {
                     navigate('/');

@@ -80,7 +80,7 @@ const CreateExercice = () => {
                 }
             };
 
-            axios.post("http://51.77.150.97:4000/connection/checkToken", {}, config)
+            axios.post("https://www.laclassedemadameseverine.be:4000/connection/checkToken", {}, config)
                 .then(response => {
                     console.log(response.data.role)
                     if (response.data.role !== "professeur" || '') {
@@ -114,7 +114,7 @@ const CreateExercice = () => {
         console.log("exercice redux ")
         console.log(exerciceRedux)
         for (let i = 0; i < nbrExercice; i++) {
-            axios.post('http://51.77.150.97:4000/exercice/send_test_exercice', exerciceRedux)
+            axios.post('https://www.laclassedemadameseverine.be:4000/exercice/send_test_exercice', exerciceRedux)
             /*
                 .then(response => {
                 console.log('Réponse du backend :', response.data);
@@ -155,11 +155,11 @@ const CreateExercice = () => {
                             descriptionWorksheet: document.getElementById('textareaCE').value,
                             anneeScolaire: valeur,
                             data: exerciseDataArray,
-                            
+                            type: "WS"
                         }
 
                         axios
-                            .post('http://51.77.150.97:4000/exercice/saveWorksheet', { data }, config)
+                            .post('https://www.laclassedemadameseverine.be:4000/exercice/saveWorksheet', { data }, config)
                             .then((res) => {
 
                                 if (res.status == 201) {
@@ -186,7 +186,7 @@ const CreateExercice = () => {
                                     type: "WS"
                                 }
 
-                                axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
+                                axios.post(`https://www.laclassedemadameseverine.be:4000/exercice/addExoToUser`, data, config)
                                     .then((res) => {
                                         console.log(res)
                                     })
@@ -278,13 +278,13 @@ const CreateExercice = () => {
                     on="hover"
                 >
                     <div className='explicationExo'>
-                        <h1>Explication de la réalisation d'une feuille d'exercice</h1>
+                        <h1>Explication de la réalisation d'une feuille d'exercices</h1>
                         <br />
-                        <p>Vous devez renseigenre l'année scolaire étant visé par la feuille d'exercice que vous allez créer.</p>
+                        <p>Vous devez renseigner l'année scolaire étant visée par la feuille d'exercices que vous allez créer.</p>
                         <br />
-                        <p>Veuillez préciser également le titre de la feuille d'exercice ainsi que sa description.</p>
+                        <p>Veuillez préciser également le titre de la feuille d'exercices ainsi que sa description.</p>
                         <br />
-                        <p>Une fois cela fait, vous pouvez commencer à ajouter des exercices avec la liste déroulant présente si dessous</p>
+                        <p>Une fois cela fait, vous pouvez commencer à ajouter des exercices avec la liste déroulante présente ci-dessous.</p>
                         <br />
                         <p>Bonne création !</p>
                     </div>
@@ -318,7 +318,7 @@ const CreateExercice = () => {
                     <option selected>Ajouter un exercice</option>
                     <option value="TAT">Texte à trou</option>
                     <option value="TTI">Texte avec images</option>
-                    <option value="MB">Mot bazard</option>
+                    <option value="MB">Mot bazar</option>
                     <option value="STT">Texte avec du son</option>
                     <option value="Abaque">Abaque</option>
                     <option value="MDN">Maison des nombres</option>

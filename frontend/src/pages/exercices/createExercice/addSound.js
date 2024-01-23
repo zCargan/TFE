@@ -45,7 +45,7 @@ const AddSound = () => {
       formData.append('name', newNameValue);
 
       try {
-        const response = await axios.post('http://51.77.150.97:4000/sound/postSound', formData, config);
+        const response = await axios.post('https://www.laclassedemadameseverine.be:4000/sound/postSound', formData, config);
 
         console.log('Réponse du serveur :', response.data);
 
@@ -57,7 +57,7 @@ const AddSound = () => {
 
   return (
     <div>
-      <h2>Uploader un fichier audio</h2>
+      <h2>Ajouter un fichier audio</h2>
       <form onSubmit={handleSubmit}>
         <input type="file" accept="audio/*" onChange={handleFileChange} />
         <input id="newNameAudio" placeholder='Ecrivez ici le nouveau nom de votre fichier'></input>

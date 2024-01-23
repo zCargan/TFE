@@ -110,15 +110,15 @@ const TTI = () => {
                         type: "TTI",
                         reponses: dictionary
                     }
-                    axios.post(`http://51.77.150.97:4000/exercice/registerTTI`, data, config).then((res) => {
+                    axios.post(`https://www.laclassedemadameseverine.be:4000/exercice/registerTTI`, data, config).then((res) => {
                         if (res.status == 201) {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Texte à image créé!',
-                                showConfirmButton: false,
-                                timer: 1000
+                                showConfirmButton: true,
+                                confirmButtonText: 'OK'
                             }).then((result) => {
-                                if (result.dismiss === Swal.DismissReason.timer) {
+                                if (result.isConfirmed) {
                                     navigate('/');
                                 }
                             });
@@ -135,7 +135,7 @@ const TTI = () => {
                             type: "TTI"
                         }
 
-                        axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
+                        axios.post(`https://www.laclassedemadameseverine.be:4000/exercice/addExoToUser`, data, config)
                             .then((res) => {
                                 console.log(res)
                             })
@@ -178,20 +178,20 @@ const TTI = () => {
                     <div className='explicationExo'>
                         <h1>Explication de la réalisation de l'exercice</h1>
                         <br />
-                        <h3>Avant de commencer la création de votre exercice, assurez vous de bien avoir ajouté vos images à votre compte. Vous pouvez le faire <span className='divSpanButton'><a href='http://51.77.150.97/photo'>ici</a></span></h3>
+                        <h3>Avant de commencer la création de votre exercice, assurez-vous de bien avoir ajouté vos images à votre compte. Vous pouvez le faire <span className='divSpanButton'><a href='http://51.77.150.97/photo'>ici</a></span></h3>
                         <br />
-                        <p>Afin de réaliser l'exercice, vous devez en premier lieu séléctionner une année ciblée</p>
-                        <p>Ensuite, créer votre "Texte avec images" en séléctionnant le titre, la descritpion de votre "Texte avec images".</p>
+                        <p>Afin de réaliser l'exercice, vous devez, en premier lieu, sélectionner l'année scolaire ciblée.</p>
+                        <p>Ensuite, créer votre "Texte avec images" en sélectionnant le titre, la description de votre "Texte avec images".</p>
                         <br />
-                        <p>Appuyer sur le bouton <span className='divSpanButton'>Récupérer mes photos"</span> afin de récupérer les images que vous avez ajouter à votre profil</p>
+                        <p>Appuyer sur le bouton <span className='divSpanButton'>"Récupérer mes photos"</span> afin de récupérer les images que vous avez ajoutées à votre profil.</p>
                         <br />
-                        <p>Cliquer sur l'image désirée. Le nom de cette dernière sera affiché à coté de "Nom de l'image sélectionné". Entrez le nom que vous désirez lui à l'endroit dédié</p>
+                        <p>Cliquer sur l'image désirée. Le nom de cette dernière sera affiché à coté de "Nom de l'image sélectionnée". Entrez le nom que vous désirez lui donner à l'endroit dédié.</p>
                         <br />
-                        <p>Cliquer sur <span className='divSpanButton'>"Confirmer"</span> afin d'ajouter l'image avec son nom s'y rapportant dans le tableau</p>
+                        <p>Cliquer sur <span className='divSpanButton'>"Confirmer"</span> afin d'ajouter l'image avec le nom s'y rapportant dans le tableau.</p>
                         <br />
-                        <p>Une fois toute les images désirées présentes dans le tableau, cliquer sur <span className='divSpanButton'>"Valider l'exercice"</span> afin de valider votre exercice</p>
+                        <p>Une fois toutes les images désirées présentes dans le tableau, cliquer sur <span className='divSpanButton'>"Valider l'exercice"</span> afin de valider votre exercice.</p>
                         <br />
-                        <p>Féliciation!</p>
+                        <p>Félicitations!</p>
                     </div>
                 </Popup>
                 <div className='anneeScolaireTTI'>

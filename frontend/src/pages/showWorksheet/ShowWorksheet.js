@@ -20,7 +20,7 @@ const ShowWorksheet = () => {
 
     const getTotalCounts = () => {
         axios
-            .get("http://51.77.150.97:4000/exercice/getTotalCountsWS")
+            .get("https://www.laclassedemadameseverine.be:4000/exercice/getTotalCountsWS")
             .then((res) => {
                 const max = res.data.count;
                 console.log(max)
@@ -48,7 +48,7 @@ const ShowWorksheet = () => {
             }
 
             axios
-                .get('http://51.77.150.97:4000/exercice/getARandomWorksheets', {
+                .get('https://www.laclassedemadameseverine.be:4000/exercice/getARandomWorksheets', {
                     params: { selectedWorksheets },
                 })
                 .then((res) => {
@@ -68,7 +68,7 @@ const ShowWorksheet = () => {
             }
 
             axios
-                .get('http://51.77.150.97:4000/exercice/getARandomWorksheets', {
+                .get('https://www.laclassedemadameseverine.be:4000/exercice/getARandomWorksheets', {
                     params: { selectedWorksheets },
                 })
                 .then((res) => {

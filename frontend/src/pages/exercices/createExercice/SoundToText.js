@@ -111,19 +111,19 @@ const SoundToText = ({ onSttData }) => {
                 <div className='explicationExo'>
                     <h1>Explication de la réalisation de l'exercice</h1>
                     <br />
-                    <h3>Avant de commencer la création de votre exercice, assurez vous de bien avoir ajouté vos sons à votre compte. Vous pouvez le faire <span className='divSpanButton'><a href='http://51.77.150.97/uploadSound'>ici</a></span></h3>
+                    <h3>Avant de commencer la création de votre exercice, assurez-vous de bien avoir ajouté vos sons à votre compte. Vous pouvez le faire <span className='divSpanButton'><a href='https://www.laclassedemadameseverine.be/uploadSound'>ici</a></span>.</h3>
                     <br />
-                    <p>Créer votre "Son à texte" en séléctionnant le titre, la descritpion de votre "Son à texte".</p>
+                    <p>Créez votre "Son à texte" en sélectionnant le titre, la description de votre "Son à texte".</p>
                     <br />
-                    <p>Appuyer sur le bouton <span className='divSpanButton'>Récupérer mes sons"</span> afin de récupérer les sons que vous avez ajouter à votre profil</p>
+                    <p>Appuyez sur le bouton <span className='divSpanButton'>Récupérer mes sons"</span> afin de récupérer les sons que vous avez ajoutés à votre profil.</p>
                     <br />
-                    <p>Cliquer sur le son désiré. Le nom de ce dernièr sera affiché à coté de "Son séléctionné". Entrez le nom que vous désirez lui à l'endroit dédié</p>
+                    <p>Cliquez sur le son désiré. Le nom de ce dernier sera affiché à coté de "Son séléctionné". Entrez le nom que vous désirez lui donner à l'endroit dédié.</p>
                     <br />
-                    <p>Cliquer sur <span className='divSpanButton'>"Confirmer"</span> afin d'ajouter le son avec son nom s'y rapportant dans le tableau</p>
+                    <p>Cliquez sur <span className='divSpanButton'>"Confirmer"</span> afin d'ajouter le son avec son nom s'y rapportant dans le tableau.</p>
                     <br />
-                    <p>Une fois toute les sons désirés présents dans le tableau, cliquer sur <span className='divSpanButton'>"Valider l'exercice"</span> afin de valider votre exercice</p>
+                    <p>Une fois tous les sons désirés présents dans le tableau, cliquer sur <span className='divSpanButton'>"Valider l'exercice"</span> afin de valider votre exercice.</p>
                     <br />
-                    <p>Féliciation!</p>
+                    <p>Félicitations!</p>
                 </div>
             </Popup>
 

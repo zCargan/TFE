@@ -72,7 +72,7 @@ const MBWSCreator = ({ exo, onMBDataChange }) => {
 
             for (let i = 0; i < cles.length; i++) {
                 axios
-                    .get(`http://51.77.150.97:4000/photos/getImage/${cles[i]}`, config)
+                    .get(`https://www.laclassedemadameseverine.be:4000/photos/getImage/${cles[i]}`, config)
                     .then((resPhoto) => {
                         reponsesAttendues.push(img[cles[i]].join('').toLowerCase());
                         console.log(reponsesAttendues)

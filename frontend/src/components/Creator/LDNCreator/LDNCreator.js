@@ -27,7 +27,7 @@ const LDNCreator = ({ exo }) => {
 
     function getExoLDN() {
         axios
-            .get(`http://51.77.150.97:4000/exercice/getLDN/${exo}`, config)
+            .get(`https://www.laclassedemadameseverine.be:4000/exercice/getLDN/${exo}`, config)
             .then((res) => {
                 console.log(res.data)
                 let resultatAttendu = res.data.reponseFinale
@@ -71,7 +71,7 @@ const LDNCreator = ({ exo }) => {
         }
 
         axios
-            .get(`http://51.77.150.97:4000/exercice/getLDN/${exo}`, config)
+            .get(`https://www.laclassedemadameseverine.be:4000/exercice/getLDN/${exo}`, config)
             .then((res) => {
                 console.log(res.data)
                 let reponseAttendue = res.data.reponseFinale;
@@ -91,14 +91,21 @@ const LDNCreator = ({ exo }) => {
                 let score = 0;
 
                 for (let i = 0; i < reponseAttendue.length; i++) {
-                    if (reponseAttendue[i] !== reponseInitiale[i]) {
-                        nbrExos +=1;
-                        if (reponseAttendue[i] === reponsesRecuesOK[i]) {
-                            score += 1;
+                    if (reponseInitiale[i] === "") {
+                        if (reponseAttendue[i] !== reponseInitiale[i]) {
+                            nbrExos += 1;
+                            if (reponseAttendue[i] === reponsesRecuesOK[i]) {
+                                score += 1;
+                            }
+                        }
+                        if ((reponseInitiale[i] === "") && (reponseAttendue[i] === "")) {
+                            if (reponsesRecuesOK[i] !== "") {
+                                nbrExos += 1;
+                            }
                         }
                     }
                 }
-                console.log(Math.floor((score/nbrExos) * 100))
+                console.log(Math.floor((score / nbrExos) * 100))
 
                 const config = {
                     headers: {
@@ -108,33 +115,33 @@ const LDNCreator = ({ exo }) => {
 
                 const data = {
                     type: "LDN",
-                    score: Math.floor((score/nbrExos) * 100),
+                    score: Math.floor((score / nbrExos) * 100),
                     idExercice: id
                 }
                 Swal.fire({
                     title: 'Résultat',
-                    text: 'Vous avez obtenu la note de : ' + Math.floor((score/nbrExos) * 100) + "%",
+                    text: 'Vous avez obtenu la note de : ' + Math.floor((score / nbrExos) * 100) + "%",
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 2000
                 });
 
                 axios
-                .post("http://51.77.150.97:4000/exercice/registerAnswers", {data}, config)
-                .then((res) => {
-                    setTimeout(() => {
-                        navigate('/home');
-                      }, 1000);
-                })
-                .catch((error) => {
-                    Swal.fire({
-                        title: 'Erreur',
-                        text: "Une erreur s'est produite lors de l'enregistrement de votre score",
-                        icon: 'error',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                })
+                    .post("https://www.laclassedemadameseverine.be:4000/exercice/registerAnswers", { data }, config)
+                    .then((res) => {
+                        setTimeout(() => {
+                            navigate('/home');
+                        }, 1000);
+                    })
+                    .catch((error) => {
+                        Swal.fire({
+                            title: 'Erreur',
+                            text: "Une erreur s'est produite lors de l'enregistrement de votre score",
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    })
 
             })
             .catch((error) => {

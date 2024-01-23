@@ -27,7 +27,7 @@ const French = () => {
                     <option value="BlankText">Texte à trou</option>
                     <option value="TextToImg">Image avec texte</option>
                     <option value="AddImg">Ajouter des photos</option>
-                    <option value="MotBazard">Mot bazard</option>
+                    <option value="MotBazard">Mot bazar</option>
                     <option value="AddSound">Ajouter un son</option>
                     <option value="SoundToText">Exercice lié aux sons</option>
                 </select>

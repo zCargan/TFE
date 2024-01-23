@@ -176,17 +176,17 @@ const Abaque = () => {
                 }
                 console.log(data)
 
-                axios.post("http://51.77.150.97:4000/exercice/registerAbaque", { data }, config)
+                axios.post("https://www.laclassedemadameseverine.be:4000/exercice/registerAbaque", { data }, config)
                     .then((res) => {
 
                         if (res.status == 201) {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Abaque créé!',
-                                showConfirmButton: false,
-                                timer: 800
+                                showConfirmButton: true,
+                                confirmButtonText: 'OK'
                             }).then((result) => {
-                                if (result.dismiss === Swal.DismissReason.timer) {
+                                if (result.isConfirmed) {
                                     navigate('/');
                                 }
                             });
@@ -204,7 +204,7 @@ const Abaque = () => {
                             type: "abaque"
                         }
 
-                        axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
+                        axios.post(`https://www.laclassedemadameseverine.be:4000/exercice/addExoToUser`, data, config)
                             .then((res) => {
                                 console.log(res)
                             })
@@ -225,7 +225,7 @@ const Abaque = () => {
     }
 
     function recupereExo() {
-        axios.get("http://51.77.150.97:4000/exercice/getAbaque").then((res) => {
+        axios.get("https://www.laclassedemadameseverine.be:4000/exercice/getAbaque").then((res) => {
             console.log(res.data[0])
             let reponseInitiale = res.data[0].reponseInitiale;
             let hauteur = res.data[0].hauteur;
@@ -253,7 +253,7 @@ const Abaque = () => {
 
 
     function correction() {
-        axios.get("http://51.77.150.97:4000/exercice/getAbaque").then((res) => {
+        axios.get("https://www.laclassedemadameseverine.be:4000/exercice/getAbaque").then((res) => {
             let resultatAttendu = res.data[0].reponseFinale
             let resultatInitial = res.data[0].reponseInitiale;
             let resultatRecu = []
@@ -298,7 +298,7 @@ const Abaque = () => {
                 idExercice: idExercice
             }
 
-            axios.post("http://51.77.150.97:4000/exercice/registerAnswers", { data }, config)
+            axios.post("https://www.laclassedemadameseverine.be:4000/exercice/registerAnswers", { data }, config)
 
 
 
@@ -323,17 +323,17 @@ const Abaque = () => {
                     <div className='explicationExo'>
                         <h1>Explication de la réalisation de l'exercice</h1>
                         <br />
-                        <p>Afin de réaliser l'exercice, vous devez en premier lieu séléctionner une année ciblée</p>
-                        <p>Ensuite, créer votre abaque en séléctionnant le titre, la descritpion, le nombre de colonnes et de lignes de votre abaque.</p>
+                        <p>Afin de réaliser l'exercice, vous devez, en premier lieu, sélectionner l'année scolaire ciblée.</p>
+                        <p>Ensuite, créez votre abaque en sélectionnant le titre, la description, le nombre de colonnes et de lignes de votre abaque.</p>
                         <br />
-                        <p>Appuyer sur le bouton <span className='divSpanButton'>"Créer mon abaque"</span> afin d'obtenir le squelette de l'exercice</p>
+                        <p>Appuyez sur le bouton <span className='divSpanButton'>"Créer mon abaque"</span> afin d'obtenir le squelette de l'exercice.</p>
                         <br />
-                        <p>Entrez les données connues de votre exercice sans entrer les réponses. Une fois fini, cliquer sur <span className='divSpanButton'>"Valider le squelette"</span></p>
+                        <p>Entrez les données connues de votre exercice sans entrer les réponses. Une fois fini, cliquez sur <span className='divSpanButton'>"Valider le squelette".</span></p>
                         <br />
-                        <p>Pour finir, entrez les réponses attendues de l'exercices et cliquer sur <span className='divSpanButton'>"Valider les réponses"</span> pour sauver votre exercice</p>
-                        <p>Si tout les champs sont bien remplis et si aucune erreur n'est survenue, votre exercice est bien créer!</p>
+                        <p>Pour finir, entrez les réponses attendues de l'exercice et cliquez sur <span className='divSpanButton'>"Valider les réponses"</span> pour sauver votre exercice.</p>
+                        <p>Si tous les champs sont bien remplis et si aucune erreur n'est survenue, votre exercice est bien créé!</p>
                         <br />
-                        <p>Féliciation!</p>
+                        <p>Félicitations!</p>
                     </div>
                 </Popup>
                 <div className='anneeScolaireAbaque'>

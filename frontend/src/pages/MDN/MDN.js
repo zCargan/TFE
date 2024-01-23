@@ -157,7 +157,7 @@ const MDN = () => {
                 }
 
                 axios
-                    .post("http://51.77.150.97:4000/exercice/registerMDN", { exo }, config)
+                    .post("https://www.laclassedemadameseverine.be:4000/exercice/registerMDN", { exo }, config)
 
                     .then((res) => {
 
@@ -165,10 +165,10 @@ const MDN = () => {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Maison des nombres créé!',
-                                showConfirmButton: false,
-                                timer: 1500
+                                showConfirmButton: true,
+                                confirmButtonText: 'OK'
                             }).then((result) => {
-                                if (result.dismiss === Swal.DismissReason.timer) {
+                                if (result.isConfirmed) {
                                     navigate('/');
                                 }
                             });
@@ -185,7 +185,7 @@ const MDN = () => {
                             type: "MDN"
                         }
 
-                        axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
+                        axios.post(`https://www.laclassedemadameseverine.be:4000/exercice/addExoToUser`, data, config)
                             .then((res) => {
                                 console.log(res)
                             })
@@ -207,7 +207,7 @@ const MDN = () => {
 
 
     function get_exos_mdn() {
-        axios.get('http://51.77.150.97:4000/exercice/get_mdn_exercice').then((res) => {
+        axios.get('https://www.laclassedemadameseverine.be:4000/exercice/get_mdn_exercice').then((res) => {
             let exo = res.data[0];
             let nom = exo.nom;
             let reponseInitiale = exo.reponseInitiale;
@@ -247,7 +247,7 @@ const MDN = () => {
                 reponseUser.push(ligne1[i].value)
             }
         }
-        axios.get('http://51.77.150.97:4000/exercice/get_mdn_exercice').then((res) => {
+        axios.get('https://www.laclassedemadameseverine.be:4000/exercice/get_mdn_exercice').then((res) => {
             let dicFinale = res.data[0].reponseFinale;
             let dicInitiale = res.data[0].reponseInitiale;
             let idExercice = res.data[0]._id;
@@ -305,7 +305,7 @@ const MDN = () => {
                 idExercice: idExercice
             }
 
-            axios.post("http://51.77.150.97:4000/exercice/registerAnswers", { data }, config)
+            axios.post("https://www.laclassedemadameseverine.be:4000/exercice/registerAnswers", { data }, config)
         })
 
     }
@@ -329,17 +329,17 @@ const MDN = () => {
                     <div className='explicationExo'>
                         <h1>Explication de la réalisation de l'exercice</h1>
                         <br />
-                        <p>Afin de réaliser l'exercice, vous devez en premier lieu séléctionner une année ciblée</p>
-                        <p>Ensuite, créer votre maison des nombres en séléctionnant le titre, la descritpion, le nombre de lignes que vous souhaitez pour votre exercice.</p>
+                        <p>Afin de réaliser l'exercice, vous devez, en premier lieu, sélectionner l'année scolaire ciblée.</p>
+                        <p>Ensuite, créez votre maison des nombres en sélectionnant le titre, la description, le nombre de lignes que vous souhaitez pour votre exercice.</p>
                         <br />
-                        <p>Appuyer sur le bouton <span className='divSpanButton'>"Voir mon squelette"</span> afin d'obtenir le squelette de l'exercice</p>
+                        <p>Appuyez sur le bouton <span className='divSpanButton'>"Voir mon squelette"</span> afin d'obtenir le squelette de l'exercice.</p>
                         <br />
-                        <p>Entrez les données connues de votre exercice sans entrer les réponses. Une fois fini, cliquer sur <span className='divSpanButton'>"Valider le squelette"</span></p>
+                        <p>Entrez les données connues de votre exercice sans entrer les réponses. Une fois fini, cliquez sur <span className='divSpanButton'>"Valider le squelette"</span>.</p>
                         <br />
-                        <p>Pour finir, entrez les réponses attendues de l'exercices et cliquer sur <span className='divSpanButton'>"Valider les réponses"</span> pour sauver votre exercice</p>
-                        <p>Si tout les champs sont bien remplis et si aucune erreur n'est survenue, votre exercice est bien créer!</p>
+                        <p>Pour finir, entrez les réponses attendues de l'exercice et cliquez sur <span className='divSpanButton'>"Valider les réponses"</span> pour sauver votre exercice.</p>
+                        <p>Si tous les champs sont bien remplis et si aucune erreur n'est survenue, votre exercice est bien créé!</p>
                         <br />
-                        <p>Féliciation!</p>
+                        <p>Félicitations!</p>
                     </div>
                 </Popup>
                 <div className='anneeScolaireMDN'>

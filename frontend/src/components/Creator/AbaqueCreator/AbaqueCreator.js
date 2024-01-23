@@ -35,7 +35,7 @@ const AbaqueCreator = ({ exo }) => {
 
     function recupereExo() {
         axios
-        .get(`http://51.77.150.97:4000/exercice/getAbaque/${exo}`, config)
+        .get(`https://www.laclassedemadameseverine.be:4000/exercice/getAbaque/${exo}`, config)
         .then((res) => {
             console.log(res.data)
             let resultatAttendu =  res.data.reponseFinale
@@ -68,7 +68,7 @@ const AbaqueCreator = ({ exo }) => {
  
 
     function correction() {
-        axios.get(`http://51.77.150.97:4000/exercice/getAbaque/${exo}`).then((res) => {
+        axios.get(`https://www.laclassedemadameseverine.be:4000/exercice/getAbaque/${exo}`).then((res) => {
             let resultatAttendu =  res.data.reponseFinale
             let resultatInitial = res.data.reponseInitiale;
             let resultatRecu = []
@@ -83,11 +83,18 @@ const AbaqueCreator = ({ exo }) => {
             let nbrAnswer = 0;
             let score = 0;
             for(let i = 0; i < tailleArray; i ++) {
-                if(resultatAttendu[i] !== resultatInitial[i]) {
-                    nbrAnswer += 1;
-                    if(resultatAttendu[i] === resultatRecuOK[i]) {
-                        score += 1;
-                    } 
+                if(resultatInitial[i] === "") {
+                    if(resultatAttendu[i] !== resultatInitial[i]) {
+                        nbrAnswer += 1;
+                        if(resultatAttendu[i] === resultatRecuOK[i]) {
+                            score += 1;
+                        } 
+                    }
+                    if((resultatInitial[i] ===  "") && (resultatAttendu[i] === "")) {
+                        if(resultatRecuOK[i] !== "") {
+                            nbrAnswer += 1;
+                        }
+                    }
                 }
             }
             let scoreFinal = (Math.floor((score/nbrAnswer) *100))
@@ -113,7 +120,7 @@ const AbaqueCreator = ({ exo }) => {
             }
 
             axios
-            .post("http://51.77.150.97:4000/exercice/registerAnswers", {data}, config)
+            .post("https://www.laclassedemadameseverine.be:4000/exercice/registerAnswers", {data}, config)
             .then((res) => {
                 setTimeout(() => {
                     navigate('/home');

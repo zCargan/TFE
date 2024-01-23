@@ -146,17 +146,17 @@ const TexteATrou = ({ onTatData }) => {
                 <div className='explicationExo'>
                     <h1>Explication de la réalisation de l'exercice</h1>
                     <br />
-                    <p>Créer votre texte à trous en séléctionnant le titre, la descritpion de votre exercice.</p>
+                    <p>Créer votre texte à trous en sélectionnant le titre, la description de votre exercice.</p>
                     <br />
-                    <p>Ecrivez le début de votre phrase dans "Ecrivez votre phrase ici". Vous pouvez ajouter votre mot manquant dans "Mot à ajouter". Cliquer ensuite sur <span className='divSpanButton'>"Ajouter ce mot".</span></p>
+                    <p>Écrivez le début de votre phrase dans "Écrivez votre phrase ici". Vous pouvez ajouter votre mot manquant dans "Mot à ajouter". Cliquer ensuite sur <span className='divSpanButton'>"Ajouter ce mot".</span></p>
                     <br />
-                    <p>Votre phrase apparait à "Résultat de la phrase". Elle est composé de vos mots manquants en rouge.</p>
+                    <p>Votre phrase apparaît à "Résultat de la phrase". Elle est composée de vos mots manquants en rouge.</p>
                     <br />
-                    <p>Vous pouvez compléter votre phrase avec via le formulaire afin de compléter d'avantage votre exercice.</p>
+                    <p>Vous pouvez compléter votre phrase via le formulaire afin de consolider davantage votre exercice.</p>
                     <br />
-                    <p>Valider votre texte à trou en cliquant sur <span className='divSpanButton'>"Valider cette phrase".</span></p>
+                    <p>Valider votre texte à trous en cliquant sur <span className='divSpanButton'>"Valider cette phrase".</span></p>
                     <br />
-                    <p>Féliciation!</p>
+                    <p>Félicitations!</p>
                 </div>
             </Popup>
             <div className='divInputsTAT'>

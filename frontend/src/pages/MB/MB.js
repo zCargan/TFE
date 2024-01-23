@@ -115,23 +115,23 @@ const MB = () => {
 
 
 
-                    axios.post(`http://51.77.150.97:4000/exercice/registerMB`, { data }, config).then((res) => {
+                    axios.post(`https://www.laclassedemadameseverine.be:4000/exercice/registerMB`, { data }, config).then((res) => {
 
                         if (res.status == 201) {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Mot bazard créé!',
-                                showConfirmButton: false,
-                                timer: 1000
+                                showConfirmButton: true,
+                                confirmButtonText: 'OK'
                             }).then((result) => {
-                                if (result.dismiss === Swal.DismissReason.timer) {
+                                if (result.isConfirmed) {
                                     navigate('/');
                                 }
                             });
                         } else {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Une erreur s\'est produite durant la création du mot bazard',
+                                title: 'Une erreur s\'est produite durant la création du mot bazar',
                                 text: 'Veuillez réessayer plus tard.',
                             });
                         }
@@ -141,7 +141,7 @@ const MB = () => {
                             type: "MB"
                         }
 
-                        axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
+                        axios.post(`https://www.laclassedemadameseverine.be:4000/exercice/addExoToUser`, data, config)
                             .then((res) => {
                                 console.log(res)
                             })
@@ -187,20 +187,20 @@ const MB = () => {
                 <div className='explicationExo'>
                     <h1>Explication de la réalisation de l'exercice</h1>
                     <br />
-                    <h3>Avant de commencer la création de votre exercice, assurez vous de bien avoir ajouté vos images à votre compte. Vous pouvez le faire <span className='divSpanButton'><a href='http://51.77.150.97/photo'>ici</a></span></h3>
+                    <h3>Avant de commencer la création de votre exercice, assurez-vous de bien avoir ajouté vos images à votre compte. Vous pouvez le faire <span className='divSpanButton'><a href='https://www.laclassedemadameseverine.be/photo'>ici</a></span>.</h3>
                     <br />
-                    <p>Afin de réaliser l'exercice, vous devez en premier lieu séléctionner une année ciblée</p>
-                    <p>Ensuite, créer votre "Mot bazard" en séléctionnant le titre, la descritpion de votre "Mot bazard".</p>
+                    <p>Afin de réaliser l'exercice, vous devez, en premier lieu, sélectionner l'année scolaire ciblée.</p>
+                    <p>Ensuite, créez votre "Mot bazard" en sélectionnant le titre, la description de votre "Mot bazar".</p>
                     <br />
-                    <p>Appuyer sur le bouton <span className='divSpanButton'>Récupérer mes photos"</span> afin de récupérer les images que vous avez ajouter à votre profil</p>
+                    <p>Appuyez sur le bouton <span className='divSpanButton'>Récupérer mes photos"</span> afin de récupérer les images que vous avez ajoutées à votre profil.</p>
                     <br />
-                    <p>Cliquer sur l'image désirée. Le nom de cette dernière sera affiché à coté de "Nom de l'image sélectionné". Entrez le nom que vous désirez lui à l'endroit dédié</p>
+                    <p>Cliquez sur l'image désirée. Le nom de cette dernière sera affiché à coté de "Nom de l'image sélectionnée". Entrez le nom que vous désirez lui donner à l'endroit dédié.</p>
                     <br />
-                    <p>Cliquer sur <span className='divSpanButton'>"Confirmer"</span> afin d'ajouter l'image avec son nom s'y rapportant dans le tableau</p>
+                    <p>Cliquez sur <span className='divSpanButton'>"Confirmer"</span> afin d'ajouter l'image avec le nom s'y rapportant dans le tableau.</p>
                     <br />
-                    <p>Une fois toute les images désirées présentes dans le tableau, cliquer sur <span className='divSpanButton'>"Valider l'exercice"</span> afin de valider votre exercice</p>
+                    <p>Une fois toutes les images désirées présentes dans le tableau, cliquer sur <span className='divSpanButton'>"Valider l'exercice"</span> afin de valider votre exercice.</p>
                     <br />
-                    <p>Féliciation!</p>
+                    <p>Félicitations!</p>
                 </div>
             </Popup>
             <div className='anneeScolaireMB'>
@@ -216,7 +216,7 @@ const MB = () => {
             </div>
             <br />
             <div className="MBdivcreation">
-                <input className="inputMB" placeholder="Titre du nom bazard" id="name"></input>
+                <input className="inputMB" placeholder="Titre du nom bazar" id="name"></input>
                 <textarea placeholder="Description de l'exercice" className="descriptionMB" id="descriptionExoMB"></textarea>
             </div>
             <div id="divSuiteExo">

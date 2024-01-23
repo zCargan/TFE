@@ -61,7 +61,7 @@ const MBCreator = ({ exo }) => {
 
     function getMB() {
         axios
-            .get(`http://51.77.150.97:4000/exercice/getMB/${exo}`, config)
+            .get(`https://www.laclassedemadameseverine.be:4000/exercice/getMB/${exo}`, config)
             .then((res) => {
                 const img = res.data.reponses;
                 console.log(img)
@@ -75,12 +75,12 @@ const MBCreator = ({ exo }) => {
                 const imageContainer = document.getElementById('zoneExoMB');
 
                 imageContainer.style.display = 'flex';
-                imageContainer.style.flexWrap = 'wrap'; // Permettre le retour à la ligne si nécessaire
-                imageContainer.style.justifyContent = 'center'; // Centrez horizontalement
+                imageContainer.style.flexWrap = 'wrap'; 
+                imageContainer.style.justifyContent = 'center'; 
 
                 for (let i = 0; i < cles.length; i++) {
                     axios
-                        .get(`http://51.77.150.97:4000/photos/getImage/${cles[i]}`, config)
+                        .get(`https://www.laclassedemadameseverine.be:4000/photos/getImage/${cles[i]}`, config)
                         .then((resPhoto) => {
                             reponsesAttendues.push(resPhoto.data.nom_d_origine);
                             console.log(res.data.reponses)
@@ -94,9 +94,9 @@ const MBCreator = ({ exo }) => {
 
                                 const imageInputContainer = document.createElement('div');
                                 imageInputContainer.style.margin = '20px';
-                                imageInputContainer.style.textAlign = 'center'; // Centrer le contenu
-                                imageInputContainer.style.display = 'flex'; // Conteneur en colonne
-                                imageInputContainer.style.flexDirection = 'column'; // Alignement en colonne
+                                imageInputContainer.style.textAlign = 'center'; 
+                                imageInputContainer.style.display = 'flex'; 
+                                imageInputContainer.style.flexDirection = 'column'; 
 
                                 const imageElement = document.createElement('img');
                                 imageElement.src = objectURL;
@@ -105,19 +105,20 @@ const MBCreator = ({ exo }) => {
 
                                 const nameElement = document.createElement('div');
                                 const imageName = concatenateLetters(cles[i], res.data.reponses);
-                                nameElement.textContent = imageName; // Ajouter le nom en tant que texte
-                                nameElement.style.marginTop = '10px'; // Ajouter un espace en haut du texte
+                                nameElement.textContent = imageName; 
+                                nameElement.style.marginTop = '10px'; 
+                                nameElement.classList.add('mbText');
 
                                 const inputElement = document.createElement('input');
                                 inputElement.type = 'text';
                                 inputElement.placeholder = 'Saisir un texte ici';
                                 inputElement.style.width = '200px';
-                                inputElement.style.marginTop = '10px'; // Ajouter un espace en haut de l'input
+                                inputElement.style.marginTop = '10px'; 
 
-                                inputElement.classList.add('answerExoMB'); // Ajout de la classe 'answerExo'
+                                inputElement.classList.add('answerExoMB'); 
 
                                 imageInputContainer.appendChild(imageElement);
-                                imageInputContainer.appendChild(nameElement); // Ajout du nom
+                                imageInputContainer.appendChild(nameElement); 
                                 imageInputContainer.appendChild(inputElement);
                                 imageContainer.appendChild(imageInputContainer);
                             }
@@ -134,7 +135,7 @@ const MBCreator = ({ exo }) => {
 
     function valideReponsesMB() {
         axios
-            .get(`http://51.77.150.97:4000/exercice/getMB/${exo}`, config)
+            .get(`https://www.laclassedemadameseverine.be:4000/exercice/getMB/${exo}`, config)
             .then((res) => {
                 console.log(res)
                 let inputUser = document.getElementsByClassName('answerExoMB');
@@ -167,7 +168,7 @@ const MBCreator = ({ exo }) => {
                 });
 
                 axios
-                    .post("http://51.77.150.97:4000/exercice/registerAnswers", { data }, config)
+                    .post("https://www.laclassedemadameseverine.be:4000/exercice/registerAnswers", { data }, config)
                     .then((res) => {
                         setTimeout(() => {
                             navigate('/home');

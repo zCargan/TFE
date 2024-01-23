@@ -45,7 +45,7 @@ const Home = () => {
 
     function getTotalCounts() {
         axios
-            .get("http://51.77.150.97:4000/exercice/getTotalCounts")
+            .get("https://www.laclassedemadameseverine.be:4000/exercice/getTotalCounts")
             .then((res) => {
                 data = res.data.moreInformations;
                 const max = res.data.nbrExercices;
@@ -97,7 +97,7 @@ const Home = () => {
             selectedExosSet.add(JSON.stringify(testRandomExos));
 
             axios
-                .get('http://51.77.150.97:4000/exercice/getARandomExo', {
+                .get('https://www.laclassedemadameseverine.be:4000/exercice/getARandomExo', {
                     params: testRandomExos,
                     headers: config.headers,
                 })
@@ -132,10 +132,10 @@ const Home = () => {
                     <div id='text_zone10'>
                         <h1>Attention</h1>
                         <p>Le site est réalisé pour une utilisation sur ordinateur.</p>
-                        <p>Il se peut que toutes les pages ne soient pas très adaptées à toutes les appareils.</p>
+                        <p>Il se peut que toutes les pages ne soient pas adaptées à tous les appareils.</p>
                     </div>
                 </Popup>
-                <h2 id="propExos">Proposition d'exercices</h2><LuRefreshCcw className="iconRefresh" id="iconRefresh" onClick={(e) => { window.location.reload() }} />
+                <h2 id="propExos">Propositions d'exercices</h2><LuRefreshCcw className="iconRefresh" id="iconRefresh" onClick={(e) => { window.location.reload() }} />
             </div>
             {randomExosList.map((randomExos, index) => (
                 <ShowRandomExos key={index} randomExos={randomExos} />

@@ -64,7 +64,7 @@ const SearchBar = () => {
                             <option value="TAT">Texte à trous</option>
                             <option value="STT">Sons vers texte</option>
                             <option value="LDN">Ligne des nombres</option>
-                            <option value="MB">Mot dans le bazard</option>
+                            <option value="MB">Mot dans le bazar</option>
                             <option value="TTI">Image vers texte</option>
                         </select>
                     </li>

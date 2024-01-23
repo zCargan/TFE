@@ -129,17 +129,17 @@ const TAT = () => {
                         reponseFinale: arrayFinal
                     }
 
-                    axios.post("http://51.77.150.97:4000/exercice/registerTAT", { data }, config)
+                    axios.post("https://www.laclassedemadameseverine.be:4000/exercice/registerTAT", { data }, config)
                         .then((res) => {
 
                             if (res.status == 201) {
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Texte à trous créé!',
-                                    showConfirmButton: false,
-                                    timer: 1500
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'OK'
                                 }).then((result) => {
-                                    if (result.dismiss === Swal.DismissReason.timer) {
+                                    if (result.isConfirmed) {
                                         navigate('/');
                                     }
                                 });
@@ -156,7 +156,7 @@ const TAT = () => {
                                 type: "TAT"
                             }
 
-                            axios.post(`http://51.77.150.97:4000/exercice/addExoToUser`, data, config)
+                            axios.post(`https://www.laclassedemadameseverine.be:4000/exercice/addExoToUser`, data, config)
                                 .then((res) => {
                                     console.log(res)
                                 })
@@ -205,18 +205,18 @@ const TAT = () => {
                     <div className='explicationExo'>
                         <h1>Explication de la réalisation de l'exercice</h1>
                         <br />
-                        <p>Afin de réaliser l'exercice, vous devez en premier lieu séléctionner une année ciblée.</p>
-                        <p>Ensuite, créer votre texte à trous en séléctionnant la descritpion de votre exercice.</p>
+                        <p>Afin de réaliser l'exercice, vous devez, en premier lieu, sélectionner l'année scolaire ciblée.</p>
+                        <p>Ensuite, créez votre texte à trous en sélectionnant la description de votre exercice.</p>
                         <br />
-                        <p>Ecrivez le début de votre phrase dans "Ecrivez votre phrase ici". Vous pouvez ajouter votre mot manquant dans "Mot à ajouter". Cliquer ensuite sur <span className='divSpanButton'>"Ajouter ce mot".</span></p>
+                        <p>Écrivez le début de votre phrase dans "Écrivez votre phrase ici". Vous pouvez ajouter votre mot manquant dans "Mot à ajouter". Cliquez ensuite sur <span className='divSpanButton'>"Ajouter ce mot".</span></p>
                         <br />
-                        <p>Votre phrase apparait à "Résultat de la phrase". Elle est composé de vos mots manquants en rouge.</p>
+                        <p>Votre phrase apparaît à "Résultat de la phrase". Elle est composée de vos mots manquants en rouge.</p>
                         <br />
-                        <p>Vous pouvez compléter votre phrase avec via le formulaire afin de compléter d'avantage votre exercice.</p>
+                        <p>Vous pouvez compléter votre phrase via le formulaire afin de consolider votre exercice.</p>
                         <br />
-                        <p>Valider votre texte à trou en cliquant sur <span className='divSpanButton'>"Valider cette phrase".</span></p>
+                        <p>Valider votre texte à trous en cliquant sur <span className='divSpanButton'>"Valider cette phrase".</span></p>
                         <br />
-                        <p>Féliciation!</p>
+                        <p>Féliciations!</p>
                     </div>
                 </Popup>
                 <div className='anneeScolaireTAT'>

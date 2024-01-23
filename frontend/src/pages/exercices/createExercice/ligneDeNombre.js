@@ -210,16 +210,16 @@ const LigneDeNombre = ({ onLdnData }) => {
                 <div className='explicationExo'>
                     <h1>Explication de la réalisation de l'exercice</h1>
                     <br />
-                    <p>Créer votre ligne des nombres en séléctionnant la descritpion, le nombre de case ainsi que la direction de votre ligne des nombres</p>
+                    <p>Créez votre ligne des nombres en sélectionnant la description, le nombre de cases ainsi que la direction de votre ligne des nombres.</p>
                     <br />
-                    <p>Appuyer sur le bouton <span className='divSpanButton'>"Créer ma ligne des nombres"</span> afin d'obtenir le squelette de l'exercice</p>
+                    <p>Appuyez sur le bouton <span className='divSpanButton'>"Créer ma ligne des nombres"</span> afin d'obtenir le squelette de l'exercice.</p>
                     <br />
-                    <p>Entrez les données connues de votre exercice sans entrer les réponses. Une fois fini, cliquer sur <span className='divSpanButton'>"Valider le squelette"</span></p>
+                    <p>Entrez les données connues de votre exercice sans entrer les réponses. Une fois fini, cliquez sur <span className='divSpanButton'>"Valider le squelette"</span>.</p>
                     <br />
-                    <p>Pour finir, entrez les réponses attendues de l'exercices et cliquer sur <span className='divSpanButton'>"Valider les réponses"</span> pour sauver votre exercice</p>
-                    <p>Si tout les champs sont bien remplis et si aucune erreur n'est survenue, votre exercice est bien créer!</p>
+                    <p>Pour finir, entrez les réponses attendues de l'exercice et cliquez sur <span className='divSpanButton'>"Valider les réponses"</span> pour sauver votre exercice.</p>
+                    <p>Si tous les champs sont bien remplis et si aucune erreur n'est survenue, votre exercice est bien créé!</p>
                     <br />
-                    <p>Féliciation!</p>
+                    <p>Félicitations!</p>
                 </div>
             </Popup>
             <div className='divLDNWS'>

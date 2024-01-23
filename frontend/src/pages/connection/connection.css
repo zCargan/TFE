@@ -235,7 +235,7 @@
 
 
 
-@media screen and (max-width: 1700px) and (max-height: 920px) {
+@media screen and (max-width: 1700px) and (max-height: 830px) {
     #input_connection_div {
       background-image: none;
       background: linear-gradient(45deg, #FF8C42, #FF6384);
@@ -244,6 +244,14 @@
     }
 }
 
+@media screen and (max-height: 865px) {
+    #input_connection_div {
+      background-image: none;
+      background: linear-gradient(45deg, #FF8C42, #FF6384);
+      height: 100%;
+      color: white;
+    }
+}
 
 .profConnection {
     position: fixed;

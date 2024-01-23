@@ -94,7 +94,7 @@ const FeuilleExercice = () => {
                     closeOnDocumentClick
                 >
                     <div className='popupExos'>
-                        <h3>Mot bazard</h3>
+                        <h3>Mot bazar</h3>
                         <p>Réalisez un exercices dans lequel un mots possède les lettres mélangées d'une photo données</p>
                     </div>
                 </Popup>
@@ -122,8 +122,8 @@ const FeuilleExercice = () => {
                     <div className='popupExos'>
                         <h3>Son avec texte</h3>
                         <p>
-                            Vous pouvez créer ici un exercice utilisant le son. Vous pouvez <a href="http://51.77.150.97/uploadSound">
-                                uploader des sons ici
+                            Vous pouvez créer ici un exercice utilisant le son. Vous pouvez <a href="https://www.laclassedemadameseverine.be/uploadSound">
+                                ajouter des sons ici
                             </a>.
                             Vous pouvez ensuite associer chaque son à sa valeur.
                         </p>
